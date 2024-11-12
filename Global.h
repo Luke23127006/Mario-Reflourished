@@ -56,11 +56,9 @@ enum PowerUpType
 	SHIELD = 0,
 	MUSHROOM,
 	FIRE_FLOWER,
-	FEATHER,
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
-	LIVE,
 	END_FLAG
 };
 
