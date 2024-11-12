@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Global.h"
 #include "Entity.h"
 #include "Animation.h"
@@ -17,6 +16,7 @@ private:
 	int lives;
 
 	std::vector<Animation*> animation;
+	std::vector<float> powerUpDuration;
 
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);

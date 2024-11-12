@@ -25,3 +25,8 @@ void Entity::die()
 void Entity::update(float deltaTime)
 {
 }
+
+void Entity::updateLastPosition()
+{
+	this->lastPosition = this->hitbox.getPosition();
+}

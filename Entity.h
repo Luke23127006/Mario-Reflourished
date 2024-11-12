@@ -1,13 +1,14 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Global.h"
 #include "Object.h"
 
 class Entity : public Object
 {
-protected:
+private:
 	sf::Vector2f lastPosition;
+
+protected:
 	sf::Vector2f velocity;
 
 	bool onGround;
@@ -22,4 +23,5 @@ public:
 	virtual void die();
 
 	virtual void update(float deltaTime) override;
+	void updateLastPosition();
 };
