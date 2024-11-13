@@ -18,8 +18,10 @@ public:
 	Map(std::string fileName, sf::Vector2i size, sf::Vector2f position);
 	virtual ~Map();
 
-	void getPosition();
-	void getSize();
+	sf::Vector2f getPosition();
+	sf::Vector2f getSize();
+
+	bool insideMap(sf::Vector2f position);
 
 	void update(float deltaTime);
 	void render(sf::RenderTarget& target);
