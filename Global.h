@@ -1,8 +1,8 @@
 #pragma once
-
+#include<string>
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int ZOOM_LEVEL = 1;
+const int ZOOM_LEVEL = 720;
 
 const int TILE_SIZE = 50;
 
@@ -29,19 +29,27 @@ const float PLAYER_ACCELERATION = 10.0f;
 const float PLAYER_DECELERATION = 10.0f;
 const float PLAYER_JUMP_STRENGHT = 300.0f;
 
-enum GameState
+enum class GameState
 {
-	HOME = 0,
+	/*HOME = 0,
 	SETTING,
 	SELECT_CHARACTER,
 	SELECT_LEVEL,
 	PLAYING,
 	PAUSED,
 	GAME_OVER,
-	END_FLAG
+	END_FLAG*/
+	Welcome,
+	Play,
+	SelectCharacter,
+	SelectLevel,
+	Level1,
+	Level2,
+	Level3,
+	GameOver
 };
 
-enum PlayerState
+enum class PlayerState
 {
 	IDLE = 0,
 	WALK,
@@ -51,7 +59,7 @@ enum PlayerState
 	END_FLAG
 };
 
-enum PowerUpType
+enum class PowerUpType
 {
 	SHIELD = 0,
 	MUSHROOM,
@@ -62,7 +70,7 @@ enum PowerUpType
 	END_FLAG
 };
 
-enum LuckyBlockType
+enum class LuckyBlockType
 {
 	COIN = 0,
 	POWER_UP,
@@ -70,7 +78,7 @@ enum LuckyBlockType
 	END_FLAG
 };
 
-enum TileType
+enum class TileType
 {
 	EMPTY = 0,
 	GROUND_BLOCK,
