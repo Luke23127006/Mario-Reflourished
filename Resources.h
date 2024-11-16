@@ -10,11 +10,13 @@ class Resources
 public:
 	static std::map<std::string, sf::Texture> textures;
 	static std::map<std::string, sf::Font> fonts;
+	static std::map<std::string, sf::Music> musics;
 	static std::map<std::string, sf::SoundBuffer> sounds;
 
 	void initTextures();
 	void initFonts();
 	void initSounds();
+	void initMusics();
 
 	Resources();
 	virtual ~Resources();

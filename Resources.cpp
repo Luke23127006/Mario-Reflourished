@@ -106,16 +106,63 @@ void Resources::initTextures()
     textures["GOOMBA_WALK"].loadFromFile("./Resources/Character/Enemy/Goomba/Goomba.png");
 
     //Koopa
-    
+    textures["KOOPA_WALK"].loadFromFile("./Resources/Character/Enemy/Koopa Troopa/KoopaWalk.png");
+
+    //Shell
+    textures["SHELL"].loadFromFile("./Resources/Character/Enemy/Koopa Troopa/GreenShell.png");
+
+    //Piranha Plant
+    textures["PIRANHA_PLANT_GREEN"].loadFromFile("./Resources/Character/Enemy/Piranha Plant/PiranhaPlantGreen.png");
+    textures["PIRANHA_PLANT_RED"].loadFromFile("./Resources/Character/Enemy/Piranha Plant/PiranhaPlantRed.png");
+
+    //Cheep Cheep
+    textures["CHEEP_CHEEP"].loadFromFile("./Resources/Character/Enemy/Cheep Cheep/CheepCheep.png");
+
+    //Brower(Boss)
+    textures["BROWSER"].loadFromFile("./Resources/Character/Enemy/Brower/Brower.png");
+    textures["FIRE_BROWSER"].loadFromFile("./Resources/Character/Enemy/Brower/Fireball.png");
+
+                                                /*NPCs*/
+    //Princess Peach
+    textures["PRINCESS_PEACH"].loadFromFile("./Resources/Character/NPCs/PrincessToadstool.png");      
+
+    //Toad
+    textures["TOAD"].loadFromFile("./Resources/Character/NPCs/Toad.png");                                     
+                                
 
 }
 
-void Resources::initFonts()
+void Resources::initMusics()
 {
+    musics["OVERWORLD"].openFromFile("./Resources/Sound/Music/Overworld.wav");
+    musics["UNDERWORLD"].openFromFile("./Resources/Sound/Music/Underworld.wav");
+    musics["UNDERWATER"].openFromFile("./Resources/Sound/Music/Underwater.wav");
 }
 
 void Resources::initSounds()
 {
+    sounds["1UP"].loadFromFile("./Resources/Sound/Sound effect/smb_1-up.wav");
+    sounds["BOWSERFIRE"].loadFromFile("./Resources/Sound/Sound effect/smb_bowserfire.wav");
+    sounds["COIN"].loadFromFile("./Resources/Sound/Sound effect/smb_coin.wav");
+    sounds["FIREBALL"].loadFromFile("./Resources/Sound/Sound effect/smb_fireball.wav");
+    sounds["GAMEOVER"].loadFromFile("./Resources/Sound/Sound effect/smb_gameover.wav");
+    sounds["JUMP_SMALL"].loadFromFile("./Resources/Sound/Sound effect/smb_jump-small.wav");
+    sounds["JUMP_SUPER"].loadFromFile("./Resources/Sound/Sound effect/smb_jump-super.wav");
+    sounds["KICK"].loadFromFile("./Resources/Sound/Sound effect/smb_kick.wav");
+    sounds["DEATH"].loadFromFile("./Resources/Sound/Sound effect/smb_mariodie.wav");
+    sounds["PAUSE"].loadFromFile("./Resources/Sound/Sound effect/smb_pause.wav");
+    sounds["PIPE"].loadFromFile("./Resources/Sound/Sound effect/smb_pipe.wav");
+    sounds["POWERUP"].loadFromFile("./Resources/Sound/Sound effect/smb_powerup.wav");
+    sounds["STAGECLEAR"].loadFromFile("./Resources/Sound/Sound effect/smb_stage_clear.wav");
+    sounds["STOMP"].loadFromFile("./Resources/Sound/Sound effect/smb_stomp.wav");
+}
+
+void Resources::initFonts()
+{
+    fonts["EMULOGIC"].loadFromFile("./Resources/Font/emulogic.ttf");
+    fonts["FOO"].loadFromFile("./Resources/Font/FOO.ttf");
+    fonts["SNES_ITALIC"].loadFromFile("./Resources/Font/SNES Italic.ttf");
+    fonts["SUPER_MARIO_BROS"].loadFromFile("./Resources/Font/Super Mario Bros.ttf");
 }
 
 Resources::Resources()
