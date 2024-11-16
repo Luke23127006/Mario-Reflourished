@@ -116,7 +116,6 @@
 
 
 
-
 Game::Game()
 {
 	window.create(sf::VideoMode(1280, 720), "Mario iu e", sf::Style::Default);
