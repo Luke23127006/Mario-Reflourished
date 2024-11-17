@@ -9,3 +9,8 @@ Cloud::Cloud(sf::Vector2f velocity)
 Cloud::~Cloud()
 {
 }
+
+void Cloud::update(float deltaTime)
+{
+	this->sprite.move(this->velocity * deltaTime);
+}

@@ -7,11 +7,11 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	coins(0),
 	lives(3)
 {
-	animation.resize(PlayerState::END_FLAG);
-	animation[PlayerState::IDLE] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
-	animation[PlayerState::WALK] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
-	animation[PlayerState::JUMP] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
-	animation[PlayerState::DIE] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
+    animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+    animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+    animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+    animation[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 }
 
 Player::~Player()
@@ -30,16 +30,16 @@ void Player::render(sf::RenderTarget& target)
 	switch (this->playerState)
 	{
 	case PlayerState::IDLE:
-		this->animation[PlayerState::IDLE]->render(target, this->hitbox.getPosition());
+		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
 		break;
 	case PlayerState::WALK:
-		this->animation[PlayerState::WALK]->render(target, this->hitbox.getPosition());
+		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
 		break;
 	case PlayerState::JUMP:
-		this->animation[PlayerState::JUMP]->render(target, this->hitbox.getPosition());
+		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
 		break;
 	case PlayerState::DIE:
-		this->animation[PlayerState::DIE]->render(target, this->hitbox.getPosition());
+		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
 		break;
 	}
 }

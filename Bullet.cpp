@@ -17,5 +17,9 @@ void Bullet::bounce()
 
 bool Bullet::isExpired()
 {
-	return this->duration <= 0.0f;
+	return this->duration < 0.f;
+}
+
+void Bullet::update(float deltaTime)
+{
 }

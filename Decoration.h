@@ -9,7 +9,8 @@ protected:
     sf::Sprite sprite;
 
 public:
-    Decoration(sf::Texture& texture);
+    Decoration(const sf::Texture& texture);
+	Decoration(const sf::Texture& texture, sf::Vector2f position);
 	virtual ~Decoration();
 
     void render(sf::RenderTarget& target); 

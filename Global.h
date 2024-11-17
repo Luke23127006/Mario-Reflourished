@@ -1,10 +1,12 @@
 #pragma once
 
-#include <string>
+#define INT(enumValue) static_cast<int>(enumValue)
+
+#include<string>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int ZOOM_LEVEL = 1;
+const int ZOOM_LEVEL = 720;
 
 const int TILE_SIZE = 50;
 
@@ -31,7 +33,7 @@ const float PLAYER_ACCELERATION = 10.0f;
 const float PLAYER_DECELERATION = 10.0f;
 const float PLAYER_JUMP_STRENGHT = 300.0f;
 
-enum GameState
+enum class GameState
 {
 	HOME = 0,
 	SETTING,
@@ -40,20 +42,20 @@ enum GameState
 	PLAYING,
 	PAUSED,
 	GAME_OVER,
-	END_FLAG
+	NUM_GAME_STATES
 };
 
-enum PlayerState
+enum class PlayerState
 {
 	IDLE = 0,
 	WALK,
 	JUMP,
 	SHOOT,
 	DIE,
-	END_FLAG
+	NUM_PLAYER_STATES
 };
 
-enum PowerUpType
+enum class PowerUpType
 {
 	SHIELD = 0,
 	MUSHROOM,
@@ -61,18 +63,18 @@ enum PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
-	END_FLAG
+	NUM_POWER_UPS
 };
 
-enum LuckyBlockType
+enum class LuckyBlockType
 {
 	COIN = 0,
 	POWER_UP,
 	RANDOM_POWER_UP,
-	END_FLAG
+	NUM_LUCKY_BLOCK_TYPES
 };
 
-enum TileType
+enum class TileType
 {
 	EMPTY = 0,
 	GROUND_BLOCK,
@@ -88,5 +90,5 @@ enum TileType
 	SPIKE,
 	WATER,
 	LAVA,
-	END_FLAG
+	NUM_TILE_TYPES
 };

@@ -15,3 +15,7 @@ Coin::~Coin()
 {
     delete this->animation;
 }
+
+void Coin::update(float deltaTime)
+{
+}
