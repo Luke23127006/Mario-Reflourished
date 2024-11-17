@@ -20,6 +20,8 @@ public:
 	virtual ~Entity();
 
 	void setOnGround(bool onGround);
+	sf::Vector2f getLastPosition();
+	sf::Vector2f getVelocity();
 	virtual void die();
 
 	virtual void update(float deltaTime) override;

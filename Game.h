@@ -2,11 +2,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 #include "Global.h"
 #include "Resources.h"
 #include "Entity.h"
 #include "Player.h"
 #include "Object.h"
+#include "Map.h"
+#include "Camera.h"
 
 class Game
 {
@@ -16,6 +19,8 @@ private:
 	sf::RenderWindow* window;
 	sf::Event ev;
 	GameState gameState;
+	Camera camera;
+
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;
@@ -23,10 +28,14 @@ private:
 
 	// Game objects
 	std::vector<Entity*> entities;
+	Player* player;
+	Map* map;
 
 	// Initializers
 	void initVariables();
 	void initWindow();
+	void initMap(std::string fileName);
+	void initEntities(std::string fileName);
 
 public:
 	Game();
@@ -41,9 +50,12 @@ public:
 
 	// Update
 	void update(float deltaTime);
+	void updateEntities(float deltaTime);
+	void updateCamera(float deltaTime);
 
 	// Render
 	void render();
 	void renderEntities();
+	void renderMap();
 };
 

@@ -12,6 +12,9 @@ void Resources::initTextures()
 	textures["MARIO_WALK"].loadFromFile("./Resources/Characters/Mario/mario_walk.png");
 	textures["MARIO_JUMP"].loadFromFile("./Resources/Characters/Mario/mario_jump.png");
 	textures["MARIO_DIE"].loadFromFile("./Resources/Characters/Mario/mario_die.png");
+
+    // tiles
+	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "brick.png");
 }
 
 void Resources::initFonts()

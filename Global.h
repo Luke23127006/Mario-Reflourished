@@ -50,7 +50,6 @@ enum class PlayerState
 	IDLE = 0,
 	WALK,
 	JUMP,
-	SHOOT,
 	DIE,
 	NUM_PLAYER_STATES
 };

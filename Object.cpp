@@ -22,6 +22,11 @@ Object::~Object()
 {
 }
 
+sf::Vector2f Object::getPosition() const
+{
+	return this->hitbox.getPosition();
+}
+
 const sf::FloatRect Object::getGLobalBounds() const
 {
 	return this->hitbox.getGlobalBounds();
@@ -40,6 +45,11 @@ void Object::setOrigin(sf::Vector2f origin)
 void Object::setEnabled(bool enabled)
 {
 	this->enabled = enabled;
+}
+
+sf::FloatRect Object::getGlobalBounds() const
+{
+	return this->hitbox.getGlobalBounds();
 }
 
 void Object::update(float deltaTime)

@@ -38,6 +38,7 @@ void Animation::setSize(sf::Vector2f size)
 
 void Animation::update(float deltaTime, bool flipped)
 {
+	if (this->totalFrames == 1) return;
 	this->frameTimer = std::max(0.f, this->frameTimer - deltaTime);
 
 	if (this->frameTimer == 0)

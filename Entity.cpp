@@ -17,6 +17,16 @@ void Entity::setOnGround(bool onGround)
 	this->onGround = onGround;
 }
 
+sf::Vector2f Entity::getLastPosition()
+{
+	return this->lastPosition;
+}
+
+sf::Vector2f Entity::getVelocity()
+{
+	return this->velocity;
+}
+
 void Entity::die()
 {
 	this->dead = true;

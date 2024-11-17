@@ -23,10 +23,14 @@ Player::~Player()
 void Player::update(float deltaTime)
 {
 	this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
+
+	for (int i = 0; i < this->animation.size(); i++)
+		this->animation[i]->update(deltaTime, 0);
 }
 
 void Player::render(sf::RenderTarget& target)
 {
+	this->playerState = PlayerState::WALK;
 	switch (this->playerState)
 	{
 	case PlayerState::IDLE:

@@ -2,6 +2,7 @@
 
 #include "Tile.h"
 #include "Global.h"
+#include "Resources.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -20,8 +21,10 @@ public:
 
 	sf::Vector2f getPosition();
 	sf::Vector2f getSize();
+	Tile& getTile(int i, int j);
+	TileType getTileType(int i, int j);
 
-	bool insideMap(sf::Vector2f position);
+	const bool insideMap(sf::FloatRect bounds) const;
 
 	void update(float deltaTime);
 	void render(sf::RenderTarget& target);

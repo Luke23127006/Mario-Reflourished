@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <map>
 #include <string>
+#include "Global.h"
 
 class Resources
 {
