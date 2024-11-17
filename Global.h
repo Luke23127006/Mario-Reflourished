@@ -39,14 +39,14 @@ enum class GameState
 	PAUSED,
 	GAME_OVER,
 	END_FLAG*/
-	Welcome,
-	Play,
-	SelectCharacter,
-	SelectLevel,
-	Level1,
-	Level2,
-	Level3,
-	GameOver
+	WELCOME,
+	PLAY,
+	SELECT_CHARACTER,
+	SELECT_LEVEL,
+	LEVEL1,
+	LEVEL2,
+	LEVEL3,
+	GAME_OVER
 };
 
 enum class PlayerState

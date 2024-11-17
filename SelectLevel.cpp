@@ -170,24 +170,24 @@ GameState SelectLevel::getNextScene()
 	if (goToLevel1)
 	{
 		goToLevel1 = false;
-		return GameState::Level1;
+		return GameState::LEVEL1;
 	}
 	if (goToLevel2)
 	{
 		goToLevel2 = false;
-		return GameState::Level2;
+		return GameState::LEVEL2;
 	}
 	if (goToLevel3)
 	{
 		goToLevel3 = false;
-		return GameState::Level3;
+		return GameState::LEVEL3;
 	}
 	if (backToPlay)
 	{
 		backToPlay = false;
-		return GameState::Play;
+		return GameState::PLAY;
 	}
-	return GameState::SelectLevel;
+	return GameState::SELECT_LEVEL;
 }
 
 void SelectLevel::render(sf::RenderWindow& window, float timeElapsed)

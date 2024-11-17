@@ -26,10 +26,10 @@ Welcome::Welcome(sf::RenderTexture& window)
 	
 	// background
 	loadTexture();
-	welcomeSprite.setPosition(0, 0);
-	welcomeSprite.setScale(window.getSize().x / welcomeSprite.getGlobalBounds().width, window.getSize().y / welcomeSprite.getGlobalBounds().height);
-
-	
+	/*welcomeSprite.setPosition(0, 0);
+	welcomeSprite.setScale(window.getSize().x / welcomeSprite.getGlobalBounds().width, window.getSize().y / welcomeSprite.getGlobalBounds().height);*/
+	welcomeAnimation->setPosition(sf::Vector2f(0, 0));
+	welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
 	selectedButton = -1;
 
 	isPressedUp = false;
@@ -39,7 +39,8 @@ Welcome::Welcome(sf::RenderTexture& window)
 
 void Welcome::draw(sf::RenderWindow& window)
 {
-	window.draw(welcomeSprite);
+	//window.draw(welcomeSprite);
+	welcomeAnimation->render(window, sf::Vector2f(0, 0));
 	playButton.draw(window);
 	exitButton.draw(window);
 }
@@ -53,6 +54,8 @@ void Welcome::loadTexture()
 	}*/
 	welcomeTexture = Resources::textures["Welcome Background"];
 	welcomeSprite.setTexture(welcomeTexture);
+	int totalFrames = this->welcomeTexture.getSize().x / 240;
+	welcomeAnimation = new Animation(welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
 
 
@@ -137,6 +140,10 @@ void Welcome::updateClickButton(sf::RenderWindow& window, float timeElapsed)
 		}
 	}
 }
+void Welcome::updateAnimation(float dt)
+{
+	welcomeAnimation->update(dt,false);
+}
 void Welcome::render(sf::RenderWindow& window, float timeElapsed)
 {
 	
@@ -153,15 +160,19 @@ void Welcome::render(sf::RenderWindow& window, float timeElapsed)
 
 void Welcome::update(float dt)
 {
-
+	updateAnimation(dt);
 }
 GameState Welcome::getNextScene()
 {
 	if (goToPlayScene)
 	{
 		goToPlayScene  = false;
-		return GameState::Play;
+		return GameState::PLAY;
 	}
-	return GameState::Welcome;
+	return GameState::WELCOME;
 }
 
+Welcome::~Welcome()
+{
+	delete welcomeAnimation;
+}

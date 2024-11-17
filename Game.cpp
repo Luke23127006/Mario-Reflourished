@@ -122,7 +122,7 @@ Game::Game()
 	window.create(sf::VideoMode(1280, 720), "Mario iu e", sf::Style::Default);
 	renderTexture.create(1280, 720);
 	currentScene = std::make_unique<Welcome>(renderTexture);
-	currentGameState = GameState::Welcome;
+	currentGameState = GameState::WELCOME;
 
 }
 
@@ -132,29 +132,29 @@ void Game::changeScene(GameState nextScene)
 
 	switch (nextScene)
 	{
-	case GameState::Welcome:
-		if (currentGameState == GameState::Welcome) return;
+	case GameState::WELCOME:
+		if (currentGameState == GameState::WELCOME) return;
 		isChange = true;
 		currentScene = std::make_unique<Welcome>(renderTexture);
 		debounceClock.restart();
-		currentGameState = GameState::Welcome;
+		currentGameState = GameState::WELCOME;
 		break;
 
-	case GameState::Play:
-		if (currentGameState == GameState::Play) return;
+	case GameState::PLAY:
+		if (currentGameState == GameState::PLAY) return;
 		std::cout << "Play\n";
 		isChange = true;
 		currentScene = std::make_unique<Play>(renderTexture);
 		debounceClock.restart();
-		currentGameState = GameState::Play;
+		currentGameState = GameState::PLAY;
 		break;
-	case GameState::SelectLevel:
-		if (currentGameState == GameState::SelectLevel) return;
+	case GameState::SELECT_LEVEL:
+		if (currentGameState == GameState::SELECT_LEVEL) return;
 		std::cout << "SelectLevel\n";
 		isChange = true;
 		currentScene = std::make_unique<SelectLevel>(renderTexture);
 		debounceClock.restart();
-		currentGameState = GameState::SelectLevel;
+		currentGameState = GameState::SELECT_LEVEL;
 		break;
 	//case GameState::Level1:
 	//	if (currentGameState == GameState::Level1) return;

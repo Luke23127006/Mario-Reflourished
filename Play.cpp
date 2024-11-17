@@ -164,18 +164,18 @@ GameState Play::getNextScene()
 	if (backToWelcome)
 	{
 		backToWelcome = false;
-		return GameState::Welcome;
+		return GameState::WELCOME;
 	}
 	if (goToSelectCharacterScene)
 	{
 		goToSelectCharacterScene = false;
-		return GameState::SelectCharacter;
+		return GameState::SELECT_CHARACTER;
 	}
 	if (goToSelectLevelScene)
 	{
 		goToSelectCharacterScene = false;
-		return GameState::SelectLevel;
+		return GameState::SELECT_LEVEL;
 	}
-	return GameState::Play;
+	return GameState::PLAY;
 	
 }
