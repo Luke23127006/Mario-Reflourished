@@ -23,5 +23,6 @@ public:
 	virtual ~Player();
 
 	void update(float deltaTime) override;
+	void updateMovement(float deltaTime);
 	void render(sf::RenderTarget& target) override;
 };

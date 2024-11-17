@@ -20,6 +20,7 @@ public:
 	virtual ~Entity();
 
 	void setOnGround(bool onGround);
+	void setVelocity(sf::Vector2f velocity);
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();
 	virtual void die();

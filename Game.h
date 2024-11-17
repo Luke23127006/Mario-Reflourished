@@ -10,6 +10,7 @@
 #include "Object.h"
 #include "Map.h"
 #include "Camera.h"
+#include "Collision.h"
 
 class Game
 {
@@ -20,7 +21,6 @@ private:
 	sf::Event ev;
 	GameState gameState;
 	Camera camera;
-
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;
@@ -51,7 +51,9 @@ public:
 	// Update
 	void update(float deltaTime);
 	void updateEntities(float deltaTime);
+	void updateCollision();
 	void updateCamera(float deltaTime);
+	void updateLastPosition();
 
 	// Render
 	void render();

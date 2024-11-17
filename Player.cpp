@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
@@ -7,6 +8,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	coins(0),
 	lives(3)
 {
+	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
     animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
     animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
@@ -22,15 +24,64 @@ Player::~Player()
 
 void Player::update(float deltaTime)
 {
+	this->updateMovement(deltaTime);
 	this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
 
 	for (int i = 0; i < this->animation.size(); i++)
 		this->animation[i]->update(deltaTime, 0);
 }
 
+void Player::updateMovement(float deltaTime)
+{
+	// horizontal movement
+	float acceleration = 0.f;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		acceleration -= PLAYER_ACCELERATION;
+		if (this->velocity.x > 0.f) 
+		{
+			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+		}
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		acceleration += PLAYER_ACCELERATION;
+		if (this->velocity.x < 0.f)
+		{
+			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+		}
+	}
+	if (acceleration == 0.f)
+	{
+		if (this->velocity.x > 0.f)
+		{
+			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+		}
+		else if (this->velocity.x < 0.f)
+		{
+			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+		}
+	}
+
+	// vertical movement
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && this->onGround)
+	{
+		this->velocity.y = -PLAYER_JUMP_STRENGHT;
+		this->onGround = false;
+	}
+	
+	if (!this->onGround) this->velocity.y += GRAVITY * deltaTime;
+	else this->velocity.y = 0.f;
+
+	this->velocity.x += acceleration * deltaTime;
+	adjustBetween(this->velocity.x, -PLAYER_MAX_SPEED, PLAYER_MAX_SPEED);
+	this->hitbox.move(this->velocity * deltaTime);
+}
+
 void Player::render(sf::RenderTarget& target)
 {
-	this->playerState = PlayerState::WALK;
+	target.draw(this->hitbox);
+	this->playerState = PlayerState::IDLE;
 	switch (this->playerState)
 	{
 	case PlayerState::IDLE:

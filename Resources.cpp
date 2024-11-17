@@ -15,6 +15,11 @@ void Resources::initTextures()
 
     // tiles
 	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "brick.png");
+
+	for (auto& t : textures)
+	{
+		t.second.setSmooth(true);
+	}
 }
 
 void Resources::initFonts()

@@ -1,22 +1,23 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(std::string fileName, sf::Vector2i size, sf::Vector2f position) : 
-	size(size), 
+Map::Map(std::string fileName, sf::Vector2f position) : 
 	position(position)
 {
-	map.resize(size.x);
-	mapData.resize(size.x);
-	for (int i = 0; i < size.x; i++)
-	{
-		map[i].resize(size.y);
-		mapData[i].resize(size.y);
-	}
-
 	sf::Image image;
 	image.loadFromFile(fileName);
-	for (int i = 0; i < size.x; i++)
-		for (int j = 0; j < size.y; j++)
+	this->size = image.getSize();
+
+	map.resize(this->size.x);
+	mapData.resize(this->size.x);
+	for (int i = 0; i < this->size.x; i++)
+	{
+		map[i].resize(this->size.y);
+		mapData[i].resize(this->size.y);
+	}
+
+	for (int i = 0; i < this->size.x; i++)
+		for (int j = 0; j < this->size.y; j++)
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
@@ -40,7 +41,7 @@ sf::Vector2f Map::getPosition()
 	return this->position;
 }
 
-sf::Vector2f Map::getSize()
+sf::Vector2u Map::getSize()
 {
 	return this->size;
 }
@@ -57,7 +58,7 @@ TileType Map::getTileType(int i, int j)
 
 const bool Map::insideMap(sf::FloatRect bounds) const
 {
-	sf::FloatRect mapBounds(this->position, this->size);
+    sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	return mapBounds.intersects(bounds);
 }
 
