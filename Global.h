@@ -66,6 +66,7 @@ enum class PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
+	INVICIBLE,
 	NUM_POWER_UPS
 };
 

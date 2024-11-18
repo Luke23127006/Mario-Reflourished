@@ -1,4 +1,5 @@
 #include "Animation.h"
+#include <iostream>
 
 Animation::Animation(const sf::Texture& texture, int totalFrames, float frameDuration, sf::Vector2i frameSize) :
 	currentFrame(0, 0, frameSize.x, frameSize.y),
@@ -38,16 +39,21 @@ void Animation::setSize(sf::Vector2f size)
 
 void Animation::update(float deltaTime, bool flipped)
 {
-	if (this->totalFrames == 1) return;
 	this->frameTimer = std::max(0.f, this->frameTimer - deltaTime);
 
-	if (this->frameTimer == 0)
+	if (this->frameTimer <= 0.f)
 	{
 		this->frameTimer = this->frameDuration;
-
 		this->frameIndex = (this->frameIndex + 1) % this->totalFrames;
-		this->currentFrame.left = this->frameIndex * this->frameSize.x;
-		if (flipped) this->currentFrame.left = -this->currentFrame.left;
+	}
+
+	if (!flipped)
+	{
+		this->currentFrame = sf::IntRect(this->frameIndex * this->frameSize.x, 0.f, frameSize.x, frameSize.y);
+	}
+	else
+	{
+		this->currentFrame = sf::IntRect((this->frameIndex + 1) * this->frameSize.x, 0.f, -frameSize.x, frameSize.y);
 	}
 
 	this->sprite.setTextureRect(this->currentFrame);
