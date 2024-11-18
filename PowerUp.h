@@ -16,7 +16,6 @@ public:
 	PowerUp(PowerUpType type, sf::FloatRect container);
 	virtual ~PowerUp();
 
-	bool isExpired();
 	PowerUpType getType();
 	void rise(float deltaTime);
 

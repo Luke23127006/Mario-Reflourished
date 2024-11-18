@@ -11,6 +11,9 @@
 #include "Map.h"
 #include "Camera.h"
 #include "Collision.h"
+#include "Map.h"
+#include "Camera.h"
+#include "Collision.h"
 #include "UserInterface.h"
 #include "Welcome.h"
 #include "SelectLevel.h"
@@ -34,6 +37,8 @@ private:
 
 	// Game objects
 	std::vector<Entity*> entities;
+	Player* player;
+	Map* map;
 
 	// UI
 	std::unique_ptr<Scene> currentScene;
@@ -43,6 +48,8 @@ private:
 	// Initializers
 	void initVariables();
 	void initWindow();
+	void initMap(std::string fileName);
+	void initEntities(std::string fileName);
 
 public:
 	Game();
@@ -57,10 +64,17 @@ public:
 
 	// Update
 	void update(float deltaTime);
+	void updateEntities(float deltaTime);
+	void updateCollision();
+	void updateCamera(float deltaTime);
+	void updateLastPosition();
 
 	// Render
 	void render();
 	void renderEntities();
+	void renderMap();
+};
+
 
 	void run();
 };

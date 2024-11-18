@@ -3,13 +3,14 @@
 #define INT(enumValue) static_cast<int>(enumValue)
 
 #include<string>
+
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
 
 const int TILE_SIZE = 50;
 
-const float GRAVITY = 980.f;
+const float GRAVITY = 3000.f;
 
 // directories
 const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/";
@@ -27,10 +28,14 @@ const float	CAMERA_ACCELERATION = 10.0f;
 const float CAMERA_DECELERATION = 10.0f;
 
 // player
-const float PLAYER_MAX_SPEED = 200.0f;
-const float PLAYER_ACCELERATION = 10.0f;
-const float PLAYER_DECELERATION = 10.0f;
-const float PLAYER_JUMP_STRENGHT = 300.0f;
+const float PLAYER_MAX_SPEED = 400.f;
+const float PLAYER_MAX_FALL_SPEED = 2000.f;
+const float PLAYER_ACCELERATION = 1000.f;
+const float PLAYER_DECELERATION = 1400.f;
+const float PLAYER_JUMP_STRENGHT = 1000.f;
+
+// utilities
+void adjustBetween(float& value, float minValue, float maxValue);
 
 enum class GameState
 {

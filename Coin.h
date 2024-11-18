@@ -15,4 +15,3 @@ public:
 
 	void update(float deltaTime) override;
 };
-

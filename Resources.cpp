@@ -13,6 +13,14 @@ void Resources::initTextures()
 	textures["MARIO_JUMP"].loadFromFile("./Resources/Characters/Mario/mario_jump.png");
 	textures["MARIO_DIE"].loadFromFile("./Resources/Characters/Mario/mario_die.png");
 
+    // tiles
+	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "brick.png");
+
+	for (auto& t : textures)
+	{
+		t.second.setSmooth(true);
+	}
+
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
