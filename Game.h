@@ -73,8 +73,7 @@ public:
 	void render();
 	void renderEntities();
 	void renderMap();
-};
 
-
+	// Run
 	void run();
 };

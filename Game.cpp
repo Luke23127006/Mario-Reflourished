@@ -154,7 +154,7 @@ void Game::update(float deltaTime)
 	this->changeScene(currentScene->getNextScene());
 }
 
-void Game::updateEntities(float deltaTime)
+void Game::render(float deltaTime)
 {
 	this->window->clear();
 	sf::View viewGame = this->camera.getView(this->window->getSize());
@@ -168,6 +168,9 @@ void Game::updateEntities(float deltaTime)
 		//camera.setCenter(sf::Vector2f(renderTexture.getSize().x / 2, renderTexture.getSize().y / 2));
 	currentScene->render(*this->window);
 }
+
+void Game::updateEntities(float deltaTime)
+{
 	for (auto& e : this->entities)
 		e->update(deltaTime);
 }
@@ -185,6 +188,7 @@ void Game::updateCamera(float deltaTime)
 	if (!this->player) return;
 	this->camera.setPosition(this->player->getPosition());
 }
+
 void Game::renderEntities()
 {
 	for (auto& e : this->entities)
@@ -195,35 +199,6 @@ void Game::updateLastPosition()
 {
 	for (auto& e : this->entities)
 		e->updateLastPosition();
-}
-
-void Game::render()
-{
-	this->window->clear(sf::Color::White);
-
-	// Render items
-
-	this->window->setView(this->camera.getView(this->window->getSize()));
-	this->renderEntities();
-	this->renderMap();
-
-//void Game::render(float dt)
-//{
-//
-//	window.clear();
-//	sf::View viewGame = camera.getView(window.getSize());
-//	window.setView(viewGame);
-//	/*if (currentGameState == GameState::Level1)
-//	{
-//		Level1* level1 = dynamic_cast<Level1*>(currentScene.get());
-//		level1->updateCamera(camera);
-//	}*/
-//	/*else*/
-//		//camera.setCenter(sf::Vector2f(renderTexture.getSize().x / 2, renderTexture.getSize().y / 2));
-//	currentScene->render(window, dt);
-//
-
-	this->window->display();
 }
 
 void Game::renderEntities()
