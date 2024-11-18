@@ -55,7 +55,7 @@ void Welcome::loadTexture()
 	welcomeTexture = Resources::textures["Welcome Background"];
 	welcomeSprite.setTexture(welcomeTexture);
 	int totalFrames = this->welcomeTexture.getSize().x / 240;
-	welcomeAnimation = new Animation(welcomeTexture, totalFrames - 1, 0.1f, sf::Vector2i(240, 135));
+	welcomeAnimation = new Animation(welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
 
 

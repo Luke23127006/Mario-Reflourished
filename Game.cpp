@@ -52,7 +52,6 @@ void Game::applyToMainWindow()
 	// Clear the main window and draw the sprite (containing the off-screen rendered content)
 	this->window->clear();
 	window->draw(sprite);
-	window->display();
 }
 
 void Game::initVariables()
@@ -69,11 +68,12 @@ void Game::initWindow()
 
 Game::Game()
 {
+	Resources::Resources();
 	this->initVariables();
 	this->initWindow();
 
 	this->currentScene = std::make_unique<Welcome>(renderTexture);
-	this->currentGameState = GameState::WELCOME;
+	this->currentGameState = GameState::PLAY;
 }
 
 Game::~Game()
@@ -234,7 +234,6 @@ void Game::renderEntities()
 //}
 void Game::run()
 {
-	Resources::Resources();
 	while (this->window->isOpen())
 	{
 		float deltaTime = this->clock.restart().asSeconds();
