@@ -15,7 +15,9 @@ int main()
 	//	game.update(deltaTime);
 	//	game.render();
 	//}
+
 	Game game;
 	game.run();
+
 	return 0;
 }

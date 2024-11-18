@@ -7,11 +7,11 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	coins(0),
 	lives(3)
 {
-	animation.resize(static_cast<int>(PlayerState::END_FLAG));
-	animation[static_cast<int>(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
-	animation[static_cast<int>(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
-	animation[static_cast<int>(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
-	animation[static_cast<int>(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
+	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+	animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+	animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+	animation[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 }
 
 Player::~Player()

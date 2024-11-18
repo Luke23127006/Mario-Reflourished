@@ -29,9 +29,9 @@ public:
 	SelectLevel(sf::RenderTexture& window);
 	void loadTexture();
 	void updateHoverButton(sf::RenderWindow& window);
-	void updateClickButton(sf::RenderWindow& window, float timeElapsed);
+	void updateClickButton(sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);	
-	void render(sf::RenderWindow& window, float timeElapsed) override;
+	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;
 
 };

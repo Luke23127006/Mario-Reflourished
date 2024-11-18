@@ -135,10 +135,8 @@ void SelectLevel::updateHoverButton(sf::RenderWindow& window)
 
 
 
-void SelectLevel::updateClickButton(sf::RenderWindow& window, float timeElapsed)
+void SelectLevel::updateClickButton(sf::RenderWindow& window)
 {
-	if (timeElapsed < debounceTime)
-		return;
 	if (selectedButton == -1)
 		return;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
@@ -190,10 +188,10 @@ GameState SelectLevel::getNextScene()
 	return GameState::SELECT_LEVEL;
 }
 
-void SelectLevel::render(sf::RenderWindow& window, float timeElapsed)
+void SelectLevel::render(sf::RenderWindow& window)
 {
 	updateHoverButton(window);
-	updateClickButton(window, timeElapsed);
+	updateClickButton(window);
 	for (int i = 0; i < buttons.size(); i++)
 	{
 		buttons[i]->colorHoverButton(window);

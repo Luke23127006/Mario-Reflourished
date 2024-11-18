@@ -118,10 +118,8 @@ void Play::updateHoverButton(sf::RenderWindow& window)
 	}
 	
 }
-void Play::updateClickButton(sf::RenderWindow& window, float timeElapsed)
+void Play::updateClickButton(sf::RenderWindow& window)
 {
-	if (timeElapsed < debounceTime)
-		return;
 	if (selectedButton == -1)
 	{
 		return;
@@ -146,18 +144,18 @@ void Play::updateClickButton(sf::RenderWindow& window, float timeElapsed)
 	}
 }
 
-void Play::render(sf::RenderWindow& window, float timeElapsed)
+void Play::render(sf::RenderWindow& window)
 {
-	
+
 	updateHoverButton(window);
-	updateClickButton(window, timeElapsed);
+	updateClickButton(window);
 	for (int i = 0; i < buttons.size(); i++)
 	{
 		buttons[i]->colorHoverButton(window);
 	}
 	draw(window);
 
-
+	
 }
 GameState Play::getNextScene()
 {

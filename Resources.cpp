@@ -12,6 +12,7 @@ void Resources::initTextures()
 	textures["MARIO_WALK"].loadFromFile("./Resources/Characters/Mario/mario_walk.png");
 	textures["MARIO_JUMP"].loadFromFile("./Resources/Characters/Mario/mario_jump.png");
 	textures["MARIO_DIE"].loadFromFile("./Resources/Characters/Mario/mario_die.png");
+
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");

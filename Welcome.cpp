@@ -55,7 +55,7 @@ void Welcome::loadTexture()
 	welcomeTexture = Resources::textures["Welcome Background"];
 	welcomeSprite.setTexture(welcomeTexture);
 	int totalFrames = this->welcomeTexture.getSize().x / 240;
-	welcomeAnimation = new Animation(welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
+	welcomeAnimation = new Animation(welcomeTexture, totalFrames - 1, 0.1f, sf::Vector2i(240, 135));
 }
 
 
@@ -116,10 +116,8 @@ void Welcome::updateHoverButton(sf::RenderWindow& window)
 	}
 }
 
-void Welcome::updateClickButton(sf::RenderWindow& window, float timeElapsed)
+void Welcome::updateClickButton(sf::RenderWindow& window)
 {
-	if (timeElapsed < debounceTime)
-		return;
 	if (selectedButton == -1)
 		return;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
@@ -144,12 +142,12 @@ void Welcome::updateAnimation(float dt)
 {
 	welcomeAnimation->update(dt,false);
 }
-void Welcome::render(sf::RenderWindow& window, float timeElapsed)
+void Welcome::render(sf::RenderWindow& window)
 {
 	
 	
 	updateHoverButton(window);
-	updateClickButton(window, timeElapsed);
+	updateClickButton(window);
 	for (int i = 0; i < buttons.size(); i++)
 	{
 		buttons[i]->colorHoverButton(window);

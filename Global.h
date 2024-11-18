@@ -1,4 +1,7 @@
 #pragma once
+
+#define INT(enumValue) static_cast<int>(enumValue)
+
 #include<string>
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -31,22 +34,14 @@ const float PLAYER_JUMP_STRENGHT = 300.0f;
 
 enum class GameState
 {
-	/*HOME = 0,
-	SETTING,
-	SELECT_CHARACTER,
-	SELECT_LEVEL,
-	PLAYING,
-	PAUSED,
-	GAME_OVER,
-	END_FLAG*/
-	WELCOME,
+	WELCOME = 0,
 	PLAY,
 	SELECT_CHARACTER,
 	SELECT_LEVEL,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
-	GAME_OVER
+	NUM_GAME_STATES
 };
 
 enum class PlayerState
@@ -54,9 +49,8 @@ enum class PlayerState
 	IDLE = 0,
 	WALK,
 	JUMP,
-	SHOOT,
 	DIE,
-	END_FLAG
+	NUM_PLAYER_STATES
 };
 
 enum class PowerUpType
@@ -67,7 +61,8 @@ enum class PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
-	END_FLAG
+	INVICIBLE,
+	NUM_POWER_UPS
 };
 
 enum class LuckyBlockType
@@ -75,7 +70,7 @@ enum class LuckyBlockType
 	COIN = 0,
 	POWER_UP,
 	RANDOM_POWER_UP,
-	END_FLAG
+	NUM_LUCKY_BLOCK_TYPES
 };
 
 enum class TileType
@@ -94,5 +89,5 @@ enum class TileType
 	SPIKE,
 	WATER,
 	LAVA,
-	END_FLAG
+	NUM_TILE_TYPES
 };

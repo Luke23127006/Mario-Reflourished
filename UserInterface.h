@@ -11,12 +11,10 @@
 
 class Scene
 {
-protected:
-	float debounceTime = 0.3f;
 public:
 	virtual ~Scene() = default;
-	virtual void update(float dt);                     // Pure virtual
-	virtual void render(sf::RenderWindow& window, float dt) = 0;     // Pure virtual
+	virtual void update(float deltaTime);                     // Pure virtual
+	virtual void render(sf::RenderWindow& window) = 0;     // Pure virtual
 	virtual GameState getNextScene() = 0;                  // Pure virtual
 };
 
