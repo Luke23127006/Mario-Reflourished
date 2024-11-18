@@ -7,57 +7,58 @@ void Game::changeScene(GameState nextScene)
 	switch (nextScene)
 	{
 	case GameState::WELCOME:
-		if (currentGameState == GameState::WELCOME) return;
+		if (this->currentGameState == GameState::WELCOME) return;
 		isChange = true;
-		currentScene = std::make_unique<Welcome>(renderTexture);
-		currentGameState = GameState::WELCOME;
+		this->currentScene = std::make_unique<Welcome>(this->renderTexture);
+		this->currentGameState = GameState::WELCOME;
 		break;
 
 	case GameState::PLAY:
-		if (currentGameState == GameState::PLAY) return;
+		if (this->currentGameState == GameState::PLAY) return;
 		std::cout << "Play\n";
 		isChange = true;
-		currentScene = std::make_unique<Play>(renderTexture);
-		currentGameState = GameState::PLAY;
+		this->currentScene = std::make_unique<Play>(this->renderTexture);
+		this->currentGameState = GameState::PLAY;
 		break;
 	case GameState::SELECT_LEVEL:
-		if (currentGameState == GameState::SELECT_LEVEL) return;
+		if (this->currentGameState == GameState::SELECT_LEVEL) return;
 		std::cout << "SelectLevel\n";
 		isChange = true;
-		currentScene = std::make_unique<SelectLevel>(renderTexture);
-		currentGameState = GameState::SELECT_LEVEL;
+		this->currentScene = std::make_unique<SelectLevel>(this->renderTexture);
+		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
-		//case GameState::Level1:
-		//	if (currentGameState == GameState::Level1) return;
-		//	std::cout << "Level1\n";
-		//	isChange = true;
-		//	currentScene = std::make_unique<Level1>(renderTexture);
-		//	debounceClock.restart();
-		//	currentGameState = GameState::Level1;
-		//	break;
+	case GameState::LEVEL1:
+		if (this->currentGameState == GameState::LEVEL1) return;
+		std::cout << "Level1\n";
+		isChange = true;
+		//this->currentScene = std::make_unique<Level1>(this->renderTexture);
+		this->currentGameState = GameState::LEVEL1;
+		this->initMap(MAPS_DIRECTORY + "demo_map.png");
+		this->initEntities(MAPS_DIRECTORY + "demo_map.png");
+		break;
 	default:
 		break;
 	}
 	if (isChange)
 	{
-		applyToMainWindow();
+		this->applyToMainWindow();
 	}
 }
 
 void Game::applyToMainWindow()
 {
 	// Create a sprite to hold the render texture
-	sf::Sprite sprite(renderTexture.getTexture());
+	sf::Sprite sprite(this->renderTexture.getTexture());
 
 	// Clear the main window and draw the sprite (containing the off-screen rendered content)
 	this->window->clear();
-	window->draw(sprite);
+	this->window->draw(sprite);
 }
 
 void Game::initVariables()
 {
 	this->window = nullptr;
-	renderTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+	this->renderTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void Game::initWindow()
@@ -91,14 +92,11 @@ void Game::initEntities(std::string fileName)
 
 Game::Game()
 {
-	Resources::Resources();
 	this->initVariables();
 	this->initWindow();
 
-	this->currentScene = std::make_unique<Welcome>(renderTexture);
+	this->currentScene = std::make_unique<Welcome>(this->renderTexture);
 	this->currentGameState = GameState::PLAY;
-	this->initMap(MAPS_DIRECTORY + "demo_map.png");
-	this->initEntities(MAPS_DIRECTORY + "demo_map.png");
 }
 
 Game::~Game()
@@ -145,28 +143,24 @@ void Game::update(float deltaTime)
 	this->pollEvents();
 	this->updateMousePosition();
 
-	this->updateEntities(deltaTime);
-	this->updateCollision();
-	this->updateCamera(deltaTime);
-	this->updateLastPosition();
+	//this->updateEntities(deltaTime);
+	//this->updateCollision();
+	//this->updateCamera(deltaTime);
+	//this->updateLastPosition();
 
-	this->currentScene->update(deltaTime);
-	this->changeScene(currentScene->getNextScene());
-}
-
-void Game::render(float deltaTime)
-{
-	this->window->clear();
-	sf::View viewGame = this->camera.getView(this->window->getSize());
-	this->window->setView(viewGame);
-	/*if (currentGameState == GameState::Level1)
+	switch (this->currentGameState)
 	{
-		Level1* level1 = dynamic_cast<Level1*>(currentScene.get());
-		level1->updateCamera(camera);
-	}*/
-	/*else*/
-		//camera.setCenter(sf::Vector2f(renderTexture.getSize().x / 2, renderTexture.getSize().y / 2));
-	currentScene->render(*this->window);
+	case GameState::LEVEL1:
+		this->updateEntities(deltaTime);
+		this->updateCollision();
+		this->updateCamera(deltaTime);
+		this->updateLastPosition();
+		break;
+	default:
+		this->currentScene->update(deltaTime);
+		this->changeScene(this->currentScene->getNextScene());
+		break;
+	}
 }
 
 void Game::updateEntities(float deltaTime)
@@ -189,16 +183,28 @@ void Game::updateCamera(float deltaTime)
 	this->camera.setPosition(this->player->getPosition());
 }
 
-void Game::renderEntities()
-{
-	for (auto& e : this->entities)
-		e->render(*this->window);
-}
-
 void Game::updateLastPosition()
 {
 	for (auto& e : this->entities)
 		e->updateLastPosition();
+}
+
+void Game::render()
+{
+	this->window->clear(sf::Color::White);
+	sf::View viewGame = this->camera.getView(this->window->getSize());
+	this->window->setView(viewGame);
+
+	switch (this->currentGameState)
+	{
+	case GameState::LEVEL1:
+		this->renderMap();
+		this->renderEntities();
+		break;
+	default:
+		this->currentScene->render(*this->window);
+		break;
+	}
 }
 
 void Game::renderEntities()
@@ -210,4 +216,15 @@ void Game::renderEntities()
 void Game::renderMap()
 {
 	this->map->render(*this->window);
+}
+
+void Game::run()
+{
+	while (this->window->isOpen())
+	{
+		float deltaTime = this->clock.restart().asSeconds();
+		this->update(deltaTime);
+		this->render();
+		this->window->display();
+	}
 }

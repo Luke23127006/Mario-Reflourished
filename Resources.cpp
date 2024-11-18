@@ -16,14 +16,15 @@ void Resources::initTextures()
     // tiles
 	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "brick.png");
 
+    // UI
+    textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
+    textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
+    textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
+
 	for (auto& t : textures)
 	{
 		t.second.setSmooth(true);
 	}
-
-    textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
-    textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
-    textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
 }
 
 void Resources::initFonts()
