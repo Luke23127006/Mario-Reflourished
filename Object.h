@@ -7,7 +7,7 @@ class Object
 {
 protected:
 	sf::RectangleShape hitbox;
-	//sf::Sprite sprite;
+	sf::Sprite sprite;
 	
 	bool enabled;
 

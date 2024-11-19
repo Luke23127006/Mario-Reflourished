@@ -4,7 +4,7 @@
 std::map<std::string, sf::Texture> Resources::textures;
 std::map<std::string, sf::Font> Resources::fonts;
 std::map<std::string, sf::SoundBuffer> Resources::sounds;
-sf::Color* Resources::getColor;
+std::map<int, sf::Color> Resources::getColor;
 
 void Resources::initTextures()
 {
@@ -45,7 +45,6 @@ void Resources::initSounds()
 
 void Resources::initColors()
 {
-	getColor = new sf::Color[INT(TileType::NUM_TILE_TYPES)];
 	getColor[INT(TileType::EMPTY)] = sf::Color::White;
 	getColor[INT(TileType::GROUND_BLOCK)] = sf::Color(105, 27, 34, 255);
 	getColor[INT(TileType::BRICK)] = sf::Color(212, 102, 47, 255);
@@ -64,5 +63,4 @@ Resources::Resources()
 
 Resources::~Resources()
 {
-	delete getColor;
 }

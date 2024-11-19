@@ -21,10 +21,31 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
-			if (color == sf::Color(0, 0, 0, 255))
+			
+			if (color == Resources::getColor[INT(TileType::GROUND_BLOCK)])
 			{
 				this->mapData[i][j] = TileType::GROUND_BLOCK;
 				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["GROUND_BLOCK"]);
+			}
+			else if (color == Resources::getColor[INT(TileType::BRICK)])
+			{
+				this->mapData[i][j] = TileType::BRICK;
+				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["BRICK"]);
+			}
+			else if (color == Resources::getColor[INT(TileType::LUCKY_BLOCK)])
+			{
+				this->mapData[i][j] = TileType::LUCKY_BLOCK;
+				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["LUCKY_BLOCK"]);
+			}
+			else if (color == Resources::getColor[INT(TileType::PIPE)])
+			{
+				this->mapData[i][j] = TileType::PIPE;
+				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
+			}
+			else if (color == Resources::getColor[INT(TileType::BLOCK)])
+			{
+				this->mapData[i][j] = TileType::BLOCK;
+				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["BLOCK"]);
 			}
 		}
 }
