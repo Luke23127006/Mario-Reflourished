@@ -16,7 +16,6 @@ void Game::changeScene(GameState nextScene)
 		if (currentGameState == GameState::LOGIN) return;
 		isChange = true;
 		currentScene = std::make_unique<Login>(renderTexture);
-		debounceClock.restart();
 		currentGameState = GameState::LOGIN;
 		break;
 	case GameState::PLAY:

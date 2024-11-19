@@ -29,7 +29,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 
 	this->isPressedUp = false;
 	this->isPressedDown = false;
-	this->goToPlayScene = false;
+	this->goToLoginScene = false;
 }
 
 void Welcome::draw(sf::RenderWindow& window)
@@ -48,7 +48,6 @@ void Welcome::loadTexture()
 		return;
 	}*/
 	this->welcomeTexture = Resources::textures["Welcome Background"];
-	this->welcomeSprite.setTexture(this->welcomeTexture);
 	int totalFrames = this->welcomeTexture.getSize().x / 240;
 	this->welcomeAnimation = new Animation(this->welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
@@ -120,7 +119,7 @@ void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
 					switch (this->selectedButton)
 					{
 					case 0:
-						this->goToPlayScene = true;
+						this->goToLoginScene = true;
 						break;
 					case 1:
 						window.close();
@@ -158,10 +157,10 @@ void Welcome::update(float dt)
 
 GameState Welcome::getNextScene()
 {
-	if (this->goToPlayScene)
+	if (this->goToLoginScene)
 	{
-		this->goToPlayScene = false;
-		return GameState::PLAY;
+		this->goToLoginScene = false;
+		return GameState::LOGIN;
 	}
 	return GameState::WELCOME;
 }

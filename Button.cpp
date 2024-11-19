@@ -14,7 +14,7 @@ Button::Button()
 	buttonSize = sf::Vector2f(200, 50);
 	button.setSize(buttonSize);
 	// buttonColor
-	buttonColor = PINK;
+	buttonColor = sf::Color(177, 80, 199);
 	buttonColorHover = lightenColor(buttonColor, 100);
 	button.setFillColor(buttonColor);
 	// button outline

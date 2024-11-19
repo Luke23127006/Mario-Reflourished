@@ -171,10 +171,9 @@ void Login::updateHoverButton(sf::RenderWindow& window)
 }
 
 
-void Login::updateClickButton(sf::RenderWindow& window, float timeElapsed)
+void Login::updateClickButton(sf::RenderWindow& window, bool& held)
 {
-	if (timeElapsed < debounceTime)
-		return;
+
 	if (selectedButton == -1)
 		return;
 	if (!isRegister)
@@ -346,10 +345,10 @@ void Login::update(float dt)
 }
 
 
-void Login::render(sf::RenderWindow& window, float timeElapsed)
+void Login::render(sf::RenderWindow& window, bool& held)
 {
 	updateHoverButton(window);
-	updateClickButton(window, timeElapsed);
+	updateClickButton(window, held);
 	for (int i = 0; i < buttons.size(); i++)
 	{
 		buttons[i]->colorHoverButton(window);

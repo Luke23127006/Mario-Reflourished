@@ -41,7 +41,7 @@ public :
 	Login(sf::RenderTexture& window);
 	void loadTexture();
 	void updateHoverButton(sf::RenderWindow& window);
-	void updateClickButton(sf::RenderWindow& window, float timeElapsed);
+	void updateClickButton(sf::RenderWindow& window, bool& held);
 	void updateRegisterMovement(float dt);
 	void updateText();
 	void addConfirmButton();
@@ -49,7 +49,7 @@ public :
 	void updateBackgroundAnimation(float dt);
 	void draw(sf::RenderWindow& window);
 	void update(float dt) override;
-	void render(sf::RenderWindow& window, float timeElapsed) override;
+	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;
 	bool checkAccount();
 	bool checkRegister();

@@ -151,11 +151,11 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
-<<<<<<< HEAD
+
     <ClCompile Include="Login.cpp" />
-=======
+
     <ClCompile Include="Global.cpp" />
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
+
     <ClCompile Include="LuckyBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
