@@ -12,7 +12,7 @@ Login::Login(sf::RenderTexture& window)
 	// Handle Error Messages
 	errorLogin.setText("User Name or Password is incorrect");
 	errorLogin.setTextColor(sf::Color::Red);
-	errorRegister.setText("User Name is already exist or confirmPassword isnot correct");
+	errorRegister.setText("UserName   is existed      or      ConfirmPassword   is not correct");
 	errorRegister.setTextColor(sf::Color::Red);
 	errorLogin.setPosition(sf::Vector2f(window.getSize().x / 2 - errorLogin.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y * 2- errorLogin.getGlobalBounds().getSize().y));
 	errorRegister.setPosition(sf::Vector2f(window.getSize().x / 2 - errorRegister.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y * 2 - errorRegister.getGlobalBounds().getSize().y));
@@ -256,7 +256,7 @@ void Login::updateClickButton(sf::RenderWindow& window, bool& held)
 						goToPlayScene = true;
 					}
 					else {
-						isErrorRegister = false;
+						isErrorRegister = true;
 					}
 					break;
 				}
