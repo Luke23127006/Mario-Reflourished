@@ -13,7 +13,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 	buttons.push_back(&exitButton);
 	// play
 	
-	playButton.setText("Play");
+	playButton.setText("Login");
 	playButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - playButton.getSize().y));
 	playButton.setButtonColor(pink);
 	playButton.setTextColor(sf::Color::White);
@@ -26,20 +26,19 @@ Welcome::Welcome(sf::RenderTexture& window)
 	
 	// background
 	loadTexture();
-	/*welcomeSprite.setPosition(0, 0);
-	welcomeSprite.setScale(window.getSize().x / welcomeSprite.getGlobalBounds().width, window.getSize().y / welcomeSprite.getGlobalBounds().height);*/
+
 	welcomeAnimation->setPosition(sf::Vector2f(0, 0));
 	welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
 	selectedButton = -1;
 
 	isPressedUp = false;
 	isPressedDown = false;
-	goToPlayScene = false;
+	goToLoginScene = false;
 }
 
 void Welcome::draw(sf::RenderWindow& window)
 {
-	//window.draw(welcomeSprite);
+
 	welcomeAnimation->render(window, sf::Vector2f(0, 0));
 	playButton.draw(window);
 	exitButton.draw(window);
@@ -47,13 +46,8 @@ void Welcome::draw(sf::RenderWindow& window)
 
 void Welcome::loadTexture()
 {
-	/*if (!welcomeTexture.loadFromFile("Sinestrea Princess.png"))
-	{
-		std::cerr << "Error loading welcome texture\n";
-		return;
-	}*/
+
 	welcomeTexture = Resources::textures["Welcome Background"];
-	welcomeSprite.setTexture(welcomeTexture);
 	int totalFrames = this->welcomeTexture.getSize().x / 240;
 	welcomeAnimation = new Animation(welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
@@ -67,9 +61,9 @@ void Welcome::updateHoverButton(sf::RenderWindow& window)
 		if (!isPressedDown)
 		{
 			if (selectedButton != -1)
-					(*buttons[selectedButton]).changeHovered();
+					buttons[selectedButton]->changeHovered();
 			selectedButton = (selectedButton + 1) % buttons.size();
-			(*buttons[selectedButton]).changeHovered();
+			buttons[selectedButton]->changeHovered();
 			isPressedDown = true;
 			std::cout << "Down\n";
 		}
@@ -85,12 +79,12 @@ void Welcome::updateHoverButton(sf::RenderWindow& window)
 		if (!isPressedUp)
 		{
 			if (selectedButton != -1)
-				(*buttons[selectedButton]).changeHovered();
+				buttons[selectedButton]->changeHovered();
 			else {
 				selectedButton = buttons.size();
 			}
 			selectedButton = (selectedButton - 1 + buttons.size()) % buttons.size();
-			(*buttons[selectedButton]).changeHovered();
+			buttons[selectedButton]->changeHovered();
 			isPressedUp = true;
 			std::cout << "Up\n";
 		}
@@ -129,7 +123,7 @@ void Welcome::updateClickButton(sf::RenderWindow& window, float timeElapsed)
 		{
 		case 0:
 			
-			goToPlayScene = true;
+			goToLoginScene = true;
 			break;
 		case 1:
 			
@@ -164,10 +158,10 @@ void Welcome::update(float dt)
 }
 GameState Welcome::getNextScene()
 {
-	if (goToPlayScene)
+	if (goToLoginScene)
 	{
-		goToPlayScene  = false;
-		return GameState::PLAY;
+		goToLoginScene  = false;
+		return GameState::LOGIN;
 	}
 	return GameState::WELCOME;
 }

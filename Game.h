@@ -52,6 +52,7 @@
 #include <SFML\Graphics.hpp>
 #include "UserInterface.h"
 #include "Welcome.h"
+#include "Login.h"
 #include "Camera.h"
 #include "Play.h"
 #include "SelectLevel.h"

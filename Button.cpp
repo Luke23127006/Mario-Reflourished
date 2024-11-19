@@ -9,32 +9,26 @@
 
 Button::Button()
 {
-	/*if (!font.loadFromFile("Mario.ttf"))
-	{
-		std::cerr << "Cannot load default font !\n";
-	}*/
-	font = Resources::fonts["Standard"];
+
+	//font = Resources::fonts["Standard"];
 	buttonSize = sf::Vector2f(200, 50);
 	button.setSize(buttonSize);
 	// buttonColor
-	buttonColor = sf::Color::Transparent;
+	buttonColor = PINK;
 	buttonColorHover = lightenColor(buttonColor, 100);
 	button.setFillColor(buttonColor);
 	// button outline
 	button.setOutlineThickness(1.7);
 	outlineColor = sf::Color::Magenta;
-	/*outlineColorHover = lightenColor(outlineColor, 138);*/
 	outlineColorHover = sf::Color::Green;
 	button.setOutlineColor(outlineColor);
 	// button text
 	
-	buttonText.setFont(font);
-	textSize = 25;
-	buttonText.setCharacterSize(textSize);
-	buttonText.setFillColor(sf::Color::Green);
+	
 	colorHover = sf::Color::Green;
 
 	isHovered = false;
+	
 }
 
 void Button::setPosition(sf::Vector2f position)
@@ -71,26 +65,64 @@ void Button::setButtonColor(sf::Color color)
 
 void Button::setTextColor(sf::Color color)
 {
-	textColor = color;
-	buttonText.setFillColor(textColor);
+	buttonText.setTextColor(color);
 }
 
 void Button::setText(std::string text)
 {
-	buttonText.setString(text);
+	buttonText.setText(text);
+}
+std::string Button::getText()
+{
+	return buttonText.getText();
+}
+int Button::getTextSize()
+{
+	return buttonText.getTextSize();
+}
+void Button::updateSizeButton()
+{
+	sf::Vector2f previousSize = buttonSize;
+	if (buttonSize.x <= buttonText.getGlobalBounds().width)
+	{
+		buttonSize.x = buttonText.getGlobalBounds().width + 20;
+		button.setSize(buttonSize);
+	}
+
+	this->setPosition(button.getPosition() + previousSize / 2.0f);
 }
 
-void Button::setTextSize(float size)
-{
-	textSize = size;
-	buttonText.setCharacterSize(textSize);
-}
+
 
 void Button::setFont(sf::Font font)
 {
 	buttonText.setFont(font);
 }
 
+void Button::setAbleToWrite(bool ableToWrite)
+{
+	isAbleToWrite = ableToWrite;
+	buttonText.setAbleToWrite(ableToWrite);
+}
+
+
+sf::Vector2f Button::getPosition()
+{
+	return button.getPosition();
+}
+void Button::updateText()
+{
+	if (!isAbleToWrite) return;
+	float oldTextSize = buttonText.getGlobalBounds().width;
+	buttonText.updateText();
+	float newTextSize = buttonText.getGlobalBounds().width;
+	float offset = (newTextSize - oldTextSize);
+	float min = std::max(200.0f, button.getSize().x + offset);
+	/*button.setSize(sf::Vector2f(min, buttonSize.y)); 
+	button.setPosition(button.getPosition() - sf::Vector2f(offset / 2.0f, 0));*/
+	this->setButtonSize(sf::Vector2f(min, buttonSize.y));
+	this->setPosition(button.getPosition() - sf::Vector2f(offset / 2.0f, 0) + button.getSize() / 2.0f);
+}
 sf::Vector2f Button::getSize()
 {
 	return buttonSize;
@@ -98,7 +130,7 @@ sf::Vector2f Button::getSize()
 void Button::draw(sf::RenderWindow& window)
 {
 	window.draw(button);
-	window.draw(buttonText);
+	buttonText.draw(window);
 }
 sf::Color Button::lightenColor(const sf::Color& color, int increase) {
 	int r = std::min(color.r + increase, 255);  // Tăng giá trị đỏ
@@ -145,3 +177,8 @@ void Button::colorHoverButton(sf::RenderWindow& window)
 	}
 }
 
+void Button::move(const sf::Vector2f vector)
+{
+	button.move(vector);
+	buttonText.move(vector);
+}

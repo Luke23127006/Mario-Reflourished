@@ -138,7 +138,13 @@ void Game::changeScene(GameState nextScene)
 		debounceClock.restart();
 		currentGameState = GameState::WELCOME;
 		break;
-
+	case GameState::LOGIN:
+		if (currentGameState == GameState::LOGIN) return;
+		isChange = true;
+		currentScene = std::make_unique<Login>(renderTexture);
+		debounceClock.restart();
+		currentGameState = GameState::LOGIN;
+		break;
 	case GameState::PLAY:
 		if (currentGameState == GameState::PLAY) return;
 		std::cout << "Play\n";
@@ -155,6 +161,7 @@ void Game::changeScene(GameState nextScene)
 		debounceClock.restart();
 		currentGameState = GameState::SELECT_LEVEL;
 		break;
+		
 	//case GameState::Level1:
 	//	if (currentGameState == GameState::Level1) return;
 	//	std::cout << "Level1\n";

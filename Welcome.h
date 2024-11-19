@@ -10,7 +10,6 @@
 class Welcome : public Scene {
 private:
 	sf::Texture welcomeTexture;
-	sf::Sprite welcomeSprite;
 	Animation* welcomeAnimation;
 	Button playButton;
 	Button exitButton;
@@ -18,7 +17,7 @@ private:
 	int selectedButton;
 	bool isPressedUp;
 	bool isPressedDown;
-	bool goToPlayScene;
+	bool goToLoginScene;
 public:
 	Welcome(sf::RenderTexture& window);
 	void loadTexture();

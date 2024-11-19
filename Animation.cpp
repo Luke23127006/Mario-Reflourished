@@ -12,6 +12,7 @@ Animation::Animation(const sf::Texture& texture, int totalFrames, float frameDur
 	this->sprite.setTextureRect(this->currentFrame);
 }
 
+
 Animation::~Animation()
 {
 }

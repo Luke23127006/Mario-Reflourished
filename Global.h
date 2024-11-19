@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include<SFML\Graphics.hpp>
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
@@ -29,6 +30,8 @@ const float PLAYER_ACCELERATION = 10.0f;
 const float PLAYER_DECELERATION = 10.0f;
 const float PLAYER_JUMP_STRENGHT = 300.0f;
 
+// Color
+const sf::Color PINK = sf::Color (177, 80, 199);
 enum class GameState
 {
 	/*HOME = 0,
@@ -40,6 +43,7 @@ enum class GameState
 	GAME_OVER,
 	END_FLAG*/
 	WELCOME,
+	LOGIN,
 	PLAY,
 	SELECT_CHARACTER,
 	SELECT_LEVEL,
@@ -47,6 +51,7 @@ enum class GameState
 	LEVEL2,
 	LEVEL3,
 	GAME_OVER
+
 };
 
 enum class PlayerState
@@ -67,6 +72,7 @@ enum class PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
+	FLYING_NIMBUS,
 	END_FLAG
 };
 
