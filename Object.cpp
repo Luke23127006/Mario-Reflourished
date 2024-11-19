@@ -6,6 +6,8 @@ Object::Object()
 	this->hitbox.setPosition(sf::Vector2f(0.f, 0.f));
 	this->hitbox.setFillColor(sf::Color::Red);
 
+	this->sprite.setPosition(this->hitbox.getPosition());
+
 	this->enabled = true;
 }
 
@@ -14,6 +16,8 @@ Object::Object(sf::Vector2f size,sf::Vector2f position)
 	this->hitbox.setSize(size);
 	this->hitbox.setPosition(position);
 	this->hitbox.setFillColor(sf::Color::Red);
+
+	this->sprite.setPosition(this->hitbox.getPosition());
 
 	this->enabled = true;
 }
