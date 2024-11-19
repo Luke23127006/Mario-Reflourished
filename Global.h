@@ -3,11 +3,7 @@
 #define INT(enumValue) static_cast<int>(enumValue)
 
 #include<string>
-<<<<<<< HEAD
-#include<SFML\Graphics.hpp>
-=======
 
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
@@ -41,36 +37,17 @@ const float PLAYER_JUMP_STRENGHT = 1000.f;
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 
-// Color
-const sf::Color PINK = sf::Color (177, 80, 199);
 enum class GameState
 {
-<<<<<<< HEAD
-	/*HOME = 0,
-	SETTING,
-	SELECT_CHARACTER,
-	SELECT_LEVEL,
-	PLAYING,
-	PAUSED,
-	GAME_OVER,
-	END_FLAG*/
-	WELCOME,
-	LOGIN,
-=======
 	WELCOME = 0,
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
+	LOGIN,
 	PLAY,
 	SELECT_CHARACTER,
 	SELECT_LEVEL,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
-<<<<<<< HEAD
-	GAME_OVER
-
-=======
 	NUM_GAME_STATES
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 };
 
 enum class PlayerState
@@ -90,13 +67,8 @@ enum class PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
-<<<<<<< HEAD
-	FLYING_NIMBUS,
-	END_FLAG
-=======
 	INVICIBLE,
 	NUM_POWER_UPS
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 };
 
 enum class LuckyBlockType

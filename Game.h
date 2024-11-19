@@ -16,13 +16,9 @@
 #include "Collision.h"
 #include "UserInterface.h"
 #include "Welcome.h"
-<<<<<<< HEAD
+#include "SelectLevel.h"
 #include "Login.h"
 #include "Camera.h"
-#include "Play.h"
-=======
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
-#include "SelectLevel.h"
 #include "Play.h"
 
 class Game

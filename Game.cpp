@@ -42,18 +42,6 @@ void Game::changeScene(GameState nextScene)
 		this->initMap(MAPS_DIRECTORY + "demo_map.png");
 		this->initEntities(MAPS_DIRECTORY + "demo_map.png");
 		break;
-<<<<<<< HEAD
-		
-	//case GameState::Level1:
-	//	if (currentGameState == GameState::Level1) return;
-	//	std::cout << "Level1\n";
-	//	isChange = true;
-	//	currentScene = std::make_unique<Level1>(renderTexture);
-	//	debounceClock.restart();
-	//	currentGameState = GameState::Level1;
-	//	break;
-=======
->>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 	default:
 		break;
 	}
