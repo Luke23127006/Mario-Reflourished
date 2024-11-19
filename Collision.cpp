@@ -1,33 +1,44 @@
 #include "Collision.h"
 #include <iostream>
+#include <algorithm>
 
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity->getGlobalBounds())) return;
 
 	sf::Vector2u size = map->getSize();
-	int iRange = (int)(entity->getGlobalBounds().left / TILE_SIZE);
-	int jRange = (int)(entity->getGlobalBounds().top / TILE_SIZE);
+	float i = (1.f * entity->getGlobalBounds().left / TILE_SIZE);
+	float j = (1.f * entity->getGlobalBounds().top / TILE_SIZE);
 
 	entity->setOnGround(false);
-	if (entity->getVelocity().y >= 0)
-	{
-		for (int i = std::max(0, iRange - 1); i < std::min(int(size.x), iRange + 2); i++)
-			for (int j = std::max(0, jRange - 1); j < std::min(int(size.y), jRange + 2); j++)
-			{
-				if (map->getTileType(i, j) == TileType::EMPTY) continue;
-				handle_entity_tile(entity, &map->getTile(i, j));
-			}
-	}
-	else
-	{
-		for (int i = std::max(0, iRange - 1); i < std::min(int(size.x), iRange + 2); i++)
-			for (int j = std::min(int(size.y), jRange + 2); j >= std::max(0, jRange - 1); j--)
-			{
-				if (map->getTileType(i, j) == TileType::EMPTY) continue;
-				handle_entity_tile(entity, &map->getTile(i, j));
-			}
-	}
+	std::vector<Tile*> tiles;
+	if (0 <= ceil(i) && ceil(i) < size.x && 0 <= ceil(j) && ceil(j) < size.y && map->getTileType(ceil(i), ceil(j)) != TileType::EMPTY)
+		tiles.push_back(&map->getTile(ceil(i), ceil(j)));
+	if (0 <= ceil(i) && ceil(i) < size.x && 0 <= floor(j) && floor(j) < size.y && map->getTileType(ceil(i), floor(j)) != TileType::EMPTY)
+		tiles.push_back(&map->getTile(ceil(i), floor(j)));
+	if (0 <= floor(i) && floor(i) < size.x && 0 <= ceil(j) && ceil(j) < size.y && map->getTileType(floor(i), ceil(j)) != TileType::EMPTY)
+		tiles.push_back(&map->getTile(floor(i), ceil(j)));
+	if (0 <= floor(i) && floor(i) < size.x && 0 <= floor(j) && floor(j) < size.y && map->getTileType(floor(i), floor(j)) != TileType::EMPTY)
+		tiles.push_back(&map->getTile(floor(i), floor(j)));
+
+	if (tiles.empty()) return;
+
+	std::sort(tiles.begin(), tiles.end(), [entity](Tile* a, Tile* b) {
+		sf::Vector2f entityCenter = sf::Vector2f(entity->getGlobalBounds().left + entity->getGlobalBounds().width / 2,
+			entity->getGlobalBounds().top + entity->getGlobalBounds().height / 2);
+		sf::Vector2f aCenter = sf::Vector2f(a->getGlobalBounds().left + a->getGlobalBounds().width / 2,
+			a->getGlobalBounds().top + a->getGlobalBounds().height / 2);
+		sf::Vector2f bCenter = sf::Vector2f(b->getGlobalBounds().left + b->getGlobalBounds().width / 2,
+			b->getGlobalBounds().top + b->getGlobalBounds().height / 2);
+
+		float distanceA = sqrt(pow(entityCenter.x - aCenter.x, 2) + pow(entityCenter.y - aCenter.y, 2));
+		float distanceB = sqrt(pow(entityCenter.x - bCenter.x, 2) + pow(entityCenter.y - bCenter.y, 2));
+
+		return distanceA < distanceB;
+		});
+
+	for (auto& t : tiles)
+		handle_entity_tile(entity, t);
 }
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
@@ -43,7 +54,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		(lastPosition.x + entityBounds.width < tileBounds.left && tileBounds.left - lastPosition.x <= entityBounds.width))
 	{
 		if (lastPosition.y + entityBounds.height <= tileBounds.top) above = true;
-        else if (ceil(lastPosition.y) >= tileBounds.top + tileBounds.height) below = true;
+		else if (ceil(lastPosition.y) >= tileBounds.top + tileBounds.height) below = true;
 	}
 
 	if (entityBounds.left <= tileBounds.left && entityBounds.left + entityBounds.width >= tileBounds.left ||
@@ -65,6 +76,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		{
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
+			if (typeid(*tile) == typeid(LuckyBlock))
+			{
+				LuckyBlock* luckyBlock = dynamic_cast<LuckyBlock*>(tile);
+				luckyBlock->activate();
+			}
 		}
 		else
 		{

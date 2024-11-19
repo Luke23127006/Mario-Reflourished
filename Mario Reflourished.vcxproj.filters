@@ -84,6 +84,9 @@
     <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FloatingObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -152,9 +155,18 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FloatingObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Maps\demo_map.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Level 1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Level 2.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

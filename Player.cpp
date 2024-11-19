@@ -104,7 +104,7 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	target.draw(this->hitbox);
+	//target.draw(this->hitbox);
 	switch (this->playerState)
 	{
 	case PlayerState::IDLE:

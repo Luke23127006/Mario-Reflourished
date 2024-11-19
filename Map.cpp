@@ -35,7 +35,8 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			else if (color == Resources::getColor[INT(TileType::LUCKY_BLOCK)])
 			{
 				this->mapData[i][j] = TileType::LUCKY_BLOCK;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["LUCKY_BLOCK"]);
+				this->map[i][j] = new LuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), LuckyBlockType::COIN);
+				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
 			}
 			else if (color == Resources::getColor[INT(TileType::PIPE)])
 			{
@@ -55,6 +56,12 @@ Map::~Map()
 	for (int i = 0; i < this->map.size(); i++)
 		for (int j = 0; j < this->map[i].size(); j++)
 			delete this->map[i][j];
+
+	while (!this->luckyBlocks.empty())
+	{
+		delete this->luckyBlocks.back();
+		this->luckyBlocks.pop_back();
+	}
 }
 
 sf::Vector2f Map::getPosition()
@@ -85,6 +92,8 @@ const bool Map::insideMap(sf::FloatRect bounds) const
 
 void Map::update(float deltaTime)
 {
+	for (auto& lb : this->luckyBlocks)
+		lb->update(deltaTime);
 }
 
 void Map::render(sf::RenderTarget& target)

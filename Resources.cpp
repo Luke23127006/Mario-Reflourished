@@ -20,6 +20,7 @@ void Resources::initTextures()
 	textures["LUCKY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Lucky Block.png");
 	textures["PIPE"].loadFromFile(TILES_DIRECTORY + "Pipe.png");
 	textures["BLOCK"].loadFromFile(TILES_DIRECTORY + "Block.png");
+	textures["EMPTY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Empty Block.png");
 
 
 
