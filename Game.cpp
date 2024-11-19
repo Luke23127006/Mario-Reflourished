@@ -1,129 +1,4 @@
-//#include "Game.h"
-//
-//void Game::initVariables()
-//{
-//	this->window = nullptr;
-//}
-//
-//void Game::initWindow()
-//{
-//	this->videoMode = sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT);
-//	this->window = new sf::RenderWindow(this->videoMode, "Mario Reflourished");
-//}
-//
-//Game::Game()
-//{
-//	this->initVariables();
-//	this->initWindow();
-//}
-//
-//Game::~Game()
-//{
-//	delete this->window;
-//
-//	while (!this->entities.empty())
-//	{
-//		delete this->entities.back();
-//		this->entities.pop_back();
-//	}
-//}
-//
-//void Game::pollEvents()
-//{
-//	while (this->window->pollEvent(this->ev))
-//	{
-//		switch (this->ev.type)
-//		{
-//		case sf::Event::Closed:
-//			this->window->close();
-//			break;
-//		case sf::Event::KeyPressed:
-//			break;
-//		}
-//	}
-//}
-//
-//void Game::updateMousePosition()
-//{
-//	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
-//	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
-//}
-//
-//const bool Game::running() const
-//{
-//	return this->window->isOpen();
-//}
-//
-//void Game::update(float deltaTime)
-//{
-//	this->pollEvents();
-//	this->updateMousePosition();
-//}
-//
-//void Game::render()
-//{
-//	this->window->clear(sf::Color::Cyan);
-//
-//	// Render items
-//
-//	switch (this->gameState)
-//	{
-//	case GameState::HOME:
-//		break;
-//
-//	case GameState::SELECT_CHARACTER:
-//		break;
-//
-//	case GameState::SELECT_LEVEL:
-//		break;
-//
-//	case GameState::SETTING:
-//		break;
-//
-//	case GameState::PLAYING:
-//		this->renderEntities();
-//		break;
-//
-//	case GameState::PAUSED:
-//		break;
-//
-//	case GameState::GAME_OVER:
-//		break;
-//
-//	}
-//
-//	// End render
-//
-//	this->window->display();
-//}
-//
-//void Game::renderEntities()
-//{
-//	for (auto& e : this->entities)
-//		e->render(*this->window);
-//}
-
-
-
-
-
-
 #include "Game.h"
-
-
-
-
-
-
-
-Game::Game()
-{
-	window.create(sf::VideoMode(1280, 720), "Mario iu e", sf::Style::Default);
-	renderTexture.create(1280, 720);
-	currentScene = std::make_unique<Welcome>(renderTexture);
-	currentGameState = GameState::WELCOME;
-
-}
 
 void Game::changeScene(GameState nextScene)
 {
@@ -132,11 +7,10 @@ void Game::changeScene(GameState nextScene)
 	switch (nextScene)
 	{
 	case GameState::WELCOME:
-		if (currentGameState == GameState::WELCOME) return;
+		if (this->currentGameState == GameState::WELCOME) return;
 		isChange = true;
-		currentScene = std::make_unique<Welcome>(renderTexture);
-		debounceClock.restart();
-		currentGameState = GameState::WELCOME;
+		this->currentScene = std::make_unique<Welcome>(this->renderTexture);
+		this->currentGameState = GameState::WELCOME;
 		break;
 	case GameState::LOGIN:
 		if (currentGameState == GameState::LOGIN) return;
@@ -146,21 +20,29 @@ void Game::changeScene(GameState nextScene)
 		currentGameState = GameState::LOGIN;
 		break;
 	case GameState::PLAY:
-		if (currentGameState == GameState::PLAY) return;
+		if (this->currentGameState == GameState::PLAY) return;
 		std::cout << "Play\n";
 		isChange = true;
-		currentScene = std::make_unique<Play>(renderTexture);
-		debounceClock.restart();
-		currentGameState = GameState::PLAY;
+		this->currentScene = std::make_unique<Play>(this->renderTexture);
+		this->currentGameState = GameState::PLAY;
 		break;
 	case GameState::SELECT_LEVEL:
-		if (currentGameState == GameState::SELECT_LEVEL) return;
+		if (this->currentGameState == GameState::SELECT_LEVEL) return;
 		std::cout << "SelectLevel\n";
 		isChange = true;
-		currentScene = std::make_unique<SelectLevel>(renderTexture);
-		debounceClock.restart();
-		currentGameState = GameState::SELECT_LEVEL;
+		this->currentScene = std::make_unique<SelectLevel>(this->renderTexture);
+		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
+	case GameState::LEVEL1:
+		if (this->currentGameState == GameState::LEVEL1) return;
+		std::cout << "Level1\n";
+		isChange = true;
+		//this->currentScene = std::make_unique<Level1>(this->renderTexture);
+		this->currentGameState = GameState::LEVEL1;
+		this->initMap(MAPS_DIRECTORY + "demo_map.png");
+		this->initEntities(MAPS_DIRECTORY + "demo_map.png");
+		break;
+<<<<<<< HEAD
 		
 	//case GameState::Level1:
 	//	if (currentGameState == GameState::Level1) return;
@@ -170,60 +52,198 @@ void Game::changeScene(GameState nextScene)
 	//	debounceClock.restart();
 	//	currentGameState = GameState::Level1;
 	//	break;
+=======
+>>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 	default:
 		break;
 	}
 	if (isChange)
 	{
-		applyToMainWindow();
+		this->applyToMainWindow();
 	}
 }
+
 void Game::applyToMainWindow()
 {
 	// Create a sprite to hold the render texture
-	sf::Sprite sprite(renderTexture.getTexture());
+	sf::Sprite sprite(this->renderTexture.getTexture());
 
 	// Clear the main window and draw the sprite (containing the off-screen rendered content)
-	window.clear();
-	window.draw(sprite);
-	window.display();
+	this->window->clear();
+	this->window->draw(sprite);
 }
 
-void Game::render(float dt)
+void Game::initVariables()
 {
-
-	window.clear();
-	sf::View viewGame = camera.getView(window.getSize());
-	window.setView(viewGame);
-	/*if (currentGameState == GameState::Level1)
-	{
-		Level1* level1 = dynamic_cast<Level1*>(currentScene.get());
-		level1->updateCamera(camera);
-	}*/
-	/*else*/
-		//camera.setCenter(sf::Vector2f(renderTexture.getSize().x / 2, renderTexture.getSize().y / 2));
-	currentScene->render(window, dt);
-
-
+	this->window = nullptr;
+	this->renderTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
+
+void Game::initWindow()
+{
+	this->videoMode = sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT);
+	this->window = new sf::RenderWindow(this->videoMode, "Mario Reflourished");
+}
+
+void Game::initMap(std::string fileName)
+{
+	this->map = new Map(fileName, sf::Vector2f(0, 0));
+}
+
+void Game::initEntities(std::string fileName)
+{
+	sf::Image image;
+	image.loadFromFile(fileName);
+
+	this->entities.clear();
+	for (int i = 0; i < image.getSize().x; i++)
+		for (int j = 0; j < image.getSize().y; j++)
+		{
+			sf::Color color = image.getPixel(i, j);
+			if (color == sf::Color(237, 28, 36, 255))
+			{
+				this->player = new Player(sf::Vector2f(42, 48), sf::Vector2f(i * 50, j * 50));
+				this->entities.insert(this->entities.begin(), this->player);
+			}
+		}
+}
+
+Game::Game()
+{
+	this->initVariables();
+	this->initWindow();
+
+	this->currentScene = std::make_unique<Welcome>(this->renderTexture);
+	this->currentGameState = GameState::PLAY;
+	this->held = false;
+}
+
+Game::~Game()
+{
+	delete this->window;
+
+	while (!this->entities.empty())
+	{
+		delete this->entities.back();
+		this->entities.pop_back();
+	}
+
+	delete this->map;
+}
+
+void Game::pollEvents()
+{
+	while (this->window->pollEvent(this->ev))
+	{
+		switch (this->ev.type)
+		{
+		case sf::Event::Closed:
+			this->window->close();
+			break;
+		case sf::Event::KeyPressed:
+			break;
+		}
+	}
+}
+
+void Game::updateMousePosition()
+{
+	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+}
+
+const bool Game::running() const
+{
+	return this->window->isOpen();
+}
+
+void Game::update(float deltaTime)
+{
+	this->pollEvents();
+	this->updateMousePosition();
+
+	//this->updateEntities(deltaTime);
+	//this->updateCollision();
+	//this->updateCamera(deltaTime);
+	//this->updateLastPosition();
+
+	switch (this->currentGameState)
+	{
+	case GameState::LEVEL1:
+		this->updateEntities(deltaTime);
+		this->updateCollision();
+		this->updateCamera(deltaTime);
+		this->updateLastPosition();
+		break;
+	default:
+		this->currentScene->update(deltaTime);
+		this->changeScene(this->currentScene->getNextScene());
+		break;
+	}
+}
+
+void Game::updateEntities(float deltaTime)
+{
+	for (auto& e : this->entities)
+		e->update(deltaTime);
+}
+
+void Game::updateCollision()
+{
+	for (auto& e : this->entities)
+	{
+		Collision::handle_entity_map(e, this->map);
+	}
+}
+
+void Game::updateCamera(float deltaTime)
+{
+	if (!this->player) return;
+	this->camera.setPosition(this->player->getPosition());
+}
+
+void Game::updateLastPosition()
+{
+	for (auto& e : this->entities)
+		e->updateLastPosition();
+}
+
+void Game::render()
+{
+	this->window->clear(sf::Color::White);
+	sf::View viewGame = this->camera.getView(this->window->getSize());
+	this->window->setView(viewGame);
+
+	switch (this->currentGameState)
+	{
+	case GameState::LEVEL1:
+		this->renderMap();
+		this->renderEntities();
+		break;
+	default:
+		this->currentScene->render(*this->window, held);
+		break;
+	}
+}
+
+void Game::renderEntities()
+{
+	for (auto& e : this->entities)
+		e->render(*this->window);
+}
+
+void Game::renderMap()
+{
+	this->map->render(*this->window);
+}
+
 void Game::run()
 {
-
-	while (window.isOpen())
+	while (this->window->isOpen())
 	{
-		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) window.close();
-
-		}
-		float dt = clock.restart().asSeconds();
-		currentScene->update(dt);
-		changeScene(currentScene->getNextScene());
-		render(debounceClock.getElapsedTime().asSeconds());
-		window.display();
-
-
+		float deltaTime = this->clock.restart().asSeconds();
+		this->update(deltaTime);
+		this->render();
+		this->window->display();
 	}
 }

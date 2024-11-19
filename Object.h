@@ -16,10 +16,14 @@ public:
 	Object(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Object();
 
+	sf::Vector2f getPosition() const;
 	const sf::FloatRect getGLobalBounds() const;
+
 	void setPosition(sf::Vector2f position);
 	void setOrigin(sf::Vector2f origin);
 	void setEnabled(bool enabled);
+
+	sf::FloatRect getGlobalBounds() const;
 
 	virtual void update(float deltaTime);
 	virtual void render(sf::RenderTarget& target);

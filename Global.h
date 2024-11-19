@@ -1,13 +1,20 @@
 #pragma once
+
+#define INT(enumValue) static_cast<int>(enumValue)
+
 #include<string>
+<<<<<<< HEAD
 #include<SFML\Graphics.hpp>
+=======
+
+>>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
 
 const int TILE_SIZE = 50;
 
-const float GRAVITY = 980.f;
+const float GRAVITY = 3000.f;
 
 // directories
 const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/";
@@ -25,15 +32,20 @@ const float	CAMERA_ACCELERATION = 10.0f;
 const float CAMERA_DECELERATION = 10.0f;
 
 // player
-const float PLAYER_MAX_SPEED = 200.0f;
-const float PLAYER_ACCELERATION = 10.0f;
-const float PLAYER_DECELERATION = 10.0f;
-const float PLAYER_JUMP_STRENGHT = 300.0f;
+const float PLAYER_MAX_SPEED = 400.f;
+const float PLAYER_MAX_FALL_SPEED = 2000.f;
+const float PLAYER_ACCELERATION = 1000.f;
+const float PLAYER_DECELERATION = 1400.f;
+const float PLAYER_JUMP_STRENGHT = 1000.f;
+
+// utilities
+void adjustBetween(float& value, float minValue, float maxValue);
 
 // Color
 const sf::Color PINK = sf::Color (177, 80, 199);
 enum class GameState
 {
+<<<<<<< HEAD
 	/*HOME = 0,
 	SETTING,
 	SELECT_CHARACTER,
@@ -44,14 +56,21 @@ enum class GameState
 	END_FLAG*/
 	WELCOME,
 	LOGIN,
+=======
+	WELCOME = 0,
+>>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 	PLAY,
 	SELECT_CHARACTER,
 	SELECT_LEVEL,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
+<<<<<<< HEAD
 	GAME_OVER
 
+=======
+	NUM_GAME_STATES
+>>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 };
 
 enum class PlayerState
@@ -59,9 +78,8 @@ enum class PlayerState
 	IDLE = 0,
 	WALK,
 	JUMP,
-	SHOOT,
 	DIE,
-	END_FLAG
+	NUM_PLAYER_STATES
 };
 
 enum class PowerUpType
@@ -72,8 +90,13 @@ enum class PowerUpType
 	MAGNET,
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
+<<<<<<< HEAD
 	FLYING_NIMBUS,
 	END_FLAG
+=======
+	INVICIBLE,
+	NUM_POWER_UPS
+>>>>>>> a4c7a06dd011335e9651239fc49e3cea5f2b1eda
 };
 
 enum class LuckyBlockType
@@ -81,7 +104,7 @@ enum class LuckyBlockType
 	COIN = 0,
 	POWER_UP,
 	RANDOM_POWER_UP,
-	END_FLAG
+	NUM_LUCKY_BLOCK_TYPES
 };
 
 enum class TileType
@@ -100,5 +123,5 @@ enum class TileType
 	SPIKE,
 	WATER,
 	LAVA,
-	END_FLAG
+	NUM_TILE_TYPES
 };

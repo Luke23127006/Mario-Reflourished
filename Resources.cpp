@@ -12,10 +12,20 @@ void Resources::initTextures()
 	textures["MARIO_WALK"].loadFromFile("./Resources/Characters/Mario/mario_walk.png");
 	textures["MARIO_JUMP"].loadFromFile("./Resources/Characters/Mario/mario_jump.png");
 	textures["MARIO_DIE"].loadFromFile("./Resources/Characters/Mario/mario_die.png");
+
+    // tiles
+	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "brick.png");
+
+    // UI
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Login Background"] = textures["Welcome Background"];
     textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
+
+	for (auto& t : textures)
+	{
+		t.second.setSmooth(true);
+	}
 }
 
 void Resources::initFonts()
