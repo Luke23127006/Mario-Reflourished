@@ -12,10 +12,12 @@ public:
 	static std::map<std::string, sf::Texture> textures;
 	static std::map<std::string, sf::Font> fonts;
 	static std::map<std::string, sf::SoundBuffer> sounds;
+	static sf::Color* getColor;
 
 	void initTextures();
 	void initFonts();
 	void initSounds();
+	void initColors();
 
 	Resources();
 	virtual ~Resources();

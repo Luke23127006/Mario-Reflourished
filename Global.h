@@ -13,7 +13,7 @@ const int TILE_SIZE = 50;
 const float GRAVITY = 3000.f;
 
 // directories
-const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/";
+const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/Mario/";
 const std::string DECORATIONS_DIRECTORY = "./Resources/Decorations/";
 const std::string ENEMIES_DIRECTORY = "./Resources/Enemies/";
 const std::string FONTS_DIRECTORY = "./Resources/Fonts/";
