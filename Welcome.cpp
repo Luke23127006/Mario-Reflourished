@@ -1,136 +1,123 @@
 ﻿#include "Welcome.h"
 #include "UserInterface.h"
 
-
-
-
-
-
 Welcome::Welcome(sf::RenderTexture& window)
 {
 	sf::Color pink(177, 80, 199);
-	buttons.push_back(&playButton);
-	buttons.push_back(&exitButton);
+	this->buttons.push_back(&this->playButton);
+	this->buttons.push_back(&this->exitButton);
 	// play
 	
-	playButton.setText("Play");
-	playButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - playButton.getSize().y));
-	playButton.setButtonColor(pink);
-	playButton.setTextColor(sf::Color::White);
+	this->playButton.setText("Play");
+	this->playButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->playButton.getSize().y));
+	this->playButton.setButtonColor(pink);
+	this->playButton.setTextColor(sf::Color::White);
 
 	// exit
-	exitButton.setText("Exit");
-	exitButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + exitButton.getSize().y));
-	exitButton.setButtonColor(pink);
-	exitButton.setTextColor(sf::Color::White);
+	this->exitButton.setText("Exit");
+	this->exitButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->exitButton.getSize().y));
+	this->exitButton.setButtonColor(pink);
+	this->exitButton.setTextColor(sf::Color::White);
 	
 	// background
-	loadTexture();
-	/*welcomeSprite.setPosition(0, 0);
-	welcomeSprite.setScale(window.getSize().x / welcomeSprite.getGlobalBounds().width, window.getSize().y / welcomeSprite.getGlobalBounds().height);*/
-	welcomeAnimation->setPosition(sf::Vector2f(0, 0));
-	welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
-	selectedButton = -1;
+	this->loadTexture();
+	/*this->welcomeSprite.setPosition(0, 0);
+	this->welcomeSprite.setScale(window.getSize().x / this->welcomeSprite.getGlobalBounds().width, window.getSize().y / this->welcomeSprite.getGlobalBounds().height);*/
+	this->welcomeAnimation->setPosition(sf::Vector2f(0, 0));
+	this->welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
+	this->selectedButton = -1;
 
-	isPressedUp = false;
-	isPressedDown = false;
-	goToPlayScene = false;
+	this->isPressedUp = false;
+	this->isPressedDown = false;
+	this->goToPlayScene = false;
 }
 
 void Welcome::draw(sf::RenderWindow& window)
 {
-	//window.draw(welcomeSprite);
-	welcomeAnimation->render(window, sf::Vector2f(0, 0));
-	playButton.draw(window);
-	exitButton.draw(window);
+	//window.draw(this->welcomeSprite);
+	this->welcomeAnimation->render(window, sf::Vector2f(0, 0));
+	this->playButton.draw(window);
+	this->exitButton.draw(window);
 }
 
 void Welcome::loadTexture()
 {
-	/*if (!welcomeTexture.loadFromFile("Sinestrea Princess.png"))
+	/*if (!this->welcomeTexture.loadFromFile("Sinestrea Princess.png"))
 	{
 		std::cerr << "Error loading welcome texture\n";
 		return;
 	}*/
-	welcomeTexture = Resources::textures["Welcome Background"];
-	welcomeSprite.setTexture(welcomeTexture);
+	this->welcomeTexture = Resources::textures["Welcome Background"];
+	this->welcomeSprite.setTexture(this->welcomeTexture);
 	int totalFrames = this->welcomeTexture.getSize().x / 240;
-	welcomeAnimation = new Animation(welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
+	this->welcomeAnimation = new Animation(this->welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
-
 
 void Welcome::updateHoverButton(sf::RenderWindow& window)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		
-		if (!isPressedDown)
+		if (!this->isPressedDown)
 		{
-			if (selectedButton != -1)
-					(*buttons[selectedButton]).changeHovered();
-			selectedButton = (selectedButton + 1) % buttons.size();
-			(*buttons[selectedButton]).changeHovered();
-			isPressedDown = true;
+			if (this->selectedButton != -1)
+				(*this->buttons[this->selectedButton]).changeHovered();
+			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
+			(*this->buttons[this->selectedButton]).changeHovered();
+			this->isPressedDown = true;
 			std::cout << "Down\n";
 		}
-
 	}
 	else {
-		isPressedDown = false;
+		this->isPressedDown = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		
-		if (!isPressedUp)
+		if (!this->isPressedUp)
 		{
-			if (selectedButton != -1)
-				(*buttons[selectedButton]).changeHovered();
+			if (this->selectedButton != -1)
+				(*this->buttons[this->selectedButton]).changeHovered();
 			else {
-				selectedButton = buttons.size();
+				this->selectedButton = this->buttons.size();
 			}
-			selectedButton = (selectedButton - 1 + buttons.size()) % buttons.size();
-			(*buttons[selectedButton]).changeHovered();
-			isPressedUp = true;
+			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % this->buttons.size();
+			(*this->buttons[this->selectedButton]).changeHovered();
+			this->isPressedUp = true;
 			std::cout << "Up\n";
 		}
-
 	}
 	else {
-		isPressedUp = false;
+		this->isPressedUp = false;
 	}
-	for (int i = 0; i < buttons.size(); i++)
+	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		if (buttons[i]->isHoverMouse(window))
+		if (this->buttons[i]->isHoverMouse(window))
 		{
-			
-			if (i == selectedButton)
+			if (i == this->selectedButton)
 			{
 				break;
 			}
-			if (selectedButton != -1)
-				buttons[selectedButton]->changeHovered();
-			selectedButton = i;
-			buttons[selectedButton]->changeHovered();
+			if (this->selectedButton != -1)
+				this->buttons[this->selectedButton]->changeHovered();
+			this->selectedButton = i;
+			this->buttons[this->selectedButton]->changeHovered();
 		}
 	}
 }
 
 void Welcome::updateClickButton(sf::RenderWindow& window)
 {
-	if (selectedButton == -1)
+	if (this->selectedButton == -1)
 		return;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && buttons[selectedButton]->isHoverMouse(window)))
+		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window)))
 	{
-		switch (selectedButton)
+		switch (this->selectedButton)
 		{
 		case 0:
-			
-			goToPlayScene = true;
+			this->goToPlayScene = true;
 			break;
 		case 1:
-			
 			window.close();
 			break;
 		default:
@@ -138,33 +125,33 @@ void Welcome::updateClickButton(sf::RenderWindow& window)
 		}
 	}
 }
+
 void Welcome::updateAnimation(float dt)
 {
-	welcomeAnimation->update(dt,false);
+	this->welcomeAnimation->update(dt, false);
 }
+
 void Welcome::render(sf::RenderWindow& window)
 {
-	
-	
-	updateHoverButton(window);
-	updateClickButton(window);
-	for (int i = 0; i < buttons.size(); i++)
+	this->updateHoverButton(window);
+	this->updateClickButton(window);
+	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		buttons[i]->colorHoverButton(window);
+		this->buttons[i]->colorHoverButton(window);
 	}
-	draw(window);
-
+	this->draw(window);
 }
 
 void Welcome::update(float dt)
 {
-	updateAnimation(dt);
+	this->updateAnimation(dt);
 }
+
 GameState Welcome::getNextScene()
 {
-	if (goToPlayScene)
+	if (this->goToPlayScene)
 	{
-		goToPlayScene  = false;
+		this->goToPlayScene = false;
 		return GameState::PLAY;
 	}
 	return GameState::WELCOME;
@@ -172,5 +159,5 @@ GameState Welcome::getNextScene()
 
 Welcome::~Welcome()
 {
-	delete welcomeAnimation;
+	delete this->welcomeAnimation;
 }

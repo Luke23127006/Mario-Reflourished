@@ -24,10 +24,8 @@ class Game
 private:
 	// Variables
 	sf::VideoMode videoMode;
-	sf::RenderTexture renderTexture;
 	sf::RenderWindow* window;
 	sf::Event ev;
-	GameState currentGameState;
 	Camera camera;
 	sf::Clock clock;
 
@@ -41,6 +39,8 @@ private:
 	Map* map;
 
 	// UI
+	sf::RenderTexture renderTexture;
+	GameState currentGameState;
 	std::unique_ptr<Scene> currentScene;
 	void changeScene(GameState nextScene);
 	void applyToMainWindow();

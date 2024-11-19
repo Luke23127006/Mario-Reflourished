@@ -3,140 +3,131 @@
 Play::Play(sf::RenderTexture& window)
 {
 	sf::Color pink(177, 80, 199);
-	buttons.push_back(&selectCharacterButton);
-	buttons.push_back(&selectLevelButton);
-	buttons.push_back(&backButton);
+	this->buttons.push_back(&this->selectCharacterButton);
+	this->buttons.push_back(&this->selectLevelButton);
+	this->buttons.push_back(&this->backButton);
 	// Background
-	loadTexture();
-	playBackground.setPosition(0, 0);
-	playBackground.setScale(window.getSize().x / playBackground.getGlobalBounds().width, window.getSize().y / playBackground.getGlobalBounds().height);
+	this->loadTexture();
+	this->playBackground.setPosition(0, 0);
+	this->playBackground.setScale(window.getSize().x / this->playBackground.getGlobalBounds().width, window.getSize().y / this->playBackground.getGlobalBounds().height);
 	
 	// Select character button
-	selectCharacterButton.setText("Select Level");
-	selectCharacterButton.setButtonSize(sf::Vector2f(300, 50));
-	selectCharacterButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 - selectCharacterButton.getSize().y));
-	selectCharacterButton.setButtonColor(pink);
-	selectCharacterButton.setTextColor(sf::Color::White);
+	this->selectCharacterButton.setText("Select Level");
+	this->selectCharacterButton.setButtonSize(sf::Vector2f(300, 50));
+	this->selectCharacterButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 - this->selectCharacterButton.getSize().y));
+	this->selectCharacterButton.setButtonColor(pink);
+	this->selectCharacterButton.setTextColor(sf::Color::White);
 
 	// Select level button
-	selectLevelButton.setText("Select Character");
-	selectLevelButton.setButtonSize(sf::Vector2f(300, 50));
-	selectLevelButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 + selectLevelButton.getSize().y));
-	selectLevelButton.setButtonColor(pink);
-	selectLevelButton.setTextColor(sf::Color::White);
+	this->selectLevelButton.setText("Select Character");
+	this->selectLevelButton.setButtonSize(sf::Vector2f(300, 50));
+	this->selectLevelButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 + this->selectLevelButton.getSize().y));
+	this->selectLevelButton.setButtonColor(pink);
+	this->selectLevelButton.setTextColor(sf::Color::White);
 
 	// Back button
-	backButton.setText("Back");
-	backButton.setPosition(sf::Vector2f(window.getSize().x - backButton.getSize().x / 2, backButton.getSize().y / 2));
-	backButton.setButtonColor(pink);
-	backButton.setTextColor(sf::Color::White);
+	this->backButton.setText("Back");
+	this->backButton.setPosition(sf::Vector2f(window.getSize().x - this->backButton.getSize().x / 2, this->backButton.getSize().y / 2));
+	this->backButton.setButtonColor(pink);
+	this->backButton.setTextColor(sf::Color::White);
 	
-	isPressedUp = false;
-	isPressedDown = false;
-	goToSelectCharacterScene = false;
-	goToSelectLevelScene = false;
-	backToWelcome = false;
-	selectedButton = -1;
-	
-
-
+	this->isPressedUp = false;
+	this->isPressedDown = false;
+	this->goToSelectCharacterScene = false;
+	this->goToSelectLevelScene = false;
+	this->backToWelcome = false;
+	this->selectedButton = -1;
 }
+
 void Play::loadTexture()
 {
-	//if (!playTexture.loadFromFile("Robot.jpg"))
+	//if (!this->playTexture.loadFromFile("Robot.jpg"))
 	//{
 	//	std::cerr << "Error loading play texture\n";
 	//}
-	playTexture = Resources::textures["Play Background"];
-	playBackground.setTexture(playTexture);
+	this->playTexture = Resources::textures["Play Background"];
+	this->playBackground.setTexture(this->playTexture);
 }
-
 
 void Play::draw(sf::RenderWindow& window)
 {
-	window.draw(playBackground);
-	selectCharacterButton.draw(window);
-	selectLevelButton.draw(window);
-	backButton.draw(window);
+	window.draw(this->playBackground);
+	this->selectCharacterButton.draw(window);
+	this->selectLevelButton.draw(window);
+	this->backButton.draw(window);
 }
-
-
 
 void Play::updateHoverButton(sf::RenderWindow& window)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-
-		if (!isPressedDown)
+		if (!this->isPressedDown)
 		{
-			if (selectedButton != -1)
-				(*buttons[selectedButton]).changeHovered();
-			selectedButton = (selectedButton + 1) % buttons.size();
-			(*buttons[selectedButton]).changeHovered();
-			isPressedDown = true;
+			if (this->selectedButton != -1)
+				(*this->buttons[this->selectedButton]).changeHovered();
+			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
+			(*this->buttons[this->selectedButton]).changeHovered();
+			this->isPressedDown = true;
 			std::cout << "Down\n";
 		}
-
 	}
 	else {
-		isPressedDown = false;
+		this->isPressedDown = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-
-		if (!isPressedUp)
+		if (!this->isPressedUp)
 		{
-			if (selectedButton != -1)
-				(*buttons[selectedButton]).changeHovered();
+			if (this->selectedButton != -1)
+				(*this->buttons[this->selectedButton]).changeHovered();
 			else {
-				selectedButton = static_cast<int>(buttons.size());
+				this->selectedButton = static_cast<int>(this->buttons.size());
 			}
-			selectedButton = (selectedButton - 1 + buttons.size()) % static_cast<int>(buttons.size());
-			(*buttons[selectedButton]).changeHovered();
-			isPressedUp = true;
+			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % static_cast<int>(this->buttons.size());
+			(*this->buttons[this->selectedButton]).changeHovered();
+			this->isPressedUp = true;
 			std::cout << "Up\n";
 		}
-
 	}
 	else {
-		isPressedUp = false;
+		this->isPressedUp = false;
 	}
-	for (int i = 0; i < buttons.size(); i++)
+	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		if (buttons[i]->isHoverMouse(window))
+		if (this->buttons[i]->isHoverMouse(window))
 		{
-			if (i == selectedButton)
+			if (i == this->selectedButton)
 			{
 				break;
 			}
-			if (selectedButton != -1)
-				buttons[selectedButton]->changeHovered();
-			selectedButton = i;
-			buttons[i]->changeHovered();
+			if (this->selectedButton != -1)
+				this->buttons[this->selectedButton]->changeHovered();
+			this->selectedButton = i;
+			this->buttons[i]->changeHovered();
 		}
 	}
-	
 }
+
 void Play::updateClickButton(sf::RenderWindow& window)
 {
-	if (selectedButton == -1)
+	if (this->selectedButton == -1)
 	{
 		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && buttons[selectedButton]->isHoverMouse(window)))
+		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window)))
 	{
-		switch (selectedButton)
+		switch (this->selectedButton)
 		{
 		case 0:
-			goToSelectLevelScene = true;
+			this->goToSelectLevelScene = true;
 			break;
 		case 1:
-			goToSelectCharacterScene = true;
+			this->goToSelectCharacterScene = true;
 			break;
 		case 2:
-			backToWelcome = true;
+			this->backToWelcome = true;
 			break;
 		default:
 			break;
@@ -146,34 +137,31 @@ void Play::updateClickButton(sf::RenderWindow& window)
 
 void Play::render(sf::RenderWindow& window)
 {
-
-	updateHoverButton(window);
-	updateClickButton(window);
-	for (int i = 0; i < buttons.size(); i++)
+	this->updateHoverButton(window);
+	this->updateClickButton(window);
+	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		buttons[i]->colorHoverButton(window);
+		this->buttons[i]->colorHoverButton(window);
 	}
-	draw(window);
-
-	
+	this->draw(window);
 }
+
 GameState Play::getNextScene()
 {
-	if (backToWelcome)
+	if (this->backToWelcome)
 	{
-		backToWelcome = false;
+		this->backToWelcome = false;
 		return GameState::WELCOME;
 	}
-	if (goToSelectCharacterScene)
+	if (this->goToSelectCharacterScene)
 	{
-		goToSelectCharacterScene = false;
+		this->goToSelectCharacterScene = false;
 		return GameState::SELECT_CHARACTER;
 	}
-	if (goToSelectLevelScene)
+	if (this->goToSelectLevelScene)
 	{
-		goToSelectCharacterScene = false;
+		this->goToSelectCharacterScene = false;
 		return GameState::SELECT_LEVEL;
 	}
 	return GameState::PLAY;
-	
 }
