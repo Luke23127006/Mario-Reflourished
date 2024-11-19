@@ -21,17 +21,17 @@ void Resources::initTextures()
 	textures["PIPE"].loadFromFile(TILES_DIRECTORY + "Pipe.png");
 	textures["BLOCK"].loadFromFile(TILES_DIRECTORY + "Block.png");
 
+
+
+	// all above textures are smooth
+	for (auto& t : textures) t.second.setSmooth(true);
+	// all below textures are not smooth
+	
+
     // UI
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
-
-	
-
-	for (auto& t : textures)
-	{
-		t.second.setSmooth(true);
-	}
 }
 
 void Resources::initFonts()
