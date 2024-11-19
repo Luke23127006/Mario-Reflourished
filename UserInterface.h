@@ -14,7 +14,7 @@ class Scene
 public:
 	virtual ~Scene() = default;
 	virtual void update(float deltaTime);                     // Pure virtual
-	virtual void render(sf::RenderWindow& window) = 0;     // Pure virtual
+	virtual void render(sf::RenderWindow& window, bool& held) = 0;     // Pure virtual
 	virtual GameState getNextScene() = 0;                  // Pure virtual
 };
 

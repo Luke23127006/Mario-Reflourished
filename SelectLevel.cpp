@@ -118,31 +118,40 @@ void SelectLevel::updateHoverButton(sf::RenderWindow& window)
 	}
 }
 
-void SelectLevel::updateClickButton(sf::RenderWindow& window)
+void SelectLevel::updateClickButton(sf::RenderWindow& window, bool& held)
 {
-	if (this->selectedButton == -1)
-		return;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		switch (this->selectedButton)
+		if (held == false)
 		{
-		case 0:
-			this->goToLevel1 = true;
-			break;
-		case 1:
-			this->goToLevel2 = true;
-			break;
-		case 2:
-			this->goToLevel3 = true;
-			break;
-		case 3:
-			this->backToPlay = true;
-			break;
-		default:
-			break;
+			held = true;
+			if (this->selectedButton >= 0)
+			{
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window))
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+					switch (this->selectedButton)
+					{
+					case 0:
+						this->goToLevel1 = true;
+						break;
+					case 1:
+						this->goToLevel2 = true;
+						break;
+					case 2:
+						this->goToLevel3 = true;
+						break;
+					case 3:
+						this->backToPlay = true;
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 	}
+	else held = false;
 }
 
 GameState SelectLevel::getNextScene()
@@ -170,10 +179,10 @@ GameState SelectLevel::getNextScene()
 	return GameState::SELECT_LEVEL;
 }
 
-void SelectLevel::render(sf::RenderWindow& window)
+void SelectLevel::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
-	this->updateClickButton(window);
+	this->updateClickButton(window, held);
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
 		this->buttons[i]->colorHoverButton(window);

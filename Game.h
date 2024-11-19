@@ -39,6 +39,7 @@ private:
 	Map* map;
 
 	// UI
+	bool held;
 	sf::RenderTexture renderTexture;
 	GameState currentGameState;
 	std::unique_ptr<Scene> currentScene;

@@ -23,11 +23,11 @@ public:
 	Welcome(sf::RenderTexture& window);
 	void loadTexture();
 	void updateHoverButton(sf::RenderWindow& window);
-	void updateClickButton(sf::RenderWindow& window);
+	void updateClickButton(sf::RenderWindow& window, bool& held);
 	void updateAnimation(float dt);
 	void draw(sf::RenderWindow& window);
 	void update(float dt) override;
-	void render(sf::RenderWindow& window) override;
+	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;
 	~Welcome();
 };

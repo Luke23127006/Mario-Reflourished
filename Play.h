@@ -27,8 +27,8 @@ public:
 	void loadTexture();
 	void draw(sf::RenderWindow& window);
 	void updateHoverButton(sf::RenderWindow& window);
-	void updateClickButton(sf::RenderWindow& window);
-	void render(sf::RenderWindow& window) override;
+	void updateClickButton(sf::RenderWindow& window, bool& held);
+	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;
 };
 

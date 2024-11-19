@@ -109,36 +109,43 @@ void Play::updateHoverButton(sf::RenderWindow& window)
 	}
 }
 
-void Play::updateClickButton(sf::RenderWindow& window)
+void Play::updateClickButton(sf::RenderWindow& window, bool& held)
 {
-	if (this->selectedButton == -1)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		return;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window)))
-	{
-		switch (this->selectedButton)
+		if (held == false)
 		{
-		case 0:
-			this->goToSelectLevelScene = true;
-			break;
-		case 1:
-			this->goToSelectCharacterScene = true;
-			break;
-		case 2:
-			this->backToWelcome = true;
-			break;
-		default:
-			break;
+			held = true;
+			if (this->selectedButton >= 0)
+			{
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window))
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+					switch (this->selectedButton)
+					{
+					case 0:
+						this->goToSelectLevelScene = true;
+						break;
+					case 1:
+						this->goToSelectCharacterScene = true;
+						break;
+					case 2:
+						this->backToWelcome = true;
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 	}
+	else held = false;
 }
 
-void Play::render(sf::RenderWindow& window)
+void Play::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
-	this->updateClickButton(window);
+	this->updateClickButton(window, held);
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
 		this->buttons[i]->colorHoverButton(window);

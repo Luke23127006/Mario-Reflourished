@@ -97,6 +97,7 @@ Game::Game()
 
 	this->currentScene = std::make_unique<Welcome>(this->renderTexture);
 	this->currentGameState = GameState::PLAY;
+	this->held = false;
 }
 
 Game::~Game()
@@ -202,7 +203,7 @@ void Game::render()
 		this->renderEntities();
 		break;
 	default:
-		this->currentScene->render(*this->window);
+		this->currentScene->render(*this->window, held);
 		break;
 	}
 }

@@ -7,7 +7,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 	this->buttons.push_back(&this->playButton);
 	this->buttons.push_back(&this->exitButton);
 	// play
-	
+
 	this->playButton.setText("Play");
 	this->playButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->playButton.getSize().y));
 	this->playButton.setButtonColor(pink);
@@ -18,7 +18,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 	this->exitButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->exitButton.getSize().y));
 	this->exitButton.setButtonColor(pink);
 	this->exitButton.setTextColor(sf::Color::White);
-	
+
 	// background
 	this->loadTexture();
 	/*this->welcomeSprite.setPosition(0, 0);
@@ -105,25 +105,34 @@ void Welcome::updateHoverButton(sf::RenderWindow& window)
 	}
 }
 
-void Welcome::updateClickButton(sf::RenderWindow& window)
+void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
 {
-	if (this->selectedButton == -1)
-		return;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window)))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		switch (this->selectedButton)
+		if (held == false)
 		{
-		case 0:
-			this->goToPlayScene = true;
-			break;
-		case 1:
-			window.close();
-			break;
-		default:
-			break;
+			held = true;
+			if (this->selectedButton >= 0)
+			{
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window))
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+					switch (this->selectedButton)
+					{
+					case 0:
+						this->goToPlayScene = true;
+						break;
+					case 1:
+						window.close();
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 	}
+	else held = false;
 }
 
 void Welcome::updateAnimation(float dt)
@@ -131,10 +140,10 @@ void Welcome::updateAnimation(float dt)
 	this->welcomeAnimation->update(dt, false);
 }
 
-void Welcome::render(sf::RenderWindow& window)
+void Welcome::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
-	this->updateClickButton(window);
+	this->updateClickButton(window, held);
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
 		this->buttons[i]->colorHoverButton(window);
