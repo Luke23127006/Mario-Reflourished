@@ -212,8 +212,8 @@ void Game::render()
 	switch (this->currentGameState)
 	{
 	case GameState::LEVEL1: case GameState::LEVEL2:
-		this->renderMap();
 		this->renderEntities();
+		this->renderMap();
 		break;
 	default:
 		this->currentScene->render(*this->window, held);

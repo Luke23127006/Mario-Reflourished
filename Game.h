@@ -11,14 +11,10 @@
 #include "Map.h"
 #include "Camera.h"
 #include "Collision.h"
-#include "Map.h"
-#include "Camera.h"
-#include "Collision.h"
 #include "UserInterface.h"
 #include "Welcome.h"
 #include "SelectLevel.h"
 #include "Login.h"
-#include "Camera.h"
 #include "Play.h"
 
 class Game

@@ -44,7 +44,6 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			{
 				this->mapData[i][j] = TileType::PIPE;
 
-				Pipe* pipe = nullptr;
 				if (this->mapData[i][j - 1] == TileType::PIPE)
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
@@ -74,26 +73,23 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			{
 				this->mapData[i][j] = TileType::PIPE;
 
-				Pipe* pipe = nullptr;
 				if (this->mapData[i][j - 1] == TileType::PIPE)
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
-						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
 					else
 					{
-						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
-						destination.push_back(sf::Vector2f(i * TILE_SIZE + pipe->getGlobalBounds().width, j * TILE_SIZE));
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						destination.push_back(sf::Vector2f(i * TILE_SIZE + this->map[i][j]->getGlobalBounds().width, j * TILE_SIZE));
 					}
 				}
 				else
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
-						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
 					else
-						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
 				}
-
-				this->map[i][j] = pipe;
 			}
 			else if (color == Resources::getColor[INT(TileType::BLOCK)])
 			{
@@ -105,15 +101,12 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 
 Map::~Map()
 {
-	for (int i = 0; i < this->map.size(); i++)
-		for (int j = 0; j < this->map[i].size(); j++)
-			delete this->map[i][j];
-
-	while (!this->luckyBlocks.empty())
-	{
-		delete this->luckyBlocks.back();
-		this->luckyBlocks.pop_back();
-	}
+	for (int i = 0; i < this->size.x; i++)
+		while (!this->map[i].empty())
+		{
+			delete this->map[i].back();
+			this->map[i].pop_back();
+		}
 }
 
 sf::Vector2f Map::getPosition()

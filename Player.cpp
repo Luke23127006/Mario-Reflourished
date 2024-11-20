@@ -24,8 +24,11 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 Player::~Player()
 {
-	for (auto& a : this->animation)
-		delete a;
+	while (!animation.empty())
+	{
+		delete animation.back();
+		animation.pop_back();
+	}
 }
 
 void Player::stopJumping()
