@@ -23,9 +23,10 @@ const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
-const float CAMERA_MAX_SPEED = 200.0f;
-const float	CAMERA_ACCELERATION = 10.0f;
-const float CAMERA_DECELERATION = 10.0f;
+const float CAMERA_MAX_SPEED = 400.f;
+const float	CAMERA_ACCELERATION = 800.f;
+const float CAMERA_DECELERATION = 1200.f;
+const float CAMERA_FOLLOW_SPEED = 0.9f;
 
 // player
 const float PLAYER_MAX_SPEED = 400.f;
@@ -36,6 +37,10 @@ const float PLAYER_JUMP_STRENGHT = 1000.f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
+
+// decorations
+const float FLOATING_OBJECT_VELOCITY = 600.f;
+const float FLOATING_OBJECT_EXPIRATION_TIME = 0.2f;
 
 enum class GameState
 {

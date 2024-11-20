@@ -22,6 +22,11 @@ Decoration::~Decoration()
 {
 }
 
+void Decoration::setScale(sf::Vector2f scale)
+{
+	this->sprite.setScale(scale);
+}
+
 void Decoration::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);

@@ -76,6 +76,17 @@
     <ClCompile Include="Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -150,6 +161,14 @@
     <ClInclude Include="Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+
+    <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Maps\Level 2.png">
@@ -161,6 +180,7 @@
     <Image Include="Resources\Maps\Level 1.png">
       <Filter>Resource Files</Filter>
     </Image>
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -172,5 +192,10 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{ba380cec-851b-4b2d-8839-c8f3dd8f4c43}</UniqueIdentifier>
     </Filter>
+
+    <Image Include="Resources\Maps\Level 2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+
   </ItemGroup>
 </Project>

@@ -158,6 +158,7 @@ void Game::update(float deltaTime)
 	{
 	case GameState::LEVEL1:
 		this->updateEntities(deltaTime);
+		this->updateMap(deltaTime);
 		this->updateCollision();
 		this->updateCamera(deltaTime);
 		this->updateLastPosition();
@@ -175,6 +176,11 @@ void Game::updateEntities(float deltaTime)
 		e->update(deltaTime);
 }
 
+void Game::updateMap(float deltaTime)
+{
+	this->map->update(deltaTime);
+}
+
 void Game::updateCollision()
 {
 	for (auto& e : this->entities)
@@ -186,7 +192,8 @@ void Game::updateCollision()
 void Game::updateCamera(float deltaTime)
 {
 	if (!this->player) return;
-	this->camera.setPosition(this->player->getPosition());
+	//this->camera.setPosition(this->player->getPosition());
+	this->camera.update(deltaTime, this->player->getPosition());
 }
 
 void Game::updateLastPosition()

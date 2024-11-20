@@ -5,6 +5,7 @@
 #include "Tile.h"
 #include "Coin.h"
 #include "Map.h"
+#include "LuckyBlock.h"
 
 class Collision
 {

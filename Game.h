@@ -68,6 +68,7 @@ public:
 	// Update
 	void update(float deltaTime);
 	void updateEntities(float deltaTime);
+	void updateMap(float deltaTime);
 	void updateCollision();
 	void updateCamera(float deltaTime);
 	void updateLastPosition();

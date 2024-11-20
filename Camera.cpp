@@ -38,4 +38,29 @@ void Camera::move(sf::Vector2f velocity)
 
 void Camera::update(float deltaTime, sf::Vector2f playerPosition)
 {
+	playerPosition.x = playerPosition.x + SCREEN_WIDTH * 0.15f;
+    const float FOLLOW_DISTANCE = 50.f;
+    const float SMOOTHING_FACTOR = 5.f;
+
+    sf::Vector2f offset = playerPosition - this->position;
+
+    if (std::abs(offset.x) > FOLLOW_DISTANCE)
+    {
+        velocity.x = (offset.x - FOLLOW_DISTANCE * (offset.x > 0 ? 1 : -1)) * SMOOTHING_FACTOR * deltaTime;
+    }
+    else
+    {
+        velocity.x = 0.f;
+    }
+
+    if (std::abs(offset.y) > FOLLOW_DISTANCE)
+    {
+        velocity.y = (offset.y - FOLLOW_DISTANCE * (offset.y > 0 ? 1 : -1)) * SMOOTHING_FACTOR * deltaTime;
+    }
+    else
+    {
+        velocity.y = 0.f;
+    }
+
+    this->move(this->velocity * deltaTime);
 }
