@@ -101,3 +101,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 void Collision::handle_player_coin(Player* player, Coin* coin)
 {
 }
+
+void Collision::handle_bullet_tile(Bullet* bullet, Tile* tile)
+{
+}

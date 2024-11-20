@@ -12,7 +12,7 @@ Bullet::~Bullet()
 
 void Bullet::bounce()
 {
-	this->velocity.y = -this->velocity.y;
+	this->velocity.y = -this->velocity.y * 2 / 3;
 }
 
 bool Bullet::isExpired()
