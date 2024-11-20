@@ -66,7 +66,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 
 	if (entityBounds.intersects(tileBounds))
 	{
-		if (above)
+		if (typeid(*tile) == typeid(Portal) && entityBounds.left > tileBounds.left)
+		{
+			entity->setPosition(dynamic_cast<Portal*>(tile)->getDestination());
+		}
+		else if (above)
 		{
 			entity->setOnGround(true);
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
@@ -76,8 +80,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		{
 			if (typeid(*entity) == typeid(Player))
 			{
-				Player* player = dynamic_cast<Player*>(entity);
-				player->stopJumping();
+				dynamic_cast<Player*>(entity)->stopJumping();
 			}
 
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
@@ -85,8 +88,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 
 			if (typeid(*tile) == typeid(LuckyBlock))
 			{
-				LuckyBlock* luckyBlock = dynamic_cast<LuckyBlock*>(tile);
-				luckyBlock->activate();
+				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
 		}
 		else

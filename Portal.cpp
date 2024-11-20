@@ -11,3 +11,8 @@ Portal::Portal(sf::Vector2f position, sf::Vector2f destination) :
 Portal::~Portal()
 {
 }
+
+const sf::Vector2f Portal::getDestination() const
+{
+	return this->destination;
+}

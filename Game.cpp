@@ -212,8 +212,8 @@ void Game::render()
 	switch (this->currentGameState)
 	{
 	case GameState::LEVEL1: case GameState::LEVEL2:
-		this->renderEntities();
 		this->renderMap();
+		this->renderEntities();
 		break;
 	default:
 		this->currentScene->render(*this->window, held);
@@ -237,6 +237,10 @@ void Game::run()
 	while (this->window->isOpen())
 	{
 		float deltaTime = this->clock.restart().asSeconds();
+
+		float FPS = 1 / deltaTime;
+		if (FPS < 30.f) continue;
+
 		this->update(deltaTime);
 		this->render();
 		this->window->display();

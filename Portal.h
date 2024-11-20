@@ -11,5 +11,7 @@ private:
 public:
 	Portal(sf::Vector2f position, sf::Vector2f destination);
 	~Portal();
+
+	const sf::Vector2f getDestination() const;
 };
 

@@ -18,8 +18,8 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 
 	std::vector<sf::Vector2f> destination;
 
-	for (int i = 0; i < this->size.x; i++)
-		for (int j = 0; j < this->size.y; j++)
+	for (int j = 0; j < this->size.y; j++)
+		for (int i = 0; i < this->size.x; i++)
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
@@ -57,7 +57,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 						}
 						else
 						{
-							this->map[i][j] = new Portal(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), sf::Vector2f(0, 0));
+							this->map[i][j] = new Portal(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), sf::Vector2f(destination.back()));
 							destination.pop_back();
 						}
 					}

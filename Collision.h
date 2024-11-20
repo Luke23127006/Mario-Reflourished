@@ -6,6 +6,7 @@
 #include "Coin.h"
 #include "Map.h"
 #include "Bullet.h"
+#include "Portal.h"
 #include "LuckyBlock.h"
 
 class Collision
