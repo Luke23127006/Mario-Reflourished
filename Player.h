@@ -12,6 +12,7 @@ private:
 	PlayerState playerState;
 
 	float invicibleTimer;
+	float jumpTimer;
 	int coins;
 	int lives;
 
@@ -21,6 +22,8 @@ private:
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Player();
+
+	void stopJumping();
 
 	void update(float deltaTime) override;
 	void updateMovement(float deltaTime);

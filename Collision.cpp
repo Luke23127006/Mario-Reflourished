@@ -74,8 +74,15 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		}
 		else if (below)
 		{
+			if (typeid(*entity) == typeid(Player))
+			{
+				Player* player = dynamic_cast<Player*>(entity);
+				player->stopJumping();
+			}
+
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
+
 			if (typeid(*tile) == typeid(LuckyBlock))
 			{
 				LuckyBlock* luckyBlock = dynamic_cast<LuckyBlock*>(tile);
