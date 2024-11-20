@@ -31,21 +31,21 @@ Login::Login(sf::RenderTexture& window)
 	// user name
 	hiddenUserName.setText("User Name");
 	userNameButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y));
-	sf::Vector2f offSet = (userNameButton.getSize() - hiddenUserName.getGlobalBounds().getSize()) / 2.0f;
+	sf::Vector2f offSet = (userNameButton.getSize() - hiddenUserName.getLocalBounds().getSize()) / 2.0f - hiddenUserName.getLocalBounds().getPosition();
 	hiddenUserName.setPosition(userNameButton.getPosition() + offSet);
 	userNameButton.setAbleToWrite(false);
 		
 	// password
 	hiddenPassWord.setText("Password");
 	passwordButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + passwordButton.getSize().y));
-	offSet = (passwordButton.getSize() - hiddenPassWord.getGlobalBounds().getSize()) / 2.0f;
+	offSet = (passwordButton.getSize() - hiddenPassWord.getLocalBounds().getSize()) / 2.0f - hiddenPassWord.getLocalBounds().getPosition();
 	hiddenPassWord.setPosition(passwordButton.getPosition() + offSet);
 	passwordButton.setAbleToWrite(false);
 
 	// confirm password
 	hiddenConfirm.setText("Confirm Pass");
 	confirmPassWordButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + confirmPassWordButton.getSize().y));
-	offSet = (confirmPassWordButton.getSize() - hiddenConfirm.getGlobalBounds().getSize()) / 2.0f;
+	offSet = (confirmPassWordButton.getSize() - hiddenConfirm.getLocalBounds().getSize()) / 2.0f - hiddenConfirm.getLocalBounds().getPosition();
 	hiddenConfirm.setPosition(confirmPassWordButton.getPosition() + offSet);
 	passwordButton.setAbleToWrite(false);
 
@@ -73,7 +73,7 @@ Login::Login(sf::RenderTexture& window)
 	updateRegisterAnimation = false;
 	isErrorLogin = false;
 	isErrorRegister = false;
-	moveTime = 0.5f;
+	moveTime = 0.45f;
 	speedRegister = 0;
 	speedconfirmPassWord = 0;
 	std::cout << "Button size: " << buttons.size() << std::endl;
@@ -216,7 +216,7 @@ void Login::updateClickButton(sf::RenderWindow& window, bool& held)
 			case 2:
 				isRegister = true;
 				updateRegisterAnimation = true;
-				speedRegister = (backButton.getPosition().y - registerButton.getPosition().y) / moveTime;
+				speedRegister = sqrt(pow(confirmPassWordButton.getPosition().x - registerButton.getPosition().x, 2) + pow(confirmPassWordButton.getPosition().y + 3 * confirmPassWordButton.getSize().y - registerButton.getPosition().y, 2)) / moveTime;
 				speedconfirmPassWord = (2 * confirmPassWordButton.getSize().y) / moveTime;
 				addConfirmButton();
 				resetAfterRegister();
@@ -328,8 +328,8 @@ void Login::updateRegisterMovement(float dt)
 		buttons.pop_back();
 		return;
 	}
-
-	registerButton.move(sf::Vector2f(0, speedRegister * dt));
+	float angle = atan2(registerButton.getPosition().y - confirmPassWordButton.getPosition().y, registerButton.getPosition().x - confirmPassWordButton.getPosition().x);
+	registerButton.move(sf::Vector2f(-speedRegister * cos(angle) * dt, -speedRegister * sin(angle) * dt));
 	confirmPassWordButton.move(sf::Vector2f(0, speedconfirmPassWord * dt));
 	hiddenConfirm.move(sf::Vector2f(0, speedconfirmPassWord * dt));
 	moveTime -= dt;

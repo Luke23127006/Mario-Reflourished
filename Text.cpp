@@ -152,16 +152,27 @@ void Text::updateText()
 
 	// Handle number keys
 	for (int i = 0; i < 10; i++) {
-		sf::Keyboard::Key key = static_cast<sf::Keyboard::Key>(i + sf::Keyboard::Num0); // Number
-		if (sf::Keyboard::isKeyPressed(key) && !keyStates[key]) {
-			keyStates[key] = true;
-			text += static_cast<char>('0' + i); 
+		sf::Keyboard::Key keyMain = static_cast<sf::Keyboard::Key>(i + sf::Keyboard::Num0); // Phím số trên hàng chính
+		sf::Keyboard::Key keyNumpad = static_cast<sf::Keyboard::Key>(i + sf::Keyboard::Numpad0); // Phím số trên NumPad
+
+		// Number in main board
+		if (sf::Keyboard::isKeyPressed(keyMain) && !keyStates[keyMain]) {
+			keyStates[keyMain] = true;
+			text += static_cast<char>('0' + i);
 		}
-		else if (!sf::Keyboard::isKeyPressed(key)) {
-			keyStates[key] = false;
+		else if (!sf::Keyboard::isKeyPressed(keyMain)) {
+			keyStates[keyMain] = false;
+		}
+
+		// Number in NumPad
+		if (sf::Keyboard::isKeyPressed(keyNumpad) && !keyStates[keyNumpad]) {
+			keyStates[keyNumpad] = true;
+			text += static_cast<char>('0' + i);
+		}
+		else if (!sf::Keyboard::isKeyPressed(keyNumpad)) {
+			keyStates[keyNumpad] = false;
 		}
 	}
-
 	// Handle Space key
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !keyStates[sf::Keyboard::Space]) {
 		keyStates[sf::Keyboard::Space] = true;
