@@ -98,8 +98,18 @@ enum class TileType
 	LUCKY_BLOCK,
 	BRIGDE,
 	PIPE,
+	PIPE_DESTINATION,
 	SPIKE,
 	WATER,
 	LAVA,
 	NUM_TILE_TYPES
+};
+
+enum class PipeType
+{
+	TOP_LEFT = 0,
+	TOP_RIGHT,
+	BOTTOM_LEFT,
+	BOTTOM_RIGHT,
+	NUM_PIPE_TYPES
 };

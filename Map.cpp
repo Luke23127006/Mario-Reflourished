@@ -43,6 +43,11 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				this->mapData[i][j] = TileType::PIPE;
 				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
 			}
+			else if (color == Resources::getColor[INT(TileType::PIPE_DESTINATION)])
+			{
+				this->mapData[i][j] = TileType::PIPE;
+				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
+			}
 			else if (color == Resources::getColor[INT(TileType::BLOCK)])
 			{
 				this->mapData[i][j] = TileType::BLOCK;

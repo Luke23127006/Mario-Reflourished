@@ -36,10 +36,17 @@ void Game::changeScene(GameState nextScene)
 		if (this->currentGameState == GameState::LEVEL1) return;
 		std::cout << "Level1\n";
 		isChange = true;
-		//this->currentScene = std::make_unique<Level1>(this->renderTexture);
 		this->currentGameState = GameState::LEVEL1;
 		this->initMap(MAPS_DIRECTORY + "Level 1.png");
 		this->initEntities(MAPS_DIRECTORY + "Level 1.png");
+		break;
+	case GameState::LEVEL2:
+		if (this->currentGameState == GameState::LEVEL1) return;
+		std::cout << "Level2\n";
+		isChange = true;
+		this->currentGameState = GameState::LEVEL1;
+		this->initMap(MAPS_DIRECTORY + "Level 2.png");
+		this->initEntities(MAPS_DIRECTORY + "Level 2.png");
 		break;
 	default:
 		break;
@@ -89,7 +96,7 @@ void Game::initEntities(std::string fileName)
 			sf::Color color = image.getPixel(i, j);
 			if (color == sf::Color(255, 0, 0, 255))
 			{
-				this->player = new Player(sf::Vector2f(42, 48), sf::Vector2f(i * 50, j * 50));
+				this->player = new Player(sf::Vector2f(42, 48), sf::Vector2f(i * 50.f, j * 50.f));
 				this->entities.insert(this->entities.begin(), this->player);
 			}
 		}

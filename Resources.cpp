@@ -23,7 +23,6 @@ void Resources::initTextures()
 	textures["EMPTY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Empty Block.png");
 
 
-
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);
 	// all below textures are not smooth
@@ -53,6 +52,7 @@ void Resources::initColors()
 	getColor[INT(TileType::LUCKY_BLOCK)] = sf::Color(255, 151, 87, 255);
 	getColor[INT(TileType::PIPE)] = sf::Color(34, 177, 76, 255);
 	getColor[INT(TileType::BLOCK)] = sf::Color(156, 52, 26, 255);
+	getColor[INT(TileType::PIPE_DESTINATION)] = sf::Color(53, 247, 106);
 }
 
 Resources::Resources()

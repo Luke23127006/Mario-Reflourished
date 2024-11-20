@@ -160,6 +160,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Play.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Play.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SelectLevel.h" />

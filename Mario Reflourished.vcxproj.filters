@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Entity.cpp">
+    <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
@@ -28,6 +25,12 @@
     <ClCompile Include="Decoration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatingObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,10 +46,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Play.cpp">
@@ -76,17 +79,9 @@
     <ClCompile Include="Welcome.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="Portal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FloatingObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -114,6 +109,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatingObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -161,26 +159,20 @@
     <ClInclude Include="Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-
-    <ClInclude Include="Button.h">
+    <ClInclude Include="Portal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FloatingObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Maps\Level 1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="Resources\Maps\Level 2.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Maps\demo_map.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Maps\Level 1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -192,10 +184,5 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{ba380cec-851b-4b2d-8839-c8f3dd8f4c43}</UniqueIdentifier>
     </Filter>
-
-    <Image Include="Resources\Maps\Level 2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-
   </ItemGroup>
 </Project>
