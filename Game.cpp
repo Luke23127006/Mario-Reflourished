@@ -37,16 +37,14 @@ void Game::changeScene(GameState nextScene)
 		std::cout << "Level1\n";
 		isChange = true;
 		this->currentGameState = GameState::LEVEL1;
-		this->initMap(MAPS_DIRECTORY + "Level 1.png");
-		this->initEntities(MAPS_DIRECTORY + "Level 1.png");
+		this->initLevel(MAPS_DIRECTORY + "Level 1.png");
 		break;
 	case GameState::LEVEL2:
 		if (this->currentGameState == GameState::LEVEL2) return;
 		std::cout << "Level2\n";
 		isChange = true;
 		this->currentGameState = GameState::LEVEL2;
-		this->initMap(MAPS_DIRECTORY + "Level 2.png");
-		this->initEntities(MAPS_DIRECTORY + "Level 2.png");
+		this->initLevel(MAPS_DIRECTORY + "Level 2.png");
 		break;
 	default:
 		break;
@@ -77,6 +75,13 @@ void Game::initWindow()
 {
 	this->videoMode = sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT);
 	this->window = new sf::RenderWindow(this->videoMode, "Mario Reflourished");
+}
+
+void Game::initLevel(std::string fileName)
+{
+	this->camera.setPosition(sf::Vector2f(0, 0));
+	this->initMap(fileName);
+	this->initEntities(fileName);
 }
 
 void Game::initMap(std::string fileName)
@@ -164,6 +169,8 @@ void Game::update(float deltaTime)
 		this->updateCollision();
 		this->updateCamera(deltaTime);
 		this->updateLastPosition();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			this->changeScene(GameState::SELECT_LEVEL);
 		break;
 	default:
 		this->currentScene->update(deltaTime);
@@ -206,16 +213,16 @@ void Game::updateLastPosition()
 void Game::render()
 {
 	this->window->clear(sf::Color::White);
-	sf::View viewGame = this->camera.getView(this->window->getSize());
-	this->window->setView(viewGame);
 
 	switch (this->currentGameState)
 	{
 	case GameState::LEVEL1: case GameState::LEVEL2:
+		this->window->setView(this->camera.getView(this->window->getSize()));
 		this->renderEntities();
 		this->renderMap();
 		break;
 	default:
+		this->window->setView(this->window->getDefaultView());
 		this->currentScene->render(*this->window, held);
 		break;
 	}

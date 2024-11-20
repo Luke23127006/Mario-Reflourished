@@ -47,6 +47,7 @@ private:
 	// Initializers
 	void initVariables();
 	void initWindow();
+	void initLevel(std::string fileName);
 	void initMap(std::string fileName);
 	void initEntities(std::string fileName);
 

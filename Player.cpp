@@ -14,7 +14,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
 	animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.08f, sf::Vector2i(54, 48));
-	animation[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+	animation[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(9.f, 0.f));
 
 	animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
 	animation[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
