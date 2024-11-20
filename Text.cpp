@@ -182,7 +182,7 @@ void Text::updateText()
 		keyStates[sf::Keyboard::Space] = false;
 	}
 
-
+	std::cout << "hmmm" << std::endl;
 	updateSize();
 }
 void Text::updateSize()
