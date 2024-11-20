@@ -29,6 +29,9 @@ const float CAMERA_DECELERATION = 1200.f;
 const float CAMERA_FOLLOW_SPEED = 0.9f;
 
 // player
+const float PLAYER_WIDTH = 48.f;
+const float PLAYER_HEIGHT = 48.f;
+const float PLAYER_BIGGER_HEIGHT = 96.f;
 const float PLAYER_MAX_SPEED = 400.f;
 const float PLAYER_MAX_FALL_SPEED = 2000.f;
 const float PLAYER_ACCELERATION = 800.f;
@@ -102,6 +105,7 @@ enum class TileType
 	SPIKE,
 	WATER,
 	LAVA,
+	PORTAL,
 	NUM_TILE_TYPES
 };
 

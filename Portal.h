@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Object.h"
+#include "Tile.h"
+#include "Resources.h"
 
-class Portal : public Object
+class Portal : public Tile
 {
 private:
 	sf::Vector2f destination;

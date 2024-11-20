@@ -21,6 +21,10 @@ void Resources::initTextures()
 	textures["PIPE"].loadFromFile(TILES_DIRECTORY + "Pipe.png");
 	textures["BLOCK"].loadFromFile(TILES_DIRECTORY + "Block.png");
 	textures["EMPTY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Empty Block.png");
+	textures["PIPE_TOP_LEFT"].loadFromFile(TILES_DIRECTORY + "Pipe Top Left.png");
+	textures["PIPE_TOP_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Top Right.png");
+	textures["PIPE_BOTTOM_LEFT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Left.png");
+	textures["PIPE_BOTTOM_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Right.png");
 
 
 	// all above textures are smooth

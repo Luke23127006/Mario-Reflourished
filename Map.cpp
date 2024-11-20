@@ -1,7 +1,7 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(std::string fileName, sf::Vector2f position) : 
+Map::Map(std::string fileName, sf::Vector2f position) :
 	position(position)
 {
 	sf::Image image;
@@ -16,12 +16,14 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 		mapData[i].resize(this->size.y);
 	}
 
+	std::vector<sf::Vector2f> destination;
+
 	for (int i = 0; i < this->size.x; i++)
 		for (int j = 0; j < this->size.y; j++)
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
-			
+
 			if (color == Resources::getColor[INT(TileType::GROUND_BLOCK)])
 			{
 				this->mapData[i][j] = TileType::GROUND_BLOCK;
@@ -41,12 +43,57 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			else if (color == Resources::getColor[INT(TileType::PIPE)])
 			{
 				this->mapData[i][j] = TileType::PIPE;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
+
+				Pipe* pipe = nullptr;
+				if (this->mapData[i][j - 1] == TileType::PIPE)
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+					else
+					{
+						if (destination.empty())
+						{
+							this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						}
+						else
+						{
+							this->map[i][j] = new Portal(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), sf::Vector2f(0, 0));
+							destination.pop_back();
+						}
+					}
+				}
+				else
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+					else
+						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+				}
 			}
 			else if (color == Resources::getColor[INT(TileType::PIPE_DESTINATION)])
 			{
 				this->mapData[i][j] = TileType::PIPE;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
+
+				Pipe* pipe = nullptr;
+				if (this->mapData[i][j - 1] == TileType::PIPE)
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+					else
+					{
+						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						destination.push_back(sf::Vector2f(i * TILE_SIZE + pipe->getGlobalBounds().width, j * TILE_SIZE));
+					}
+				}
+				else
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+					else
+						pipe = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+				}
+
+				this->map[i][j] = pipe;
 			}
 			else if (color == Resources::getColor[INT(TileType::BLOCK)])
 			{
@@ -91,7 +138,7 @@ TileType Map::getTileType(int i, int j)
 
 const bool Map::insideMap(sf::FloatRect bounds) const
 {
-    sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
+	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	return mapBounds.intersects(bounds);
 }
 

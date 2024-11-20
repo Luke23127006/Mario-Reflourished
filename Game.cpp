@@ -41,10 +41,10 @@ void Game::changeScene(GameState nextScene)
 		this->initEntities(MAPS_DIRECTORY + "Level 1.png");
 		break;
 	case GameState::LEVEL2:
-		if (this->currentGameState == GameState::LEVEL1) return;
+		if (this->currentGameState == GameState::LEVEL2) return;
 		std::cout << "Level2\n";
 		isChange = true;
-		this->currentGameState = GameState::LEVEL1;
+		this->currentGameState = GameState::LEVEL2;
 		this->initMap(MAPS_DIRECTORY + "Level 2.png");
 		this->initEntities(MAPS_DIRECTORY + "Level 2.png");
 		break;
@@ -156,14 +156,9 @@ void Game::update(float deltaTime)
 	this->pollEvents();
 	this->updateMousePosition();
 
-	//this->updateEntities(deltaTime);
-	//this->updateCollision();
-	//this->updateCamera(deltaTime);
-	//this->updateLastPosition();
-
 	switch (this->currentGameState)
 	{
-	case GameState::LEVEL1:
+	case GameState::LEVEL1: case GameState::LEVEL2:
 		this->updateEntities(deltaTime);
 		this->updateMap(deltaTime);
 		this->updateCollision();
@@ -199,8 +194,7 @@ void Game::updateCollision()
 void Game::updateCamera(float deltaTime)
 {
 	if (!this->player) return;
-	//this->camera.setPosition(this->player->getPosition());
-	this->camera.update(deltaTime, this->player->getPosition());
+	this->camera.update(deltaTime, this->player->getPosition() + sf::Vector2f(this->player->getGLobalBounds().width * 0.5f, 0.f), this->currentGameState);
 }
 
 void Game::updateLastPosition()
@@ -217,9 +211,9 @@ void Game::render()
 
 	switch (this->currentGameState)
 	{
-	case GameState::LEVEL1:
-		this->renderMap();
+	case GameState::LEVEL1: case GameState::LEVEL2:
 		this->renderEntities();
+		this->renderMap();
 		break;
 	default:
 		this->currentScene->render(*this->window, held);

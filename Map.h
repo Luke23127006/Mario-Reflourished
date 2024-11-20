@@ -4,6 +4,8 @@
 #include "Global.h"
 #include "Resources.h"
 #include "LuckyBlock.h"
+#include "Pipe.h"
+#include "Portal.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
