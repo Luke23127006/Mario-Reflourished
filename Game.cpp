@@ -187,7 +187,8 @@ void Game::updateCollision()
 void Game::updateCamera(float deltaTime)
 {
 	if (!this->player) return;
-	this->camera.setPosition(this->player->getPosition());
+	//this->camera.setPosition(this->player->getPosition());
+	this->camera.update(deltaTime, this->player->getPosition());
 }
 
 void Game::updateLastPosition()
