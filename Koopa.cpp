@@ -30,9 +30,4 @@ void Koopa::dropShell()
 
 void Koopa::takeDamage()
 {
-	this->health -= 50;
-	if (this->health <= 0)
-	{
-		this->dropShell();
-	}
 }

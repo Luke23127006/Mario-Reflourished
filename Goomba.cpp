@@ -16,6 +16,10 @@ Goomba::~Goomba()
 {
 }
 
+void Goomba::takeDamage()
+{
+}
+
 void Goomba::update(float deltaTime)
 {
 }

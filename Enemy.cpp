@@ -16,11 +16,6 @@ Enemy::~Enemy()
 
 void Enemy::takeDamage()
 {
-	this->health -= 10;
-	if (this->health <= 0)
-	{
-		this->die();
-	}
 }
 
 void Enemy::update(float deltaTime)
