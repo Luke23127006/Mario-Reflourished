@@ -142,7 +142,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="BanzaiBill.cpp" />
     <ClCompile Include="Barrier.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -150,22 +152,27 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FloatingObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="LuckyBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Play.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
+    <ClCompile Include="Shell.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="UserInterface.cpp" />
@@ -173,7 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="BanzaiBill.h" />
     <ClInclude Include="Barrier.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -181,21 +190,26 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FloatingObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Koopa.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="LuckyBlock.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="Play.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SelectLevel.h" />
+    <ClInclude Include="Shell.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="UserInterface.h" />
