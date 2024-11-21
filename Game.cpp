@@ -86,7 +86,7 @@ void Game::initLevel(std::string fileName)
 
 void Game::initMap(std::string fileName)
 {
-	this->map = new Map(fileName, sf::Vector2f(0, 0));
+	this->map = new Map(fileName, sf::Vector2f(0, 0), currentGameState);
 }
 
 void Game::initEntities(std::string fileName)
@@ -236,7 +236,7 @@ void Game::renderEntities()
 
 void Game::renderMap()
 {
-	this->map->render(*this->window);
+	this->map->render(*this->window, this->held);
 }
 
 void Game::run()

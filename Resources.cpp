@@ -57,6 +57,7 @@ void Resources::initColors()
 	getColor[INT(TileType::PIPE)] = sf::Color(34, 177, 76, 255);
 	getColor[INT(TileType::BLOCK)] = sf::Color(156, 52, 26, 255);
 	getColor[INT(TileType::PIPE_DESTINATION)] = sf::Color(53, 247, 106);
+	getColor[INT(TileType::BARRIER)] = sf::Color(0, 0, 0, 255);
 }
 
 Resources::Resources()

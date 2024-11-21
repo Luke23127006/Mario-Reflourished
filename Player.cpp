@@ -116,6 +116,7 @@ void Player::updateAnimation(float deltaTime)
 		this->playerState = PlayerState::WALK;
 		this->flipped = false;
 	}
+	if (this->velocity.x == 0.f) this->playerState = PlayerState::IDLE;
 	if (this->velocity.y != 0.f)
 	{
 		this->playerState = PlayerState::JUMP;
@@ -126,7 +127,6 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	//target.draw(this->hitbox);
 	switch (this->playerState)
 	{
 	case PlayerState::IDLE:
@@ -142,4 +142,5 @@ void Player::render(sf::RenderTarget& target)
 		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
 		break;
 	}
+	//target.draw(this->hitbox);
 }

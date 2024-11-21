@@ -1,8 +1,9 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(std::string fileName, sf::Vector2f position) :
-	position(position)
+Map::Map(std::string fileName, sf::Vector2f position, GameState levelState) :
+	position(position),
+	levelState(levelState)
 {
 	sf::Image image;
 	image.loadFromFile(fileName);
@@ -80,7 +81,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 					else
 					{
 						this->map[i][j] = new Pipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
-						destination.push_back(sf::Vector2f(i * TILE_SIZE + this->map[i][j]->getGlobalBounds().width, j * TILE_SIZE));
+						destination.push_back(position + sf::Vector2f(i * TILE_SIZE + this->map[i][j]->getGlobalBounds().width, j * TILE_SIZE));
 					}
 				}
 				else
@@ -95,6 +96,11 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			{
 				this->mapData[i][j] = TileType::BLOCK;
 				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["BLOCK"]);
+			}
+			else if (color == Resources::getColor[INT(TileType::BARRIER)])
+			{
+				this->mapData[i][j] = TileType::BARRIER;
+				this->map[i][j] = new Barrier(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE));
 			}
 		}
 }
@@ -141,7 +147,7 @@ void Map::update(float deltaTime)
 		lb->update(deltaTime);
 }
 
-void Map::render(sf::RenderTarget& target)
+void Map::render(sf::RenderWindow& target, bool& held)
 {
 	for (int i = 0; i < this->size.x; i++)
 		for (int j = 0; j < this->size.y; j++)
@@ -149,4 +155,14 @@ void Map::render(sf::RenderTarget& target)
 			if (this->mapData[i][j] == TileType::EMPTY) continue;
 			this->map[i][j]->render(target);
 		}
+}
+
+GameState Map::getNextScene()
+{
+	if (this->goToSelectLevel)
+	{
+		this->goToSelectLevel = false;
+		return GameState::SELECT_LEVEL;
+	}
+	return this->levelState;
 }

@@ -6,11 +6,13 @@
 #include "LuckyBlock.h"
 #include "Pipe.h"
 #include "Portal.h"
+#include "Barrier.h"
+#include "UserInterface.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 
-class Map
+class Map : public Scene
 {
 private:
 	std::vector<std::vector<Tile*>> map;
@@ -19,8 +21,12 @@ private:
 	sf::Vector2u size;
 	sf::Vector2f position; // (top left corner)
 
+	// UI
+	bool goToSelectLevel = false;
+	GameState levelState;
+
 public:
-	Map(std::string fileName, sf::Vector2f position);
+	Map(std::string fileName, sf::Vector2f position, GameState levelState);
 	virtual ~Map();
 
 	sf::Vector2f getPosition();
@@ -30,7 +36,8 @@ public:
 
 	const bool insideMap(sf::FloatRect bounds) const;
 
-	void update(float deltaTime);
-	void render(sf::RenderTarget& target);
+	void update(float deltaTime) override;
+	void render(sf::RenderWindow& target, bool& held) override;
+	GameState getNextScene() override;
 };
 
