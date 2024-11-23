@@ -42,10 +42,6 @@ const float PLAYER_JUMP_TIME = 0.28f;
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 
-// decorations
-const float FLOATING_OBJECT_VELOCITY = 600.f;
-const float FLOATING_OBJECT_EXPIRATION_TIME = 0.2f;
-
 enum class GameState
 {
 	WELCOME = 0,

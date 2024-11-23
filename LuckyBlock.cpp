@@ -7,7 +7,7 @@ LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type) :
 {
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
-	this->floatingObject = nullptr;
+	this->particle = nullptr;
 }
 
 LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type, PowerUpType powerUpType)
@@ -18,13 +18,13 @@ LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type, PowerUpType p
 {
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
-	this->floatingObject = nullptr;
+	this->particle = nullptr;
 }
 
 LuckyBlock::~LuckyBlock()
 {
 	delete this->animation;
-	if (this->floatingObject != nullptr) delete this->floatingObject;
+	if (this->particle != nullptr) delete this->particle;
 }
 
 const sf::Vector2f LuckyBlock::getCenter() const
@@ -36,7 +36,7 @@ void LuckyBlock::activate()
 {
 	if (this->activated) return;
 	this->activated = true;
-	this->floatingObject = new FloatingObject(Resources::textures["EMPTY_BLOCK"], this->getCenter());
+	this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 0.f), 0.25f);
 }
 
 PowerUpType LuckyBlock::getPowerUpType()
@@ -48,12 +48,12 @@ void LuckyBlock::update(float deltaTime)
 {
 	if (this->activated)
 	{
-		if (this->floatingObject && this->floatingObject->isExpired())
+		if (this->particle && this->particle->isExpired())
 		{
-			delete this->floatingObject;
-			this->floatingObject = nullptr;
+			delete this->particle;
+			this->particle = nullptr;
 		}
-		if (this->floatingObject) this->floatingObject->update(deltaTime);
+		if (this->particle) this->particle->update(deltaTime);
 	}
 	else this->animation->update(deltaTime, false);
 }
@@ -62,9 +62,9 @@ void LuckyBlock::render(sf::RenderTarget& target)
 {
 	if (this->activated)
 	{
-		if (this->floatingObject)
+		if (this->particle)
 		{
-			this->floatingObject->render(target);
+			this->particle->render(target);
 		}
 		target.draw(this->sprite);
 	}
