@@ -36,11 +36,26 @@ void Player::stopJumping()
 	this->jumpTimer = 0.f;
 }
 
+void Player::die()
+{
+	this->dying = true;
+	this->enabled = false;
+	this->velocity = sf::Vector2f(0.f, -PLAYER_DIE_VELOCITY);
+}
+
 void Player::update(float deltaTime)
 {
-	this->updateMovement(deltaTime);
-	this->updateAnimation(deltaTime);
-	this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
+	if (this->isDead())
+	{
+		this->velocity.y = std::min(this->velocity.y + GRAVITY * deltaTime, PLAYER_MAX_FALL_SPEED);
+		this->hitbox.move(this->velocity * deltaTime);
+	}
+	else
+	{
+		this->updateMovement(deltaTime);
+		this->updateAnimation(deltaTime);
+		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
+	}
 }
 
 void Player::updateMovement(float deltaTime)

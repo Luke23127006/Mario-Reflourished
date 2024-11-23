@@ -26,6 +26,11 @@ Object::~Object()
 {
 }
 
+const bool Object::getEnabled() const
+{
+	return this->enabled;
+}
+
 sf::Vector2f Object::getPosition() const
 {
 	return this->hitbox.getPosition();

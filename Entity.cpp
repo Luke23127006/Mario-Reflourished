@@ -4,12 +4,23 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	Object(size, position),
 	onGround(false),
 	flipped(false),
-	dead(false)
+	dieTimer(0.f),
+	dying(false)
 {
 }
 
 Entity::~Entity()
 {
+}
+
+const bool Entity::isDead() const
+{
+	return this->dying && this->dieTimer <= 0;
+}
+
+const bool Entity::isDying() const
+{
+	return this->dying;
 }
 
 void Entity::setOnGround(bool onGround)
@@ -34,7 +45,8 @@ sf::Vector2f Entity::getVelocity()
 
 void Entity::die()
 {
-	this->dead = true;
+	this->dying = true;
+	this->enabled = false;
 }
 
 void Entity::update(float deltaTime)

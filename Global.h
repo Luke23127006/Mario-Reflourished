@@ -38,8 +38,11 @@ const float PLAYER_ACCELERATION = 800.f;
 const float PLAYER_DECELERATION = 1200.f;
 const float PLAYER_JUMP_STRENGHT = 550.f;
 const float PLAYER_JUMP_TIME = 0.28f;
+const float PLAYER_DIE_VELOCITY = 700.f;
 
 // enemies
+const float ENEMY_DIE_TIME = 0.5f;
+
 const float GOOMBA_WIDTH = 50.f;
 const float GOOMBA_HEIGHT = 50.f;
 const float GOOMBA_MAX_SPEED = 200.f;
@@ -131,4 +134,11 @@ enum class PipeType
 	BOTTOM_LEFT,
 	BOTTOM_RIGHT,
 	NUM_PIPE_TYPES
+};
+
+enum class EnemyDieType
+{
+	FLIP = 0,
+	SQUISH,
+	NUM_ENEMY_DIE_TYPES
 };

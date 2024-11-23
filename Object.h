@@ -16,6 +16,7 @@ public:
 	Object(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Object();
 
+	const bool getEnabled() const;
 	sf::Vector2f getPosition() const;
 	const sf::FloatRect getGLobalBounds() const;
 

@@ -115,6 +115,34 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	}
 }
 
+void Collision::handle_player_enemy(Player* player, Enemy* enemy)
+{
+	sf::FloatRect playerBounds = player->getGlobalBounds();
+	sf::Vector2f lastPosition = player->getLastPosition();
+	sf::FloatRect enemyBounds = enemy->getGlobalBounds();
+
+	bool above = false;
+
+	if ((lastPosition.x + playerBounds.width > enemyBounds.left && lastPosition.x - enemyBounds.left <= enemyBounds.width) ||
+		(lastPosition.x + playerBounds.width < enemyBounds.left && enemyBounds.left - lastPosition.x <= playerBounds.width))
+	{
+		if (lastPosition.y + playerBounds.height <= enemyBounds.top) above = true;
+	}
+
+	if (playerBounds.intersects(enemyBounds))
+	{
+		if (above)
+		{
+			player->setVelocity(sf::Vector2f(player->getVelocity().x, -PLAYER_JUMP_STRENGHT / 2));
+			enemy->die(EnemyDieType::SQUISH);
+		}
+		else
+		{
+			player->die();
+		}
+	}
+}
+
 void Collision::handle_player_coin(Player* player, Coin* coin)
 {
 }

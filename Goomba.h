@@ -12,7 +12,5 @@ public:
 	virtual ~Goomba();
 
 	void takeDamage() override;
-	void update(float deltaTime) override;
-	void render(sf::RenderTarget& target) override;
 };
 

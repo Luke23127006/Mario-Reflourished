@@ -59,8 +59,18 @@ void AdventureMode::update(float deltaTime)
 
 void AdventureMode::updateEntities(float deltaTime)
 {
+	int counter = 0;
 	for (auto& e : this->entities)
+	{
 		e->update(deltaTime);
+		if (typeid(*e) != typeid(Player) && e->isDead())
+		{
+			delete e;
+			this->entities.erase(this->entities.begin() + counter);
+			counter--;
+		}
+		counter++;
+	}
 }
 
 void AdventureMode::updateMap(float deltaTime)
@@ -72,14 +82,21 @@ void AdventureMode::updateCollision()
 {
 	for (auto& e : this->entities)
 	{
+		if (!e->getEnabled()) continue;
 		Collision::handle_entity_map(e, this->map);
+
+		if (typeid(*e) != typeid(Player))
+		{
+			Collision::handle_player_enemy(this->player, dynamic_cast<Enemy*>(e));
+		}
 	}
 }
 
 void AdventureMode::updateCamera(float deltaTime)
 {
 	if (!this->player) return;
-	this->camera.update(deltaTime, this->player->getPosition() + sf::Vector2f(this->player->getGLobalBounds().width * 0.5f, 0.f));
+	if (!this->player->getEnabled()) return;
+	this->camera.update(deltaTime, this->player->getPosition() + sf::Vector2f(this->player->getGLobalBounds().width * 0.5f, 0.f) + this->cameraOrigin);
 }
 
 void AdventureMode::updateLastPosition()
