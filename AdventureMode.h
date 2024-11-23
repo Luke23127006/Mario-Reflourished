@@ -2,8 +2,10 @@
 
 #include "Global.h"
 #include "Resources.h"
+#include "ColorManager.h"
 #include "Map.h"
 #include "Player.h"
+#include "Goomba.h"
 #include "UserInterface.h"
 #include "Camera.h"
 #include "Collision.h"

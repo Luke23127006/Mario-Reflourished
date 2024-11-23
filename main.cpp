@@ -2,9 +2,11 @@
 
 int main()
 {
-	Resources::Resources();
+	Resources::initResources();
+	ColorManager::initColors();
 	Game game;
 	game.run();
+
 
 	return 0;
 }

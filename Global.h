@@ -39,6 +39,11 @@ const float PLAYER_DECELERATION = 1200.f;
 const float PLAYER_JUMP_STRENGHT = 550.f;
 const float PLAYER_JUMP_TIME = 0.28f;
 
+// enemies
+const float GOOMBA_WIDTH = 50.f;
+const float GOOMBA_HEIGHT = 50.f;
+const float GOOMBA_MAX_SPEED = 200.f;
+
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 
@@ -96,6 +101,7 @@ enum class TileType
 	BLOCK,
 	BLOCK_UNDERGROUND,
 	BARRIER,
+	ENEMY_BARRIER,
 	LUCKY_BLOCK,
 	BRIGDE,
 	PIPE,
@@ -109,6 +115,13 @@ enum class TileType
 	LAVA,
 	PORTAL,
 	NUM_TILE_TYPES
+};
+
+enum class EnemyType
+{
+	GOOMBA = 1,
+	KOOPA,
+	NUM_ENEMY_TYPES
 };
 
 enum class PipeType

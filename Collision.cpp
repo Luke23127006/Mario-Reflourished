@@ -43,6 +43,8 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
+	if (typeid(*entity) == typeid(Player) && typeid(*tile) == typeid(EnemyBarrier)) return;
+	
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
@@ -95,13 +97,19 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		{
 			if (entityBounds.left <= tileBounds.left)
 			{
-				entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (typeid(*entity) == typeid(Player)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entity->getPosition().y));
 			}
 			else if (entityBounds.left > tileBounds.left)
 			{
-				entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (typeid(*entity) == typeid(Player)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entity->getPosition().y));
+			}
+
+			Enemy* e = dynamic_cast<Enemy*>(entity);
+			if (e != nullptr)
+			{
+				e->turnAround();
 			}
 		}
 	}

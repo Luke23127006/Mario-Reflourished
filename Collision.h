@@ -8,6 +8,8 @@
 #include "Bullet.h"
 #include "Portal.h"
 #include "LuckyBlock.h"
+#include "Enemy.h"
+#include "Goomba.h"
 
 class Collision
 {

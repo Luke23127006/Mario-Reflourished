@@ -1,15 +1,18 @@
 #pragma once
 #include "Enemy.h"
 #include "Resources.h"
+#include "Animation.h"
 
 class Goomba : public Enemy
 {
+private:
+	Animation* animation;
 public:
-	Goomba();
-	Goomba(sf::Vector2f size, sf::Vector2f position, int health);
+	Goomba(sf::Vector2f position);
 	virtual ~Goomba();
 
 	void takeDamage() override;
 	void update(float deltaTime) override;
+	void render(sf::RenderTarget& target) override;
 };
 

@@ -3,6 +3,7 @@
 #include "TileFactory.h"
 #include "Global.h"
 #include "Resources.h"
+#include "ColorManager.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>

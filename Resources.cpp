@@ -4,7 +4,13 @@
 std::map<std::string, sf::Texture> Resources::textures;
 std::map<std::string, sf::Font> Resources::fonts;
 std::map<std::string, sf::SoundBuffer> Resources::sounds;
-std::map<int, sf::Color> Resources::getColor;
+
+void Resources::initResources()
+{
+    initTextures();
+    initFonts();
+    //initSounds();
+}
 
 void Resources::initTextures()
 {
@@ -48,24 +54,8 @@ void Resources::initSounds()
 {
 }
 
-void Resources::initColors()
-{
-	getColor[INT(TileType::EMPTY)] = sf::Color::White;
-	getColor[INT(TileType::GROUND_BLOCK)] = sf::Color(105, 27, 34, 255);
-	getColor[INT(TileType::BRICK)] = sf::Color(212, 102, 47, 255);
-	getColor[INT(TileType::LUCKY_BLOCK)] = sf::Color(255, 151, 87, 255);
-	getColor[INT(TileType::PIPE)] = sf::Color(34, 177, 76, 255);
-	getColor[INT(TileType::BLOCK)] = sf::Color(156, 52, 26, 255);
-	getColor[INT(TileType::PIPE_DESTINATION)] = sf::Color(53, 247, 106);
-	getColor[INT(TileType::BARRIER)] = sf::Color(0, 0, 0, 255);
-}
-
 Resources::Resources()
 {
-    this->initTextures();
-    this->initFonts();
-    this->initSounds();
-	this->initColors();
 }
 
 Resources::~Resources()

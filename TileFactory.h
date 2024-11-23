@@ -6,6 +6,7 @@
 #include "Pipe.h"
 #include "Portal.h"
 #include "Barrier.h"
+#include "EnemyBarrier.h"
 
 class TileFactory
 {

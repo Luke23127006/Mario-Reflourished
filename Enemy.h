@@ -7,8 +7,11 @@ protected:
 	int health;
 public:
 	Enemy();
+	Enemy(sf::Vector2f size, sf::Vector2f position);
 	Enemy(sf::Vector2f size, sf::Vector2f position, int health);
 	virtual ~Enemy();
+
+	void turnAround();
 
 	virtual void takeDamage();
 	virtual void update(float deltaTime) override;

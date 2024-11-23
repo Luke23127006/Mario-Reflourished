@@ -23,27 +23,16 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
+			int colorCode = color.toInteger();
 
-			if (color == Resources::getColor[INT(TileType::GROUND_BLOCK)])
+			this->mapData[i][j] = ColorManager::getTileAsColor[colorCode];
+			switch (ColorManager::getTileAsColor[colorCode])
 			{
-				this->mapData[i][j] = TileType::GROUND_BLOCK;
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::GROUND_BLOCK);
-			}
-			else if (color == Resources::getColor[INT(TileType::BRICK)])
-			{
-				this->mapData[i][j] = TileType::BRICK;
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BRICK);
-			}
-			else if (color == Resources::getColor[INT(TileType::LUCKY_BLOCK)])
-			{
-				this->mapData[i][j] = TileType::LUCKY_BLOCK;
+			case TileType::LUCKY_BLOCK:
 				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), LuckyBlockType::COIN);
 				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
-			}
-			else if (color == Resources::getColor[INT(TileType::PIPE)])
-			{
-				this->mapData[i][j] = TileType::PIPE;
-
+				break;
+			case TileType::PIPE:
 				if (this->mapData[i][j - 1] == TileType::PIPE)
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
@@ -68,14 +57,11 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 					else
 						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
 				}
-			}
-			else if (color == Resources::getColor[INT(TileType::PIPE_DESTINATION)])
-			{
-				this->mapData[i][j] = TileType::PIPE;
-
-				if (this->mapData[i][j - 1] == TileType::PIPE)
+				break;
+			case TileType::PIPE_DESTINATION:
+				if (this->mapData[i][j - 1] == TileType::PIPE_DESTINATION)
 				{
-					if (this->mapData[i - 1][j] == TileType::PIPE)
+					if (this->mapData[i - 1][j] == TileType::PIPE_DESTINATION)
 						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
 					else
 					{
@@ -85,21 +71,15 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				}
 				else
 				{
-					if (this->mapData[i - 1][j] == TileType::PIPE)
+					if (this->mapData[i - 1][j] == TileType::PIPE_DESTINATION)
 						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
 					else
 						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
 				}
-			}
-			else if (color == Resources::getColor[INT(TileType::BLOCK)])
-			{
-				this->mapData[i][j] = TileType::BLOCK;
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BLOCK);
-			}
-			else if (color == Resources::getColor[INT(TileType::BARRIER)])
-			{
-				this->mapData[i][j] = TileType::BARRIER;
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BARRIER);
+				break;
+			default:
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), this->mapData[i][j]);
+				break;
 			}
 		}
 }
