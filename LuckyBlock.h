@@ -4,7 +4,7 @@
 #include "Tile.h"
 #include "Animation.h"
 #include "Global.h"
-#include "FloatingObject.h"
+#include "Particle.h"
 #include <ctime>
 
 class LuckyBlock : public Tile
@@ -12,7 +12,7 @@ class LuckyBlock : public Tile
 private:
 	LuckyBlockType type;
 	PowerUpType powerUpType;
-	FloatingObject* floatingObject;
+	Particle* particle;
 
 	bool activated;
 	Animation* animation;

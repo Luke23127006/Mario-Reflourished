@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Tile.h"
+#include "TileFactory.h"
 #include "Global.h"
 #include "Resources.h"
-#include "LuckyBlock.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -29,6 +28,6 @@ public:
 	const bool insideMap(sf::FloatRect bounds) const;
 
 	void update(float deltaTime);
-	void render(sf::RenderTarget& target);
+	void render(sf::RenderWindow& target);
 };
 

@@ -1,7 +1,7 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(std::string fileName, sf::Vector2f position) : 
+Map::Map(std::string fileName, sf::Vector2f position) :
 	position(position)
 {
 	sf::Image image;
@@ -16,52 +16,102 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 		mapData[i].resize(this->size.y);
 	}
 
-	for (int i = 0; i < this->size.x; i++)
-		for (int j = 0; j < this->size.y; j++)
+	std::vector<sf::Vector2f> destination;
+
+	for (int j = 0; j < this->size.y; j++)
+		for (int i = 0; i < this->size.x; i++)
 		{
 			this->mapData[i][j] = TileType::EMPTY;
 			sf::Color color = image.getPixel(i, j);
-			
+
 			if (color == Resources::getColor[INT(TileType::GROUND_BLOCK)])
 			{
 				this->mapData[i][j] = TileType::GROUND_BLOCK;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["GROUND_BLOCK"]);
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::GROUND_BLOCK);
 			}
 			else if (color == Resources::getColor[INT(TileType::BRICK)])
 			{
 				this->mapData[i][j] = TileType::BRICK;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["BRICK"]);
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BRICK);
 			}
 			else if (color == Resources::getColor[INT(TileType::LUCKY_BLOCK)])
 			{
 				this->mapData[i][j] = TileType::LUCKY_BLOCK;
-				this->map[i][j] = new LuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), LuckyBlockType::COIN);
+				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), LuckyBlockType::COIN);
 				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
 			}
 			else if (color == Resources::getColor[INT(TileType::PIPE)])
 			{
 				this->mapData[i][j] = TileType::PIPE;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["PIPE"]);
+
+				if (this->mapData[i][j - 1] == TileType::PIPE)
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+					else
+					{
+						if (destination.empty())
+						{
+							this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						}
+						else
+						{
+							this->map[i][j] = TileFactory::createPortal(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), destination.back());
+							destination.pop_back();
+						}
+					}
+				}
+				else
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+					else
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+				}
+			}
+			else if (color == Resources::getColor[INT(TileType::PIPE_DESTINATION)])
+			{
+				this->mapData[i][j] = TileType::PIPE;
+
+				if (this->mapData[i][j - 1] == TileType::PIPE)
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+					else
+					{
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						destination.push_back(position + sf::Vector2f(i * TILE_SIZE + this->map[i][j]->getGlobalBounds().width, j * TILE_SIZE));
+					}
+				}
+				else
+				{
+					if (this->mapData[i - 1][j] == TileType::PIPE)
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+					else
+						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+				}
 			}
 			else if (color == Resources::getColor[INT(TileType::BLOCK)])
 			{
 				this->mapData[i][j] = TileType::BLOCK;
-				this->map[i][j] = new Tile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), Resources::textures["BLOCK"]);
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BLOCK);
+			}
+			else if (color == Resources::getColor[INT(TileType::BARRIER)])
+			{
+				this->mapData[i][j] = TileType::BARRIER;
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), TileType::BARRIER);
 			}
 		}
 }
 
 Map::~Map()
 {
-	for (int i = 0; i < this->map.size(); i++)
-		for (int j = 0; j < this->map[i].size(); j++)
-			delete this->map[i][j];
-
-	//while (!this->luckyBlocks.empty())
-	//{
-	//	delete this->luckyBlocks.back();
-	//	this->luckyBlocks.pop_back();
-	//}
+	for (int i = 0; i < this->size.x; i++)
+		while (!this->map[i].empty())
+		{
+			delete this->map[i].back();
+			this->map[i].pop_back();
+		}
 }
 
 sf::Vector2f Map::getPosition()
@@ -86,7 +136,7 @@ TileType Map::getTileType(int i, int j)
 
 const bool Map::insideMap(sf::FloatRect bounds) const
 {
-    sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
+	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	return mapBounds.intersects(bounds);
 }
 
@@ -96,7 +146,7 @@ void Map::update(float deltaTime)
 		lb->update(deltaTime);
 }
 
-void Map::render(sf::RenderTarget& target)
+void Map::render(sf::RenderWindow& target)
 {
 	for (int i = 0; i < this->size.x; i++)
 		for (int j = 0; j < this->size.y; j++)

@@ -29,18 +29,18 @@ const float CAMERA_DECELERATION = 1200.f;
 const float CAMERA_FOLLOW_SPEED = 0.9f;
 
 // player
+const float PLAYER_WIDTH = 48.f;
+const float PLAYER_HEIGHT = 48.f;
+const float PLAYER_BIGGER_HEIGHT = 96.f;
 const float PLAYER_MAX_SPEED = 400.f;
 const float PLAYER_MAX_FALL_SPEED = 2000.f;
-const float PLAYER_ACCELERATION = 1000.f;
-const float PLAYER_DECELERATION = 1400.f;
-const float PLAYER_JUMP_STRENGHT = 1000.f;
+const float PLAYER_ACCELERATION = 800.f;
+const float PLAYER_DECELERATION = 1200.f;
+const float PLAYER_JUMP_STRENGHT = 550.f;
+const float PLAYER_JUMP_TIME = 0.28f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
-
-// decorations
-const float FLOATING_OBJECT_VELOCITY = 600.f;
-const float FLOATING_OBJECT_EXPIRATION_TIME = 0.2f;
 
 enum class GameState
 {
@@ -52,6 +52,8 @@ enum class GameState
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
+	ADVENTURE_MODE,
+	ENDLESS_MODE,
 	NUM_GAME_STATES
 };
 
@@ -97,8 +99,23 @@ enum class TileType
 	LUCKY_BLOCK,
 	BRIGDE,
 	PIPE,
+	PIPE_TOP_LEFT,
+	PIPE_TOP_RIGHT,
+	PIPE_BOTTOM_LEFT,
+	PIPE_BOTTOM_RIGHT,
+	PIPE_DESTINATION,
 	SPIKE,
 	WATER,
 	LAVA,
+	PORTAL,
 	NUM_TILE_TYPES
+};
+
+enum class PipeType
+{
+	TOP_LEFT = 0,
+	TOP_RIGHT,
+	BOTTOM_LEFT,
+	BOTTOM_RIGHT,
+	NUM_PIPE_TYPES
 };

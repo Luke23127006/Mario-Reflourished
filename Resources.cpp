@@ -21,7 +21,10 @@ void Resources::initTextures()
 	textures["PIPE"].loadFromFile(TILES_DIRECTORY + "Pipe.png");
 	textures["BLOCK"].loadFromFile(TILES_DIRECTORY + "Block.png");
 	textures["EMPTY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Empty Block.png");
-
+	textures["PIPE_TOP_LEFT"].loadFromFile(TILES_DIRECTORY + "Pipe Top Left.png");
+	textures["PIPE_TOP_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Top Right.png");
+	textures["PIPE_BOTTOM_LEFT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Left.png");
+	textures["PIPE_BOTTOM_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Right.png");
 
 
 	// all above textures are smooth
@@ -53,6 +56,8 @@ void Resources::initColors()
 	getColor[INT(TileType::LUCKY_BLOCK)] = sf::Color(255, 151, 87, 255);
 	getColor[INT(TileType::PIPE)] = sf::Color(34, 177, 76, 255);
 	getColor[INT(TileType::BLOCK)] = sf::Color(156, 52, 26, 255);
+	getColor[INT(TileType::PIPE_DESTINATION)] = sf::Color(53, 247, 106);
+	getColor[INT(TileType::BARRIER)] = sf::Color(0, 0, 0, 255);
 }
 
 Resources::Resources()
