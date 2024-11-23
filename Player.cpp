@@ -47,17 +47,17 @@ void Player::updateMovement(float deltaTime)
 {
 	// horizontal movement
 	float acceleration = 0.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		acceleration -= PLAYER_ACCELERATION;
+		acceleration = -PLAYER_ACCELERATION;
 		if (this->velocity.x > 0.f)
 		{
 			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		acceleration += PLAYER_ACCELERATION;
+		acceleration = PLAYER_ACCELERATION;
 		if (this->velocity.x < 0.f)
 		{
 			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
@@ -106,12 +106,12 @@ void Player::updateMovement(float deltaTime)
 void Player::updateAnimation(float deltaTime)
 {
 	this->playerState = PlayerState::IDLE;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		this->playerState = PlayerState::WALK;
 		this->flipped = true;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->playerState = PlayerState::WALK;
 		this->flipped = false;
