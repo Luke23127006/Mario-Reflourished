@@ -63,7 +63,7 @@ void AdventureMode::updateEntities(float deltaTime)
 	for (auto& e : this->entities)
 	{
 		e->update(deltaTime);
-		if (typeid(*e) != typeid(Player) && e->isDead())
+		if (!isType<Player>(*e) && e->isDead())
 		{
 			delete e;
 			this->entities.erase(this->entities.begin() + counter);
@@ -85,7 +85,7 @@ void AdventureMode::updateCollision()
 		if (!e->getEnabled()) continue;
 		Collision::handle_entity_map(e, this->map);
 
-		if (typeid(*e) != typeid(Player))
+		if (!isType<Player>(*e))
 		{
 			Collision::handle_player_enemy(this->player, dynamic_cast<Enemy*>(e));
 		}

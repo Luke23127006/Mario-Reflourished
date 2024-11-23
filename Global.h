@@ -49,6 +49,11 @@ const float GOOMBA_MAX_SPEED = 200.f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
+template <class T, class U>
+bool isType(const U& variable) 
+{
+	return typeid(T) == typeid(variable);
+}
 
 enum class GameState
 {

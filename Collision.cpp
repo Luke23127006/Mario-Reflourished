@@ -43,7 +43,7 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
-	if (typeid(*entity) == typeid(Player) && typeid(*tile) == typeid(EnemyBarrier)) return;
+	if (isType<Player>(*entity) && isType<EnemyBarrier>(*tile)) return;
 	
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
@@ -68,7 +68,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 
 	if (entityBounds.intersects(tileBounds))
 	{
-		if (typeid(*tile) == typeid(Portal) && entityBounds.left > tileBounds.left)
+		if (isType<Portal>(*tile) && entityBounds.left > tileBounds.left)
 		{
 			entity->setPosition(dynamic_cast<Portal*>(tile)->getDestination());
 		}
@@ -80,7 +80,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		}
 		else if (below)
 		{
-			if (typeid(*entity) == typeid(Player))
+			if (isType<Player>(*entity))
 			{
 				dynamic_cast<Player*>(entity)->stopJumping();
 			}
@@ -88,7 +88,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
 
-			if (typeid(*tile) == typeid(LuckyBlock))
+			if (isType<LuckyBlock>(*tile))
 			{
 				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
@@ -97,12 +97,12 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		{
 			if (entityBounds.left <= tileBounds.left)
 			{
-				if (typeid(*entity) == typeid(Player)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entity->getPosition().y));
 			}
 			else if (entityBounds.left > tileBounds.left)
 			{
-				if (typeid(*entity) == typeid(Player)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entity->getPosition().y));
 			}
 
