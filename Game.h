@@ -5,12 +5,6 @@
 #include <iostream>
 #include "Global.h"
 #include "Resources.h"
-#include "Entity.h"
-#include "Player.h"
-#include "Object.h"
-#include "Map.h"
-#include "Camera.h"
-#include "Collision.h"
 #include "UserInterface.h"
 #include "Welcome.h"
 #include "SelectLevel.h"
