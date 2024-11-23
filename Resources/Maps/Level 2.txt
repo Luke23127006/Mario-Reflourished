@@ -1,0 +1,12 @@
+Ground ontheground: 691b22 - rgb(105,27,34)
+Brick ontheground:d4662f - rgb(212,102,47)
+Lucky box: ff9757 - rgb(255,151,87)
+Sky: 99d9ea - rgb(153,217,234)
+pipe: 22b14c - rgb(34,177,76)
+Block: ontheground: 9c341a - rgb(156,52,26)
+Water: 03a9f4 - rgb(3,169,244)
+Dirt: 391e0b - rgb(57,30,11)
+Coin: ffeb3b- rgb(255, 235, 59)
+
+
+
