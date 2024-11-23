@@ -57,11 +57,11 @@ Map::~Map()
 		for (int j = 0; j < this->map[i].size(); j++)
 			delete this->map[i][j];
 
-	while (!this->luckyBlocks.empty())
-	{
-		delete this->luckyBlocks.back();
-		this->luckyBlocks.pop_back();
-	}
+	//while (!this->luckyBlocks.empty())
+	//{
+	//	delete this->luckyBlocks.back();
+	//	this->luckyBlocks.pop_back();
+	//}
 }
 
 sf::Vector2f Map::getPosition()
