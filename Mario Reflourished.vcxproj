@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdventureMode.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BanzaiBill.cpp" />
     <ClCompile Include="Barrier.cpp" />
@@ -154,7 +155,6 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="FloatingObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -176,10 +176,12 @@
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileFactory.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AdventureMode.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BanzaiBill.h" />
     <ClInclude Include="Barrier.h" />
@@ -193,7 +195,6 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="FloatingObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Goomba.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileFactory.h" />
     <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Welcome.h" />
   </ItemGroup>

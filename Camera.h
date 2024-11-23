@@ -18,5 +18,4 @@ public:
 	void move(sf::Vector2f velocity);
 
 	void update(float deltaTime, sf::Vector2f playerPosition);
-	void update(float deltaTime, sf::Vector2f playerPosition, GameState gameState);
 };

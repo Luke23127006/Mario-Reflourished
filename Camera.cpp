@@ -63,9 +63,3 @@ void Camera::update(float deltaTime, sf::Vector2f playerPosition)
 
     this->move(this->velocity * deltaTime);
 }
-
-void Camera::update(float deltaTime, sf::Vector2f playerPosition, GameState gameState)
-{
-    if (gameState == GameState::LEVEL1) playerPosition.x = playerPosition.x + SCREEN_WIDTH * 0.13f;
-	this->update(deltaTime, playerPosition);
-}

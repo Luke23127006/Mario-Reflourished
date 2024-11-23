@@ -16,6 +16,7 @@
 #include "SelectLevel.h"
 #include "Login.h"
 #include "Play.h"
+#include "AdventureMode.h"
 
 class Game
 {
@@ -24,17 +25,11 @@ private:
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
 	sf::Event ev;
-	Camera camera;
 	sf::Clock clock;
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
-
-	// Game objects
-	std::vector<Entity*> entities;
-	Player* player;
-	Map* map;
 
 	// UI
 	bool held;
@@ -47,9 +42,6 @@ private:
 	// Initializers
 	void initVariables();
 	void initWindow();
-	void initLevel(std::string fileName);
-	void initMap(std::string fileName);
-	void initEntities(std::string fileName);
 
 public:
 	Game();
@@ -64,16 +56,9 @@ public:
 
 	// Update
 	void update(float deltaTime);
-	void updateEntities(float deltaTime);
-	void updateMap(float deltaTime);
-	void updateCollision();
-	void updateCamera(float deltaTime);
-	void updateLastPosition();
 
 	// Render
 	void render();
-	void renderEntities();
-	void renderMap();
 
 	// Run
 	void run();

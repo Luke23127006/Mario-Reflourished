@@ -36,15 +36,15 @@ void Game::changeScene(GameState nextScene)
 		if (this->currentGameState == GameState::LEVEL1) return;
 		std::cout << "Level1\n";
 		isChange = true;
+		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0, 0));
 		this->currentGameState = GameState::LEVEL1;
-		this->initLevel(MAPS_DIRECTORY + "Level 1.png");
 		break;
 	case GameState::LEVEL2:
 		if (this->currentGameState == GameState::LEVEL2) return;
 		std::cout << "Level2\n";
 		isChange = true;
+		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0));
 		this->currentGameState = GameState::LEVEL2;
-		this->initLevel(MAPS_DIRECTORY + "Level 2.png");
 		break;
 	default:
 		break;
@@ -77,36 +77,6 @@ void Game::initWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "Mario Reflourished");
 }
 
-void Game::initLevel(std::string fileName)
-{
-	this->camera.setPosition(sf::Vector2f(0, 0));
-	this->initMap(fileName);
-	this->initEntities(fileName);
-}
-
-void Game::initMap(std::string fileName)
-{
-	this->map = new Map(fileName, sf::Vector2f(0, 0), currentGameState);
-}
-
-void Game::initEntities(std::string fileName)
-{
-	sf::Image image;
-	image.loadFromFile(fileName);
-
-	this->entities.clear();
-	for (int i = 0; i < image.getSize().x; i++)
-		for (int j = 0; j < image.getSize().y; j++)
-		{
-			sf::Color color = image.getPixel(i, j);
-			if (color == sf::Color(255, 0, 0, 255))
-			{
-				this->player = new Player(sf::Vector2f(42, 48), sf::Vector2f(i * 50.f, j * 50.f));
-				this->entities.insert(this->entities.begin(), this->player);
-			}
-		}
-}
-
 Game::Game()
 {
 	this->initVariables();
@@ -120,14 +90,6 @@ Game::Game()
 Game::~Game()
 {
 	delete this->window;
-
-	while (!this->entities.empty())
-	{
-		delete this->entities.back();
-		this->entities.pop_back();
-	}
-
-	delete this->map;
 }
 
 void Game::pollEvents()
@@ -161,82 +123,15 @@ void Game::update(float deltaTime)
 	this->pollEvents();
 	this->updateMousePosition();
 
-	switch (this->currentGameState)
-	{
-	case GameState::LEVEL1: case GameState::LEVEL2:
-		this->updateEntities(deltaTime);
-		this->updateMap(deltaTime);
-		this->updateCollision();
-		this->updateCamera(deltaTime);
-		this->updateLastPosition();
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-			this->changeScene(GameState::SELECT_LEVEL);
-		break;
-	default:
-		this->currentScene->update(deltaTime);
-		this->changeScene(this->currentScene->getNextScene());
-		break;
-	}
-}
-
-void Game::updateEntities(float deltaTime)
-{
-	for (auto& e : this->entities)
-		e->update(deltaTime);
-}
-
-void Game::updateMap(float deltaTime)
-{
-	this->map->update(deltaTime);
-}
-
-void Game::updateCollision()
-{
-	for (auto& e : this->entities)
-	{
-		Collision::handle_entity_map(e, this->map);
-	}
-}
-
-void Game::updateCamera(float deltaTime)
-{
-	if (!this->player) return;
-	this->camera.update(deltaTime, this->player->getPosition() + sf::Vector2f(this->player->getGLobalBounds().width * 0.5f, 0.f), this->currentGameState);
-}
-
-void Game::updateLastPosition()
-{
-	for (auto& e : this->entities)
-		e->updateLastPosition();
+	this->currentScene->update(deltaTime);
+	this->changeScene(this->currentScene->getNextScene());
 }
 
 void Game::render()
 {
 	this->window->clear(sf::Color::White);
-
-	switch (this->currentGameState)
-	{
-	case GameState::LEVEL1: case GameState::LEVEL2:
-		this->window->setView(this->camera.getView(this->window->getSize()));
-		this->renderEntities();
-		this->renderMap();
-		break;
-	default:
-		this->window->setView(this->window->getDefaultView());
-		this->currentScene->render(*this->window, held);
-		break;
-	}
-}
-
-void Game::renderEntities()
-{
-	for (auto& e : this->entities)
-		e->render(*this->window);
-}
-
-void Game::renderMap()
-{
-	this->map->render(*this->window, this->held);
+	this->window->setView(this->window->getDefaultView());
+	this->currentScene->render(*this->window, held);
 }
 
 void Game::run()
