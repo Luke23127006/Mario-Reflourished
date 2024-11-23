@@ -2,6 +2,26 @@
 #include <iostream>
 #include <algorithm>
 
+bool Collision::checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
+{
+	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
+		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
+	{
+		return (firstLastPosition.y + firstBounds.height <= secondBounds.top);
+	}
+	return false;
+}
+
+bool Collision::checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
+{
+	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
+		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
+	{
+		return (ceil(firstLastPosition.y) >= secondBounds.top + secondBounds.height);
+	}
+	return false;
+}
+
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity->getGlobalBounds())) return;
@@ -44,13 +64,13 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
 	if (isType<Player>(*entity) && isType<EnemyBarrier>(*tile)) return;
-	
+
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 
-	bool above = false;
-	bool below = false;
+	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
+	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
 	if ((lastPosition.x + entityBounds.width > tileBounds.left && lastPosition.x - tileBounds.left <= tileBounds.width) ||
 		(lastPosition.x + entityBounds.width < tileBounds.left && tileBounds.left - lastPosition.x <= entityBounds.width))
@@ -106,10 +126,13 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 				entity->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entity->getPosition().y));
 			}
 
-			Enemy* e = dynamic_cast<Enemy*>(entity);
-			if (e != nullptr)
+			if (isDerivedFrom<Enemy>(*entity))
 			{
-				e->turnAround();
+				dynamic_cast<Enemy*>(entity)->turnAround();
+			}
+			if (isType<Shell>(*entity))
+			{
+				dynamic_cast<Shell*>(entity)->turnAround();
 			}
 		}
 	}
@@ -121,24 +144,56 @@ void Collision::handle_player_enemy(Player* player, Enemy* enemy)
 	sf::Vector2f lastPosition = player->getLastPosition();
 	sf::FloatRect enemyBounds = enemy->getGlobalBounds();
 
-	bool above = false;
-
-	if ((lastPosition.x + playerBounds.width > enemyBounds.left && lastPosition.x - enemyBounds.left <= enemyBounds.width) ||
-		(lastPosition.x + playerBounds.width < enemyBounds.left && enemyBounds.left - lastPosition.x <= playerBounds.width))
-	{
-		if (lastPosition.y + playerBounds.height <= enemyBounds.top) above = true;
-	}
+	bool above = checkAbove(playerBounds, lastPosition, enemyBounds);
 
 	if (playerBounds.intersects(enemyBounds))
 	{
 		if (above)
 		{
 			player->setVelocity(sf::Vector2f(player->getVelocity().x, -PLAYER_JUMP_STRENGHT / 2));
-			enemy->die(EnemyDieType::SQUISH);
+			enemy->squished();
 		}
 		else
 		{
 			player->die();
+		}
+	}
+}
+
+void Collision::handle_entity_shell(Entity* entity, Shell* shell)
+{
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::Vector2f lastPosition = entity->getLastPosition();
+	sf::FloatRect shellBounds = shell->getGlobalBounds();
+
+	bool above = checkAbove(entityBounds, lastPosition, shellBounds);
+
+	if (entityBounds.intersects(shellBounds))
+	{	
+		if (above)
+		{
+			entity->setPosition(sf::Vector2f(entity->getPosition().x, shellBounds.top - entityBounds.height));
+			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, -PLAYER_JUMP_STRENGHT / 2));
+			shell->switchActivation();
+		}
+		else if (!shell->isActivated())
+		{
+			if (entity->getVelocity().x > 0)
+			{
+				shell->switchActivation();
+				entity->setPosition(sf::Vector2f(shellBounds.left - entityBounds.width, entity->getPosition().y));
+				shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+			}
+			else if (entity->getVelocity().x < 0)
+			{
+				shell->switchActivation();
+				entity->setPosition(sf::Vector2f(shellBounds.left + shellBounds.width, entity->getPosition().y));
+				shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+			}
+		}
+		else
+		{
+			entity->die();
 		}
 	}
 }

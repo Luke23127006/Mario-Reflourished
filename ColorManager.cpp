@@ -15,6 +15,7 @@ void ColorManager::initColors()
     getTileAsColor[sf::Color(255, 255, 255, 255).toInteger()] = TileType::ENEMY_BARRIER;
 
     getEnemyAsColor[sf::Color(255, 128, 0, 255).toInteger()] = EnemyType::GOOMBA;
+	getEnemyAsColor[sf::Color(64, 128, 64, 255).toInteger()] = EnemyType::KOOPA;
 }
 
 ColorManager::ColorManager()

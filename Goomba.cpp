@@ -15,7 +15,3 @@ Goomba::Goomba(sf::Vector2f position)
 Goomba::~Goomba()
 {
 }
-
-void Goomba::takeDamage()
-{
-}

@@ -10,7 +10,5 @@ private:
 public:
 	Goomba(sf::Vector2f position);
 	virtual ~Goomba();
-
-	void takeDamage() override;
 };
 

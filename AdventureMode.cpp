@@ -3,7 +3,7 @@
 void AdventureMode::initMap(std::string fileName)
 {
 	this->map = new Map(fileName, sf::Vector2f(0.f, 0.f));
-	
+
 	sf::Image image;
 	image.loadFromFile(fileName);
 
@@ -24,6 +24,9 @@ void AdventureMode::initMap(std::string fileName)
 			{
 			case EnemyType::GOOMBA:
 				this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
+				break;
+			case EnemyType::KOOPA:
+				this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
 				break;
 			default:
 				break;
@@ -57,20 +60,31 @@ void AdventureMode::update(float deltaTime)
 	this->updateLastPosition();
 }
 
-void AdventureMode::updateEntities(float deltaTime)
+void AdventureMode::updateEntities(float deltaTime) 
 {
-	int counter = 0;
-	for (auto& e : this->entities)
-	{
+	std::vector<Entity*> newEntities;
+	auto it = this->entities.begin();
+
+	while (it != this->entities.end()) {
+		auto& e = *it;
 		e->update(deltaTime);
-		if (!isType<Player>(*e) && e->isDead())
+
+		if (!isType<Player>(*e) && e->isDead()) 
 		{
+			if (isType<Koopa>(*e)) 
+			{
+				newEntities.push_back(new Shell(e->getPosition()));
+			}
 			delete e;
-			this->entities.erase(this->entities.begin() + counter);
-			counter--;
+			it = this->entities.erase(it);
 		}
-		counter++;
+		else 
+		{
+			++it;
+		}
 	}
+
+	this->entities.insert(this->entities.end(), newEntities.begin(), newEntities.end());
 }
 
 void AdventureMode::updateMap(float deltaTime)
@@ -80,14 +94,54 @@ void AdventureMode::updateMap(float deltaTime)
 
 void AdventureMode::updateCollision()
 {
-	for (auto& e : this->entities)
+	/*for (auto& e : this->entities)
 	{
 		if (!e->getEnabled()) continue;
 		Collision::handle_entity_map(e, this->map);
 
-		if (!isType<Player>(*e))
+		if (isDerivedFrom<Enemy>(*e))
 		{
 			Collision::handle_player_enemy(this->player, dynamic_cast<Enemy*>(e));
+		}
+		if (isDerivedFrom<Shell>(*e))
+		{
+			Collision::handle_player_shell(this->player, dynamic_cast<Shell*>(e));
+		}
+	}*/
+
+	for (auto& e : this->entities)
+	{
+		if (!e->getEnabled()) continue;
+		Collision::handle_entity_map(e, this->map);
+	}
+	for (int i = 0; i < this->entities.size(); i++)
+	{
+		for (int j = i + 1; j < this->entities.size(); j++)
+		{
+			if (i == j) continue;
+			auto& a = this->entities[i];
+			auto& b = this->entities[j];
+			if (!a->getEnabled() || !b->getEnabled()) continue;
+
+			if (isType<Player>(*a))
+			{
+				if (isDerivedFrom<Enemy>(*b))
+				{
+					Collision::handle_player_enemy(dynamic_cast<Player*>(a), dynamic_cast<Enemy*>(b));
+				}
+				if (isDerivedFrom<Shell>(*b))
+				{
+					Collision::handle_entity_shell(dynamic_cast<Player*>(a), dynamic_cast<Shell*>(b));
+				}
+			}
+
+			if (isType<Shell>(*b))
+			{
+				if (isDerivedFrom<Enemy>(*a))
+				{
+					Collision::handle_entity_shell(a, dynamic_cast<Shell*>(b));
+				}
+			}
 		}
 	}
 }

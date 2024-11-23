@@ -5,8 +5,7 @@ class Enemy : public Entity
 {
 protected:
 	int health;
-
-	EnemyDieType dieType;
+	bool isSquished = false;
 public:
 	Enemy();
 	Enemy(sf::Vector2f size, sf::Vector2f position);
@@ -14,7 +13,8 @@ public:
 	virtual ~Enemy();
 
 	void turnAround();
-	void die(EnemyDieType dieType);
+	virtual void die() override;
+	virtual void squished();
 
 	virtual void takeDamage();
 	virtual void update(float deltaTime) override;
