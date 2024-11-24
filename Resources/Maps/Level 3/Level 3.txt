@@ -1,0 +1,20 @@
+Ground overworld: 691b22 - rgb(105,27,34)
+Ground underworld: 001712 - rgb(0, 23, 18)
+Ground underwater: 1c2c00 - rgb(28, 44, 0)
+
+Block overworld: 9c341a - rgb(156,52,26)
+Block underworld: 153333 - rgb(21, 51, 51)
+
+Brick overworld: d4662f - rgb(212,102,47)
+Brick underworld: 314d50 - rgb(49, 77, 80)
+
+Sky - overworld: 99d9ea - rgb(153,217,234)
+Background - underworld: 000000 - rgb(0, 0, 0)
+Background - dirt: 391e0b - rgb(57,30,11)
+
+Lucky box: ff9757 - rgb(255,151,87)
+pipe: 22b14c - rgb(34,177,76)
+Water: 03a9f4 - rgb(3,169,244)
+Coin: ffeb3b- rgb(255, 235, 59)
+Lava: ed1c24 - rgb(237, 28, 36)
+Bridge: 613d24 - rgb(97, 61, 36)
