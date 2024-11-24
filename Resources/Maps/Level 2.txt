@@ -7,6 +7,7 @@ Block: ontheground: 9c341a - rgb(156,52,26)
 Water: 03a9f4 - rgb(3,169,244)
 Dirt: 391e0b - rgb(57,30,11)
 Coin: ffeb3b- rgb(255, 235, 59)
+Lava: ed1c24 - rgb(237, 28, 36)
 
 
 
