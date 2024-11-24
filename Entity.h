@@ -13,11 +13,15 @@ protected:
 
 	bool onGround;
 	bool flipped;
-	bool dead;
+	float dieTimer;
+	bool dying;
 
 public:
 	Entity(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Entity();
+
+	const bool isDead() const;
+	const bool isDying() const;
 
 	void setOnGround(bool onGround);
 	void setVelocity(sf::Vector2f velocity);

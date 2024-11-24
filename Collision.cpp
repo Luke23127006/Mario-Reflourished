@@ -2,6 +2,26 @@
 #include <iostream>
 #include <algorithm>
 
+bool Collision::checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
+{
+	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
+		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
+	{
+		return (firstLastPosition.y + firstBounds.height <= secondBounds.top);
+	}
+	return false;
+}
+
+bool Collision::checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
+{
+	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
+		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
+	{
+		return (ceil(firstLastPosition.y) >= secondBounds.top + secondBounds.height);
+	}
+	return false;
+}
+
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity->getGlobalBounds())) return;
@@ -43,12 +63,14 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
+	if (isType<Player>(*entity) && isType<EnemyBarrier>(*tile)) return;
+
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 
-	bool above = false;
-	bool below = false;
+	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
+	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
 	if ((lastPosition.x + entityBounds.width > tileBounds.left && lastPosition.x - tileBounds.left <= tileBounds.width) ||
 		(lastPosition.x + entityBounds.width < tileBounds.left && tileBounds.left - lastPosition.x <= entityBounds.width))
@@ -66,7 +88,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 
 	if (entityBounds.intersects(tileBounds))
 	{
-		if (typeid(*tile) == typeid(Portal) && entityBounds.left > tileBounds.left)
+		if (isType<Portal>(*tile) && entityBounds.left > tileBounds.left)
 		{
 			entity->setPosition(dynamic_cast<Portal*>(tile)->getDestination());
 		}
@@ -78,7 +100,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		}
 		else if (below)
 		{
-			if (typeid(*entity) == typeid(Player))
+			if (isType<Player>(*entity))
 			{
 				dynamic_cast<Player*>(entity)->stopJumping();
 			}
@@ -86,7 +108,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
 
-			if (typeid(*tile) == typeid(LuckyBlock))
+			if (isType<LuckyBlock>(*tile))
 			{
 				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
@@ -95,14 +117,85 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		{
 			if (entityBounds.left <= tileBounds.left)
 			{
-				entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entity->getPosition().y));
 			}
 			else if (entityBounds.left > tileBounds.left)
 			{
-				entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
+				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
 				entity->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entity->getPosition().y));
 			}
+
+			if (isDerivedFrom<Enemy>(*entity))
+			{
+				dynamic_cast<Enemy*>(entity)->turnAround();
+			}
+			if (isType<Shell>(*entity))
+			{
+				dynamic_cast<Shell*>(entity)->turnAround();
+			}
+		}
+	}
+}
+
+
+
+void Collision::handle_player_enemy(Player* player, Enemy* enemy)
+{
+	sf::FloatRect playerBounds = player->getGlobalBounds();
+	sf::Vector2f lastPosition = player->getLastPosition();
+	sf::FloatRect enemyBounds = enemy->getGlobalBounds();
+
+	bool above = checkAbove(playerBounds, lastPosition, enemyBounds);
+
+	if (playerBounds.intersects(enemyBounds))
+	{
+		if (above)
+		{
+			player->setVelocity(sf::Vector2f(player->getVelocity().x, -PLAYER_JUMP_STRENGHT / 2));
+			enemy->squished();
+		}
+		else
+		{
+			player->die();
+		}
+	}
+}
+
+void Collision::handle_entity_shell(Entity* entity, Shell* shell)
+{
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::Vector2f lastPosition = entity->getLastPosition();
+	sf::FloatRect shellBounds = shell->getGlobalBounds();
+
+	bool above = checkAbove(entityBounds, lastPosition, shellBounds);
+
+	if (entityBounds.intersects(shellBounds))
+	{	
+		if (above)
+		{
+			entity->setPosition(sf::Vector2f(entity->getPosition().x, shellBounds.top - entityBounds.height));
+			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, -PLAYER_JUMP_STRENGHT / 2));
+			shell->switchActivation();
+		}
+		else if (!shell->isActivated())
+		{
+			if (entity->getVelocity().x > 0)
+			{
+				shell->switchActivation();
+				entity->setPosition(sf::Vector2f(shellBounds.left - entityBounds.width, entity->getPosition().y));
+				shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+			}
+			else if (entity->getVelocity().x < 0)
+			{
+				shell->switchActivation();
+				entity->setPosition(sf::Vector2f(shellBounds.left + shellBounds.width, entity->getPosition().y));
+				shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+			}
+		}
+		else
+		{
+			entity->die();
 		}
 	}
 }

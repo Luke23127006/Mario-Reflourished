@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Global.h"
 #include "Resources.h"
+#include "ColorManager.h"
 #include "UserInterface.h"
 #include "Welcome.h"
 #include "SelectLevel.h"

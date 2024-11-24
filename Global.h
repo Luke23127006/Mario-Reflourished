@@ -38,9 +38,36 @@ const float PLAYER_ACCELERATION = 800.f;
 const float PLAYER_DECELERATION = 1200.f;
 const float PLAYER_JUMP_STRENGHT = 550.f;
 const float PLAYER_JUMP_TIME = 0.28f;
+const float PLAYER_DIE_VELOCITY = 700.f;
+
+// enemies
+const float ENEMY_DIE_TIME = 3.f;
+const float ENEMY_DIE_VELOCITY = 400.f;
+const float ENEMY_SQUISHED_TIME = 0.5f;
+
+const float GOOMBA_WIDTH = 50.f;
+const float GOOMBA_HEIGHT = 50.f;
+const float GOOMBA_MAX_SPEED = 200.f;
+
+const float KOOPA_WIDTH = 50.f;
+const float KOOPA_HEIGHT = 50.f;
+const float KOOPA_MAX_SPEED = 200.f;
+const float KOOPA_SHELL_SPEED = 400.f;
+const float KOOPA_SHELL_WIDTH = 50.f;
+const float KOOPA_SHELL_HEIGHT = 25.f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
+template <class T, class U>
+bool isType(const U& variable) 
+{
+	return typeid(T) == typeid(variable);
+}
+template <class T, class U>
+bool isDerivedFrom(U& variable)
+{
+	return dynamic_cast<T*>(&variable) != nullptr;
+}
 
 enum class GameState
 {
@@ -96,6 +123,7 @@ enum class TileType
 	BLOCK,
 	BLOCK_UNDERGROUND,
 	BARRIER,
+	ENEMY_BARRIER,
 	LUCKY_BLOCK,
 	BRIGDE,
 	PIPE,
@@ -109,6 +137,13 @@ enum class TileType
 	LAVA,
 	PORTAL,
 	NUM_TILE_TYPES
+};
+
+enum class EnemyType
+{
+	GOOMBA = 1,
+	KOOPA,
+	NUM_ENEMY_TYPES
 };
 
 enum class PipeType

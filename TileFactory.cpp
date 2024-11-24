@@ -12,6 +12,8 @@ Tile* TileFactory::createTile(sf::Vector2f position, TileType type)
 		return new Tile(position, Resources::textures["BLOCK"]);
 	case TileType::BARRIER:
 		return new Barrier(position);
+	case TileType::ENEMY_BARRIER:
+		return new EnemyBarrier(position);
 	default:
 		return nullptr;
 	}

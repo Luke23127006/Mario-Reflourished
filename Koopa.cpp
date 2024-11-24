@@ -1,33 +1,19 @@
 #include "Koopa.h"
 
-Koopa::Koopa()
-	: Enemy(sf::Vector2f(50.f, 50.f), sf::Vector2f(0.f, 0.f), 100)
+Koopa::Koopa(sf::Vector2f position)
+	: Enemy(sf::Vector2f(KOOPA_WIDTH, KOOPA_HEIGHT), position)
 {
-	this->shell = Shell(this->getLastPosition(), sf::Vector2f(0.f, 0.f));
 	this->sprite.setTexture(Resources::textures["KOOPA"]);
-}
-
-Koopa::Koopa(sf::Vector2f size, sf::Vector2f position, int health)
-	: Enemy(size, position, health)
-{
-	this->shell = Shell(this->getLastPosition(), sf::Vector2f(0.f, 0.f));
-	this->sprite.setTexture(Resources::textures["KOOPA"]);
+	this->velocity = sf::Vector2f(KOOPA_MAX_SPEED, 0.f);
+	this->hitbox.setFillColor(sf::Color(64, 128, 64, 255));
 }
 
 Koopa::~Koopa()
 {
 }
 
-void Koopa::update(float deltaTime)
+void Koopa::squished()
 {
-}
-
-void Koopa::dropShell()
-{
-	this->shell.setPosition(this->getLastPosition());
-	this->shell.setVelocity(sf::Vector2f(0.f, 0.f));
-}
-
-void Koopa::takeDamage()
-{
+	Enemy::squished();
+	this->dieTimer = 0.f;
 }

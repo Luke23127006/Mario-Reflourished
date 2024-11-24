@@ -36,7 +36,7 @@ void Game::changeScene(GameState nextScene)
 		if (this->currentGameState == GameState::LEVEL1) return;
 		std::cout << "Level1\n";
 		isChange = true;
-		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0, 0));
+		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0.1f * this->window->getSize().x, 0));
 		this->currentGameState = GameState::LEVEL1;
 		break;
 	case GameState::LEVEL2:

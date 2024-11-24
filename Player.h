@@ -24,6 +24,7 @@ public:
 	virtual ~Player();
 
 	void stopJumping();
+	void die() override;
 
 	void update(float deltaTime) override;
 	void updateMovement(float deltaTime);
