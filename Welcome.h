@@ -2,10 +2,12 @@
 #include <SFML\Graphics.hpp>
 #include<string>
 #include "Button.h"
-#include<vector>
-#include "UserInterface.h"
-#include "Animation.h"
+#pragma once
 
+#include "Animation.h"
+#include "UserInterface.h"
+
+#include <vector>
 
 class Welcome : public Scene {
 private:

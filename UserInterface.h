@@ -1,13 +1,13 @@
 #pragma once
+
+#include "Button.h"
+#include "Global.h"
+#include "Resources.h"
+
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include<vector>
-#include "Global.h"
-#include "Resources.h"
-#include "Button.h"
-
-
+#include <vector>
 
 class Scene
 {

@@ -45,3 +45,29 @@ Tile* TileFactory::createLuckyBlock(sf::Vector2f position, PowerUpType type)
 {
 	return new LuckyBlock(position, type);
 }
+
+Tile* TileFactory::createLuckyBlockRandom(sf::Vector2f position)
+{
+	int chance = randomize(1, 100);
+	if (chance <= 50)
+	{
+		return new LuckyBlock(position);
+	}
+	else
+	{
+		chance = randomize(1, 100);
+		if (chance <= 50)
+		{
+			return new LuckyBlock(position, PowerUpType::MUSHROOM);
+		}
+		else
+		{
+			return new LuckyBlock(position, PowerUpType::AIR_SNEAKERS);
+		}
+	}
+}
+
+Tile* TileFactory::createLuckyBlockCoin(sf::Vector2f position)
+{
+	return new LuckyBlock(position);
+}

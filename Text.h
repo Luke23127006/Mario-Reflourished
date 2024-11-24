@@ -1,11 +1,10 @@
 #pragma once
-#include<iostream>
-#include<string>
-#include<SFML\Graphics.hpp>
+
 #include "Resources.h"
 
-
-
+#include <iostream>
+#include <string>
+#include <SFML\Graphics.hpp>
 
 class Text {
 private:

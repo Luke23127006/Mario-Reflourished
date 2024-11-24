@@ -1,17 +1,18 @@
 #pragma once
 
+#include "AdventureMode.h"
+#include "ColorManager.h"
+#include "Global.h"
+#include "Login.h"
+#include "Play.h"
+#include "UserInterface.h"
+#include "Resources.h"
+#include "SelectLevel.h"
+#include "Welcome.h"
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
-#include "Global.h"
-#include "Resources.h"
-#include "ColorManager.h"
-#include "UserInterface.h"
-#include "Welcome.h"
-#include "SelectLevel.h"
-#include "Login.h"
-#include "Play.h"
-#include "AdventureMode.h"
 
 class Game
 {

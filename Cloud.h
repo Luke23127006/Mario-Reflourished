@@ -1,7 +1,8 @@
 #pragma once
-#include "Resources.h"
-#include "Global.h"
+
 #include "Decoration.h"
+#include "Global.h"
+#include "Resources.h"
 
 class Cloud : public Decoration
 {

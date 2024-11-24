@@ -1,12 +1,15 @@
 #pragma once
-#include <SFML\Graphics.hpp>
-#include<string>
-#include "Button.h"
-#include<vector>
-#include "UserInterface.h"
+
 #include "Animation.h"
+#include "Button.h"
+#include "UserInterface.h"
+
+#include <SFML\Graphics.hpp>
+#include <string>
+#include <vector>
 #include <fstream>
-#include<direct.h>
+#include <direct.h>
+
 class Login : public Scene {
 private:
 	sf::Texture loginTexture;

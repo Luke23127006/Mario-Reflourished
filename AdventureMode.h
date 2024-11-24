@@ -1,17 +1,15 @@
 #pragma once
 
-#include "Global.h"
-#include "Resources.h"
-#include "ColorManager.h"
-#include "Map.h"
-#include "Player.h"
-#include "Goomba.h"
-#include "Koopa.h"
-#include "Shell.h"
-#include "PowerUp.h"
-#include "UserInterface.h"
 #include "Camera.h"
 #include "Collision.h"
+#include "ColorManager.h"
+#include "EntityFactory.h"
+#include "Global.h"
+#include "Map.h"
+#include "PowerUp.h"
+#include "Resources.h"
+#include "UserInterface.h"
+
 #include <vector>
 
 class AdventureMode : public Scene

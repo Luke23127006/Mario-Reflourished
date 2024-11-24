@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Resources.h"
-#include "Object.h"
 #include "Animation.h"
+#include "Object.h"
+#include "Resources.h"
 
 class Coin : public Object
 {

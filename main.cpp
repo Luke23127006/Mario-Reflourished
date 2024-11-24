@@ -2,6 +2,7 @@
 
 int main()
 {
+	srand(time(NULL));
 	Resources::initResources();
 	ColorManager::initColors();
 	Game game;

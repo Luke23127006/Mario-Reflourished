@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Resources.h"
-#include "Tile.h"
 #include "Animation.h"
 #include "Global.h"
 #include "Particle.h"
 #include "PowerUp.h"
+#include "Resources.h"
+#include "Tile.h"
+
 #include <ctime>
 
 class LuckyBlock : public Tile

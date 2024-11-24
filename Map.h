@@ -1,11 +1,12 @@
 #pragma once
 
-#include "TileFactory.h"
-#include "Global.h"
-#include "Resources.h"
 #include "ColorManager.h"
 #include "Entity.h"
+#include "Global.h"
 #include "PowerUp.h"
+#include "Resources.h"
+#include "TileFactory.h"
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>

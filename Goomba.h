@@ -1,7 +1,8 @@
 #pragma once
+
+#include "Animation.h"
 #include "Enemy.h"
 #include "Resources.h"
-#include "Animation.h"
 
 class Goomba : public Enemy
 {

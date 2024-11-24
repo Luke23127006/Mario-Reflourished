@@ -1,16 +1,9 @@
 #pragma once
 
-#include "Entity.h"
-#include "Player.h"
-#include "Tile.h"
+#include "EntityFactory.h"
+#include "TileFactory.h"
 #include "Coin.h"
 #include "Map.h"
-#include "Bullet.h"
-#include "Portal.h"
-#include "LuckyBlock.h"
-#include "Enemy.h"
-#include "Goomba.h"
-#include "Shell.h"
 
 class Collision
 {

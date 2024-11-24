@@ -2,7 +2,8 @@
 
 #define INT(enumValue) static_cast<int>(enumValue)
 
-#include<string>
+#include <string>
+#include <ctime>
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -72,6 +73,7 @@ const float MAGNET_DURATION = 5.f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
+int randomize(int l, int r);
 template <class T, class U>
 bool isType(const U& variable) 
 {

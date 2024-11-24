@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Global.h"
+
 #include <SFML/Graphics.hpp>
 #include <map>
-#include "Global.h"
 
 class ColorManager
 {

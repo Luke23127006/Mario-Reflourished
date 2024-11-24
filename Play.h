@@ -1,11 +1,9 @@
 #pragma once
-#include <SFML\Graphics.hpp>
-#include "UserInterface.h"
+
 #include "Button.h"
+#include "UserInterface.h"
 
-
-
-
+#include <SFML\Graphics.hpp>
 
 class Play : public Scene {
 private:

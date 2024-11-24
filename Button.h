@@ -1,11 +1,12 @@
 #pragma once
+
+#include "Global.h"
+#include "Resources.h"
+#include "Text.h"
+
 #include<iostream>
 #include<string>
 #include<SFML\Graphics.hpp>
-#include "Resources.h"
-#include "Text.h"
-#include "Global.h"
-
 
 class Button
 {

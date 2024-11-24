@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Entity.h"
-#include "Resources.h"
 #include "Global.h"
+#include "Resources.h"
 
 class Shell : public Entity
 {

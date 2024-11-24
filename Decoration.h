@@ -1,6 +1,8 @@
 #pragma once
-#include "Resources.h"
+
 #include "Global.h"
+#include "Resources.h"
+
 #include <SFML/Graphics.hpp>
 
 class Decoration

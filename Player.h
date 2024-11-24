@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Global.h"
-#include "Entity.h"
-#include "PowerUp.h"
 #include "Animation.h"
+#include "Entity.h"
+#include "Global.h"
+#include "PowerUp.h"
 #include "Resources.h"
+
 #include <vector>
 
 class Player : public Entity

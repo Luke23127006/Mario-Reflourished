@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Global.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <map>
 #include <string>
-#include "Global.h"
 
 class Resources
 {

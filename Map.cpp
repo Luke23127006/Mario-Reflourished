@@ -29,7 +29,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			switch (ColorManager::getTileAsColor[colorCode])
 			{
 			case TileType::LUCKY_BLOCK:
-				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PowerUpType::AIR_SNEAKERS);
+				this->map[i][j] = TileFactory::createLuckyBlockRandom(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE));
 				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
 				break;
 			case TileType::PIPE:

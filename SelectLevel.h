@@ -1,11 +1,10 @@
-#include <SFML\Graphics.hpp>
-#include<iostream>
-#include "UserInterface.h"
+#pragma once
+
 #include "Button.h"
+#include "UserInterface.h"
 
-
-
-
+#include <SFML\Graphics.hpp>
+#include <iostream>
 
 class SelectLevel : public Scene
 {

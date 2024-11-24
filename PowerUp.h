@@ -1,9 +1,10 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Global.h"
 #include "Resources.h"
+
+#include <SFML/Graphics.hpp>
 
 class PowerUp : public Entity
 {
