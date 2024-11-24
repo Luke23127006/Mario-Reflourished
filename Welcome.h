@@ -13,18 +13,15 @@ private:
 	Animation* welcomeAnimation;
 	Button playButton;
 	Button exitButton;
-	std::vector<Button*> buttons;
-	int selectedButton;
-	bool isPressedUp;
-	bool isPressedDown;
+
+	// transition scene
 	bool goToLoginScene;
 public:
 	Welcome(sf::RenderTexture& window);
 	void loadTexture();
-	void updateHoverButton(sf::RenderWindow& window);
 	void updateClickButton(sf::RenderWindow& window, bool& held);
 	void updateAnimation(float dt);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window) override;
 	void update(float dt) override;
 	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;

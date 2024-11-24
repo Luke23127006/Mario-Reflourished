@@ -14,10 +14,7 @@ private:
 	Button selectCharacterButton;
 	Button selectLevelButton;
 	Button backButton;
-	std::vector<Button*> buttons;
-	int selectedButton;
-	bool isPressedUp = false;
-	bool isPressedDown = false;
+	
 	// transition scene
 	bool goToSelectCharacterScene;
 	bool goToSelectLevelScene;
@@ -25,8 +22,7 @@ private:
 public:
 	Play(sf::RenderTexture& window);
 	void loadTexture();
-	void draw(sf::RenderWindow& window);
-	void updateHoverButton(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window) override;
 	void updateClickButton(sf::RenderWindow& window, bool& held);
 	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;

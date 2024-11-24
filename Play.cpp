@@ -31,12 +31,11 @@ Play::Play(sf::RenderTexture& window)
 	this->backButton.setButtonColor(pink);
 	this->backButton.setTextColor(sf::Color::White);
 	
-	this->isPressedUp = false;
-	this->isPressedDown = false;
+	// transition scene
 	this->goToSelectCharacterScene = false;
 	this->goToSelectLevelScene = false;
 	this->backToWelcome = false;
-	this->selectedButton = -1;
+
 }
 
 void Play::loadTexture()
@@ -52,62 +51,9 @@ void Play::loadTexture()
 void Play::draw(sf::RenderWindow& window)
 {
 	window.draw(this->playBackground);
-	this->selectCharacterButton.draw(window);
-	this->selectLevelButton.draw(window);
-	this->backButton.draw(window);
+	Scene::draw(window);
 }
 
-void Play::updateHoverButton(sf::RenderWindow& window)
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (!this->isPressedDown)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedDown = true;
-			std::cout << "Down\n";
-		}
-	}
-	else {
-		this->isPressedDown = false;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (!this->isPressedUp)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			else {
-				this->selectedButton = static_cast<int>(this->buttons.size());
-			}
-			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % static_cast<int>(this->buttons.size());
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedUp = true;
-			std::cout << "Up\n";
-		}
-	}
-	else {
-		this->isPressedUp = false;
-	}
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		if (this->buttons[i]->isHoverMouse(window))
-		{
-			if (i == this->selectedButton)
-			{
-				break;
-			}
-			if (this->selectedButton != -1)
-				this->buttons[this->selectedButton]->changeHovered();
-			this->selectedButton = i;
-			this->buttons[i]->changeHovered();
-		}
-	}
-}
 
 void Play::updateClickButton(sf::RenderWindow& window, bool& held)
 {
@@ -146,10 +92,6 @@ void Play::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
 	this->updateClickButton(window, held);
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		this->buttons[i]->colorHoverButton(window);
-	}
 	this->draw(window);
 }
 

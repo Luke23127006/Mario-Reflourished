@@ -21,11 +21,7 @@ private:
 	Text hiddenConfirm;
 	Button registerButton;
 	Button backButton;
-	std::vector<Button*> buttons;
 	std::vector<Text*> hiddenTexts;
-	int selectedButton;
-	bool isPressedUp;
-	bool isPressedDown;
 	bool isPressedEnter;
 	bool goToPlayScene;
 	bool backToWelcome;
@@ -40,14 +36,14 @@ private:
 public :
 	Login(sf::RenderTexture& window);
 	void loadTexture();
-	void updateHoverButton(sf::RenderWindow& window);
+	void updateHoverButton(sf::RenderWindow& window) override;
 	void updateClickButton(sf::RenderWindow& window, bool& held);
 	void updateRegisterMovement(float dt);
 	void updateText();
 	void addConfirmButton();
 	void resetAfterRegister();
 	void updateBackgroundAnimation(float dt);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window) override;
 	void update(float dt) override;
 	void render(sf::RenderWindow& window, bool& held) override;
 	GameState getNextScene() override;

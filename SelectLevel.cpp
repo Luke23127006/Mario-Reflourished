@@ -36,10 +36,7 @@ SelectLevel::SelectLevel(sf::RenderTexture& window)
 	this->backgroundSprite.setPosition(0, 0);
 	this->backgroundSprite.setScale(window.getSize().x / this->backgroundSprite.getGlobalBounds().width, window.getSize().y / this->backgroundSprite.getGlobalBounds().height);
 
-	this->selectedButton = -1;
-
-	this->isPressedUp = false;
-	this->isPressedDown = false;
+	
 	this->goToLevel1 = false;
 	this->goToLevel2 = false;
 	this->goToLevel3 = false;
@@ -59,64 +56,10 @@ void SelectLevel::loadTexture()
 void SelectLevel::draw(sf::RenderWindow& window)
 {
 	window.draw(this->backgroundSprite);
-	this->level1Button.draw(window);
-	this->level2Button.draw(window);
-	this->level3Button.draw(window);
-	this->backButton.draw(window);
+	Scene::draw(window);
 }
 
-void SelectLevel::updateHoverButton(sf::RenderWindow& window)
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (!this->isPressedDown)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedDown = true;
-			std::cout << "Down\n";
-		}
-	}
-	else {
-		this->isPressedDown = false;
-	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (!this->isPressedUp)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			else {
-				this->selectedButton = static_cast<int>(this->buttons.size());
-			}
-			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % static_cast<int>(this->buttons.size());
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedUp = true;
-			std::cout << "Up\n";
-		}
-	}
-	else {
-		this->isPressedUp = false;
-	}
-	// Mouse hover
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		if (this->buttons[i]->isHoverMouse(window))
-		{
-			if (i == this->selectedButton)
-			{
-				break;
-			}
-			if (this->selectedButton != -1)
-				this->buttons[this->selectedButton]->changeHovered();
-			this->selectedButton = i;
-			this->buttons[i]->changeHovered();
-		}
-	}
-}
 
 void SelectLevel::updateClickButton(sf::RenderWindow& window, bool& held)
 {
@@ -183,9 +126,5 @@ void SelectLevel::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
 	this->updateClickButton(window, held);
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		this->buttons[i]->colorHoverButton(window);
-	}
 	this->draw(window);
 }

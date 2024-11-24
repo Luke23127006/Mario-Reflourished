@@ -25,10 +25,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 	this->welcomeSprite.setScale(window.getSize().x / this->welcomeSprite.getGlobalBounds().width, window.getSize().y / this->welcomeSprite.getGlobalBounds().height);*/
 	this->welcomeAnimation->setPosition(sf::Vector2f(0, 0));
 	this->welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
-	this->selectedButton = -1;
-
-	this->isPressedUp = false;
-	this->isPressedDown = false;
+	
 	this->goToLoginScene = false;
 }
 
@@ -36,8 +33,7 @@ void Welcome::draw(sf::RenderWindow& window)
 {
 	//window.draw(this->welcomeSprite);
 	this->welcomeAnimation->render(window, sf::Vector2f(0, 0));
-	this->playButton.draw(window);
-	this->exitButton.draw(window);
+	Scene::draw(window);
 }
 
 void Welcome::loadTexture()
@@ -52,57 +48,6 @@ void Welcome::loadTexture()
 	this->welcomeAnimation = new Animation(this->welcomeTexture, totalFrames, 0.1f, sf::Vector2i(240, 135));
 }
 
-void Welcome::updateHoverButton(sf::RenderWindow& window)
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		if (!this->isPressedDown)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedDown = true;
-			std::cout << "Down\n";
-		}
-	}
-	else {
-		this->isPressedDown = false;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		if (!this->isPressedUp)
-		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			else {
-				this->selectedButton = this->buttons.size();
-			}
-			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % this->buttons.size();
-			(*this->buttons[this->selectedButton]).changeHovered();
-			this->isPressedUp = true;
-			std::cout << "Up\n";
-		}
-	}
-	else {
-		this->isPressedUp = false;
-	}
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		if (this->buttons[i]->isHoverMouse(window))
-		{
-			if (i == this->selectedButton)
-			{
-				break;
-			}
-			if (this->selectedButton != -1)
-				this->buttons[this->selectedButton]->changeHovered();
-			this->selectedButton = i;
-			this->buttons[this->selectedButton]->changeHovered();
-		}
-	}
-}
 
 void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
 {
@@ -143,10 +88,6 @@ void Welcome::render(sf::RenderWindow& window, bool& held)
 {
 	this->updateHoverButton(window);
 	this->updateClickButton(window, held);
-	for (int i = 0; i < this->buttons.size(); i++)
-	{
-		this->buttons[i]->colorHoverButton(window);
-	}
 	this->draw(window);
 }
 
