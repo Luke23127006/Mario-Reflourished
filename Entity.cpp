@@ -5,7 +5,8 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	onGround(false),
 	flipped(false),
 	dieTimer(0.f),
-	dying(false)
+	dying(false),
+	lastPosition(position - sf::Vector2f(0, 1))
 {
 }
 
