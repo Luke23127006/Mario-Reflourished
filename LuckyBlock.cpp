@@ -1,23 +1,13 @@
 #include "LuckyBlock.h"
 
-LuckyBlock::LuckyBlock(sf::Vector2f position) :
+LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type) :
 	Tile(position),
+	type(type),
 	activated(false)
 {
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
 	this->particle = nullptr;
-	this->powerUp = nullptr;
-}
-
-LuckyBlock::LuckyBlock(sf::Vector2f position, PowerUpType powerUpType)
-	: Tile(position),
-	activated(false)
-{
-	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
-	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
-	this->particle = nullptr;
-	this->powerUp = new PowerUp(powerUpType, this->hitbox.getGlobalBounds());
 }
 
 LuckyBlock::~LuckyBlock()
@@ -31,24 +21,32 @@ const sf::Vector2f LuckyBlock::getCenter() const
 	return sf::Vector2f(this->hitbox.getPosition().x + this->hitbox.getSize().x / 2, this->hitbox.getPosition().y + this->hitbox.getSize().y / 2);
 }
 
+const bool LuckyBlock::isActivated() const
+{
+	return this->activated;
+}
+
+const LuckyBlockType LuckyBlock::getType() const
+{
+	return this->type;
+}
+
 void LuckyBlock::activate()
 {
 	if (this->activated) return;
 	this->activated = true;
 
-	if (this->powerUp == nullptr) 
-		this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 0.f), 0.25f);
+	if (this->type == LuckyBlockType::COIN)
+	{
+		this->type = LuckyBlockType::ACTIVATED;
+		this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 200.f), 0.25f);
+	}
 }
 
-PowerUp* LuckyBlock::getPowerUp()
+PowerUp* LuckyBlock::launchPowerUp()
 {
-	if (!this->activated) return nullptr;
-	return this->powerUp;
-}
-
-void LuckyBlock::removePowerUp()
-{
-	this->powerUp = nullptr;
+	this->type = LuckyBlockType::ACTIVATED;
+    return EntityFactory::createPowerUp(this->getGlobalBounds());
 }
 
 void LuckyBlock::update(float deltaTime)

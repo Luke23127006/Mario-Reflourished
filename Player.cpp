@@ -70,6 +70,25 @@ const bool Player::hasPowerUp(PowerUpType type) const
 	return this->powerUpDuration[INT(type)] > 0.f;
 }
 
+Bullet* Player::shoot()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if (this->canShoot == true)
+		{
+			this->canShoot = false;
+			sf::Vector2f distance = 0.5f * sf::Vector2f(this->getGlobalBounds().width - BULLET_WIDTH, this->getGlobalBounds().height - BULLET_HEIGHT);
+			if (!this->flipped) return new Bullet(this->getPosition() + distance, sf::Vector2f(BULLET_SPEED, 0.f) + this->velocity);
+			return new Bullet(this->getPosition() + distance, sf::Vector2f(-BULLET_SPEED, 0.f) + this->velocity);
+		}
+	}
+	else
+	{
+		this->canShoot = true;
+	}
+	return nullptr;
+}
+
 void Player::update(float deltaTime)
 {
 	if (this->isDead())

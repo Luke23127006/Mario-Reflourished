@@ -5,6 +5,7 @@
 #include "Global.h"
 #include "PowerUp.h"
 #include "Resources.h"
+#include "Bullet.h"
 
 #include <vector>
 
@@ -17,6 +18,7 @@ private:
 	float jumpTimer;
 	int coins;
 	int lives;
+	bool canShoot = true;
 
 	std::vector<Animation*> animation;
 	std::vector<float> powerUpDuration;
@@ -29,6 +31,8 @@ public:
 	void die() override;
 	void gainPowerUp(PowerUp& powerUp);
 	const bool hasPowerUp(PowerUpType type) const;
+
+	Bullet* shoot();
 
 	void update(float deltaTime) override;
 	void updateMovement(float deltaTime);

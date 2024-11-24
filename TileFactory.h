@@ -14,7 +14,5 @@ public:
 	static Tile* createTile(sf::Vector2f position, TileType type);
 	static Tile* createPortal(sf::Vector2f position, sf::Vector2f destination);
 	static Tile* createPipe(sf::Vector2f position, PipeType type);
-	static Tile* createLuckyBlock(sf::Vector2f position, PowerUpType type);
-	static Tile* createLuckyBlockRandom(sf::Vector2f position);
-	static Tile* createLuckyBlockCoin(sf::Vector2f position);
+	static Tile* createLuckyBlock(sf::Vector2f position);
 };

@@ -9,6 +9,7 @@ private:
 public:
 	Bullet(sf::Vector2f position, sf::Vector2f velocity);
 	virtual ~Bullet();
+
 	void bounce();
 	bool isExpired();
 

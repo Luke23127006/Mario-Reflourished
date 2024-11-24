@@ -41,33 +41,15 @@ Tile* TileFactory::createPipe(sf::Vector2f position, PipeType type)
 	}
 }
 
-Tile* TileFactory::createLuckyBlock(sf::Vector2f position, PowerUpType type)
+Tile* TileFactory::createLuckyBlock(sf::Vector2f position)
 {
-	return new LuckyBlock(position, type);
-}
-
-Tile* TileFactory::createLuckyBlockRandom(sf::Vector2f position)
-{
-	int chance = randomize(1, 100);
-	if (chance <= 50)
+	int chance = rand() % 100;
+	if (chance < 50)
 	{
-		return new LuckyBlock(position);
+		return new LuckyBlock(position, LuckyBlockType::COIN);
 	}
 	else
 	{
-		chance = randomize(1, 100);
-		if (chance <= 50)
-		{
-			return new LuckyBlock(position, PowerUpType::MUSHROOM);
-		}
-		else
-		{
-			return new LuckyBlock(position, PowerUpType::AIR_SNEAKERS);
-		}
+		return new LuckyBlock(position, LuckyBlockType::POWER_UP);
 	}
-}
-
-Tile* TileFactory::createLuckyBlockCoin(sf::Vector2f position)
-{
-	return new LuckyBlock(position);
 }

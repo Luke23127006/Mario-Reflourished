@@ -19,4 +19,5 @@ public:
 	static Entity* createKoopa(sf::Vector2f position);
 	static Entity* createShell(sf::Vector2f position);
 	static Entity* createPowerUp(sf::FloatRect container, PowerUpType type);
+	static PowerUp* createPowerUp(sf::FloatRect containner);
 };

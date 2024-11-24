@@ -101,6 +101,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setOnGround(true);
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top - entityBounds.height));
+
+			if (isType<Bullet>(*entity))
+			{
+				dynamic_cast<Bullet*>(entity)->bounce();
+			}
 		}
 		else if (below)
 		{
@@ -119,6 +124,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		}
 		else
 		{
+			if (isType<Bullet>(*entity))
+			{
+				dynamic_cast<Bullet*>(entity)->die();
+			}
+
 			if (entityBounds.left <= tileBounds.left)
 			{
 				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
@@ -208,6 +218,17 @@ void Collision::handle_entity_shell(Entity* entity, Shell* shell)
 	}
 }
 
+void Collision::handle_bullet_enemy(Bullet* bullet, Enemy* enemy)
+{
+	sf::FloatRect bulletBounds = bullet->getGlobalBounds();
+	sf::FloatRect enemyBounds = enemy->getGlobalBounds();
+	if (bulletBounds.intersects(enemyBounds))
+	{
+		bullet->die();
+		enemy->die();
+	}
+}
+
 void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
 {
 	if (player->getGlobalBounds().intersects(powerUp->getGlobalBounds()))
@@ -218,9 +239,5 @@ void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
 }
 
 void Collision::handle_player_coin(Player* player, Coin* coin)
-{
-}
-
-void Collision::handle_bullet_tile(Bullet* bullet, Tile* tile)
 {
 }

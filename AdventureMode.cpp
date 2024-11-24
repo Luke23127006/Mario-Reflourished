@@ -69,6 +69,12 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		e->update(deltaTime);
 
+		if (isType<Player>(*e)) 
+		{
+			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
+			if (bullet) newEntities.push_back(bullet);
+		}
+
 		if (!isType<Player>(*e) && e->isDead()) 
 		{
 			if (isType<Koopa>(*e)) 
@@ -102,7 +108,7 @@ void AdventureMode::updateCollision()
 
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		for (int j = i + 1; j < this->entities.size(); j++)
+		for (int j = 0; j < this->entities.size(); j++)
 		{
 			if (i == j) continue;
 			auto& a = this->entities[i];
@@ -125,11 +131,15 @@ void AdventureMode::updateCollision()
 				}
 			}
 
-			if (isType<Shell>(*b))
+			if (isDerivedFrom<Enemy>(*a))
 			{
-				if (isDerivedFrom<Enemy>(*a))
+				if (isDerivedFrom<Shell>(*b))
 				{
-					Collision::handle_entity_shell(a, dynamic_cast<Shell*>(b));
+					Collision::handle_entity_shell(dynamic_cast<Enemy*>(a), dynamic_cast<Shell*>(b));
+				}
+				if (isDerivedFrom<Bullet>(*b))
+				{
+					Collision::handle_bullet_enemy(dynamic_cast<Bullet*>(b), dynamic_cast<Enemy*>(a));
 				}
 			}
 		}

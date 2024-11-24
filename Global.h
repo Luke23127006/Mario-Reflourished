@@ -40,6 +40,13 @@ const float PLAYER_DECELERATION = 1200.f;
 const float PLAYER_JUMP_STRENGHT = 550.f;
 const float PLAYER_JUMP_TIME = 0.28f;
 const float PLAYER_DIE_VELOCITY = 700.f;
+const float PLAYER_SHOOT_COOLDOWN = 0.5f;
+
+// bullets
+const float BULLET_WIDTH = 10.f;
+const float BULLET_HEIGHT = 10.f;
+const float BULLET_SPEED = 500.f;
+const float BULLET_DURATION = 3.f;
 
 // enemies
 const float ENEMY_DIE_TIME = 3.f;

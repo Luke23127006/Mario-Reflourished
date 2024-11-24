@@ -16,7 +16,7 @@ public:
 	static void handle_entity_tile(Entity* entity, Tile* tile);
 	static void handle_player_enemy(Player* player, Enemy* enemy);
 	static void handle_entity_shell(Entity* entity, Shell* shell);
+	static void handle_bullet_enemy(Bullet* bullet, Enemy* enemy);
 	static void handle_player_powerUp(Player* player, PowerUp* powerUp);
 	static void handle_player_coin(Player* player, Coin* coin);
-	static void handle_bullet_tile(Bullet* bullet, Tile* tile);
 };
