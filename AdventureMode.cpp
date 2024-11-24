@@ -16,7 +16,7 @@ void AdventureMode::initMap(std::string fileName)
 
 			if (color == sf::Color(255, 0, 0, 255))
 			{
-				this->player = new Player(sf::Vector2f(42, 48), sf::Vector2f(i * 50.f, j * 50.f));
+				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
 				this->entities.insert(this->entities.begin(), this->player);
 			}
 
