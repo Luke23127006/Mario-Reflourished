@@ -138,6 +138,8 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	}
 }
 
+
+
 void Collision::handle_player_enemy(Player* player, Enemy* enemy)
 {
 	sf::FloatRect playerBounds = player->getGlobalBounds();
