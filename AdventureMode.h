@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "Koopa.h"
 #include "Shell.h"
+#include "PowerUp.h"
 #include "UserInterface.h"
 #include "Camera.h"
 #include "Collision.h"

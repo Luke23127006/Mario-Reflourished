@@ -89,31 +89,17 @@ void AdventureMode::updateEntities(float deltaTime)
 
 void AdventureMode::updateMap(float deltaTime)
 {
-	this->map->update(deltaTime);
+	this->map->update(deltaTime, this->entities);
 }
 
 void AdventureMode::updateCollision()
 {
-	/*for (auto& e : this->entities)
-	{
-		if (!e->getEnabled()) continue;
-		Collision::handle_entity_map(e, this->map);
-
-		if (isDerivedFrom<Enemy>(*e))
-		{
-			Collision::handle_player_enemy(this->player, dynamic_cast<Enemy*>(e));
-		}
-		if (isDerivedFrom<Shell>(*e))
-		{
-			Collision::handle_player_shell(this->player, dynamic_cast<Shell*>(e));
-		}
-	}*/
-
 	for (auto& e : this->entities)
 	{
 		if (!e->getEnabled()) continue;
 		Collision::handle_entity_map(e, this->map);
 	}
+
 	for (int i = 0; i < this->entities.size(); i++)
 	{
 		for (int j = i + 1; j < this->entities.size(); j++)
@@ -132,6 +118,10 @@ void AdventureMode::updateCollision()
 				if (isDerivedFrom<Shell>(*b))
 				{
 					Collision::handle_entity_shell(dynamic_cast<Player*>(a), dynamic_cast<Shell*>(b));
+				}
+				if (isDerivedFrom<PowerUp>(*b))
+				{
+					Collision::handle_player_powerUp(dynamic_cast<Player*>(a), dynamic_cast<PowerUp*>(b));
 				}
 			}
 

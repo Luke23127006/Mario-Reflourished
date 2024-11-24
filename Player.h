@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "Entity.h"
+#include "PowerUp.h"
 #include "Animation.h"
 #include "Resources.h"
 #include <vector>
@@ -25,9 +26,12 @@ public:
 
 	void stopJumping();
 	void die() override;
+	void gainPowerUp(PowerUp& powerUp);
+	const bool hasPowerUp(PowerUpType type) const;
 
 	void update(float deltaTime) override;
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);
+	void updatePowerUps(float deltaTime);
 	void render(sf::RenderTarget& target) override;
 };

@@ -47,6 +47,7 @@ void Entity::die()
 {
 	this->dying = true;
 	this->enabled = false;
+	this->dieTimer = 0.f;
 }
 
 void Entity::update(float deltaTime)

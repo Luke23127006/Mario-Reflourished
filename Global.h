@@ -56,6 +56,20 @@ const float KOOPA_SHELL_SPEED = 400.f;
 const float KOOPA_SHELL_WIDTH = 50.f;
 const float KOOPA_SHELL_HEIGHT = 25.f;
 
+// power up
+const float POWER_UP_WIDTH = 50.f;
+const float POWER_UP_HEIGHT = 50.f;
+const float POWER_UP_RISE_SPEED = 100.f;
+const float POWER_UP_SPEED = 200.f;
+
+const float MUSHROOM_DURATION = 5.f;
+const float FIRE_FLOWER_DURATION = 5.f;
+const float AIR_SNEAKERS_DURATION = 5.f;
+const float DOUBLE_COINS_DURATION = 5.f;
+const float INVICIBLE_DURATION = 1.f;
+const float SHIELD_DURATION = 5.f;
+const float MAGNET_DURATION = 5.f;
+
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 template <class T, class U>
@@ -107,7 +121,8 @@ enum class PowerUpType
 
 enum class LuckyBlockType
 {
-	COIN = 0,
+	ACTIVATED = 0,
+	COIN,
 	POWER_UP,
 	RANDOM_POWER_UP,
 	NUM_LUCKY_BLOCK_TYPES

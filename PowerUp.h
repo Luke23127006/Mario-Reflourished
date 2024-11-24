@@ -17,7 +17,9 @@ public:
 	virtual ~PowerUp();
 
 	PowerUpType getType();
+	const float getDuration() const;
 	void rise(float deltaTime);
+	void turnAround();
 
 	void update(float deltaTime) override;
 };

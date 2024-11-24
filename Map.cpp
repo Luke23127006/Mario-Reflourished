@@ -29,7 +29,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			switch (ColorManager::getTileAsColor[colorCode])
 			{
 			case TileType::LUCKY_BLOCK:
-				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), LuckyBlockType::COIN);
+				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PowerUpType::AIR_SNEAKERS);
 				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
 				break;
 			case TileType::PIPE:
@@ -124,6 +124,19 @@ void Map::update(float deltaTime)
 {
 	for (auto& lb : this->luckyBlocks)
 		lb->update(deltaTime);
+}
+
+void Map::update(float deltaTime, std::vector<Entity*>& entities)
+{
+	for (auto& lb : this->luckyBlocks)
+	{
+		if (lb->getPowerUp())
+		{
+			entities.push_back(lb->getPowerUp());
+			lb->removePowerUp();
+		}
+		lb->update(deltaTime);
+	}
 }
 
 void Map::render(sf::RenderWindow& target)

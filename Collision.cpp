@@ -7,7 +7,7 @@ bool Collision::checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosi
 	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
 		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
 	{
-		return (firstLastPosition.y + firstBounds.height <= secondBounds.top);
+		return (floor(firstLastPosition.y + firstBounds.height) <= secondBounds.top);
 	}
 	return false;
 }
@@ -22,24 +22,36 @@ bool Collision::checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosi
 	return false;
 }
 
+bool Collision::checkOnGround(sf::FloatRect firstBounds, sf::FloatRect secondBounds)
+{
+	if (firstBounds.left <= secondBounds.left && firstBounds.left + firstBounds.width >= secondBounds.left ||
+		firstBounds.left >= secondBounds.left && firstBounds.left <= secondBounds.left + secondBounds.width)
+	{
+		return (firstBounds.top + firstBounds.height == secondBounds.top);
+	}
+	return false;
+}
+
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity->getGlobalBounds())) return;
 
 	sf::Vector2u size = map->getSize();
-	float i = (1.f * entity->getGlobalBounds().left / TILE_SIZE);
-	float j = (1.f * entity->getGlobalBounds().top / TILE_SIZE);
+	int i = (1.f * entity->getGlobalBounds().left / TILE_SIZE);
+	int j = (1.f * entity->getGlobalBounds().top / TILE_SIZE);
 
 	entity->setOnGround(false);
 	std::vector<Tile*> tiles;
-	if (0 <= ceil(i) && ceil(i) < size.x && 0 <= ceil(j) && ceil(j) < size.y && map->getTileType(ceil(i), ceil(j)) != TileType::EMPTY)
-		tiles.push_back(&map->getTile(ceil(i), ceil(j)));
-	if (0 <= ceil(i) && ceil(i) < size.x && 0 <= floor(j) && floor(j) < size.y && map->getTileType(ceil(i), floor(j)) != TileType::EMPTY)
-		tiles.push_back(&map->getTile(ceil(i), floor(j)));
-	if (0 <= floor(i) && floor(i) < size.x && 0 <= ceil(j) && ceil(j) < size.y && map->getTileType(floor(i), ceil(j)) != TileType::EMPTY)
-		tiles.push_back(&map->getTile(floor(i), ceil(j)));
-	if (0 <= floor(i) && floor(i) < size.x && 0 <= floor(j) && floor(j) < size.y && map->getTileType(floor(i), floor(j)) != TileType::EMPTY)
-		tiles.push_back(&map->getTile(floor(i), floor(j)));
+	for (int _i = i; _i < i + 3; _i++)
+	{
+		for (int _j = j; _j < j + 3; _j++)
+		{
+			if (0 <= _i && _i < size.x && 0 <= _j && _j < size.y && map->getTileType(_i, _j) != TileType::EMPTY)
+			{
+				tiles.push_back(&map->getTile(_i, _j));
+			}
+		}
+	}
 
 	if (tiles.empty()) return;
 
@@ -63,7 +75,8 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
-	if (isType<Player>(*entity) && isType<EnemyBarrier>(*tile)) return;
+	if (!isDerivedFrom<Enemy>(*entity) && isType<EnemyBarrier>(*tile)) return;
+	if (isType<PowerUp>(*entity) && entity->getVelocity().x == 0) return;
 
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
@@ -72,18 +85,9 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
 	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
-	if ((lastPosition.x + entityBounds.width > tileBounds.left && lastPosition.x - tileBounds.left <= tileBounds.width) ||
-		(lastPosition.x + entityBounds.width < tileBounds.left && tileBounds.left - lastPosition.x <= entityBounds.width))
+	if (checkOnGround(entityBounds, tileBounds))
 	{
-		if (lastPosition.y + entityBounds.height <= tileBounds.top) above = true;
-		else if (ceil(lastPosition.y) >= tileBounds.top + tileBounds.height) below = true;
-	}
-
-	if (entityBounds.left <= tileBounds.left && entityBounds.left + entityBounds.width >= tileBounds.left ||
-		entityBounds.left >= tileBounds.left && entityBounds.left <= tileBounds.left + tileBounds.width)
-	{
-		if (entityBounds.top + entityBounds.height == tileBounds.top)
-			entity->setOnGround(true);
+		entity->setOnGround(true);
 	}
 
 	if (entityBounds.intersects(tileBounds))
@@ -133,6 +137,10 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			if (isType<Shell>(*entity))
 			{
 				dynamic_cast<Shell*>(entity)->turnAround();
+			}
+			if (isType<PowerUp>(*entity))
+			{
+				dynamic_cast<PowerUp*>(entity)->turnAround();
 			}
 		}
 	}
@@ -197,6 +205,15 @@ void Collision::handle_entity_shell(Entity* entity, Shell* shell)
 		{
 			entity->die();
 		}
+	}
+}
+
+void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
+{
+	if (player->getGlobalBounds().intersects(powerUp->getGlobalBounds()))
+	{
+		player->gainPowerUp(*powerUp);
+		powerUp->die();
 	}
 }
 

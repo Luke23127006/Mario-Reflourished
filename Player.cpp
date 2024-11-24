@@ -7,7 +7,8 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
 	coins(0),
-	lives(3)
+	lives(3),
+	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
 {
 	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
@@ -38,9 +39,35 @@ void Player::stopJumping()
 
 void Player::die()
 {
+	if (this->hasPowerUp(PowerUpType::INVICIBLE)) return;
+	if (this->hasPowerUp(PowerUpType::SHIELD))
+	{
+		this->powerUpDuration[INT(PowerUpType::SHIELD)] = 0.f;
+		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = INVICIBLE_DURATION;
+		return;
+	}
 	this->dying = true;
 	this->enabled = false;
 	this->velocity = sf::Vector2f(0.f, -PLAYER_DIE_VELOCITY);
+}
+
+void Player::gainPowerUp(PowerUp& powerUp)
+{
+	switch (powerUp.getType())
+	{
+	case PowerUpType::MUSHROOM:
+		if (this->powerUpDuration[INT(powerUp.getType())] > 0.f) break;
+		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_BIGGER_HEIGHT));
+		this->hitbox.move(0.f, PLAYER_HEIGHT - PLAYER_BIGGER_HEIGHT);
+		break;
+	}
+
+	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
+}
+
+const bool Player::hasPowerUp(PowerUpType type) const
+{
+	return this->powerUpDuration[INT(type)] > 0.f;
 }
 
 void Player::update(float deltaTime)
@@ -54,6 +81,7 @@ void Player::update(float deltaTime)
 	{
 		this->updateMovement(deltaTime);
 		this->updateAnimation(deltaTime);
+		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
 	}
 }
@@ -96,6 +124,7 @@ void Player::updateMovement(float deltaTime)
 		if (this->onGround)
 		{
 			this->jumpTimer = PLAYER_JUMP_TIME;
+			if (this->hasPowerUp(PowerUpType::AIR_SNEAKERS)) this->jumpTimer *= 2.f;
 			this->velocity.y = -PLAYER_JUMP_STRENGHT;
 			this->onGround = false;
 		}
@@ -140,22 +169,37 @@ void Player::updateAnimation(float deltaTime)
 	for (auto& a : animation) a->update(deltaTime, this->flipped);
 }
 
+void Player::updatePowerUps(float deltaTime)
+{
+	// mushroom
+	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
+		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
+	}
+
+	for (auto& d : this->powerUpDuration)
+	{
+		if (d >= 0.f) d -= deltaTime;
+	}
+}
+
 void Player::render(sf::RenderTarget& target)
 {
-	switch (this->playerState)
-	{
-	case PlayerState::IDLE:
-		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::WALK:
-		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::JUMP:
-		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::DIE:
-		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
-		break;
-	}
-	//target.draw(this->hitbox);
+	//switch (this->playerState)
+	//{
+	//case PlayerState::IDLE:
+	//	this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
+	//	break;
+	//case PlayerState::WALK:
+	//	this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
+	//	break;
+	//case PlayerState::JUMP:
+	//	this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
+	//	break;
+	//case PlayerState::DIE:
+	//	this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
+	//	break;
+	//}
+	target.draw(this->hitbox);
 }

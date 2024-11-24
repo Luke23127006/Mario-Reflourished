@@ -1,24 +1,23 @@
 #include "LuckyBlock.h"
 
-LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type) :
+LuckyBlock::LuckyBlock(sf::Vector2f position) :
 	Tile(position),
-	type(type),
 	activated(false)
 {
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
 	this->particle = nullptr;
+	this->powerUp = nullptr;
 }
 
-LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type, PowerUpType powerUpType)
+LuckyBlock::LuckyBlock(sf::Vector2f position, PowerUpType powerUpType)
 	: Tile(position),
-	type(type),
-	powerUpType(powerUpType),
 	activated(false)
 {
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
 	this->particle = nullptr;
+	this->powerUp = new PowerUp(powerUpType, this->hitbox.getGlobalBounds());
 }
 
 LuckyBlock::~LuckyBlock()
@@ -36,12 +35,20 @@ void LuckyBlock::activate()
 {
 	if (this->activated) return;
 	this->activated = true;
-	this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 0.f), 0.25f);
+
+	if (this->powerUp == nullptr) 
+		this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 0.f), 0.25f);
 }
 
-PowerUpType LuckyBlock::getPowerUpType()
+PowerUp* LuckyBlock::getPowerUp()
 {
-	return PowerUpType();
+	if (!this->activated) return nullptr;
+	return this->powerUp;
+}
+
+void LuckyBlock::removePowerUp()
+{
+	this->powerUp = nullptr;
 }
 
 void LuckyBlock::update(float deltaTime)

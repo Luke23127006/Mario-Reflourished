@@ -41,7 +41,7 @@ Tile* TileFactory::createPipe(sf::Vector2f position, PipeType type)
 	}
 }
 
-Tile* TileFactory::createLuckyBlock(sf::Vector2f position, LuckyBlockType type)
+Tile* TileFactory::createLuckyBlock(sf::Vector2f position, PowerUpType type)
 {
 	return new LuckyBlock(position, type);
 }

@@ -4,6 +4,8 @@
 #include "Global.h"
 #include "Resources.h"
 #include "ColorManager.h"
+#include "Entity.h"
+#include "PowerUp.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -29,6 +31,7 @@ public:
 	const bool insideMap(sf::FloatRect bounds) const;
 
 	void update(float deltaTime);
+	void update(float deltaTime, std::vector<Entity*>& entities);
 	void render(sf::RenderWindow& target);
 };
 

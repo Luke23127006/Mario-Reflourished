@@ -60,5 +60,10 @@ void Enemy::update(float deltaTime)
 			this->hitbox.move(this->velocity * deltaTime);
 		}
 	}
-	else this->hitbox.move(this->velocity * deltaTime);
+	else 
+	{
+		if (this->onGround) this->velocity.y = 0.f;
+		else this->velocity.y += GRAVITY * deltaTime;
+		this->hitbox.move(this->velocity * deltaTime);
+	}
 }
