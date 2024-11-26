@@ -51,6 +51,7 @@ PowerUp* LuckyBlock::launchPowerUp()
 
 void LuckyBlock::update(float deltaTime)
 {
+	Tile::update(deltaTime);
 	if (this->activated)
 	{
 		if (this->particle && this->particle->isExpired())

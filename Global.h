@@ -9,8 +9,6 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
 
-const int TILE_SIZE = 50;
-
 const float GRAVITY = 3000.f;
 
 // directories
@@ -77,6 +75,10 @@ const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
 const float SHIELD_DURATION = 5.f;
 const float MAGNET_DURATION = 5.f;
+
+// tiles
+const float TILE_SIZE = 50;
+const float TILE_SHAKE_DURATION = 0.25f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);

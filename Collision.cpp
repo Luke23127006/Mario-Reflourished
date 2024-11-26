@@ -70,7 +70,10 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 		});
 
 	for (auto& t : tiles)
+	{
 		handle_entity_tile(entity, t);
+		if (t->isNeedUpdating()) map->addNeedUpdated(t);
+	}
 }
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
@@ -88,6 +91,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	if (checkOnGround(entityBounds, tileBounds))
 	{
 		entity->setOnGround(true);
+		if (tile->isHarming() && isDerivedFrom<Enemy>(*entity))
+		{
+			dynamic_cast<Enemy*>(entity)->die();
+			tile->stopHarming();
+		}
 	}
 
 	if (entityBounds.intersects(tileBounds))
@@ -121,6 +129,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			{
 				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
+			tile->shake();
 		}
 		else
 		{
@@ -189,7 +198,7 @@ void Collision::handle_entity_shell(Entity* entity, Shell* shell)
 	bool above = checkAbove(entityBounds, lastPosition, shellBounds);
 
 	if (entityBounds.intersects(shellBounds))
-	{	
+	{
 		if (above)
 		{
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, shellBounds.top - entityBounds.height));
