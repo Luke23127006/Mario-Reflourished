@@ -146,7 +146,7 @@ void Map::update(float deltaTime, std::vector<Entity*>& entities)
 		}
 		tile->update(deltaTime);
 
-		if (!tile->isNeedUpdating()) it = this->needUpdatings.erase(it); 
+		if (!tile->isNeedUpdating()) it = this->needUpdatings.erase(it);
 		else ++it;
 	}
 }

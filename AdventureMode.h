@@ -14,7 +14,7 @@
 
 class AdventureMode : public Scene
 {
-private:
+protected:
 	// map objects
 	std::vector<Entity*> entities;
 	Player* player;
@@ -25,6 +25,7 @@ private:
 	void initMap(std::string fileName);
 
 public:
+	AdventureMode();
 	AdventureMode(std::string fileName, sf::Vector2f cameraOrigin);
 	virtual ~AdventureMode();
 
@@ -32,10 +33,10 @@ public:
 	void updateEntities(float deltaTime);
 	virtual void updateMap(float deltaTime);
 	virtual void updateCollision();
-	void updateCamera(float deltaTime);
+	virtual void updateCamera(float deltaTime);
 	void updateLastPosition();
 
-	void render(sf::RenderWindow& target, bool& held) override;
+	virtual void render(sf::RenderWindow& target, bool& held) override;
 	virtual GameState getNextScene() override;
 };
 

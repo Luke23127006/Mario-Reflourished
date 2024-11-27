@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AdventureMode.h"
+#include "EndlessMode.h"
 #include "ColorManager.h"
 #include "Global.h"
 #include "Login.h"

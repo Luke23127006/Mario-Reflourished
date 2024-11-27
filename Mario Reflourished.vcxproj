@@ -154,6 +154,7 @@
     <ClCompile Include="ColorManager.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="EndlessMode.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBarrier.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="ColorManager.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="EndlessMode.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBarrier.h" />
     <ClInclude Include="Entity.h" />
@@ -230,6 +232,8 @@
     <Image Include="Resources\Maps\demo_map.png" />
     <Image Include="Resources\Maps\Level 1.png" />
     <Image Include="Resources\Maps\Level 2.png" />
+    <Image Include="Resources\Maps\Level 3\Map0.png" />
+    <Image Include="Resources\Maps\Level 3\Map2.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

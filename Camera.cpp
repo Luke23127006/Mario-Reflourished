@@ -26,6 +26,11 @@ const sf::View Camera::getView(sf::Vector2u windowSize) const
 	return sf::View(this->position, size);
 }
 
+const sf::Vector2f Camera::getPosition() const
+{
+	return this->position;
+}
+
 void Camera::setPosition(sf::Vector2f position)
 {
 	this->position = position;

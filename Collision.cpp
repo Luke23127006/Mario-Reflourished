@@ -37,8 +37,8 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 	if (!map->insideMap(entity->getGlobalBounds())) return;
 
 	sf::Vector2u size = map->getSize();
-	int i = (1.f * entity->getGlobalBounds().left / TILE_SIZE);
-	int j = (1.f * entity->getGlobalBounds().top / TILE_SIZE);
+	int i = (1.f * (entity->getGlobalBounds().left - map->getPosition().x) / TILE_SIZE);
+	int j = (1.f * (entity->getGlobalBounds().top - map->getPosition().y) / TILE_SIZE);
 
 	entity->setOnGround(false);
 	std::vector<Tile*> tiles;

@@ -3,7 +3,6 @@
 void AdventureMode::initMap(std::string fileName)
 {
 	this->map = new Map(fileName, sf::Vector2f(0.f, 0.f));
-
 	sf::Image image;
 	image.loadFromFile(fileName);
 
@@ -32,6 +31,14 @@ void AdventureMode::initMap(std::string fileName)
 				break;
 			}
 		}
+}
+
+AdventureMode::AdventureMode()
+{
+	this->cameraOrigin = sf::Vector2f(0.f, 0.f);
+	this->map = nullptr;
+	this->player = nullptr;
+	this->entities.clear();
 }
 
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)

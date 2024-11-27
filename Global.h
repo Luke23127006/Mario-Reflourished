@@ -22,7 +22,7 @@ const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
-const float CAMERA_MAX_SPEED = 400.f;
+const float CAMERA_MAX_SPEED = 100.f;
 const float	CAMERA_ACCELERATION = 800.f;
 const float CAMERA_DECELERATION = 1200.f;
 const float CAMERA_FOLLOW_SPEED = 0.9f;
