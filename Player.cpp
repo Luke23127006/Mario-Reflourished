@@ -3,6 +3,7 @@
 
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
+	blinkTimer(0.f),
 	playerState(PlayerState::IDLE),
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
