@@ -30,8 +30,8 @@ public:
 
 	void update(float deltaTime) override;
 	void updateEntities(float deltaTime);
-	void updateMap(float deltaTime);
-	void updateCollision();
+	virtual void updateMap(float deltaTime);
+	virtual void updateCollision();
 	void updateCamera(float deltaTime);
 	void updateLastPosition();
 
