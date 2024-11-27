@@ -114,6 +114,11 @@ TileType Map::getTileType(int i, int j)
 	return this->mapData[i][j];
 }
 
+void Map::addNeedUpdated(Tile* tile)
+{
+	this->needUpdatings.insert(tile);
+}
+
 const bool Map::insideMap(sf::FloatRect bounds) const
 {
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
@@ -135,6 +140,15 @@ void Map::update(float deltaTime, std::vector<Entity*>& entities)
 			entities.push_back(lb->launchPowerUp());
 		}
 		lb->update(deltaTime);
+	}
+
+	for (auto it = this->needUpdatings.begin(); it != this->needUpdatings.end();)
+	{
+		auto* tile = *it;
+		tile->update(deltaTime);
+
+		if (!tile->isNeedUpdating()) it = this->needUpdatings.erase(it); 
+		else ++it;
 	}
 }
 

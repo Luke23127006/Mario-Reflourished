@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Global.h"
+#include "Resources.h"
 
 #include <SFML/Graphics.hpp>
 
