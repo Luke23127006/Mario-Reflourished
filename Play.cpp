@@ -2,39 +2,37 @@
 
 Play::Play(sf::RenderTexture& window)
 {
-	sf::Color pink(177, 80, 199);
-	this->buttons.push_back(&this->selectCharacterButton);
-	this->buttons.push_back(&this->selectLevelButton);
-	this->buttons.push_back(&this->backButton);
+	
 	// Background
 	this->loadTexture();
 	this->playBackground.setPosition(0, 0);
 	this->playBackground.setScale(window.getSize().x / this->playBackground.getGlobalBounds().width, window.getSize().y / this->playBackground.getGlobalBounds().height);
 	
-	// Select character button
-	this->selectCharacterButton.setText("Select Level");
-	this->selectCharacterButton.setButtonSize(sf::Vector2f(300, 50));
-	this->selectCharacterButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 - this->selectCharacterButton.getSize().y));
-	this->selectCharacterButton.setButtonColor(pink);
-	this->selectCharacterButton.setTextColor(sf::Color::White);
 
 	// Select level button
-	this->selectLevelButton.setText("Select Character");
-	this->selectLevelButton.setButtonSize(sf::Vector2f(300, 50));
-	this->selectLevelButton.setPosition(sf::Vector2f(static_cast<float>(window.getSize().x) / 2, window.getSize().y / 2 + this->selectLevelButton.getSize().y));
-	this->selectLevelButton.setButtonColor(pink);
-	this->selectLevelButton.setTextColor(sf::Color::White);
+	this->selectLevelButton = new Button();
+	this->selectLevelButton->setText("Select Level");
+	this->selectLevelButton->setButtonSize(sf::Vector2f(300, 50));
+	this->selectLevelButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->selectLevelButton->getSize().y));
+	this->selectLevelButton->addCommand(new changeSceneCommand(GameState::PLAY, GameState::SELECT_LEVEL));
+
+	// Select character button
+	this->selectCharacterButton = new Button();
+	this->selectCharacterButton->setText("Select Character");
+	this->selectCharacterButton->setButtonSize(sf::Vector2f(300, 50));
+	this->selectCharacterButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->selectCharacterButton->getSize().y));
+	this->selectCharacterButton->addCommand(new changeSceneCommand(GameState::PLAY, GameState::SELECT_CHARACTER));
 
 	// Back button
-	this->backButton.setText("Back");
-	this->backButton.setPosition(sf::Vector2f(window.getSize().x - this->backButton.getSize().x / 2, this->backButton.getSize().y / 2));
-	this->backButton.setButtonColor(pink);
-	this->backButton.setTextColor(sf::Color::White);
-	
-	// transition scene
-	this->goToSelectCharacterScene = false;
-	this->goToSelectLevelScene = false;
-	this->backToWelcome = false;
+	this->backButton = new Button();
+	this->backButton->setText("Back");
+	this->backButton->setPosition(sf::Vector2f(window.getSize().x - this->backButton->getSize().x / 2, this->backButton->getSize().y / 2.0f));
+	this->backButton->addCommand(new changeSceneCommand(GameState::PLAY, GameState::WELCOME));
+
+	this->buttons.push_back(this->selectLevelButton);
+	this->buttons.push_back(this->selectCharacterButton);
+	this->buttons.push_back(this->backButton);
+
 
 }
 
@@ -55,7 +53,7 @@ void Play::draw(sf::RenderWindow& window)
 }
 
 
-void Play::updateClickButton(sf::RenderWindow& window, bool& held)
+void Play::updateClickButton(bool& held)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -64,23 +62,10 @@ void Play::updateClickButton(sf::RenderWindow& window, bool& held)
 			held = true;
 			if (this->selectedButton >= 0)
 			{
-				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window))
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
 					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 				{
-					switch (this->selectedButton)
-					{
-					case 0:
-						this->goToSelectLevelScene = true;
-						break;
-					case 1:
-						this->goToSelectCharacterScene = true;
-						break;
-					case 2:
-						this->backToWelcome = true;
-						break;
-					default:
-						break;
-					}
+					this->buttons[selectedButton]->click();
 				}
 			}
 		}
@@ -88,29 +73,33 @@ void Play::updateClickButton(sf::RenderWindow& window, bool& held)
 	else held = false;
 }
 
-void Play::render(sf::RenderWindow& window, bool& held)
+void Play::update(float dt, bool& held)
 {
-	this->updateHoverButton(window);
-	this->updateClickButton(window, held);
+	this->updateHoverButton();
+	this->updateClickButton(held);
+}
+void Play::render(sf::RenderWindow& window)
+{
 	this->draw(window);
 }
 
 GameState Play::getNextScene()
 {
-	if (this->backToWelcome)
+	if (this->selectedButton == -1)
 	{
-		this->backToWelcome = false;
-		return GameState::WELCOME;
+		return GameState::PLAY;
 	}
-	if (this->goToSelectCharacterScene)
+	auto nextScene = dynamic_cast<changeSceneCommand*>(this->buttons[this->selectedButton]->getCommand(0));
+	if (nextScene != nullptr)
 	{
-		this->goToSelectCharacterScene = false;
-		return GameState::SELECT_CHARACTER;
+		return nextScene->getScene();
 	}
-	if (this->goToSelectLevelScene)
+}
+
+Play::~Play()
+{
+	for (auto button : this->buttons)
 	{
-		this->goToSelectCharacterScene = false;
-		return GameState::SELECT_LEVEL;
+		delete button;
 	}
-	return GameState::PLAY;
 }

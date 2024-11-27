@@ -9,28 +9,34 @@
 
 Button::Button()
 {
-
-	//font = Resources::fonts["Standard"];
+	// button size
 	buttonSize = sf::Vector2f(200, 50);
 	button.setSize(buttonSize);
-	// buttonColor
-	buttonColor = sf::Color(177, 80, 199);
+	// button color
+	buttonColor = PINK;
 	buttonColorHover = lightenColor(buttonColor, 100);
 	button.setFillColor(buttonColor);
-	// button outline
+	// outline color
 	button.setOutlineThickness(1.7);
 	outlineColor = sf::Color::Magenta;
 	outlineColorHover = sf::Color::Green;
 	button.setOutlineColor(outlineColor);
-	// button text
+
 	
 	
-	colorHover = sf::Color::Green;
 
 	isHovered = false;
 	
 }
 
+
+Button::~Button()
+{
+	for (Command* command : commands)
+	{
+		delete command;
+	}
+}
 void Button::setPosition(sf::Vector2f position)
 {
 	sf::Vector2f actualPosition = position - buttonSize / 2.0f;
@@ -71,6 +77,7 @@ void Button::setTextColor(sf::Color color)
 void Button::setText(std::string text)
 {
 	buttonText.setText(text);
+	updateSizeButton();
 }
 std::string Button::getText()
 {
@@ -83,12 +90,13 @@ int Button::getTextSize()
 void Button::updateSizeButton()
 {
 	sf::Vector2f previousSize = buttonSize;
+	sf::Vector2f minSize = sf::Vector2f(200, 50);
 	if (buttonSize.x <= buttonText.getGlobalBounds().width)
 	{
 		buttonSize.x = buttonText.getGlobalBounds().width + 20;
 		button.setSize(buttonSize);
 	}
-
+	
 	this->setPosition(button.getPosition() + previousSize / 2.0f);
 }
 
@@ -99,30 +107,37 @@ void Button::setFont(sf::Font font)
 	buttonText.setFont(font);
 }
 
-void Button::setAbleToWrite(bool ableToWrite)
+
+// For command
+
+void Button::addCommand(Command *command)
 {
-	isAbleToWrite = ableToWrite;
-	buttonText.setAbleToWrite(ableToWrite);
+	std::cout << "Add command\n";
+	if (command == nullptr) return;
+	commands.push_back(command);
 }
+
+void Button::click()
+{
+	for (Command* command : commands)
+	{
+		command->execute();
+	}
+}
+
+Command* Button::getCommand(int index)
+{
+	if (index < 0 || index >= commands.size()) return nullptr;
+	return commands[index];
+}
+
 
 
 sf::Vector2f Button::getPosition()
 {
 	return button.getPosition();
 }
-void Button::updateText()
-{
-	if (!isAbleToWrite) return;
-	float oldTextSize = buttonText.getGlobalBounds().width;
-	buttonText.updateText();
-	float newTextSize = buttonText.getGlobalBounds().width;
-	float offset = (newTextSize - oldTextSize);
-	float min = std::max(200.0f, button.getSize().x + offset);
-	/*button.setSize(sf::Vector2f(min, buttonSize.y)); 
-	button.setPosition(button.getPosition() - sf::Vector2f(offset / 2.0f, 0));*/
-	this->setButtonSize(sf::Vector2f(min, buttonSize.y));
-	this->setPosition(button.getPosition() - sf::Vector2f(offset / 2.0f, 0) + button.getSize() / 2.0f);
-}
+
 sf::Vector2f Button::getSize()
 {
 	return buttonSize;
@@ -139,15 +154,13 @@ sf::Color Button::lightenColor(const sf::Color& color, int increase) {
 	return sf::Color(r, g, b, color.a);         // Giữ nguyên độ trong suốt
 }
 
-bool Button::isHoverMouse(sf::RenderWindow& window)
+bool Button::isHoverMouse()
 {
-	sf::Vector2i mousePosition = sf::Vector2i(sf::Mouse::getPosition(window));
-
-	sf::Vector2f mousePositionView = window.mapPixelToCoords(mousePosition);
-	if (button.getGlobalBounds().contains(mousePositionView))
+	
+	if (button.getGlobalBounds().contains(MOUSE_VIEW_POSITION))
 	{
-		if (mousePosition.x < 0 || mousePosition.x > window.getSize().x
-			|| mousePosition.y < 0 || mousePosition.y > window.getSize().y)
+		if (MOUSE_POSITION.x < 0 || MOUSE_POSITION.x > WINDOW_SIZE.x
+			|| MOUSE_POSITION.y < 0 || MOUSE_POSITION.y > WINDOW_SIZE.y)
 		{
 			return false;
 		}
@@ -163,7 +176,7 @@ void Button::changeHovered()
 	isHovered = !isHovered;
 
 }
-void Button::colorHoverButton(sf::RenderWindow& window)
+void Button::colorHoverButton()
 {
 	if (isHovered)
 	{

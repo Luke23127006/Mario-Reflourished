@@ -51,7 +51,7 @@ AdventureMode::~AdventureMode()
 	}
 }
 
-void AdventureMode::update(float deltaTime)
+void AdventureMode::update(float deltaTime, bool& held)
 {
 	this->updateEntities(deltaTime);
 	this->updateMap(deltaTime);
@@ -159,7 +159,7 @@ void AdventureMode::updateLastPosition()
 		e->updateLastPosition();
 }
 
-void AdventureMode::render(sf::RenderWindow& target, bool& held)
+void AdventureMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
 	for (auto& e : this->entities)

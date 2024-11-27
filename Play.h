@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Button.h"
-#include "UserInterface.h"
+#include "Scene.h"
 
 #include <SFML\Graphics.hpp>
 
@@ -9,20 +9,23 @@ class Play : public Scene {
 private:
 	sf::Texture playTexture;
 	sf::Sprite playBackground;
-	Button selectCharacterButton;
-	Button selectLevelButton;
-	Button backButton;
+	// Select level button
+	Button* selectLevelButton;
+	// Select character button
+	Button* selectCharacterButton;
+	// Back button
+	Button* backButton;
+
 	
-	// transition scene
-	bool goToSelectCharacterScene;
-	bool goToSelectLevelScene;
-	bool backToWelcome;
+
 public:
 	Play(sf::RenderTexture& window);
+	~Play();
 	void loadTexture();
 	void draw(sf::RenderWindow& window) override;
-	void updateClickButton(sf::RenderWindow& window, bool& held);
-	void render(sf::RenderWindow& window, bool& held) override;
+	void updateClickButton(bool& held);
+	void update(float dt, bool& held) override;
+	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;
 };
 

@@ -2,10 +2,10 @@
 #include <SFML\Graphics.hpp>
 #include<string>
 #include "Button.h"
-#pragma once
+
 
 #include "Animation.h"
-#include "UserInterface.h"
+#include "Scene.h"
 
 #include <vector>
 
@@ -13,19 +13,19 @@ class Welcome : public Scene {
 private:
 	sf::Texture welcomeTexture;
 	Animation* welcomeAnimation;
-	Button playButton;
-	Button exitButton;
+	// Play button
+	Button* playButton;
+	// Exit button
+	Button* exitButton;
 
-	// transition scene
-	bool goToLoginScene;
 public:
 	Welcome(sf::RenderTexture& window);
 	void loadTexture();
-	void updateClickButton(sf::RenderWindow& window, bool& held);
+	void updateClickButton(bool& held);
 	void updateAnimation(float dt);
 	void draw(sf::RenderWindow& window) override;
-	void update(float dt) override;
-	void render(sf::RenderWindow& window, bool& held) override;
+	void update(float dt, bool& held) override;
+	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;
 	~Welcome();
 };

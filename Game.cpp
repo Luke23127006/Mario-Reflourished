@@ -46,6 +46,9 @@ void Game::changeScene(GameState nextScene)
 		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0));
 		this->currentGameState = GameState::LEVEL2;
 		break;
+	case GameState::EXIT:
+		this->window->close();
+		break;
 	default:
 		break;
 	}
@@ -111,6 +114,10 @@ void Game::updateMousePosition()
 {
 	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
 	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+	this->windowSize = this->window->getSize();
+	WINDOW_SIZE = this->windowSize;
+	MOUSE_POSITION = this->mousePosWindow;
+	MOUSE_VIEW_POSITION = this->mousePosView;
 }
 
 const bool Game::running() const
@@ -122,8 +129,7 @@ void Game::update(float deltaTime)
 {
 	this->pollEvents();
 	this->updateMousePosition();
-
-	this->currentScene->update(deltaTime);
+	this->currentScene->update(deltaTime, held);
 	this->changeScene(this->currentScene->getNextScene());
 }
 
@@ -131,7 +137,7 @@ void Game::render()
 {
 	this->window->clear(sf::Color::White);
 	this->window->setView(this->window->getDefaultView());
-	this->currentScene->render(*this->window, held);
+	this->currentScene->render(*this->window);
 }
 
 void Game::run()
