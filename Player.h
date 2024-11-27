@@ -14,6 +14,7 @@ class Player : public Entity
 private:
 	PlayerState playerState;
 
+	float blinkTimer;
 	float invicibleTimer;
 	float jumpTimer;
 	int coins;

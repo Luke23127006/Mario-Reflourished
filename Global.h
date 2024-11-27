@@ -18,8 +18,6 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
 
-const int TILE_SIZE = 50;
-
 const float GRAVITY = 3000.f;
 
 // colors
@@ -59,7 +57,11 @@ const float BULLET_HEIGHT = 10.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
+// entities
+const float ENTITY_JUMP_STRENGHT = 500.f;
+
 // enemies
+
 const float ENEMY_DIE_TIME = 3.f;
 const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
@@ -88,6 +90,10 @@ const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
 const float SHIELD_DURATION = 5.f;
 const float MAGNET_DURATION = 5.f;
+
+// tiles
+const float TILE_SIZE = 50;
+const float TILE_SHAKE_DURATION = 0.25f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);

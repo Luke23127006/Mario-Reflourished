@@ -3,6 +3,7 @@
 
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
+	blinkTimer(0.f),
 	playerState(PlayerState::IDLE),
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
@@ -60,6 +61,11 @@ void Player::gainPowerUp(PowerUp& powerUp)
 		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_BIGGER_HEIGHT));
 		this->hitbox.move(0.f, PLAYER_HEIGHT - PLAYER_BIGGER_HEIGHT);
 		break;
+
+	case PowerUpType::INVICIBLE:
+		if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] > 0.f) break;
+		this->invicibleTimer = INVICIBLE_DURATION;
+		break;
 	}
 
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
@@ -102,6 +108,16 @@ void Player::update(float deltaTime)
 		this->updateAnimation(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
+
+		//Handle nhap nhay
+		if (this->invicibleTimer - deltaTime > 0.f)
+		{
+			this->hitbox.setFillColor(this->hitbox.getFillColor().a == 0 ? sf::Color(0, 0, 0, 120) : sf::Color(0, 0, 0, 0));
+		}
+		else
+		{
+			this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
+		}
 	}
 }
 
@@ -195,6 +211,13 @@ void Player::updatePowerUps(float deltaTime)
 	{
 		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
 		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
+	}
+	
+	// invicible
+	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
+		this->invicibleTimer = 0.f;
 	}
 
 	for (auto& d : this->powerUpDuration)

@@ -8,6 +8,8 @@ LuckyBlock::LuckyBlock(sf::Vector2f position, LuckyBlockType type) :
 	this->sprite.setTexture(Resources::textures["EMPTY_BLOCK"]);
 	this->animation = new Animation(Resources::textures["LUCKY_BLOCK"], 4, 0.2f, sf::Vector2i(50, 50));
 	this->particle = nullptr;
+
+	this->canShake = true;
 }
 
 LuckyBlock::~LuckyBlock()
@@ -31,6 +33,11 @@ const LuckyBlockType LuckyBlock::getType() const
 	return this->type;
 }
 
+const bool LuckyBlock::isNeedUpdating() const
+{
+	return (!this->activated || this->shakeDuration >= 0.f);
+}
+
 void LuckyBlock::activate()
 {
 	if (this->activated) return;
@@ -43,14 +50,21 @@ void LuckyBlock::activate()
 	}
 }
 
+void LuckyBlock::shake()
+{
+	Tile::shake();
+	this->canShake = false;
+}
+
 PowerUp* LuckyBlock::launchPowerUp()
 {
 	this->type = LuckyBlockType::ACTIVATED;
-    return EntityFactory::createPowerUp(this->getGlobalBounds());
+	return EntityFactory::createPowerUp(this->getGlobalBounds());
 }
 
 void LuckyBlock::update(float deltaTime)
 {
+	Tile::update(deltaTime);
 	if (this->activated)
 	{
 		if (this->particle && this->particle->isExpired())
@@ -60,7 +74,10 @@ void LuckyBlock::update(float deltaTime)
 		}
 		if (this->particle) this->particle->update(deltaTime);
 	}
-	else this->animation->update(deltaTime, false);
+	else
+	{
+		this->animation->update(deltaTime, false);
+	}
 }
 
 void LuckyBlock::render(sf::RenderTarget& target)

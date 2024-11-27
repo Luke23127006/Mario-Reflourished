@@ -25,7 +25,9 @@ public:
 	const sf::Vector2f getCenter() const;
 	const bool isActivated() const;
 	const LuckyBlockType getType() const;
+	const bool isNeedUpdating() const override;
 	void activate();
+	void shake() override;
 	PowerUp* launchPowerUp();
 
 	void update(float deltaTime) override;

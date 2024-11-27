@@ -34,6 +34,16 @@ void Entity::setVelocity(sf::Vector2f velocity)
 	this->velocity = velocity;
 }
 
+void Entity::jump()
+{
+	if (this->onGround)
+	{
+		this->velocity.y = -ENTITY_JUMP_STRENGHT;
+		this->hitbox.move(sf::Vector2f(0.f, -0.01f));
+		this->onGround = false;
+	}
+}
+
 sf::Vector2f Entity::getLastPosition()
 {
 	return this->lastPosition;
