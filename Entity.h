@@ -25,6 +25,8 @@ public:
 
 	void setOnGround(bool onGround);
 	void setVelocity(sf::Vector2f velocity);
+	void jump();
+
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();
 	virtual void die();

@@ -7,7 +7,7 @@ Tile* TileFactory::createTile(sf::Vector2f position, TileType type)
 	case TileType::GROUND_BLOCK:
 		return new Tile(position, Resources::textures["GROUND_BLOCK"]);
 	case TileType::BRICK:
-		return new Tile(position, Resources::textures["BRICK"]);
+		return new Tile(position, Resources::textures["BRICK"], true);
 	case TileType::BLOCK:
 		return new Tile(position, Resources::textures["BLOCK"]);
 	case TileType::BARRIER:

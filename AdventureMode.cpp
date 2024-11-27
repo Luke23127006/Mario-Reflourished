@@ -54,8 +54,8 @@ AdventureMode::~AdventureMode()
 void AdventureMode::update(float deltaTime)
 {
 	this->updateEntities(deltaTime);
-	this->updateMap(deltaTime);
 	this->updateCollision();
+	this->updateMap(deltaTime);
 	this->updateCamera(deltaTime);
 	this->updateLastPosition();
 }

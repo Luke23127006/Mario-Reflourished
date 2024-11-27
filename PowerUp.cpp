@@ -43,9 +43,9 @@ void PowerUp::update(float deltaTime)
 	}
 	else
 	{
-		if (this->onGround) this->velocity.y = 0;
+		if (this->onGround) this->velocity.y = 0.f;
 		else this->velocity.y += GRAVITY * deltaTime;
-		if (this->velocity.x == 0)
+		if (this->velocity.x == 0.f)
 		{
 			this->velocity = sf::Vector2f(POWER_UP_SPEED, 0.f);
 		}

@@ -30,7 +30,8 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			{
 			case TileType::LUCKY_BLOCK:
 				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE));
-				this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
+				//this->luckyBlocks.push_back(dynamic_cast<LuckyBlock*>(this->map[i][j]));
+				this->needUpdatings.insert(this->map[i][j]);
 				break;
 			case TileType::PIPE:
 				if (this->mapData[i][j - 1] == TileType::PIPE)
@@ -133,18 +134,16 @@ void Map::update(float deltaTime)
 
 void Map::update(float deltaTime, std::vector<Entity*>& entities)
 {
-	for (auto& lb : this->luckyBlocks)
-	{
-		if (lb->isActivated() && lb->getType() == LuckyBlockType::POWER_UP)
-		{
-			entities.push_back(lb->launchPowerUp());
-		}
-		lb->update(deltaTime);
-	}
-
 	for (auto it = this->needUpdatings.begin(); it != this->needUpdatings.end();)
 	{
 		auto* tile = *it;
+		if (isType<LuckyBlock>(*tile) && dynamic_cast<LuckyBlock*>(tile)->isActivated())
+		{
+			if (dynamic_cast<LuckyBlock*>(tile)->getType() == LuckyBlockType::POWER_UP)
+			{
+				entities.push_back(dynamic_cast<LuckyBlock*>(tile)->launchPowerUp());
+			}
+		}
 		tile->update(deltaTime);
 
 		if (!tile->isNeedUpdating()) it = this->needUpdatings.erase(it); 

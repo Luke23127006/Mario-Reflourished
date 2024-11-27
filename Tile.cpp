@@ -1,12 +1,23 @@
 #include "Tile.h"
 
 Tile::Tile(sf::Vector2f position) :
-	Object(sf::Vector2f(50, 50), position)
+	Object(sf::Vector2f(50, 50), position),
+	canShake(false)
 {
 }
 
 Tile::Tile(sf::Vector2f position, sf::Texture& texture) : 
-	Object(sf::Vector2f(50, 50), position)
+	Object(sf::Vector2f(50, 50), position),
+	canShake(false)
+{
+	this->sprite.setTexture(texture);
+	this->hitbox.setFillColor(sf::Color::Green);
+	this->sprite.setScale(this->hitbox.getSize().x / texture.getSize().x, this->hitbox.getSize().y / texture.getSize().y);
+}
+
+Tile::Tile(sf::Vector2f position, sf::Texture& texture, bool canShake) :
+	Object(sf::Vector2f(50, 50), position),
+	canShake(canShake)
 {
 	this->sprite.setTexture(texture);
 	this->hitbox.setFillColor(sf::Color::Green);
@@ -29,7 +40,7 @@ const bool Tile::isShaking() const
 
 const bool Tile::isNeedUpdating() const
 {
-	return this->needUpdating;
+	return this->shakeDuration > 0.f;
 }
 
 void Tile::stopHarming()
@@ -39,21 +50,16 @@ void Tile::stopHarming()
 
 void Tile::shake()
 {
-	if (this->sprite.getTexture() != &Resources::textures["BRICK"]) return;
+	if (!this->canShake) return;
 	this->shakeDuration = TILE_SHAKE_DURATION;
 	this->harming = true;
-	this->needUpdating = true;
 }
 
 void Tile::update(float deltaTime)
 {
 	this->shakeDuration = std::max(0.f, this->shakeDuration - deltaTime);
-	if (this->shakeDuration == 0.f) this->needUpdating = false;
 	this->harming = false;
-}
 
-void Tile::render(sf::RenderTarget& target)
-{
 	if (this->shakeDuration > 0.f)
 	{
 		float shakeStrength = 1000.f;
@@ -64,6 +70,10 @@ void Tile::render(sf::RenderTarget& target)
 	{
 		this->sprite.setPosition(this->getPosition());
 	}
+}
+
+void Tile::render(sf::RenderTarget& target)
+{
 	//target.draw(this->hitbox);
 	target.draw(this->sprite);
 }

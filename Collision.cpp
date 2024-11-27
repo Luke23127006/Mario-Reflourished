@@ -91,10 +91,16 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	if (checkOnGround(entityBounds, tileBounds))
 	{
 		entity->setOnGround(true);
-		if (tile->isHarming() && isDerivedFrom<Enemy>(*entity))
+		if (tile->isHarming())
 		{
-			dynamic_cast<Enemy*>(entity)->die();
-			tile->stopHarming();
+			if (isDerivedFrom<Enemy>(*entity))
+			{
+				dynamic_cast<Enemy*>(entity)->die();
+			}
+			else
+			{
+				entity->jump();
+			}
 		}
 	}
 

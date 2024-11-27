@@ -46,7 +46,11 @@ const float BULLET_HEIGHT = 10.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
+// entities
+const float ENTITY_JUMP_STRENGHT = 500.f;
+
 // enemies
+
 const float ENEMY_DIE_TIME = 3.f;
 const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
