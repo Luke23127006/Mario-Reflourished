@@ -152,6 +152,7 @@
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="ColorManager.cpp" />
+    <ClCompile Include="CommandList.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="EndlessMode.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
@@ -199,6 +201,8 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="ColorManager.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandList.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EndlessMode.h" />
@@ -229,6 +233,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />

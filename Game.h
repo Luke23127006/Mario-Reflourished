@@ -6,7 +6,7 @@
 #include "Global.h"
 #include "Login.h"
 #include "Play.h"
-#include "UserInterface.h"
+#include "Scene.h"
 #include "Resources.h"
 #include "SelectLevel.h"
 #include "Welcome.h"
@@ -27,7 +27,7 @@ private:
 	// Mouse position
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
-
+	sf::Vector2u windowSize;
 	// UI
 	bool held;
 	sf::RenderTexture renderTexture;

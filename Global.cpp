@@ -10,3 +10,7 @@ int randomize(int l, int r)
 {
 	return rand() % (r - l + 1) + l;
 }
+
+sf::Vector2i MOUSE_POSITION;
+sf::Vector2f MOUSE_VIEW_POSITION;
+sf::Vector2u WINDOW_SIZE;

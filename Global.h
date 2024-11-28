@@ -1,9 +1,18 @@
 #pragma once
-
+#include <SFML\Graphics.hpp>
 #define INT(enumValue) static_cast<int>(enumValue)
 
 #include <string>
 #include <ctime>
+
+
+
+// Mouse Position
+extern sf::Vector2i MOUSE_POSITION;
+extern sf::Vector2f MOUSE_VIEW_POSITION;
+extern sf::Vector2u WINDOW_SIZE;
+
+
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
@@ -11,6 +20,8 @@ const int ZOOM_LEVEL = 720;
 
 const float GRAVITY = 3000.f;
 
+// colors
+const sf::Color PINK = sf::Color(177, 80, 199);
 // directories
 const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/Mario/";
 const std::string DECORATIONS_DIRECTORY = "./Resources/Decorations/";
@@ -118,7 +129,8 @@ enum class GameState
 	LEVEL3,
 	ADVENTURE_MODE,
 	ENDLESS_MODE,
-	NUM_GAME_STATES
+	NUM_GAME_STATES,
+	EXIT
 };
 
 enum class PlayerState

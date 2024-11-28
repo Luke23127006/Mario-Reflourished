@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "PowerUp.h"
 #include "Resources.h"
-#include "UserInterface.h"
+#include "Scene.h"
 
 #include <vector>
 
@@ -29,14 +29,14 @@ public:
 	AdventureMode(std::string fileName, sf::Vector2f cameraOrigin);
 	virtual ~AdventureMode();
 
-	void update(float deltaTime) override;
+	void update(float deltaTime, bool& held) override;
 	void updateEntities(float deltaTime);
 	virtual void updateMap(float deltaTime);
 	virtual void updateCollision();
 	virtual void updateCamera(float deltaTime);
 	void updateLastPosition();
 
-	virtual void render(sf::RenderWindow& target, bool& held) override;
+	void render(sf::RenderWindow& target) override;
 	virtual GameState getNextScene() override;
 };
 

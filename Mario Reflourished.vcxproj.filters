@@ -84,7 +84,7 @@
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface.cpp">
+    <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Welcome.cpp">
@@ -136,6 +136,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EndlessMode.cpp">
@@ -209,7 +212,7 @@
     <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UserInterface.h">
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Welcome.h">
@@ -261,6 +264,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EndlessMode.h">

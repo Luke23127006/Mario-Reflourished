@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Animation.h"
-#include "Button.h"
-#include "UserInterface.h"
+
+#include "Scene.h"
 
 #include <SFML\Graphics.hpp>
 #include <string>
@@ -16,18 +16,26 @@ private:
 	Text errorLogin;
 	Text errorRegister;
 	Animation* loginAnimation;
-	Button userNameButton;
+	// User name button
+	Button* userNameButton;
 	Text hiddenUserName;
-	Button passwordButton;
+
+	// Password button
+	Button* passwordButton;
 	Text hiddenPassWord;
-	Button confirmPassWordButton;
+
+	// Confirm password button
+	Button* confirmPassWordButton;
 	Text hiddenConfirm;
-	Button registerButton;
-	Button backButton;
+
+	// Register button
+	Button* registerButton;
+
+	// Back button
+	Button* backButton;
+
 	std::vector<Text*> hiddenTexts;
-	bool isPressedEnter;
-	bool goToPlayScene;
-	bool backToWelcome;
+
 	bool isRegister;
 	bool updateRegisterAnimation;
 	float moveTime;
@@ -39,16 +47,16 @@ private:
 public :
 	Login(sf::RenderTexture& window);
 	void loadTexture();
-	void updateHoverButton(sf::RenderWindow& window) override;
-	void updateClickButton(sf::RenderWindow& window, bool& held);
+	void updateHoverButton() override;
+	void updateClickButton(bool& held);
 	void updateRegisterMovement(float dt);
-	void updateText();
+	//void updateText();
 	void addConfirmButton();
 	void resetAfterRegister();
 	void updateBackgroundAnimation(float dt);
 	void draw(sf::RenderWindow& window) override;
-	void update(float dt) override;
-	void render(sf::RenderWindow& window, bool& held) override;
+	void update(float dt, bool& held) override;
+	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;
 	bool checkAccount();
 	bool checkRegister();

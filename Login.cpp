@@ -9,64 +9,85 @@
 
 Login::Login(sf::RenderTexture& window)
 {
-	// Handle Error Messages
-	this->errorLogin.setText("User Name or Password is incorrect");
-	this->errorLogin.setTextColor(sf::Color::Red);
-	this->errorRegister.setText("UserName   is existed      or      ConfirmPassword   is not correct");
-	this->errorRegister.setTextColor(sf::Color::Red);
-	this->errorLogin.setPosition(sf::Vector2f(window.getSize().x / 2 - errorLogin.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y * 2- errorLogin.getGlobalBounds().getSize().y));
-	this->errorRegister.setPosition(sf::Vector2f(window.getSize().x / 2 - errorRegister.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y * 2 - errorRegister.getGlobalBounds().getSize().y));
-	// Hidden Text
-	this->hiddenTexts.push_back(&hiddenUserName);
-	this->hiddenTexts.push_back(&hiddenPassWord);
-	this->hiddenTexts.push_back(&hiddenConfirm);
-
-	// All Buttons
-	this->buttons.push_back(&userNameButton);
-	this->buttons.push_back(&passwordButton);
-	//buttons.push_back(&confirmPassWordButton);
-	this->buttons.push_back(&registerButton);
-	this->buttons.push_back(&backButton);
+	
+	
 
 	// user name
+	this->userNameButton = new Button();
 	this->hiddenUserName.setText("User Name");
-	this->userNameButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - userNameButton.getSize().y));
-	sf::Vector2f offSet = (userNameButton.getSize() - hiddenUserName.getLocalBounds().getSize()) / 2.0f - hiddenUserName.getLocalBounds().getPosition();
-	this->hiddenUserName.setPosition(userNameButton.getPosition() + offSet);
-	this->userNameButton.setAbleToWrite(false);
+	this->userNameButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - userNameButton->getSize().y));
+	this->userNameButton->addCommand(new changeSceneCommand(GameState::LOGIN, GameState::LOGIN));
+	this->userNameButton->addCommand(new writeTextCommand(userNameButton));
+	// hidden user name
+	sf::Vector2f offSet = (userNameButton->getSize() - hiddenUserName.getLocalBounds().getSize()) / 2.0f - hiddenUserName.getLocalBounds().getPosition();
+	this->hiddenUserName.setPosition(userNameButton->getPosition() + offSet);
+
 		
 	// password
+	this->passwordButton = new Button();
 	this->hiddenPassWord.setText("Password");
-	this->passwordButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + passwordButton.getSize().y));
-	offSet = (passwordButton.getSize() - hiddenPassWord.getLocalBounds().getSize()) / 2.0f - hiddenPassWord.getLocalBounds().getPosition();
-	this->hiddenPassWord.setPosition(passwordButton.getPosition() + offSet);
-	this->passwordButton.setAbleToWrite(false);
+	this->passwordButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + passwordButton->getSize().y));
+	this->passwordButton->addCommand(new changeSceneCommand(GameState::LOGIN, GameState::PLAY));
+	this->passwordButton->addCommand(new writeTextCommand(passwordButton));
+	// hidden password
+	offSet = (passwordButton->getSize() - hiddenPassWord.getLocalBounds().getSize()) / 2.0f - hiddenPassWord.getLocalBounds().getPosition();
+	this->hiddenPassWord.setPosition(passwordButton->getPosition() + offSet);
+
 
 	// confirm password
+	this->confirmPassWordButton = new Button();
 	this->hiddenConfirm.setText("Confirm Pass");
-	this->confirmPassWordButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + confirmPassWordButton.getSize().y));
-	offSet = (confirmPassWordButton.getSize() - hiddenConfirm.getLocalBounds().getSize()) / 2.0f - hiddenConfirm.getLocalBounds().getPosition();
-	this->hiddenConfirm.setPosition(confirmPassWordButton.getPosition() + offSet);
-	this->passwordButton.setAbleToWrite(false);
+	this->confirmPassWordButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + confirmPassWordButton->getSize().y));
+	this->confirmPassWordButton->addCommand(new changeSceneCommand(GameState::LOGIN, GameState::PLAY));
+	this->confirmPassWordButton->addCommand(new writeTextCommand(confirmPassWordButton));
+	// hidden confirm password
+	offSet = (confirmPassWordButton->getSize() - hiddenConfirm.getLocalBounds().getSize()) / 2.0f - hiddenConfirm.getLocalBounds().getPosition();
+	this->hiddenConfirm.setPosition(confirmPassWordButton->getPosition() + offSet);
+
 
 	// register
-	this->registerButton.setText("Register");
-	this->registerButton.setPosition(sf::Vector2f(window.getSize().x - registerButton.getSize().x / 2, window.getSize().y - registerButton.getSize().y / 2));
-	this->registerButton.setAbleToWrite(false);
+	this->registerButton = new Button();
+	this->registerButton->setText("Register");
+	this->registerButton->setPosition(sf::Vector2f(window.getSize().x - registerButton->getSize().x / 2, window.getSize().y - registerButton->getSize().y / 2));
+	this->registerButton->addCommand(new changeSceneCommand(GameState::LOGIN, GameState::LOGIN));
 
 	// back
-	this->backButton.setText("Back");
-	this->backButton.setPosition(sf::Vector2f(window.getSize().x - backButton.getSize().x / 2 , backButton.getSize().y / 2));
-	this->backButton.setAbleToWrite(false);
+	this->backButton = new Button();
+	this->backButton->setText("Back");
+	this->backButton->setPosition(sf::Vector2f(window.getSize().x - backButton->getSize().x / 2 , backButton->getSize().y / 2));
+	this->backButton->addCommand(new changeSceneCommand(GameState::LOGIN, GameState::WELCOME));
+
 
 	// background
 	loadTexture();
 	this->loginAnimation->setPosition(sf::Vector2f(0, 0));
 	this->loginAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
 
-	this->isPressedEnter = false;
-	this->goToPlayScene = false;
-	this->backToWelcome = false;
+
+
+	// All Buttons
+	this->buttons.push_back(userNameButton);
+	this->buttons.push_back(passwordButton);
+	this->buttons.push_back(registerButton);
+	this->buttons.push_back(backButton);
+
+
+	// Handle Error Messages
+	this->errorLogin.setText("User Name or Password is incorrect");
+	this->errorLogin.setTextColor(sf::Color::Red);
+	this->errorRegister.setText("UserName   is existed      or      ConfirmPassword   is not correct");
+	this->errorRegister.setTextColor(sf::Color::Red);
+	this->errorLogin.setPosition(sf::Vector2f(window.getSize().x / 2 - errorLogin.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton->getSize().y * 2 - errorLogin.getGlobalBounds().getSize().y));
+	this->errorRegister.setPosition(sf::Vector2f(window.getSize().x / 2 - errorRegister.getGlobalBounds().getSize().x / 2, window.getSize().y / 2 - userNameButton->getSize().y * 2 - errorRegister.getGlobalBounds().getSize().y));
+	// Hidden Text
+	this->hiddenTexts.push_back(&hiddenUserName);
+	this->hiddenTexts.push_back(&hiddenPassWord);
+	this->hiddenTexts.push_back(&hiddenConfirm);
+
+
+
+
+
 	this->isRegister = false;
 	this->updateRegisterAnimation = false;
 	this->isErrorLogin = false;
@@ -86,18 +107,22 @@ void Login::loadTexture()
 }
 
 
-void Login::updateHoverButton(sf::RenderWindow& window)
+void Login::updateHoverButton()
 {
-	Scene::updateHoverButton(window);
+	Scene::updateHoverButton();
 	// Update Able to Write
 	if (!this->isRegister)
 	{
 		for (int i = 0; i < 2; ++i)
 		{
 			if (i == this->selectedButton)
-				this->buttons[i]->setAbleToWrite(true);
+			{
+				dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->setAbleToWrite(true);
+			}
+				
 			else
-				this->buttons[i]->setAbleToWrite(false);
+				dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->setAbleToWrite(false);
+			dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->execute();
 		}
 	}
 	if (this->isRegister)
@@ -105,9 +130,13 @@ void Login::updateHoverButton(sf::RenderWindow& window)
 		for (int i = 0; i < 3; ++i)
 		{
 			if (i == this->selectedButton)
-				this->buttons[i]->setAbleToWrite(true);
+			{
+				dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->setAbleToWrite(true);
+			}
+				
 			else
-				this->buttons[i]->setAbleToWrite(false);
+				dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->setAbleToWrite(false);
+			dynamic_cast<writeTextCommand*>(this->buttons[i]->getCommand(1))->execute();
 		
 		}
 	}
@@ -117,121 +146,91 @@ void Login::updateHoverButton(sf::RenderWindow& window)
 }
 
 
-void Login::updateClickButton(sf::RenderWindow& window, bool& held)
+void Login::updateClickButton(bool& held)
 {
 
 	if (this->selectedButton == -1)
 		return;
-	if (!this->isRegister)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-		{
-			if (!this->isPressedEnter)
-			{
-				this->isPressedEnter = true;
-				switch (this->selectedButton)
-				{
-				case 0:
-					this->buttons[selectedButton]->changeHovered();
-					this->selectedButton++;
-					this->buttons[selectedButton]->changeHovered();
-					break;
-				case 1:
-					// Handle PassWord
-					if (checkAccount())
-					{
-						this->goToPlayScene = true;
-					}
-					else {
-						this->isErrorLogin = true;
-					}
-					break;
 
-				}
-			}
-			
-		}
-		else {
-			this->isPressedEnter = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-			|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && buttons[selectedButton]->isHoverMouse(window)))
-		{
-			switch (this->selectedButton)
-			{
-			case 2:
-				this->isRegister = true;
-				this->updateRegisterAnimation = true;
-				this->speedRegister = sqrt(pow(confirmPassWordButton.getPosition().x - registerButton.getPosition().x, 2) + pow(confirmPassWordButton.getPosition().y + 3 * confirmPassWordButton.getSize().y - registerButton.getPosition().y, 2)) / moveTime;
-				this->speedconfirmPassWord = (2 * confirmPassWordButton.getSize().y) / moveTime;
-				addConfirmButton();
-				resetAfterRegister();
-				break;
-			case 3:
-				this->backToWelcome = true;
-				break;
-			default:
-				break;
-			}
-		}
-	}
-
-	if (this->isRegister)
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
+		|| (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+		if (held == false)
 		{
-			if (!this->isPressedEnter)
+			held = true;
+			if (this->selectedButton >= 0)
 			{
-				this->isPressedEnter = true;
-				switch (this->selectedButton)
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 				{
-				case 0:
-					this->buttons[selectedButton]->changeHovered();
-					this->selectedButton++;
-					this->buttons[selectedButton]->changeHovered();
-					break;
-				case 1:
-					this->buttons[selectedButton]->changeHovered();
-					this->selectedButton++;
-					this->buttons[selectedButton]->changeHovered();
-					break;
-				case 2:
-					// Handle Confirm Password
-					if (checkRegister())
+					switch (selectedButton)
 					{
-						this->goToPlayScene = true;
-					}
-					else {
+					case 0:
+						if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+						{
+							break;
+						}
+						this->buttons[selectedButton]->changeHovered();
+						this->selectedButton++;
+						this->buttons[selectedButton]->changeHovered();
+						break;
+					case 1:
+						if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+						{
+							break;
+						}
+						if (!isRegister)
+						{
+							if (checkAccount())
+							{
+								this->buttons[selectedButton]->click();
+							}
+							this->isErrorLogin = true;
+							break;
+						}
+						this->buttons[selectedButton]->changeHovered();
+						this->selectedButton++;
+						this->buttons[selectedButton]->changeHovered();
+						break;
+
+
+					case 2:
+						if (!isRegister)
+						{
+							this->isRegister = true;
+							this->updateRegisterAnimation = true;
+							this->speedRegister = sqrt(pow(confirmPassWordButton->getPosition().x - registerButton->getPosition().x, 2) + pow(confirmPassWordButton->getPosition().y + 3 * confirmPassWordButton->getSize().y - registerButton->getPosition().y, 2)) / moveTime;
+							this->speedconfirmPassWord = (2 * confirmPassWordButton->getSize().y) / moveTime;
+							addConfirmButton();
+							resetAfterRegister();
+							break;
+						}
+						if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+						{
+							break;
+						}
+						if (checkRegister())
+						{
+							this->buttons[selectedButton]->click();
+						}
 						this->isErrorRegister = true;
+
+					case 3:
+						this->buttons[selectedButton]->click();
+						break;
+
 					}
-					break;
 				}
 			}
-			
 		}
-		else {
-			this->isPressedEnter = false;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
-			|| (sf::Mouse::isButtonPressed(sf::Mouse::Left) && buttons[selectedButton]->isHoverMouse(window)))
-		{
-			switch (this->selectedButton)
-			{
-			case 3:
-				this->backToWelcome = true;
-				break;
-			}
-		}
+
 	}
-}
-
-void Login::updateText()
-{
-
-	if (this->selectedButton == -1) return;
-	this->buttons[selectedButton]->updateText();
+	else held = false;
 
 }
+
+
 
 void Login::updateBackgroundAnimation(float dt)
 {
@@ -272,27 +271,27 @@ void Login::updateRegisterMovement(float dt)
 		this->buttons.pop_back();
 		return;
 	}
-	float angle = atan2(registerButton.getPosition().y - confirmPassWordButton.getPosition().y, registerButton.getPosition().x - confirmPassWordButton.getPosition().x);
-	this->registerButton.move(sf::Vector2f(-speedRegister * cos(angle) * dt, -speedRegister * sin(angle) * dt));
-	this->confirmPassWordButton.move(sf::Vector2f(0, speedconfirmPassWord * dt));
+	float angle = atan2(registerButton->getPosition().y - confirmPassWordButton->getPosition().y, registerButton->getPosition().x - confirmPassWordButton->getPosition().x);
+	this->registerButton->move(sf::Vector2f(-speedRegister * cos(angle) * dt, -speedRegister * sin(angle) * dt));
+	this->confirmPassWordButton->move(sf::Vector2f(0, speedconfirmPassWord * dt));
 	this->hiddenConfirm.move(sf::Vector2f(0, speedconfirmPassWord * dt));
 	this->moveTime -= dt;
 
 }
 
-void Login::update(float dt)
+void Login::update(float dt, bool& held)
 {
-	
-	this->updateText();
+	this->updateHoverButton();
+	this->updateClickButton(held);
+	//this->updateText();
 	this->updateBackgroundAnimation(dt);
 	this->updateRegisterMovement(dt);
 }
 
 
-void Login::render(sf::RenderWindow& window, bool& held)
+void Login::render(sf::RenderWindow& window)
 {
-	this->updateHoverButton(window);
-	this->updateClickButton(window, held);
+	
 	this->draw(window);
 
 }
@@ -303,9 +302,9 @@ void Login::render(sf::RenderWindow& window, bool& held)
 void Login::addConfirmButton()
 {
 	if (!this->isRegister) return;
-	this->registerButton.changeHovered();
+	this->registerButton->changeHovered();
 	this->selectedButton = 4;
-	this->buttons.insert(buttons.begin() + 2, &confirmPassWordButton);
+	this->buttons.insert(buttons.begin() + 2, confirmPassWordButton);
 	std::swap(*(buttons.end() - 1), *(buttons.end() - 2));
 
 
@@ -317,43 +316,42 @@ void Login::resetAfterRegister()
 	if (!this->isRegister) return;
 	this->isErrorLogin = false;
 	this->isErrorRegister = false;
-	this->userNameButton.setText("");
-	this->passwordButton.setText("");
-	this->confirmPassWordButton.setText("");
-	sf::Vector2f centerUser = userNameButton.getPosition() + userNameButton.getSize() / 2.0f;
-	this->userNameButton.setButtonSize(sf::Vector2f(200, 50));
-	this->userNameButton.setPosition(centerUser);
-	sf::Vector2f centerPassword = passwordButton.getPosition() + passwordButton.getSize() / 2.0f;
-	this->passwordButton.setButtonSize(sf::Vector2f(200, 50));
-	this->passwordButton.setPosition(centerPassword);
-	this->confirmPassWordButton.setButtonSize(sf::Vector2f(200, 50));
+	this->userNameButton->setText("");
+	this->passwordButton->setText("");
+	this->confirmPassWordButton->setText("");
+	sf::Vector2f centerUser = userNameButton->getPosition() + userNameButton->getSize() / 2.0f;
+	this->userNameButton->setButtonSize(sf::Vector2f(200, 50));
+	this->userNameButton->setPosition(centerUser);
+	sf::Vector2f centerPassword = passwordButton->getPosition() + passwordButton->getSize() / 2.0f;
+	this->passwordButton->setButtonSize(sf::Vector2f(200, 50));
+	this->passwordButton->setPosition(centerPassword);
+	this->confirmPassWordButton->setButtonSize(sf::Vector2f(200, 50));
 }
 
 GameState Login::getNextScene()
 {
-	if (this->goToPlayScene)
+	if (selectedButton == -1) return GameState::LOGIN;
+	auto nextScene = dynamic_cast<changeSceneCommand*>(this->buttons[this->selectedButton]->getCommand(0));
+	if (nextScene != nullptr)
 	{
-		this->goToPlayScene = false;
-		return GameState::PLAY;
+		return nextScene->getScene();
 	}
-	if (this->backToWelcome)
-	{
-		this->backToWelcome = false;
-		return GameState::WELCOME;
-	}
-	return GameState::LOGIN;
 }
 
 Login::~Login()
 {
+	for (auto button : this->buttons)
+	{
+		delete button;
+	}
 	delete this->loginAnimation;
 }
 
 
 bool Login::checkAccount()
 {
-	std::string userName = this->userNameButton.getText();
-	std::string passWord = this->passwordButton.getText();
+	std::string userName = this->userNameButton->getText();
+	std::string passWord = this->passwordButton->getText();
 	std::ifstream fin("./Resources/UserAccount/" + userName + "/" + userName + ".txt");
 	if (!fin.is_open())
 	{
@@ -374,9 +372,9 @@ bool Login::checkAccount()
 bool Login::checkRegister()
 {
 	if (checkAccount()) return false;
-	std::string userName = this->userNameButton.getText();
-	std::string passWord = this->passwordButton.getText();
-	std::string confirmPass = this->confirmPassWordButton.getText();
+	std::string userName = this->userNameButton->getText();
+	std::string passWord = this->passwordButton->getText();
+	std::string confirmPass = this->confirmPassWordButton->getText();
 	if (passWord != confirmPass)
 	{
 		return false;

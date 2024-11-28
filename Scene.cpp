@@ -1,4 +1,4 @@
-#include "UserInterface.h"
+#include "Scene.h"
 
 
 
@@ -16,10 +16,10 @@ Scene::Scene()
 }
 
 
-void Scene::update(float deltaTime)
+void Scene::update(float deltaTime, bool& held)
 {
 }
-void Scene::updateHoverButton(sf::RenderWindow& window)
+void Scene::updateHoverButton()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
@@ -58,7 +58,7 @@ void Scene::updateHoverButton(sf::RenderWindow& window)
 	// Mouse hover
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		if (this->buttons[i]->isHoverMouse(window))
+		if (this->buttons[i]->isHoverMouse())
 		{
 			if (i == this->selectedButton)
 			{
@@ -75,7 +75,7 @@ void Scene::updateHoverButton(sf::RenderWindow& window)
 	// Color Button
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
-		this->buttons[i]->colorHoverButton(window);
+		this->buttons[i]->colorHoverButton();
 	}
 }
 

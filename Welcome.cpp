@@ -1,32 +1,29 @@
 ﻿#include "Welcome.h"
-#include "UserInterface.h"
+
 
 Welcome::Welcome(sf::RenderTexture& window)
 {
-	sf::Color pink(177, 80, 199);
-	this->buttons.push_back(&this->playButton);
-	this->buttons.push_back(&this->exitButton);
-	// play
 
-	this->playButton.setText("Play");
-	this->playButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->playButton.getSize().y));
-	this->playButton.setButtonColor(pink);
-	this->playButton.setTextColor(sf::Color::White);
+	
+	// play
+	this->playButton = new Button();
+	this->playButton->setText("Play");
+	this->playButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->playButton->getSize().y));
+	this->playButton->addCommand(new changeSceneCommand(GameState::WELCOME, GameState::LOGIN));
 
 	// exit
-	this->exitButton.setText("Exit");
-	this->exitButton.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->exitButton.getSize().y));
-	this->exitButton.setButtonColor(pink);
-	this->exitButton.setTextColor(sf::Color::White);
-
+	this->exitButton = new Button();
+	this->exitButton->setText("Exit");
+	this->exitButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->exitButton->getSize().y));
+	this->exitButton->addCommand(new changeSceneCommand(GameState::WELCOME, GameState::EXIT));
 	// background
 	this->loadTexture();
-	/*this->welcomeSprite.setPosition(0, 0);
-	this->welcomeSprite.setScale(window.getSize().x / this->welcomeSprite.getGlobalBounds().width, window.getSize().y / this->welcomeSprite.getGlobalBounds().height);*/
 	this->welcomeAnimation->setPosition(sf::Vector2f(0, 0));
 	this->welcomeAnimation->setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
 	
-	this->goToLoginScene = false;
+	this->buttons.push_back(this->playButton);
+	this->buttons.push_back(this->exitButton);
+
 }
 
 void Welcome::draw(sf::RenderWindow& window)
@@ -49,7 +46,7 @@ void Welcome::loadTexture()
 }
 
 
-void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
+void Welcome::updateClickButton(bool& held)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -58,20 +55,11 @@ void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
 			held = true;
 			if (this->selectedButton >= 0)
 			{
-				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse(window))
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
 					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 				{
-					switch (this->selectedButton)
-					{
-					case 0:
-						this->goToLoginScene = true;
-						break;
-					case 1:
-						window.close();
-						break;
-					default:
-						break;
-					}
+				
+					this->buttons[this->selectedButton]->click();
 				}
 			}
 		}
@@ -81,32 +69,41 @@ void Welcome::updateClickButton(sf::RenderWindow& window, bool& held)
 
 void Welcome::updateAnimation(float dt)
 {
+
 	this->welcomeAnimation->update(dt, false);
 }
 
-void Welcome::render(sf::RenderWindow& window, bool& held)
+void Welcome::render(sf::RenderWindow& window)
 {
-	this->updateHoverButton(window);
-	this->updateClickButton(window, held);
+	
 	this->draw(window);
 }
 
-void Welcome::update(float dt)
+void Welcome::update(float dt, bool& held)
 {
+	this->updateHoverButton();
+	this->updateClickButton(held);
 	this->updateAnimation(dt);
 }
 
 GameState Welcome::getNextScene()
 {
-	if (this->goToLoginScene)
+
+	if (selectedButton == -1) return GameState::WELCOME;
+	auto nextScene = dynamic_cast<changeSceneCommand*>(this->buttons[this->selectedButton]->getCommand(0));
+	if (nextScene != nullptr)
 	{
-		this->goToLoginScene = false;
-		return GameState::LOGIN;
+		return nextScene->getScene();
 	}
-	return GameState::WELCOME;
+	
 }
 
 Welcome::~Welcome()
 {
-	delete this->welcomeAnimation;
+	for (auto& button : this->buttons)
+	{
+		if (button == nullptr) continue;
+		delete button;
+	}
+	if (this->welcomeAnimation) delete this->welcomeAnimation;
 }

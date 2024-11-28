@@ -19,7 +19,7 @@ Text::Text()
 	this->isShiftPressed = false;
 	this->isBackspacePressed = false;
 	this->isEnterPressed = false;
-	for (auto x : keyStates)
+	for (auto x : this->keyStates)
 	{
 		x = false;
 	}
@@ -182,7 +182,6 @@ void Text::updateText()
 		keyStates[sf::Keyboard::Space] = false;
 	}
 
-	std::cout << "hmmm" << std::endl;
 	updateSize();
 }
 void Text::updateSize()
