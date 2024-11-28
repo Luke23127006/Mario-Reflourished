@@ -139,16 +139,16 @@ void EndlessMode::updateCamera(float deltaTime)
 	//this->camera.update(deltaTime, this->player->getPosition());
 }
 
-void EndlessMode::render(sf::RenderWindow& target, bool& held)
+void EndlessMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& m : this->maps)
-	{
-		m->render(target);
-	}
 	for (auto& e : this->entities)
 	{
 		e->render(target);
+	}
+	for (auto& m : this->maps)
+	{
+		m->render(target);
 	}
 	spikeWall->render(target);
 }

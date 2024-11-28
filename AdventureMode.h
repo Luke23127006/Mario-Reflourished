@@ -36,7 +36,7 @@ public:
 	virtual void updateCamera(float deltaTime);
 	void updateLastPosition();
 
-	void render(sf::RenderWindow& target) override;
+	virtual void render(sf::RenderWindow& target) override;
 	virtual GameState getNextScene() override;
 };
 

@@ -24,6 +24,6 @@ public:
 	void updateCollision() override;
 	void updateCamera(float deltaTime) override;
 
-	void render(sf::RenderWindow& target, bool& held) override;
+	void render(sf::RenderWindow& target) override;
 };
 

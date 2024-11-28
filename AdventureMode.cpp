@@ -171,9 +171,9 @@ void AdventureMode::updateLastPosition()
 void AdventureMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	this->map->render(target);
 	for (auto& e : this->entities)
 		e->render(target);
+	this->map->render(target);
 }
 
 GameState AdventureMode::getNextScene()

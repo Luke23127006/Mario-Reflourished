@@ -28,6 +28,7 @@ private:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 	sf::Vector2u windowSize;
+
 	// UI
 	bool held;
 	sf::RenderTexture renderTexture;

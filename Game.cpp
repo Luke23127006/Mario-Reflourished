@@ -48,7 +48,7 @@ void Game::changeScene(GameState nextScene)
 		break;
 	case GameState::LEVEL3:
 		if (this->currentGameState == GameState::LEVEL3) return;
-		std::cout << "Level2\n";
+		std::cout << "Level3\n";
 		isChange = true;
 		this->currentScene = std::make_unique<EndlessMode>();
 		this->currentGameState = GameState::LEVEL3;
