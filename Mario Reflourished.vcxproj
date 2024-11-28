@@ -185,7 +185,6 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
@@ -234,7 +233,6 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />
   </ItemGroup>
