@@ -53,7 +53,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
                     this->mapData[i][j] = TileType::ENEMY_BARRIER;
                 else if (tileName == "lava")
                     this->mapData[i][j] = TileType::LAVA;
-				else if (tileName == "water")
+				else if (tileName == "water" || tileName == "coin under water")
 					this->mapData[i][j] = TileType::WATER;
             }
 
