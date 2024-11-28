@@ -67,7 +67,7 @@ void AdventureMode::update(float deltaTime)
 	this->updateLastPosition();
 }
 
-void AdventureMode::updateEntities(float deltaTime) 
+void AdventureMode::updateEntities(float deltaTime)
 {
 	std::vector<Entity*> newEntities;
 	auto it = this->entities.begin();
@@ -76,22 +76,22 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		e->update(deltaTime);
 
-		if (isType<Player>(*e)) 
+		if (isType<Player>(*e))
 		{
 			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
 			if (bullet) newEntities.push_back(bullet);
 		}
 
-		if (!isType<Player>(*e) && e->isDead()) 
+		if (!isType<Player>(*e) && e->isDead())
 		{
-			if (isType<Koopa>(*e)) 
+			if (isType<Koopa>(*e))
 			{
 				newEntities.push_back(new Shell(e->getPosition()));
 			}
 			delete e;
 			it = this->entities.erase(it);
 		}
-		else 
+		else
 		{
 			++it;
 		}
@@ -107,11 +107,12 @@ void AdventureMode::updateMap(float deltaTime)
 
 void AdventureMode::updateCollision()
 {
-	for (auto& e : this->entities)
-	{
-		if (!e->getEnabled()) continue;
-		Collision::handle_entity_map(e, this->map);
-	}
+	if (map)
+		for (auto& e : this->entities)
+		{
+			if (!e->getEnabled()) continue;
+			Collision::handle_entity_map(e, this->map);
+		}
 
 	for (int i = 0; i < this->entities.size(); i++)
 	{

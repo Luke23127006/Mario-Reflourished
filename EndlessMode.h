@@ -1,14 +1,17 @@
 #pragma once
 
 #include "AdventureMode.h"
+#include "SpikeWall.h"
 
 class EndlessMode : public AdventureMode
 {
 private:
 	std::vector<Map*> maps;
+	SpikeWall* spikeWall;
 	int numMap;
 	float cameraPosition;
 	float cameraSpeed;
+	float cameraHeightMax;
 
 	void initMaps();
 public:

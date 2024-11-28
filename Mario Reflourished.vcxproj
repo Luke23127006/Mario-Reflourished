@@ -178,6 +178,7 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="SpikeWall.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SelectLevel.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="SpikeWall.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />

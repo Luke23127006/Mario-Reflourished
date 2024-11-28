@@ -22,10 +22,8 @@ const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
-const float CAMERA_MAX_SPEED = 100.f;
-const float	CAMERA_ACCELERATION = 800.f;
-const float CAMERA_DECELERATION = 1200.f;
-const float CAMERA_FOLLOW_SPEED = 0.9f;
+const float CAMERA_FOLLOW_DISTANCE = 50.f;
+const float CAMERA_SMOOTHING_FACTOR = 5.f;
 
 // player
 const float PLAYER_WIDTH = 48.f;
@@ -83,6 +81,10 @@ const float MAGNET_DURATION = 5.f;
 // tiles
 const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
+
+// map
+const int MINIMAP_WIDTH = 32;
+const int MINIMAP_HEIGHT = 14;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);

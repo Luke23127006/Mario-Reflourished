@@ -253,6 +253,14 @@ void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
 	}
 }
 
+void Collision::handle_entity_spikeWall(Entity* entity, SpikeWall* spikeWall)
+{
+	if (entity->getGlobalBounds().intersects(spikeWall->getGlobalBounds()))
+	{
+		entity->die();
+	}
+}
+
 void Collision::handle_player_coin(Player* player, Coin* coin)
 {
 }

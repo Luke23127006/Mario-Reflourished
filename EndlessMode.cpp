@@ -2,10 +2,14 @@
 
 void EndlessMode::initMaps()
 {
-	maps.push_back(new Map(MAPS_DIRECTORY + "Level 3/Map0.png", sf::Vector2f(0.f, 0.f)));
+	this->map = nullptr;
+	this->maps.push_back(new Map(MAPS_DIRECTORY + "Level 3/Map0.png", sf::Vector2f(0.f, 0.f)));
 
 	sf::Image image;
 	image.loadFromFile(MAPS_DIRECTORY + "Level 3/Map0.png");
+	this->spikeWall = new SpikeWall(sf::Vector2f(-2.f * CAMERA_FOLLOW_DISTANCE, 0.f));
+	this->spikeWall->move(sf::Vector2f(0.f, TILE_SIZE * image.getSize().y - this->spikeWall->getGlobalBounds().height));
+
 	for (int i = 0; i < image.getSize().x; i++)
 		for (int j = 0; j < image.getSize().y; j++)
 		{
@@ -37,6 +41,8 @@ EndlessMode::EndlessMode() :
 	cameraPosition(SCREEN_WIDTH / 2),
 	cameraSpeed(200.f)
 {
+	this->camera.setPosition(sf::Vector2f(cameraPosition, TILE_SIZE * MINIMAP_HEIGHT - SCREEN_HEIGHT / 2));
+	this->cameraHeightMax = this->camera.getPosition().y;
 	this->initMaps();
 }
 
@@ -106,30 +112,40 @@ void EndlessMode::updateCollision()
 {
 	for (auto& e : this->entities)
 	{
+		if (!e->getEnabled()) continue;
 		for (auto& m : this->maps)
 		{
-			if (!e->getEnabled()) continue;
 			Collision::handle_entity_map(e, m);
 		}
+		Collision::handle_entity_spikeWall(e, this->spikeWall);
 	}
+
+	AdventureMode::updateCollision();
 }
 
 void EndlessMode::updateCamera(float deltaTime)
 {
 	this->cameraPosition += this->cameraSpeed * deltaTime;
-	this->camera.update(deltaTime, sf::Vector2f(this->cameraPosition, this->player->getPosition().y));
+	this->camera.update(deltaTime, sf::Vector2f(this->cameraPosition, this->player->getPosition().y + SCREEN_HEIGHT * 0.4f));
+	if (this->camera.getPosition().y > this->cameraHeightMax)
+	{
+		this->camera.setPosition(sf::Vector2f(this->camera.getPosition().x, this->cameraHeightMax));
+	}
+
+	this->spikeWall->move(sf::Vector2f(this->cameraSpeed, 0.f) * deltaTime);
 	//this->camera.update(deltaTime, this->player->getPosition());
 }
 
 void EndlessMode::render(sf::RenderWindow& target, bool& held)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& e : this->entities)
-	{
-		e->render(target);
-	}
 	for (auto& m : this->maps)
 	{
 		m->render(target);
 	}
+	for (auto& e : this->entities)
+	{
+		e->render(target);
+	}
+	spikeWall->render(target);
 }
