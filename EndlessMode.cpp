@@ -125,6 +125,7 @@ void EndlessMode::updateCollision()
 
 void EndlessMode::updateCamera(float deltaTime)
 {
+	if (this->player->isDead()) return;
 	this->cameraPosition += this->cameraSpeed * deltaTime;
 	this->camera.update(deltaTime, sf::Vector2f(this->cameraPosition, this->player->getPosition().y + SCREEN_HEIGHT * 0.4f));
 	if (this->camera.getPosition().y > this->cameraHeightMax)
