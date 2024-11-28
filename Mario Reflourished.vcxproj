@@ -242,7 +242,26 @@
     <Image Include="Resources\Maps\Level 1.png" />
     <Image Include="Resources\Maps\Level 2.png" />
     <Image Include="Resources\Maps\Level 3\Map0.png" />
+    <Image Include="Resources\Maps\Level 3\Map1.png" />
+    <Image Include="Resources\Maps\Level 3\Map10.png" />
+    <Image Include="Resources\Maps\Level 3\Map11.png" />
+    <Image Include="Resources\Maps\Level 3\Map12.png" />
+    <Image Include="Resources\Maps\Level 3\Map13.png" />
+    <Image Include="Resources\Maps\Level 3\Map14.png" />
+    <Image Include="Resources\Maps\Level 3\Map15.png" />
+    <Image Include="Resources\Maps\Level 3\Map16.png" />
+    <Image Include="Resources\Maps\Level 3\Map17.png" />
+    <Image Include="Resources\Maps\Level 3\Map18.png" />
+    <Image Include="Resources\Maps\Level 3\Map19.png" />
     <Image Include="Resources\Maps\Level 3\Map2.png" />
+    <Image Include="Resources\Maps\Level 3\Map3.png" />
+    <Image Include="Resources\Maps\Level 3\Map4.png" />
+    <Image Include="Resources\Maps\Level 3\Map5.png" />
+    <Image Include="Resources\Maps\Level 3\Map6.png" />
+    <Image Include="Resources\Maps\Level 3\Map7.png" />
+    <Image Include="Resources\Maps\Level 3\Map8.png" />
+    <Image Include="Resources\Maps\Level 3\Map9.png" />
+    <Image Include="Resources\Maps\Level 3\MapReward.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
