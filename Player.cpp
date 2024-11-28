@@ -146,11 +146,11 @@ void Player::updateMovement(float deltaTime)
 	{
 		if (this->velocity.x > 0.f)
 		{
-			deceleration = -PLAYER_DECELERATION;
+			deceleration = std::max(-this->velocity.x / deltaTime, -PLAYER_DECELERATION);
 		}
 		else if (this->velocity.x < 0.f)
 		{
-			deceleration = PLAYER_DECELERATION;
+			deceleration = std::min(-this->velocity.x / deltaTime, PLAYER_DECELERATION);
 		}
 	}
 
@@ -201,7 +201,6 @@ void Player::updateMovement(float deltaTime)
 	}
 
 	this->hitbox.move(this->velocity * deltaTime);
-	std::cout << this->velocity.x << "\t" << this->velocity.y << std::endl;
 }
 
 void Player::updateAnimation(float deltaTime)

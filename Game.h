@@ -49,15 +49,8 @@ public:
 	void pollEvents();
 	void updateMousePosition();
 
-	// Accessors
-	const bool running() const;
-
-	// Update
 	void update(float deltaTime);
-
-	// Render
 	void render();
 
-	// Run
 	void run();
 };
