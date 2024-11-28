@@ -13,8 +13,10 @@ void ColorManager::initColors()
     getObject[sf::Color(0, 0, 0, 255).toInteger()] = "barrier";
     getObject[sf::Color(255, 255, 255, 255).toInteger()] = "enemy barrier";
 
-	getObject[sf::Color(237, 28, 36, 255).toInteger()] = "lava";
-    getObject[sf::Color(3, 169, 244, 255).toInteger()] = "water";
+	getObject[sf::Color(237, 28, 36, 255).toInteger()] = "lava below";
+	getObject[sf::Color(200, 28, 36, 255).toInteger()] = "lava surface";
+    getObject[sf::Color(3, 169, 244, 255).toInteger()] = "water below";
+    getObject[sf::Color(100, 169, 244, 255).toInteger()] = "water surface";
 
     getObject[sf::Color(255, 128, 0, 255).toInteger()] = "goomba";
     getObject[sf::Color(64, 128, 64, 255).toInteger()] = "koopa";

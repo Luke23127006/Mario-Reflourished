@@ -54,12 +54,14 @@ Tile* TileFactory::createLuckyBlock(sf::Vector2f position)
 	}
 }
 
-Tile* TileFactory::createLava(sf::Vector2f position, bool isSurface)
+Tile* TileFactory::createLava(sf::Vector2f position, std::string type)
 {
-	return new Lava(position, isSurface);
+	if (type == "surface") return new Lava(position, true);
+	return new Lava(position, false);
 }
 
-Tile* TileFactory::createWater(sf::Vector2f position, bool isSurface)
+Tile* TileFactory::createWater(sf::Vector2f position, std::string type)
 {
-	return new Water(position, isSurface);
+	if (type == "surface") return new Water(position, true);
+	return new Water(position, false);
 }
