@@ -21,6 +21,7 @@ protected:
 	Map* map;
 	sf::Vector2f cameraOrigin;
 	Camera camera;
+	std::vector<Coin*> coins;
 
 	void initMap(std::string fileName);
 
