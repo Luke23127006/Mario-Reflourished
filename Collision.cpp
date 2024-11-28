@@ -145,7 +145,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			{
 				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
-			tile->shake();
+			if (!entity->isUnderWater()) tile->shake();
 		}
 		else
 		{

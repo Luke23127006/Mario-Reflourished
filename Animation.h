@@ -23,6 +23,7 @@ public:
 	void setOrigin(sf::Vector2f origin);
 	void setScale(sf::Vector2f scale);
 	void setSize(sf::Vector2f size);
+	void setTransparency(int alpha);
 
 	void update(float deltaTime, bool flipped);
 	void render(sf::RenderTarget& target, sf::Vector2f position);

@@ -38,6 +38,13 @@ void Animation::setSize(sf::Vector2f size)
 	this->sprite.setScale(size.x / this->frameSize.x, size.y / this->frameSize.y);
 }
 
+void Animation::setTransparency(int alpha)
+{
+	sf::Color color = this->sprite.getColor();
+	color.a = alpha;
+	this->sprite.setColor(color);
+}
+
 void Animation::update(float deltaTime, bool flipped)
 {
 	this->frameTimer = std::max(0.f, this->frameTimer - deltaTime);

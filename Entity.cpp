@@ -25,6 +25,11 @@ const bool Entity::isDying() const
 	return this->dying;
 }
 
+const bool Entity::isUnderWater() const
+{
+	return this->underWater;
+}
+
 void Entity::setOnGround(bool onGround)
 {
 	this->onGround = onGround;

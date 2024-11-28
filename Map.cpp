@@ -85,6 +85,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 
 			case TileType::WATER_SURFACE:
 				this->map[i][j] = TileFactory::createWater(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "surface");
+				this->needUpdatings.insert(this->map[i][j]);
 				break;
 
 			case TileType::PIPE:

@@ -304,9 +304,6 @@
     <Image Include="Resources\Maps\demo_map.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Characters\Mario\mario_idle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Maps\Level 3\Map2.png">
       <Filter>Resource Files</Filter>
     </Image>

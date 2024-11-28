@@ -23,6 +23,7 @@ public:
 
 	const bool isDead() const;
 	const bool isDying() const;
+	const bool isUnderWater() const;
 
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
