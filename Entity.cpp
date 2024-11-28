@@ -6,6 +6,7 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	flipped(false),
 	dieTimer(0.f),
 	dying(false),
+	underWater(false),
 	lastPosition(position - sf::Vector2f(0, 1))
 {
 }
