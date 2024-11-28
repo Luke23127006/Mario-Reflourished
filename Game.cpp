@@ -127,11 +127,6 @@ void Game::updateMousePosition()
 	MOUSE_VIEW_POSITION = this->mousePosView;
 }
 
-const bool Game::running() const
-{
-	return this->window->isOpen();
-}
-
 void Game::update(float deltaTime)
 {
 	this->pollEvents();
