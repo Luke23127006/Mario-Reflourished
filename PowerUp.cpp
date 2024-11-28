@@ -49,6 +49,6 @@ void PowerUp::update(float deltaTime)
 		{
 			this->velocity = sf::Vector2f(POWER_UP_SPEED, 0.f);
 		}
-		this->hitbox.move(this->velocity * deltaTime);
+		this->move(this->velocity * deltaTime);
 	}
 }

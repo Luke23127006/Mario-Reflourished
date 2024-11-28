@@ -53,3 +53,13 @@ Tile* TileFactory::createLuckyBlock(sf::Vector2f position)
 		return new LuckyBlock(position, LuckyBlockType::POWER_UP);
 	}
 }
+
+Tile* TileFactory::createLava(sf::Vector2f position, bool isSurface)
+{
+	return new Lava(position, isSurface);
+}
+
+Tile* TileFactory::createWater(sf::Vector2f position, bool isSurface)
+{
+	return new Water(position, isSurface);
+}

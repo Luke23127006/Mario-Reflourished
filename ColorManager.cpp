@@ -1,21 +1,25 @@
 #include "ColorManager.h"
 
-std::map<int, TileType> ColorManager::getTileAsColor;
-std::map<int, EnemyType> ColorManager::getEnemyAsColor;
+std::map<int, std::string> ColorManager::getObject;
 
 void ColorManager::initColors()
 {
-	getTileAsColor[sf::Color(105, 27, 34, 255).toInteger()] = TileType::GROUND_BLOCK;
-    getTileAsColor[sf::Color(212, 102, 47, 255).toInteger()] = TileType::BRICK;
-    getTileAsColor[sf::Color(255, 151, 87, 255).toInteger()] = TileType::LUCKY_BLOCK;
-    getTileAsColor[sf::Color(34, 177, 76, 255).toInteger()] = TileType::PIPE;
-    getTileAsColor[sf::Color(156, 52, 26, 255).toInteger()] = TileType::BLOCK;
-    getTileAsColor[sf::Color(53, 247, 106).toInteger()] = TileType::PIPE_DESTINATION;
-    getTileAsColor[sf::Color(0, 0, 0, 255).toInteger()] = TileType::BARRIER;
-    getTileAsColor[sf::Color(255, 255, 255, 255).toInteger()] = TileType::ENEMY_BARRIER;
+    getObject[sf::Color(105, 27, 34, 255).toInteger()] = "ground_block";
+    getObject[sf::Color(212, 102, 47, 255).toInteger()] = "brick";
+    getObject[sf::Color(255, 151, 87, 255).toInteger()] = "lucky_block";
+    getObject[sf::Color(34, 177, 76, 255).toInteger()] = "pipe";
+    getObject[sf::Color(156, 52, 26, 255).toInteger()] = "block";
+    getObject[sf::Color(53, 247, 106).toInteger()] = "pipe_destination";
+    getObject[sf::Color(0, 0, 0, 255).toInteger()] = "barrier";
+    getObject[sf::Color(255, 255, 255, 255).toInteger()] = "enemy barrier";
 
-    getEnemyAsColor[sf::Color(255, 128, 0, 255).toInteger()] = EnemyType::GOOMBA;
-	getEnemyAsColor[sf::Color(64, 128, 64, 255).toInteger()] = EnemyType::KOOPA;
+	getObject[sf::Color(237, 28, 36, 255).toInteger()] = "lava";
+    getObject[sf::Color(3, 169, 244, 255).toInteger()] = "water";
+
+    getObject[sf::Color(255, 128, 0, 255).toInteger()] = "goomba";
+    getObject[sf::Color(64, 128, 64, 255).toInteger()] = "koopa";
+
+    getObject[sf::Color(255, 0, 0, 255).toInteger()] = "player";
 }
 
 ColorManager::ColorManager()

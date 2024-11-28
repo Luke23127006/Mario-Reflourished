@@ -8,8 +8,7 @@
 class ColorManager
 {
 public:
-	static std::map<int, TileType> getTileAsColor;
-	static std::map<int, EnemyType> getEnemyAsColor;
+	static std::map<int, std::string> getObject;
 
 	static void initColors();
 

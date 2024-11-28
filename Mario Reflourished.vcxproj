@@ -163,6 +163,7 @@
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="Lava.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="LuckyBlock.cpp" />
     <ClCompile Include="main.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
     <ClCompile Include="UserInterface.cpp" />
+    <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +210,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="Lava.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="LuckyBlock.h" />
     <ClInclude Include="Map.h" />
@@ -227,6 +230,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />
     <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />
   </ItemGroup>
   <ItemGroup>

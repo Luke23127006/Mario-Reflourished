@@ -13,22 +13,23 @@ void AdventureMode::initMap(std::string fileName)
 			sf::Color color = image.getPixel(i, j);
 			int colorCode = color.toInteger();
 
-			if (color == sf::Color(255, 0, 0, 255))
+			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
 			{
-				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
-				this->entities.insert(this->entities.begin(), this->player);
-			}
-
-			switch (ColorManager::getEnemyAsColor[colorCode])
-			{
-			case EnemyType::GOOMBA:
-				this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			case EnemyType::KOOPA:
-				this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			default:
-				break;
+				std::string name = ColorManager::getObject[colorCode];
+				
+				if (name == "player")
+				{
+					this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
+					this->entities.insert(this->entities.begin(), this->player);
+				}
+				if (name == "goomba")
+				{
+					this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
+				else if (name == "koopa")
+				{
+					this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
 			}
 		}
 }
@@ -170,9 +171,9 @@ void AdventureMode::updateLastPosition()
 void AdventureMode::render(sf::RenderWindow& target, bool& held)
 {
 	target.setView(this->camera.getView(target.getSize()));
+	this->map->render(target);
 	for (auto& e : this->entities)
 		e->render(target);
-	this->map->render(target);
 }
 
 GameState AdventureMode::getNextScene()

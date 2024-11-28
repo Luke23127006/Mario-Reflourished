@@ -15,6 +15,7 @@ protected:
 	bool flipped;
 	float dieTimer;
 	bool dying;
+	bool underWater;
 
 public:
 	Entity(sf::Vector2f size, sf::Vector2f position);
@@ -24,8 +25,10 @@ public:
 	const bool isDying() const;
 
 	void setOnGround(bool onGround);
+	void setUnderWater(bool underWater);
 	void setVelocity(sf::Vector2f velocity);
 	void jump();
+	void move(sf::Vector2f distance);
 
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();

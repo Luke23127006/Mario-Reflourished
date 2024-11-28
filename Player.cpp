@@ -125,12 +125,13 @@ void Player::updateMovement(float deltaTime)
 {
 	// horizontal movement
 	float acceleration = 0.f;
+	float deceleration = 0.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		acceleration = -PLAYER_ACCELERATION;
 		if (this->velocity.x > 0.f)
 		{
-			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+			deceleration = -PLAYER_DECELERATION;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -138,18 +139,18 @@ void Player::updateMovement(float deltaTime)
 		acceleration = PLAYER_ACCELERATION;
 		if (this->velocity.x < 0.f)
 		{
-			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+			deceleration = PLAYER_DECELERATION;
 		}
 	}
 	if (acceleration == 0.f)
 	{
 		if (this->velocity.x > 0.f)
 		{
-			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+			deceleration = -PLAYER_DECELERATION;
 		}
 		else if (this->velocity.x < 0.f)
 		{
-			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+			deceleration = PLAYER_DECELERATION;
 		}
 	}
 
@@ -177,9 +178,30 @@ void Player::updateMovement(float deltaTime)
 	}
 	else this->velocity.y = 0.f;
 
-	this->velocity.x += acceleration * deltaTime;
+	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
 	adjustBetween(this->velocity.x, -PLAYER_MAX_SPEED, PLAYER_MAX_SPEED);
+
+	// under water
+	if (this->underWater)
+	{
+		acceleration *= 0.5f;
+		deceleration /= 0.5f;
+		this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
+		adjustBetween(this->velocity.x, -WATER_MAX_SPEED, WATER_MAX_SPEED);
+
+		this->velocity.y = std::max(50.f, this->velocity.y - 2 * GRAVITY * deltaTime);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = -PLAYER_JUMP_STRENGHT * 0.25f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			this->velocity.y = std::max(this->velocity.y, WATER_MAX_VERTICAL_SPEED);
+		}
+	}
+
 	this->hitbox.move(this->velocity * deltaTime);
+	std::cout << this->velocity.x << "\t" << this->velocity.y << std::endl;
 }
 
 void Player::updateAnimation(float deltaTime)
@@ -212,7 +234,7 @@ void Player::updatePowerUps(float deltaTime)
 		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
 		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
 	}
-	
+
 	// invicible
 	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
 	{

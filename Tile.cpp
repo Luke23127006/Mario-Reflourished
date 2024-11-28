@@ -38,6 +38,16 @@ const bool Tile::isShaking() const
 	return this->shakeDuration > 0.f;
 }
 
+const bool Tile::isDanger() const
+{
+	return this->danger;
+}
+
+const bool Tile::isSolid() const
+{
+	return this->solid;
+}
+
 const bool Tile::isNeedUpdating() const
 {
 	return this->shakeDuration > 0.f;

@@ -22,16 +22,18 @@ void EndlessMode::initMaps()
 				this->entities.insert(this->entities.begin(), this->player);
 			}
 
-			switch (ColorManager::getEnemyAsColor[colorCode])
+			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
 			{
-			case EnemyType::GOOMBA:
-				this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			case EnemyType::KOOPA:
-				this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			default:
-				break;
+				std::string enemyName = ColorManager::getObject[colorCode];
+
+				if (enemyName == "goomba")
+				{
+					this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
+				else if (enemyName == "koopa")
+				{
+					this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
 			}
 		}
 }
@@ -70,10 +72,10 @@ void EndlessMode::addMap(std::string fileName)
 	for (int i = 0; i < image.getSize().x; i++)
 		for (int j = 0; j < image.getSize().y; j++)
 		{
-			sf::Color color = image.getPixel(i, j);
-			int colorCode = color.toInteger();
+			//sf::Color color = image.getPixel(i, j);
+			//int colorCode = color.toInteger();
 
-			switch (ColorManager::getEnemyAsColor[colorCode])
+			/*switch (ColorManager::getEnemyAsColor[colorCode])
 			{
 			case EnemyType::GOOMBA:
 				this->entities.push_back(new Goomba(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE)));
@@ -83,7 +85,7 @@ void EndlessMode::addMap(std::string fileName)
 				break;
 			default:
 				break;
-			}
+			}*/
 		}
 }
 
