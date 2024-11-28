@@ -73,7 +73,11 @@ void AdventureMode::updateEntities(float deltaTime)
 		{
 			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
 			if (bullet) newEntities.push_back(bullet);
+			// Test nimbus
+			FlyingNimbus *nimbus = dynamic_cast<Player*>(e)->activeNimbus();
+			if (nimbus) newEntities.push_back(nimbus);
 		}
+		
 
 		if (!isType<Player>(*e) && e->isDead()) 
 		{

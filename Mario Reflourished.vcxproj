@@ -159,6 +159,7 @@
     <ClCompile Include="EnemyBarrier.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="FlyingNimbus.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="EnemyBarrier.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="FlyingNimbus.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Goomba.h" />

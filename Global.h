@@ -57,6 +57,16 @@ const float BULLET_HEIGHT = 10.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
+
+// flying nimbuses
+const float NIMBUS_WIDTH = 70.f;
+const float NIMBUS_HEIGHT = 24.f;
+const float NIMBUS_MAX_SPEED = 1000.f;
+const float NIMBUS_ACCELERATION = 800.f;
+const float NIMBUS_DECELERATION = 1200.f;
+const float NIMBUS_DURATION = 15.0f;
+const float ANTI_GRAVITY = -GRAVITY;
+
 // entities
 const float ENTITY_JUMP_STRENGHT = 500.f;
 
@@ -79,7 +89,7 @@ const float KOOPA_SHELL_HEIGHT = 25.f;
 
 // power up
 const float POWER_UP_WIDTH = 50.f;
-const float POWER_UP_HEIGHT = 50.f;
+const float POWER_UP_HEIGHT = 24.f;
 const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 

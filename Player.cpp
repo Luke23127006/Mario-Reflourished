@@ -11,6 +11,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	lives(3),
 	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
 {
+	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
@@ -95,6 +96,27 @@ Bullet* Player::shoot()
 	return nullptr;
 }
 
+// Test FlyingNimbus
+
+FlyingNimbus* Player::activeNimbus()
+{
+	/*if (this->nimbus->isDying() == true)
+	{
+		this->isNimbusActive = false;
+		if (this->nimbus) delete this->nimbus;
+		this->nimbus = nullptr;
+	}*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) && this->isNimbusActive == false)
+	{
+		this->isNimbusActive = true;
+		nimbus = new FlyingNimbus(this->getPosition()
+			+ sf::Vector2f(0, PLAYER_HEIGHT) - sf::Vector2f(NIMBUS_WIDTH / 3.0f, NIMBUS_HEIGHT));
+		return nimbus;
+	}
+	return nullptr;
+
+
+}
 void Player::update(float deltaTime)
 {
 	if (this->isDead())
@@ -108,7 +130,12 @@ void Player::update(float deltaTime)
 		this->updateAnimation(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
-
+		if (this->nimbus)
+		{
+			this->nimbus->getPlayerPosition(this->getPosition()
+				+ sf::Vector2f(0, PLAYER_HEIGHT) - sf::Vector2f(NIMBUS_WIDTH / 3.0f, NIMBUS_HEIGHT));
+			this->nimbus->update(deltaTime);
+		}
 		//Handle nhap nhay
 		if (this->invicibleTimer - deltaTime > 0.f)
 		{
