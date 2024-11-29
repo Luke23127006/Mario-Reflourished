@@ -71,6 +71,11 @@ void Player::gainPowerUp(PowerUp& powerUp)
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
 
+void Player::addCoin()
+{
+	this->coins++;
+}
+
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	return this->powerUpDuration[INT(type)] > 0.f;
@@ -249,20 +254,20 @@ void Player::updatePowerUps(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	//switch (this->playerState)
-	//{
-	//case PlayerState::IDLE:
-	//	this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::WALK:
-	//	this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::JUMP:
-	//	this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::DIE:
-	//	this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//}
-	target.draw(this->hitbox);
+	switch (this->playerState)
+	{
+	case PlayerState::IDLE:
+		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::WALK:
+		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::JUMP:
+		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::DIE:
+		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
+		break;
+	}
+	/*target.draw(this->hitbox);*/
 }
