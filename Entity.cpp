@@ -6,6 +6,7 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	flipped(false),
 	dieTimer(0.f),
 	dying(false),
+	underWater(false),
 	lastPosition(position - sf::Vector2f(0, 1))
 {
 }
@@ -22,6 +23,11 @@ const bool Entity::isDead() const
 const bool Entity::isDying() const
 {
 	return this->dying;
+}
+
+const bool Entity::isUnderWater() const
+{
+	return this->underWater;
 }
 
 void Entity::setOnGround(bool onGround)

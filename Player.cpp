@@ -192,7 +192,7 @@ void Player::updateMovement(float deltaTime)
 		this->velocity.y = std::max(50.f, this->velocity.y - 2 * GRAVITY * deltaTime);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			this->velocity.y = -PLAYER_JUMP_STRENGHT * 0.25f;
+			this->velocity.y = -WATER_MAX_VERTICAL_SPEED * 0.9f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
