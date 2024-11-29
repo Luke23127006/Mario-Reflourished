@@ -14,4 +14,6 @@ public:
 	virtual ~Coin();
 
 	void update(float deltaTime) override;
+	void collected();
+	void render(sf::RenderTarget& target) override;
 };

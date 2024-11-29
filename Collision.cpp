@@ -279,4 +279,9 @@ void Collision::handle_entity_spikeWall(Entity* entity, SpikeWall* spikeWall)
 
 void Collision::handle_player_coin(Player* player, Coin* coin)
 {
+	if (player->getGlobalBounds().intersects(coin->getGlobalBounds()))
+	{
+		player->addCoin();
+		coin->collected();
+	}
 }
