@@ -6,13 +6,7 @@
 class Plant : public Enemy
 {
 private:
-	enum class State
-	{
-		MovingUp,
-		Staying,
-		MovingDown,
-	};
-	State state = State::MovingUp;
+	PlantState state = PlantState::MOVING_UP;
 	float timer;
 public:
 	Plant();

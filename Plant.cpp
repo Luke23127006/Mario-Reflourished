@@ -39,34 +39,34 @@ void Plant::update(float deltaTime)
 		timer += deltaTime;
 		switch (state)
 		{
-		case Plant::State::MovingUp:
+		case PlantState::MOVING_UP:
 			if (timer <= 1.5f)
 			{
 				this->hitbox.move(0.f, -100.f * deltaTime / 1.5f);
 			}
 			else
 			{
-				state = State::Staying;
+				state = PlantState::STAYING;
 				timer = 0.f;
 			}
 			break;
 
-		case Plant::State::Staying:
+		case PlantState::STAYING:
 			if (timer >= 2.f)
 			{
-				state = State::MovingDown;
+				state = PlantState::MOVING_DOWN;
 				timer = 0.f;
 			}
 			break;
 
-		case Plant::State::MovingDown:
+		case PlantState::MOVING_DOWN:
 			if (timer <= 1.5f)
 			{
 				this->hitbox.move(0.f, 100.f * deltaTime / 1.5f);
 			}
 			else
 			{
-				state = State::MovingUp;
+				state = PlantState::MOVING_UP;
 				timer = 0.f;
 			}
 			break;
