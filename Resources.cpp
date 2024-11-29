@@ -38,6 +38,27 @@ void Resources::initTextures()
 	textures["WATER_BELOW"].loadFromFile(TILES_DIRECTORY + "Water Below.png");
 
 
+	//Goomba
+	textures["GOOMBA"].loadFromFile(ENEMIES_DIRECTORY + "goomba.png");
+	
+	//Koopa
+	textures["KOOPA"].loadFromFile(ENEMIES_DIRECTORY + "Green.png");
+	
+	//Koopa Shell
+	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "GreenShell.png");
+
+	//Plant
+	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
+	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
+
+	// Fireball
+	textures["FIREBALL"].loadFromFile(ITEMS_DIRECTORY + "Fireball.png");
+
+	// Boss
+	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");
+	// coin
+	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
+
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);
 	// all below textures are not smooth
