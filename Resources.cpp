@@ -56,6 +56,10 @@ void Resources::initTextures()
 
 	// Boss
 	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");
+
+	// Banzai Bill
+	textures["BANZAI_BILL"].loadFromFile(ENEMIES_DIRECTORY + "BanzaiBill.png");
+
 	// coin
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 
