@@ -38,6 +38,10 @@ const bool LuckyBlock::isNeedUpdating() const
 	return (!this->activated || this->shakeDuration >= 0.f);
 }
 
+void LuckyBlock::seftBreak()
+{
+}
+
 void LuckyBlock::activate()
 {
 	if (this->activated) return;

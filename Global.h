@@ -92,6 +92,7 @@ const float MAGNET_DURATION = 5.f;
 // tiles
 const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
+const float TILE_BREAK_DURATION = 3.f;
 
 const float WATER_ACCERATION_REDUCTION = 0.4f;
 const float WATER_GRAVITY_REDUCTION = 0.4f;

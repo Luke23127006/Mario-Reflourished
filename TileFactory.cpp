@@ -19,6 +19,25 @@ Tile* TileFactory::createTile(sf::Vector2f position, TileType type)
 	}
 }
 
+Tile* TileFactory::createTile(sf::Vector2f position, std::string type)
+{
+	if (type == "ground block" || type == "GROUND_BLOCK") return new Tile(position, Resources::textures["GROUND_BLOCK"], false, false);
+	if (type == "brick" || type == "BRICK") return new Tile(position, Resources::textures["BRICK"], true, true);
+	if (type == "block" || type == "BLOCK") return new Tile(position, Resources::textures["BLOCK"], false, false);
+	if (type == "barrier" || type == "BARRIER") return new Barrier(position);
+	if (type == "enemy barrier" || type == "ENEMY_BARRIER") return new EnemyBarrier(position);
+	if (type == "water surface" || type == "WATER_SURFACE") return new Water(position, true);
+	if (type == "water below" || type == "WATER_BELOW") return new Water(position, false);
+	if (type == "lava surface" || type == "LAVA_SURFACE") return new Lava(position, true);
+	if (type == "lava below" || type == "LAVA_BELOW") return new Lava(position, false);
+	if (type == "lucky block" || type == "LUCKY_BLOCK") return TileFactory::createLuckyBlock(position);
+	if (type == "pipe top left" || type == "PIPE_TOP_LEFT") return new Pipe(position, PipeType::TOP_LEFT);
+	if (type == "pipe top right" || type == "PIPE_TOP_RIGHT") return new Pipe(position, PipeType::TOP_RIGHT);
+	if (type == "pipe bottom left" || type == "PIPE_BOTTOM_LEFT") return new Pipe(position, PipeType::BOTTOM_LEFT);
+	if (type == "pipe bottom right" || type == "PIPE_BOTTOM_RIGHT") return new Pipe(position, PipeType::BOTTOM_RIGHT);
+	return nullptr;
+}
+
 Tile* TileFactory::createPortal(sf::Vector2f position, sf::Vector2f destination)
 {
     return new Portal(position, destination);

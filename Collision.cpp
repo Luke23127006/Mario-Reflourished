@@ -86,6 +86,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
 		return;
 	}
+	if (!tile->isSolid()) return;
 
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
@@ -145,7 +146,15 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			{
 				dynamic_cast<LuckyBlock*>(tile)->activate();
 			}
-			if (!entity->isUnderWater()) tile->shake();
+
+			if (isType<Player>(*entity) && !entity->isUnderWater())
+			{
+				Player* player = dynamic_cast<Player*>(entity);
+				if (player->hasPowerUp(PowerUpType::MUSHROOM))
+					tile->seftBreak();
+				else 
+					tile->shake();
+			}
 		}
 		else
 		{
