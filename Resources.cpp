@@ -52,7 +52,7 @@ void Resources::initTextures()
 	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
 
 	// Fireball
-	textures["FIREBALL"].loadFromFile(ITEMS_DIRECTORY + "Fireball.png");
+	textures["FIREBALL"].loadFromFile(ENEMIES_DIRECTORY + "Fireball.png");
 
 	// Boss
 	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");
