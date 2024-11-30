@@ -41,7 +41,7 @@ void EndlessMode::initMaps()
 EndlessMode::EndlessMode() :
 	numMap(18),
 	cameraPosition(SCREEN_WIDTH / 2),
-	cameraSpeed(200.f)
+	cameraSpeed(180.f)
 {
 	this->camera.setPosition(sf::Vector2f(cameraPosition, TILE_SIZE * MINIMAP_HEIGHT - SCREEN_HEIGHT / 2));
 	this->cameraHeightMax = this->camera.getPosition().y;
