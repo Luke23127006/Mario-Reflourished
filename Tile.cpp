@@ -36,6 +36,11 @@ Tile::Tile(sf::Vector2f position, sf::Texture& texture, bool canShake, bool brea
 
 Tile::~Tile()
 {
+	while (!particles.empty())
+	{
+		delete particles.back();
+		particles.pop_back();
+	}
 }
 
 const bool Tile::isHarming() const
@@ -78,6 +83,18 @@ void Tile::seftBreak()
 	this->breakDuration = TILE_BREAK_DURATION;
 	this->solid = false;
 	this->enabled = false;
+
+	float width = this->hitbox.getSize().x;
+	float height = this->hitbox.getSize().y;
+
+	particles.push_back(new Particle(*this->sprite.getTexture(), this->getPosition() + sf::Vector2f(width / 2, height / 2), sf::Vector2f(-200.f, -800.f), sf::Vector2f(0.f, GRAVITY), 1.f));
+	particles.back()->setTextureRect(sf::IntRect(0, 0, width / 2, height / 2));
+	particles.push_back(new Particle(*this->sprite.getTexture(), this->getPosition() + sf::Vector2f(width, height / 2), sf::Vector2f(200.f, -800.f), sf::Vector2f(0.f, GRAVITY), 1.f));
+	particles.back()->setTextureRect(sf::IntRect(width / 2, 0, width / 2, height / 2));
+	particles.push_back(new Particle(*this->sprite.getTexture(), this->getPosition() + sf::Vector2f(width / 2, height), sf::Vector2f(-200.f, -400.f), sf::Vector2f(0.f, GRAVITY), 1.f));
+	particles.back()->setTextureRect(sf::IntRect(0, height / 2, width / 2, height / 2));
+	particles.push_back(new Particle(*this->sprite.getTexture(), this->getPosition() + sf::Vector2f(width, height), sf::Vector2f(200.f, -400.f), sf::Vector2f(0.f, GRAVITY), 1.f));
+	particles.back()->setTextureRect(sf::IntRect(width / 2, height / 2, width / 2, height / 2));
 }
 
 void Tile::stopHarming()
@@ -97,6 +114,7 @@ void Tile::update(float deltaTime)
 	if (this->breakDuration > 0.f)
 	{
 		this->breakDuration = std::max(0.f, this->breakDuration - deltaTime);
+		for (auto& p : particles) p->update(deltaTime);
 		return;
 	}
 	this->shakeDuration = std::max(0.f, this->shakeDuration - deltaTime);
@@ -118,4 +136,8 @@ void Tile::render(sf::RenderTarget& target)
 {
 	//target.draw(this->hitbox);
 	if (this->breakDuration == -1.f) target.draw(this->sprite);
+	else if (this->breakDuration > 0.f)
+	{
+		for (auto& p : particles) p->render(target);
+	}
 }
