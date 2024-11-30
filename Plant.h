@@ -14,7 +14,7 @@ private:
 	float timer;
 public:
 	Plant();
-	Plant(sf::Vector2f position);
+	Plant(sf::Vector2f size, sf::Vector2f position);
 	~Plant();
 
 	void update(float deltaTime) override;

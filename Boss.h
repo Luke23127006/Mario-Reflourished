@@ -10,7 +10,7 @@ private:
 	Animation* animation;
 public:
 	Boss();
-	Boss(sf::Vector2f position);
+	Boss(sf::Vector2f size, sf::Vector2f position);
 	~Boss();
 
 	void attack();

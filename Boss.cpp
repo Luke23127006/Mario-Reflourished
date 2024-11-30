@@ -9,7 +9,7 @@ Boss::Boss() : Enemy(sf::Vector2f(BOSS_WIDTH, BOSS_HEIGHT), sf::Vector2f(0, 0), 
 	animation->setPosition(sf::Vector2f(0, 0));
 }
 
-Boss::Boss(sf::Vector2f position) : Enemy(sf::Vector2f(BOSS_WIDTH, BOSS_HEIGHT), position, 100)
+Boss::Boss(sf::Vector2f size,sf::Vector2f position) : Enemy(sf::Vector2f(BOSS_WIDTH, BOSS_HEIGHT), position, 100)
 {
 	sf::Vector2f size(BOSS_HEIGHT, BOSS_WIDTH);
 	this->sprite.setTexture(Resources::textures["BOSS"]);

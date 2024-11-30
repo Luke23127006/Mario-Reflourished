@@ -11,7 +11,7 @@ private:
 	Animation* animation;
 public:
 	BanzaiBill();
-	BanzaiBill(sf::Vector2f position);
+	BanzaiBill(sf::Vector2f size, sf::Vector2f position);
 	~BanzaiBill();
 
 	void update(float deltaTime) override;

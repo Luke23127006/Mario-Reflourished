@@ -10,7 +10,7 @@ BanzaiBill::BanzaiBill() : Enemy(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEI
 	timer = 1.0;
 }
 
-BanzaiBill::BanzaiBill(sf::Vector2f position) : Enemy(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT), position, 1)
+BanzaiBill::BanzaiBill(sf::Vector2f size,sf::Vector2f position) : Enemy(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT), position, 1)
 {
 	this->sprite.setTexture(Resources::textures["BANZAI_BILL"]);
 	this->hitbox.setSize(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT));

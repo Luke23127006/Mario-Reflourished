@@ -1,7 +1,7 @@
 #include "Goomba.h"
 #include <iostream>
 
-Goomba::Goomba(sf::Vector2f position)
+Goomba::Goomba(sf::Vector2f size, sf::Vector2f position)
 	: Enemy(sf::Vector2f(GOOMBA_WIDTH, GOOMBA_HEIGHT), position)
 {
 	this->sprite.setTexture(Resources::textures["GOOMBA"]);

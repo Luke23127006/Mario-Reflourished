@@ -10,7 +10,7 @@ Plant::Plant() : Enemy(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT), sf::Vector2f(0, 
 	timer = 1.0;
 }
 
-Plant::Plant(sf::Vector2f position) : Enemy(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT), position, 1)
+Plant::Plant(sf::Vector2f size, sf::Vector2f position) : Enemy(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT), position, 1)
 {
 	this->hitbox.setSize(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT));
 	this->hitbox.setPosition(position);
