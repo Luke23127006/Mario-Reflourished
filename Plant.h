@@ -3,14 +3,13 @@
 #include "Enemy.h"
 #include "Animation.h"
 #include "Resources.h"
+#include "Global.h"
 
 class Plant : public Enemy
 {
 private:
 	PlantState state = PlantState::MOVING_UP;
 	Animation* animation;
-	PlantType type = PlantType::GREEN;
-	std::string typeString = "GREEN_PLANT";
 	float timer;
 public:
 	Plant();

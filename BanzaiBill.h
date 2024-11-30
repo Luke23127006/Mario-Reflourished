@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Animation.h"
 #include "Resources.h"
+#include "Global.h"
 
 class BanzaiBill : public Enemy
 {

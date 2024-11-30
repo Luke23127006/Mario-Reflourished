@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "Resources.h"
+#include "Global.h"
 
 class Koopa : public Enemy
 {
