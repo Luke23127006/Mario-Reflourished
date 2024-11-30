@@ -37,10 +37,11 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 	if (!map->insideMap(entity->getGlobalBounds())) return;
 
 	sf::Vector2u size = map->getSize();
-	int i = (1.f * entity->getGlobalBounds().left / TILE_SIZE);
-	int j = (1.f * entity->getGlobalBounds().top / TILE_SIZE);
+	int i = (1.f * (entity->getGlobalBounds().left - map->getPosition().x) / TILE_SIZE);
+	int j = (1.f * (entity->getGlobalBounds().top - map->getPosition().y) / TILE_SIZE);
 
 	entity->setOnGround(false);
+	entity->setUnderWater(false);
 	std::vector<Tile*> tiles;
 	for (int _i = i; _i < i + 3; _i++)
 	{
@@ -80,6 +81,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
 	if (!isDerivedFrom<Enemy>(*entity) && isType<EnemyBarrier>(*tile)) return;
 	if (isType<PowerUp>(*entity) && entity->getVelocity().x == 0) return;
+	if (isType<Water>(*tile))
+	{
+		Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
+		return;
+	}
 
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
@@ -88,7 +94,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
 	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
-	if (checkOnGround(entityBounds, tileBounds))
+	if (checkOnGround(entityBounds, tileBounds) && tile->isSolid())
 	{
 		entity->setOnGround(true);
 		if (tile->isHarming())
@@ -106,7 +112,11 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 
 	if (entityBounds.intersects(tileBounds))
 	{
-		if (isType<Portal>(*tile) && entityBounds.left > tileBounds.left)
+		if (tile->isDanger())
+		{
+			entity->die();
+		}
+		else if (isType<Portal>(*tile) && entityBounds.left > tileBounds.left)
 		{
 			entity->setPosition(dynamic_cast<Portal*>(tile)->getDestination());
 		}
@@ -171,7 +181,13 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	}
 }
 
-
+void Collision::handle_entity_water(Entity* entity, Water* water)
+{
+	if (entity->getGlobalBounds().intersects(water->getGlobalBounds()))
+	{
+		entity->setUnderWater(true);
+	}
+}
 
 void Collision::handle_player_enemy(Player* player, Enemy* enemy)
 {
@@ -250,6 +266,14 @@ void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
 	{
 		player->gainPowerUp(*powerUp);
 		powerUp->die();
+	}
+}
+
+void Collision::handle_entity_spikeWall(Entity* entity, SpikeWall* spikeWall)
+{
+	if (entity->getGlobalBounds().intersects(spikeWall->getGlobalBounds()))
+	{
+		entity->die();
 	}
 }
 

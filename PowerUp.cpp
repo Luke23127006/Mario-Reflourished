@@ -3,7 +3,7 @@
 PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
 	Entity(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT), sf::Vector2f(container.left, container.top)),
 	type(type),
-	duration(5.0f),
+	duration(10.0f),
 	container(container)
 {
 	sf::Vector2f distance = 0.5f * sf::Vector2f(container.width - POWER_UP_WIDTH, container.height - POWER_UP_HEIGHT);
@@ -49,6 +49,6 @@ void PowerUp::update(float deltaTime)
 		{
 			this->velocity = sf::Vector2f(POWER_UP_SPEED, 0.f);
 		}
-		this->hitbox.move(this->velocity * deltaTime);
+		this->move(this->velocity * deltaTime);
 	}
 }

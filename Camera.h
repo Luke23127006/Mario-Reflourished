@@ -15,6 +15,7 @@ public:
 	virtual ~Camera();
 
 	const sf::View getView(sf::Vector2u windowSize) const;
+	const sf::Vector2f getPosition() const;
 	void setPosition(sf::Vector2f position);
 	void move(sf::Vector2f velocity);
 

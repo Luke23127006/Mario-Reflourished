@@ -28,7 +28,6 @@ private:
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Player();
-	FlyingNimbus* activeNimbus();
 	void stopJumping();
 	void die() override;
 	void gainPowerUp(PowerUp& powerUp);
@@ -37,6 +36,7 @@ public:
 	Bullet* shoot();
 	
 	void update(float deltaTime) override;
+	void updateMovementNimbus(float deltaTime);
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);

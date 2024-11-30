@@ -67,11 +67,58 @@ void Player::gainPowerUp(PowerUp& powerUp)
 		if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] > 0.f) break;
 		this->invicibleTimer = INVICIBLE_DURATION;
 		break;
+	// test flying nimbus	
+	case PowerUpType::FLYING_NIMBUS:
+		if (this->isNimbusActive) break;
+		if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f) break;
+		nimbus = new FlyingNimbus(this->getPosition()
+			);
+		
+		break;
 	}
+	
 
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
 
+void Player::updatePowerUps(float deltaTime)
+{
+	// mushroom
+	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
+		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
+	}
+
+	// invicible
+	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
+		this->invicibleTimer = 0.f;
+	}
+
+	if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f)
+	{
+		this->isNimbusActive = true;
+		if (this->nimbus->appearing())
+		{
+			float dt = this->nimbus->getAppearTime();
+			this->move(sf::Vector2f(0, -PLAYER_JUMP_STRENGHT * 0.5f * deltaTime / dt));
+		}
+		std::cout << "Player position" << this->getPosition().x << " " << this->getPosition().y << std::endl;
+		this->nimbus->getPlayerPosition(this->getPosition());
+		this->nimbus->update(deltaTime);
+
+	}
+	else {
+		//if (this->nimbus) delete this->nimbus;
+		this->isNimbusActive = false;
+	}
+	for (auto& d : this->powerUpDuration)
+	{
+		if (d >= 0.f) d -= deltaTime;
+	}
+}
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	return this->powerUpDuration[INT(type)] > 0.f;
@@ -98,25 +145,7 @@ Bullet* Player::shoot()
 
 // Test FlyingNimbus
 
-FlyingNimbus* Player::activeNimbus()
-{
-	/*if (this->nimbus->isDying() == true)
-	{
-		this->isNimbusActive = false;
-		if (this->nimbus) delete this->nimbus;
-		this->nimbus = nullptr;
-	}*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) && this->isNimbusActive == false)
-	{
-		this->isNimbusActive = true;
-		nimbus = new FlyingNimbus(this->getPosition()
-			+ sf::Vector2f(0, PLAYER_HEIGHT) - sf::Vector2f(NIMBUS_WIDTH / 3.0f, NIMBUS_HEIGHT));
-		return nimbus;
-	}
-	return nullptr;
 
-
-}
 void Player::update(float deltaTime)
 {
 	if (this->isDead())
@@ -126,7 +155,9 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
-		this->updateMovement(deltaTime);
+		if (this->isNimbusActive) this->updateMovementNimbus(deltaTime);
+		else
+			this->updateMovement(deltaTime);
 		this->updateAnimation(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
@@ -148,16 +179,68 @@ void Player::update(float deltaTime)
 	}
 }
 
+void Player::updateMovementNimbus(float deltaTime)
+{
+	float acceleration = 0.0f;
+	float deceleration = 0.0f;
+	if (this->isNimbusActive)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = -PLAYER_JUMP_STRENGHT;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = PLAYER_JUMP_STRENGHT;
+		}
+		else
+		{
+			this->velocity.y = 0.f;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			acceleration = -NIMBUS_ACCELERATION;
+			if (this->velocity.x > 0.f)
+			{
+				deceleration = -NIMBUS_DECELERATION;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			acceleration = NIMBUS_ACCELERATION;
+			if (this->velocity.x < 0.f)
+			{
+				deceleration = NIMBUS_DECELERATION;
+			}
+		}
+		
+		if (acceleration == 0.f)
+		{
+			if (this->velocity.x > 0.f)
+			{
+				deceleration = std::max(-this->velocity.x / deltaTime, -NIMBUS_DECELERATION);
+			}
+			else if (this->velocity.x < 0.f)
+			{
+				deceleration = std::min(-this->velocity.x / deltaTime, NIMBUS_DECELERATION);
+			}
+		}
+	}
+	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
+	adjustBetween(this->velocity.x, -NIMBUS_MAX_SPEED, NIMBUS_MAX_SPEED);
+	this->hitbox.move(this->velocity * deltaTime);
+}
 void Player::updateMovement(float deltaTime)
 {
 	// horizontal movement
 	float acceleration = 0.f;
+	float deceleration = 0.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		acceleration = -PLAYER_ACCELERATION;
 		if (this->velocity.x > 0.f)
 		{
-			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+			deceleration = -PLAYER_DECELERATION;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -165,18 +248,18 @@ void Player::updateMovement(float deltaTime)
 		acceleration = PLAYER_ACCELERATION;
 		if (this->velocity.x < 0.f)
 		{
-			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+			deceleration = PLAYER_DECELERATION;
 		}
 	}
 	if (acceleration == 0.f)
 	{
 		if (this->velocity.x > 0.f)
 		{
-			this->velocity.x = std::max(0.f, this->velocity.x - PLAYER_DECELERATION * deltaTime);
+			deceleration = std::max(-this->velocity.x / deltaTime, -PLAYER_DECELERATION);
 		}
 		else if (this->velocity.x < 0.f)
 		{
-			this->velocity.x = std::min(0.f, this->velocity.x + PLAYER_DECELERATION * deltaTime);
+			deceleration = std::min(-this->velocity.x / deltaTime, PLAYER_DECELERATION);
 		}
 	}
 
@@ -204,8 +287,28 @@ void Player::updateMovement(float deltaTime)
 	}
 	else this->velocity.y = 0.f;
 
-	this->velocity.x += acceleration * deltaTime;
+	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
 	adjustBetween(this->velocity.x, -PLAYER_MAX_SPEED, PLAYER_MAX_SPEED);
+
+	// under water
+	if (this->underWater)
+	{
+		acceleration *= 0.5f;
+		deceleration /= 0.5f;
+		this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
+		adjustBetween(this->velocity.x, -WATER_MAX_SPEED, WATER_MAX_SPEED);
+
+		this->velocity.y = std::max(50.f, this->velocity.y - 2 * GRAVITY * deltaTime);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = -PLAYER_JUMP_STRENGHT * 0.25f;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			this->velocity.y = std::max(this->velocity.y, WATER_MAX_VERTICAL_SPEED);
+		}
+	}
+
 	this->hitbox.move(this->velocity * deltaTime);
 }
 
@@ -231,27 +334,7 @@ void Player::updateAnimation(float deltaTime)
 	for (auto& a : animation) a->update(deltaTime, this->flipped);
 }
 
-void Player::updatePowerUps(float deltaTime)
-{
-	// mushroom
-	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
-	{
-		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
-		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
-	}
-	
-	// invicible
-	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
-	{
-		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
-		this->invicibleTimer = 0.f;
-	}
 
-	for (auto& d : this->powerUpDuration)
-	{
-		if (d >= 0.f) d -= deltaTime;
-	}
-}
 
 void Player::render(sf::RenderTarget& target)
 {
@@ -270,5 +353,7 @@ void Player::render(sf::RenderTarget& target)
 	//	this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
 	//	break;
 	//}
+	
 	target.draw(this->hitbox);
+	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }

@@ -1,4 +1,5 @@
 ﻿#include "FlyingNimbus.h"
+#include <iostream>
 
 
 
@@ -6,11 +7,11 @@
 
 
 
-
-FlyingNimbus::FlyingNimbus(sf::Vector2f position) : 
-	Entity(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT), position + sf::Vector2f(300, -300)),
-	duration (NIMBUS_DURATION)
+FlyingNimbus::FlyingNimbus(sf::Vector2f position) :
+	PowerUp(PowerUpType::FLYING_NIMBUS, sf::FloatRect(position.x, position.y, TILE_SIZE, TILE_SIZE))
 {	
+	this->duration = NIMBUS_DURATION;
+	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
 	this->hitbox.setFillColor(sf::Color::Yellow);
 	this->isAppearing = true;
 	this->elapsedTime = 0.0f;
@@ -26,28 +27,23 @@ void FlyingNimbus::getPlayerPosition(sf::Vector2f playerPosition)
 	this->playerPosition = playerPosition;
 }
 
+bool FlyingNimbus::appearing()
+{
+	return this->isAppearing;
+}
+
+float FlyingNimbus::getAppearTime()
+{
+	return this->appearTime;
+}
+
+
 void FlyingNimbus::appear(float dt)
 {
-	//if (this->elapsedTime >= this->appearTime)
-	//{
-	//	this->isAppearing = false;
-	//	return;
-	//}
-	//	
-	//this->elapsedTime += dt;
-	//float curveFactor = -100.0f;
-	//float t = elapsedTime / appearTime; // Tỉ lệ thời gian (từ 0 đến 1)
-	////float dx = (this->playerPosition.x - this->getLastPosition().x) * dt / appearTime; // Nội suy thay đổi x
-	////float dy = ((this->playerPosition.y - this->getLastPosition().y) + curveFactor * 3.1415 * std::cos(3.1415 * t)) * dt / appearTime; // Nội suy thay đổi y
-
-	////this->hitbox.move(sf::Vector2f(dx, dy));
-	//  // Tọa độ hiện tại dựa trên tham số hóa
-	//float x = this->getLastPosition().x + t * (this->playerPosition.x - this->getLastPosition().x);
-	//float y = this->getLastPosition().y + t * (this->playerPosition.y - this->getLastPosition().y)
-	//	+ curveFactor * std::sin(3.1415 * t); // Sử dụng sin để tạo đường cong mượt
+	if (this->isAppearing == false) return;
 	if (this->elapsedTime >= this->appearTime) {
 		this->isAppearing = false;
-		this->hitbox.setPosition(playerPosition); // Đảm bảo vị trí cuối
+		this->hitbox.setPosition(playerPosition + sf::Vector2f(0, PLAYER_HEIGHT)); // Đảm bảo vị trí cuối
 		return;
 	}
 
@@ -58,7 +54,7 @@ void FlyingNimbus::appear(float dt)
 
 	// Tọa độ ban đầu và cuối
 	sf::Vector2f startPosition = playerPosition + sf::Vector2f(300, -300);
-	sf::Vector2f endPosition = playerPosition;
+	sf::Vector2f endPosition = playerPosition + sf::Vector2f(0, PLAYER_HEIGHT);
 
 	// Biên độ và tần số của sóng
 	float amplitude = 100.0f; // Độ cao sóng (điều chỉnh cho đẹp)
@@ -77,13 +73,13 @@ void FlyingNimbus::appear(float dt)
 
 void FlyingNimbus::render(sf::RenderTarget& target)
 {
-	if (this->dying) return;
+	if (this->duration <= 0) return;
 	target.draw(this->hitbox);
 }
 
 void FlyingNimbus::update(float deltaTime)
 {
-	if (this->dying) return;
+
 	// Appear time
 	if (this->isAppearing)
 	{
@@ -94,8 +90,8 @@ void FlyingNimbus::update(float deltaTime)
 	// Use time
 	this->setEnabled(true);
 	this->duration -= deltaTime;
-	if (this->duration <= 0.f) this->die();
+	//if (this->duration <= 0.f) this->die();
 	this->setPosition(this->playerPosition);
-
+	std::cout << "Nimbus position: " << this->getPosition().x << " " << this->getPosition().y << "\n";
 }
 

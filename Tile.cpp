@@ -1,7 +1,7 @@
 #include "Tile.h"
 
 Tile::Tile(sf::Vector2f position) :
-	Object(sf::Vector2f(50, 50), position),
+	Object(sf::Vector2f(TILE_SIZE, TILE_SIZE), position),
 	canShake(false)
 {
 }
@@ -36,6 +36,16 @@ const bool Tile::isHarming() const
 const bool Tile::isShaking() const
 {
 	return this->shakeDuration > 0.f;
+}
+
+const bool Tile::isDanger() const
+{
+	return this->danger;
+}
+
+const bool Tile::isSolid() const
+{
+	return this->solid;
 }
 
 const bool Tile::isNeedUpdating() const

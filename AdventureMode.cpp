@@ -3,7 +3,6 @@
 void AdventureMode::initMap(std::string fileName)
 {
 	this->map = new Map(fileName, sf::Vector2f(0.f, 0.f));
-
 	sf::Image image;
 	image.loadFromFile(fileName);
 
@@ -14,24 +13,33 @@ void AdventureMode::initMap(std::string fileName)
 			sf::Color color = image.getPixel(i, j);
 			int colorCode = color.toInteger();
 
-			if (color == sf::Color(255, 0, 0, 255))
+			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
 			{
-				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
-				this->entities.insert(this->entities.begin(), this->player);
-			}
-
-			switch (ColorManager::getEnemyAsColor[colorCode])
-			{
-			case EnemyType::GOOMBA:
-				this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			case EnemyType::KOOPA:
-				this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
-				break;
-			default:
-				break;
+				std::string name = ColorManager::getObject[colorCode];
+				
+				if (name == "player")
+				{
+					this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
+					this->entities.insert(this->entities.begin(), this->player);
+				}
+				if (name == "goomba")
+				{
+					this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
+				else if (name == "koopa")
+				{
+					this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
+				}
 			}
 		}
+}
+
+AdventureMode::AdventureMode()
+{
+	this->cameraOrigin = sf::Vector2f(0.f, 0.f);
+	this->map = nullptr;
+	this->player = nullptr;
+	this->entities.clear();
 }
 
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
@@ -60,7 +68,7 @@ void AdventureMode::update(float deltaTime, bool& held)
 	this->updateLastPosition();
 }
 
-void AdventureMode::updateEntities(float deltaTime) 
+void AdventureMode::updateEntities(float deltaTime)
 {
 	std::vector<Entity*> newEntities;
 	auto it = this->entities.begin();
@@ -69,26 +77,23 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		e->update(deltaTime);
 
-		if (isType<Player>(*e)) 
+		if (isType<Player>(*e))
 		{
 			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
 			if (bullet) newEntities.push_back(bullet);
-			// Test nimbus
-			FlyingNimbus *nimbus = dynamic_cast<Player*>(e)->activeNimbus();
-			if (nimbus) newEntities.push_back(nimbus);
 		}
 		
 
-		if (!isType<Player>(*e) && e->isDead()) 
+		if (!isType<Player>(*e) && e->isDead())
 		{
-			if (isType<Koopa>(*e)) 
+			if (isType<Koopa>(*e))
 			{
 				newEntities.push_back(new Shell(e->getPosition()));
 			}
 			delete e;
 			it = this->entities.erase(it);
 		}
-		else 
+		else
 		{
 			++it;
 		}
@@ -104,11 +109,12 @@ void AdventureMode::updateMap(float deltaTime)
 
 void AdventureMode::updateCollision()
 {
-	for (auto& e : this->entities)
-	{
-		if (!e->getEnabled()) continue;
-		Collision::handle_entity_map(e, this->map);
-	}
+	if (map)
+		for (auto& e : this->entities)
+		{
+			if (!e->getEnabled()) continue;
+			Collision::handle_entity_map(e, this->map);
+		}
 
 	for (int i = 0; i < this->entities.size(); i++)
 	{

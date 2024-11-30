@@ -46,6 +46,13 @@ void Game::changeScene(GameState nextScene)
 		this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0));
 		this->currentGameState = GameState::LEVEL2;
 		break;
+	case GameState::LEVEL3:
+		if (this->currentGameState == GameState::LEVEL3) return;
+		std::cout << "Level3\n";
+		isChange = true;
+		this->currentScene = std::make_unique<EndlessMode>();
+		this->currentGameState = GameState::LEVEL3;
+		break;
 	case GameState::EXIT:
 		this->window->close();
 		break;
@@ -118,11 +125,6 @@ void Game::updateMousePosition()
 	WINDOW_SIZE = this->windowSize;
 	MOUSE_POSITION = this->mousePosWindow;
 	MOUSE_VIEW_POSITION = this->mousePosView;
-}
-
-const bool Game::running() const
-{
-	return this->window->isOpen();
 }
 
 void Game::update(float deltaTime)

@@ -26,6 +26,11 @@ const sf::View Camera::getView(sf::Vector2u windowSize) const
 	return sf::View(this->position, size);
 }
 
+const sf::Vector2f Camera::getPosition() const
+{
+	return this->position;
+}
+
 void Camera::setPosition(sf::Vector2f position)
 {
 	this->position = position;
@@ -38,23 +43,20 @@ void Camera::move(sf::Vector2f velocity)
 
 void Camera::update(float deltaTime, sf::Vector2f playerPosition)
 {
-    const float FOLLOW_DISTANCE = 50.f;
-    const float SMOOTHING_FACTOR = 5.f;
-
     sf::Vector2f offset = playerPosition - this->position;
 
-    if (std::abs(offset.x) > FOLLOW_DISTANCE)
+    if (std::abs(offset.x) > CAMERA_FOLLOW_DISTANCE)
     {
-        velocity.x = (offset.x - FOLLOW_DISTANCE * (offset.x > 0 ? 1 : -1)) * SMOOTHING_FACTOR * deltaTime;
+        velocity.x = (offset.x - CAMERA_FOLLOW_DISTANCE * (offset.x > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR * deltaTime;
     }
     else
     {
         velocity.x = 0.f;
     }
 
-    if (std::abs(offset.y) > FOLLOW_DISTANCE)
+    if (std::abs(offset.y) > CAMERA_FOLLOW_DISTANCE)
     {
-        velocity.y = (offset.y - FOLLOW_DISTANCE * (offset.y > 0 ? 1 : -1)) * SMOOTHING_FACTOR * deltaTime;
+        velocity.y = (offset.y - CAMERA_FOLLOW_DISTANCE * (offset.y > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR * deltaTime;
     }
     else
     {

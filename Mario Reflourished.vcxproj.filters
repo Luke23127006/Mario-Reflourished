@@ -138,6 +138,9 @@
     <ClCompile Include="EntityFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EndlessMode.cpp">
+		<Filter>Source Files</Filter>
+	</ClCompile>
     <ClCompile Include="CommandList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -266,8 +269,11 @@
     <ClInclude Include="EntityFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EndlessMode.h">
+		<Filter>Header Files</Filter>
+	</ClInclude>
+	<ClInclude Include="Command.h">
+		<Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CommandList.h">
       <Filter>Header Files</Filter>
@@ -287,6 +293,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\Characters\Mario\mario_idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Level 3\Map2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Level 3\Map0.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

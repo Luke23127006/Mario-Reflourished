@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AdventureMode.h"
+#include "EndlessMode.h"
 #include "ColorManager.h"
 #include "Global.h"
 #include "Login.h"
@@ -27,6 +28,7 @@ private:
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
 	sf::Vector2u windowSize;
+
 	// UI
 	bool held;
 	sf::RenderTexture renderTexture;
@@ -47,15 +49,8 @@ public:
 	void pollEvents();
 	void updateMousePosition();
 
-	// Accessors
-	const bool running() const;
-
-	// Update
 	void update(float deltaTime);
-
-	// Render
 	void render();
 
-	// Run
 	void run();
 };

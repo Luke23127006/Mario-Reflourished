@@ -29,6 +29,11 @@ void Entity::setOnGround(bool onGround)
 	this->onGround = onGround;
 }
 
+void Entity::setUnderWater(bool underWater)
+{
+	this->underWater = underWater;
+}
+
 void Entity::setVelocity(sf::Vector2f velocity)
 {
 	this->velocity = velocity;
@@ -41,6 +46,18 @@ void Entity::jump()
 		this->velocity.y = -ENTITY_JUMP_STRENGHT;
 		this->hitbox.move(sf::Vector2f(0.f, -0.01f));
 		this->onGround = false;
+	}
+}
+
+void Entity::move(sf::Vector2f distance)
+{
+	if (this->underWater) 
+	{
+		this->hitbox.move(distance * 0.5f);
+	}
+	else
+	{
+		this->hitbox.move(distance);
 	}
 }
 

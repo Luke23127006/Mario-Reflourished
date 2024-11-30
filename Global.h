@@ -33,10 +33,8 @@ const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
-const float CAMERA_MAX_SPEED = 400.f;
-const float	CAMERA_ACCELERATION = 800.f;
-const float CAMERA_DECELERATION = 1200.f;
-const float CAMERA_FOLLOW_SPEED = 0.9f;
+const float CAMERA_FOLLOW_DISTANCE = 50.f;
+const float CAMERA_SMOOTHING_FACTOR = 5.f;
 
 // player
 const float PLAYER_WIDTH = 48.f;
@@ -51,6 +49,11 @@ const float PLAYER_JUMP_TIME = 0.28f;
 const float PLAYER_DIE_VELOCITY = 700.f;
 const float PLAYER_SHOOT_COOLDOWN = 0.5f;
 
+
+// Apply for all Characters
+
+
+
 // bullets
 const float BULLET_WIDTH = 10.f;
 const float BULLET_HEIGHT = 10.f;
@@ -59,12 +62,12 @@ const float BULLET_DURATION = 3.f;
 
 
 // flying nimbuses
-const float NIMBUS_WIDTH = 70.f;
+const float NIMBUS_WIDTH = 100.f;
 const float NIMBUS_HEIGHT = 24.f;
 const float NIMBUS_MAX_SPEED = 1000.f;
 const float NIMBUS_ACCELERATION = 800.f;
 const float NIMBUS_DECELERATION = 1200.f;
-const float NIMBUS_DURATION = 15.0f;
+const float NIMBUS_DURATION = 50.0f;
 const float ANTI_GRAVITY = -GRAVITY;
 
 // entities
@@ -104,6 +107,16 @@ const float MAGNET_DURATION = 5.f;
 // tiles
 const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
+
+const float WATER_ACCERATION_REDUCTION = 0.5f;
+const float WATER_GRAVITY_REDUCTION = 0.5f;
+const float WATER_MAX_SPEED = 200.f;
+const float WATER_MIN_VERTICAL_SPEED = 50.f;
+const float WATER_MAX_VERTICAL_SPEED = 200.f;
+
+// map
+const int MINIMAP_WIDTH = 32;
+const int MINIMAP_HEIGHT = 14;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
@@ -153,6 +166,7 @@ enum class PowerUpType
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
 	INVICIBLE,
+	FLYING_NIMBUS,
 	NUM_POWER_UPS
 };
 
