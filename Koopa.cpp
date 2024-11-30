@@ -8,7 +8,7 @@ Koopa::Koopa(sf::Vector2f position)
 	this->hitbox.setFillColor(sf::Color(64, 128, 64, 255));
 	this->hitbox.setSize(sf::Vector2f(KOOPA_WIDTH, KOOPA_HEIGHT));
 	this->hitbox.setPosition(position);
-	animation = new Animation(Resources::textures["KOOPA"], 2, 0.08f, sf::Vector2i(KOOPA_WIDTH, KOOPA_HEIGHT));
+	animation = new Animation(Resources::textures["KOOPA"], 2, 0.08f, sf::Vector2i((int)KOOPA_WIDTH, (int)KOOPA_HEIGHT));
 }
 
 Koopa::~Koopa()	

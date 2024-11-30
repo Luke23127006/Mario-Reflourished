@@ -61,7 +61,7 @@ void Resources::initTextures()
 	textures["BANZAI_BILL"].loadFromFile(ENEMIES_DIRECTORY + "BanzaiBill.png");
 
 	// coin
-	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
+	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "coin.png");
 
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);

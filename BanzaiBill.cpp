@@ -5,7 +5,7 @@ BanzaiBill::BanzaiBill() : Enemy(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEI
 	this->sprite.setTexture(Resources::textures["BANZAI_BILL"]);
 	this->hitbox.setSize(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT));
 	this->hitbox.setPosition(0, 0);
-	animation = new Animation(Resources::textures["BANZAI_BILL"], 1, 1, sf::Vector2i(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT));
+	animation = new Animation(Resources::textures["BANZAI_BILL"], 1, 1, sf::Vector2i((int)BANZAI_BILL_WIDTH, (int)BANZAI_BILL_HEIGHT));
 	animation->setPosition(sf::Vector2f(0, 0));
 	timer = 1.0;
 }
@@ -15,7 +15,7 @@ BanzaiBill::BanzaiBill(sf::Vector2f size,sf::Vector2f position) : Enemy(sf::Vect
 	this->sprite.setTexture(Resources::textures["BANZAI_BILL"]);
 	this->hitbox.setSize(sf::Vector2f(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT));
 	this->hitbox.setPosition(position);
-	animation = new Animation(Resources::textures["BANZAI_BILL"], 1, 1, sf::Vector2i(BANZAI_BILL_WIDTH, BANZAI_BILL_HEIGHT));
+	animation = new Animation(Resources::textures["BANZAI_BILL"], 1, 1, sf::Vector2i((int)BANZAI_BILL_WIDTH, (int)BANZAI_BILL_HEIGHT));
 	animation->setPosition(position);
 	timer = 1.0;
 }

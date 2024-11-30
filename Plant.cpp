@@ -5,7 +5,7 @@ Plant::Plant() : Enemy(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT), sf::Vector2f(0, 
 	this->hitbox.setSize(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT));
 	this->hitbox.setPosition(0, 0);
 	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
-	animation = new Animation(Resources::textures["GREEN_PLANT"], 2, 0.08f, sf::Vector2i(PLANT_WIDTH, PLANT_HEIGHT));
+	animation = new Animation(Resources::textures["GREEN_PLANT"], 2, 0.08f, sf::Vector2i((int)PLANT_WIDTH, (int)PLANT_HEIGHT));
 	animation->setPosition(sf::Vector2f(0, 0));
 	timer = 1.0;
 }
@@ -15,7 +15,7 @@ Plant::Plant(sf::Vector2f size, sf::Vector2f position) : Enemy(sf::Vector2f(PLAN
 	this->hitbox.setSize(sf::Vector2f(PLANT_WIDTH, PLANT_HEIGHT));
 	this->hitbox.setPosition(position);
 	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
-	animation = new Animation(Resources::textures["GREEN_PLANT"], 2, 0.08f, sf::Vector2i(PLANT_WIDTH, PLANT_HEIGHT));
+	animation = new Animation(Resources::textures["GREEN_PLANT"], 2, 0.08f, sf::Vector2i((int)PLANT_WIDTH, (int)PLANT_HEIGHT));
 	animation->setPosition(position);
 	timer = 1.0;
 }
@@ -23,6 +23,7 @@ Plant::Plant(sf::Vector2f size, sf::Vector2f position) : Enemy(sf::Vector2f(PLAN
 
 Plant::~Plant()
 {
+	delete animation;
 }
 
 void Plant::update(float deltaTime)

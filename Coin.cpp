@@ -4,7 +4,7 @@ Coin::Coin(sf::Vector2f position)
 {
 	this->hitbox.setSize(sf::Vector2f(16, 16));
 	this->hitbox.setPosition(position);
-	this->hitbox.setFillColor(sf::Color::Transparent);
+	this->hitbox.setFillColor(sf::Color(255, 235, 59, 255));
 	this->animation = new Animation(Resources::textures["COIN"], 6, 0.08f, sf::Vector2i(16, 16));
     this->animation->setPosition(position);
 }
