@@ -142,16 +142,13 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
 
-			if (isType<LuckyBlock>(*tile))
-			{
-				dynamic_cast<LuckyBlock*>(tile)->activate();
-			}
-
 			if (isType<Player>(*entity) && !entity->isUnderWater())
 			{
 				Player* player = dynamic_cast<Player*>(entity);
 				if (player->hasPowerUp(PowerUpType::MUSHROOM))
-					tile->seftBreak();
+				{
+					if (tile->isBreakable()) tile->seftBreak();
+				}
 				else 
 					tile->shake();
 			}

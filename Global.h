@@ -107,6 +107,7 @@ const int MINIMAP_HEIGHT = 14;
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 int randomize(int l, int r);
+std::string encodeString(std::string s);
 template <class T, class U>
 bool isType(const U& variable) 
 {

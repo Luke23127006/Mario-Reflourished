@@ -58,6 +58,7 @@ void LuckyBlock::shake()
 {
 	Tile::shake();
 	this->canShake = false;
+	this->activate();
 }
 
 PowerUp* LuckyBlock::launchPowerUp()
