@@ -231,6 +231,3 @@ enum class PlantType
 	RED,
 	NUM_PLANT_TYPES
 };
-{
-
-};

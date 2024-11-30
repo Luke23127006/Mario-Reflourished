@@ -1,6 +1,6 @@
 #include "Koopa.h"
 
-Koopa::Koopa(sf::Vector2f size, sf::Vector2f position)
+Koopa::Koopa(sf::Vector2f position)
 	: Enemy(sf::Vector2f(KOOPA_WIDTH, KOOPA_HEIGHT), position)
 {
 	this->sprite.setTexture(Resources::textures["KOOPA"]);
