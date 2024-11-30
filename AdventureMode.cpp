@@ -24,14 +24,19 @@ void AdventureMode::initMap(std::string fileName)
 				}
 				if (name == "goomba")
 				{
-					this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
+					Goomba* goomba = new Goomba(sf::Vector2f(i * 50.f, j * 50.f));
+					this->entities.push_back(goomba);
+					this->enemies.push_back(goomba);
 				}
 				else if (name == "koopa")
 				{
-					this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
+					Koopa* koopa = new Koopa(sf::Vector2f(i * 50.f, j * 50.f));
+					this->entities.push_back(koopa);
+					this->enemies.push_back(koopa);
 				}
 			}
 		}
+	this->setEnemiesBehaviors();
 }
 
 AdventureMode::AdventureMode()
@@ -59,6 +64,25 @@ AdventureMode::~AdventureMode()
 	}
 }
 
+void AdventureMode::setEnemiesBehaviors()
+{
+	for (auto& enemy : enemies)
+	{
+		if (isType<Goomba>(*enemy))
+		{
+			enemy->addBehavior(std::make_shared<Pace>(enemy, player));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player));
+			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
+		}
+		else if (isType<Koopa>(*enemy))
+		{
+			enemy->addBehavior(std::make_shared<Pace>(enemy, player));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player));
+			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
+			
+		}
+	}
+}
 void AdventureMode::update(float deltaTime, bool& held)
 {
 	this->updateEntities(deltaTime);

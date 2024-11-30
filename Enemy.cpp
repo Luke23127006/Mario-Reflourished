@@ -5,18 +5,21 @@ Enemy::Enemy() :
 	Entity(sf::Vector2f(50.f, 50.f), sf::Vector2f(0.f, 0.f)),
 	health(1)
 {
+
 }
 
 Enemy::Enemy(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
 	health(1)
 {
+
 }
 
 Enemy::Enemy(sf::Vector2f size, sf::Vector2f position, int health) :
 	Entity(size, position),
 	health(health)
 {
+
 }
 
 Enemy::~Enemy()
@@ -26,6 +29,16 @@ Enemy::~Enemy()
 void Enemy::turnAround()
 {
 	this->velocity.x = -this->velocity.x;
+}
+
+void Enemy::setCollide(bool collide)
+{
+	this->isColliding = collide;
+}
+
+bool Enemy::isCollide()
+{
+	return this->isColliding;
 }
 
 void Enemy::die()
@@ -49,8 +62,16 @@ void Enemy::takeDamage()
 {
 }
 
+
+
+void Enemy::addBehavior(std::shared_ptr<Component> behavior)
+{
+	this->behaviors.push_back(behavior);
+}
+
 void Enemy::update(float deltaTime)
 {
+	
 	if (this->dying)
 	{
 		this->dieTimer = std::max(0.f, this->dieTimer - deltaTime);
@@ -62,8 +83,15 @@ void Enemy::update(float deltaTime)
 	}
 	else 
 	{
+		
 		if (this->onGround) this->velocity.y = 0.f;
 		else this->velocity.y += GRAVITY * deltaTime;
+		for (auto behavior : this->behaviors)
+		{
+			behavior->update(deltaTime);
+		}
+		isColliding = false;
+		
 		this->move(this->velocity * deltaTime);
 	}
 }

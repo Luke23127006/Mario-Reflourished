@@ -90,6 +90,13 @@ const float KOOPA_SHELL_SPEED = 400.f;
 const float KOOPA_SHELL_WIDTH = 50.f;
 const float KOOPA_SHELL_HEIGHT = 25.f;
 
+// enemies AI
+
+const float PACE_SPEED = 150.f;
+const float FOLLOW_SPEED = 200.f;
+const float DETECTION_RADIUS = 300.f;
+const float ENEMY_JUMP_STRENGHT = 1000.f;
+
 // power up
 const float POWER_UP_WIDTH = 50.f;
 const float POWER_UP_HEIGHT = 24.f;
@@ -155,6 +162,17 @@ enum class PlayerState
 	JUMP,
 	DIE,
 	NUM_PLAYER_STATES
+};
+
+enum class EnemyState
+
+{
+	IDLE = 0,
+	PACING,
+	FOLLOWING,
+	DIE,
+	SQUISHED,
+	NUM_ENEMY_STATES
 };
 
 enum class PowerUpType

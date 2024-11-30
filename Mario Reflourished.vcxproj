@@ -156,6 +156,7 @@
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="EndlessMode.cpp" />
+    <ClCompile Include="EnemiesComponent.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBarrier.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -203,9 +204,11 @@
     <ClInclude Include="ColorManager.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandList.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EndlessMode.h" />
+    <ClInclude Include="EnemiesComponent.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBarrier.h" />
     <ClInclude Include="Entity.h" />
