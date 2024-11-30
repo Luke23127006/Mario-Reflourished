@@ -3,10 +3,12 @@
 #include "Entity.h"
 #include "Global.h"
 #include "Resources.h"
+#include "Animation.h"
 
 class Shell : public Entity
 {
 private:
+	Animation* animation;
 	bool activated;
 public:
 	Shell(sf::Vector2f position);
