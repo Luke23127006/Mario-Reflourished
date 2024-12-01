@@ -11,6 +11,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	lives(3),
 	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
 {
+	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
@@ -66,11 +67,58 @@ void Player::gainPowerUp(PowerUp& powerUp)
 		if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] > 0.f) break;
 		this->invicibleTimer = INVICIBLE_DURATION;
 		break;
+	// test flying nimbus	
+	case PowerUpType::FLYING_NIMBUS:
+		if (this->isNimbusActive) break;
+		if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f) break;
+		nimbus = new FlyingNimbus(this->getPosition()
+			);
+		
+		break;
 	}
+	
 
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
 
+void Player::updatePowerUps(float deltaTime)
+{
+	// mushroom
+	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
+		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
+	}
+
+	// invicible
+	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
+	{
+		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
+		this->invicibleTimer = 0.f;
+	}
+
+	if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f)
+	{
+		this->isNimbusActive = true;
+		if (this->nimbus->appearing())
+		{
+			float dt = this->nimbus->getAppearTime();
+			this->move(sf::Vector2f(0, -PLAYER_JUMP_STRENGHT * 0.5f * deltaTime / dt));
+		}
+		std::cout << "Player position" << this->getPosition().x << " " << this->getPosition().y << std::endl;
+		this->nimbus->getPlayerPosition(this->getPosition());
+		this->nimbus->update(deltaTime);
+
+	}
+	else {
+		//if (this->nimbus) delete this->nimbus;
+		this->isNimbusActive = false;
+	}
+	for (auto& d : this->powerUpDuration)
+	{
+		if (d >= 0.f) d -= deltaTime;
+	}
+}
 void Player::addCoin()
 {
 	this->coins++;
@@ -100,6 +148,9 @@ Bullet* Player::shoot()
 	return nullptr;
 }
 
+// Test FlyingNimbus
+
+
 void Player::update(float deltaTime)
 {
 	if (this->isDead())
@@ -109,11 +160,18 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
-		this->updateMovement(deltaTime);
+		if (this->isNimbusActive) this->updateMovementNimbus(deltaTime);
+		else
+			this->updateMovement(deltaTime);
 		this->updateAnimation(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
-
+		if (this->nimbus)
+		{
+			this->nimbus->getPlayerPosition(this->getPosition()
+				+ sf::Vector2f(0, PLAYER_HEIGHT) - sf::Vector2f(NIMBUS_WIDTH / 3.0f, NIMBUS_HEIGHT));
+			this->nimbus->update(deltaTime);
+		}
 		//Handle nhap nhay
 		if (this->invicibleTimer - deltaTime > 0.f)
 		{
@@ -126,6 +184,57 @@ void Player::update(float deltaTime)
 	}
 }
 
+void Player::updateMovementNimbus(float deltaTime)
+{
+	float acceleration = 0.0f;
+	float deceleration = 0.0f;
+	if (this->isNimbusActive)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = -PLAYER_JUMP_STRENGHT;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			this->velocity.y = PLAYER_JUMP_STRENGHT;
+		}
+		else
+		{
+			this->velocity.y = 0.f;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			acceleration = -NIMBUS_ACCELERATION;
+			if (this->velocity.x > 0.f)
+			{
+				deceleration = -NIMBUS_DECELERATION;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			acceleration = NIMBUS_ACCELERATION;
+			if (this->velocity.x < 0.f)
+			{
+				deceleration = NIMBUS_DECELERATION;
+			}
+		}
+		
+		if (acceleration == 0.f)
+		{
+			if (this->velocity.x > 0.f)
+			{
+				deceleration = std::max(-this->velocity.x / deltaTime, -NIMBUS_DECELERATION);
+			}
+			else if (this->velocity.x < 0.f)
+			{
+				deceleration = std::min(-this->velocity.x / deltaTime, NIMBUS_DECELERATION);
+			}
+		}
+	}
+	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
+	adjustBetween(this->velocity.x, -NIMBUS_MAX_SPEED, NIMBUS_MAX_SPEED);
+	this->hitbox.move(this->velocity * deltaTime);
+}
 void Player::updateMovement(float deltaTime)
 {
 	// horizontal movement
@@ -230,27 +339,7 @@ void Player::updateAnimation(float deltaTime)
 	for (auto& a : animation) a->update(deltaTime, this->flipped);
 }
 
-void Player::updatePowerUps(float deltaTime)
-{
-	// mushroom
-	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
-	{
-		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
-		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
-	}
 
-	// invicible
-	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
-	{
-		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
-		this->invicibleTimer = 0.f;
-	}
-
-	for (auto& d : this->powerUpDuration)
-	{
-		if (d >= 0.f) d -= deltaTime;
-	}
-}
 
 void Player::render(sf::RenderTarget& target)
 {
@@ -270,4 +359,5 @@ void Player::render(sf::RenderTarget& target)
 		break;
 	}
 	target.draw(this->hitbox);
+	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }

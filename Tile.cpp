@@ -1,7 +1,7 @@
 #include "Tile.h"
 
 Tile::Tile(sf::Vector2f position) :
-	Object(sf::Vector2f(50, 50), position),
+	Object(sf::Vector2f(TILE_SIZE, TILE_SIZE), position),
 	canShake(false)
 {
 }

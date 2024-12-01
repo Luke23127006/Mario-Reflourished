@@ -95,6 +95,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
 	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
+	// Entity in ON GROUND
 	if (checkOnGround(entityBounds, tileBounds) && tile->isSolid())
 	{
 		entity->setOnGround(true);
@@ -110,7 +111,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			}
 		}
 	}
-
+	// Entity in INTERSECT with TILE
 	if (entityBounds.intersects(tileBounds))
 	{
 		if (tile->isDanger())
@@ -155,11 +156,13 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		}
 		else
 		{
+			// BULLET
 			if (isType<Bullet>(*entity))
 			{
 				dynamic_cast<Bullet*>(entity)->die();
 			}
 
+			// PLAYER
 			if (entityBounds.left <= tileBounds.left)
 			{
 				if (isType<Player>(*entity)) entity->setVelocity(sf::Vector2f(0.f, entity->getVelocity().y));
@@ -171,14 +174,20 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 				entity->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entity->getPosition().y));
 			}
 
+			// ENEMY
 			if (isDerivedFrom<Enemy>(*entity))
 			{
 				dynamic_cast<Enemy*>(entity)->turnAround();
+				dynamic_cast<Enemy*>(entity)->setCollide(true);
 			}
+
+			// SHELL
 			if (isType<Shell>(*entity))
 			{
 				dynamic_cast<Shell*>(entity)->turnAround();
 			}
+
+			// POWERUP (MUSHROOM)
 			if (isType<PowerUp>(*entity))
 			{
 				dynamic_cast<PowerUp*>(entity)->turnAround();

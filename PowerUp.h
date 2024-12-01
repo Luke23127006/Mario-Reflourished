@@ -10,9 +10,10 @@ class PowerUp : public Entity
 {
 private:
 	PowerUpType type;
-	float duration;
+	
 	sf::FloatRect container;
-
+protected:
+	float duration;
 public:
 	PowerUp(PowerUpType type, sf::FloatRect container);
 	virtual ~PowerUp();

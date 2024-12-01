@@ -49,11 +49,26 @@ const float PLAYER_JUMP_TIME = 0.28f;
 const float PLAYER_DIE_VELOCITY = 700.f;
 const float PLAYER_SHOOT_COOLDOWN = 0.5f;
 
+
+// Apply for all Characters
+
+
+
 // bullets
 const float BULLET_WIDTH = 10.f;
 const float BULLET_HEIGHT = 10.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
+
+
+// flying nimbuses
+const float NIMBUS_WIDTH = 100.f;
+const float NIMBUS_HEIGHT = 24.f;
+const float NIMBUS_MAX_SPEED = 1000.f;
+const float NIMBUS_ACCELERATION = 800.f;
+const float NIMBUS_DECELERATION = 1200.f;
+const float NIMBUS_DURATION = 50.0f;
+const float ANTI_GRAVITY = -GRAVITY;
 
 // entities
 const float ENTITY_JUMP_STRENGHT = 500.f;
@@ -84,9 +99,16 @@ const float BANZAI_BILL_HEIGHT = 36.f;
 const float BOSS_WIDTH = 69.f;
 const float BOSS_HEIGHT = 42.f;
 
+// enemies AI
+
+const float PACE_SPEED = 150.f;
+const float FOLLOW_SPEED = 200.f;
+const float DETECTION_RADIUS = 300.f;
+const float ENEMY_JUMP_STRENGHT = 1000.f;
+
 // power up
 const float POWER_UP_WIDTH = 50.f;
-const float POWER_UP_HEIGHT = 50.f;
+const float POWER_UP_HEIGHT = 24.f;
 const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 
@@ -153,6 +175,17 @@ enum class PlayerState
 	NUM_PLAYER_STATES
 };
 
+enum class EnemyState
+
+{
+	IDLE = 0,
+	PACING,
+	FOLLOWING,
+	DIE,
+	SQUISHED,
+	NUM_ENEMY_STATES
+};
+
 enum class PowerUpType
 {
 	SHIELD = 0,
@@ -162,6 +195,7 @@ enum class PowerUpType
 	AIR_SNEAKERS, // double jump
 	DOUBLE_COINS,
 	INVICIBLE,
+	FLYING_NIMBUS,
 	NUM_POWER_UPS
 };
 
