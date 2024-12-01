@@ -71,6 +71,11 @@ void Player::gainPowerUp(PowerUp& powerUp)
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
 
+void Player::addCoin()
+{
+	this->coins++;
+}
+
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	return this->powerUpDuration[INT(type)] > 0.f;
