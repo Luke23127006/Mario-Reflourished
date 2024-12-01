@@ -68,12 +68,12 @@ const float GOOMBA_WIDTH = 48.f;
 const float GOOMBA_HEIGHT = 48.f;
 const float GOOMBA_MAX_SPEED = 200.f;
 
-const float KOOPA_WIDTH = 24.f;
-const float KOOPA_HEIGHT = 32.f;
+const float KOOPA_WIDTH = 48.f;
+const float KOOPA_HEIGHT = 48.f;
 const float KOOPA_MAX_SPEED = 200.f;
 const float KOOPA_SHELL_SPEED = 400.f;
-const float KOOPA_SHELL_WIDTH = 16.f;
-const float KOOPA_SHELL_HEIGHT = 16.f;
+const float KOOPA_SHELL_WIDTH = 48.f;
+const float KOOPA_SHELL_HEIGHT = 24.f;
 
 const float PLANT_WIDTH = 24.f;
 const float PLANT_HEIGHT = 33.f;
@@ -83,7 +83,6 @@ const float BANZAI_BILL_HEIGHT = 36.f;
 
 const float BOSS_WIDTH = 69.f;
 const float BOSS_HEIGHT = 42.f;
-
 
 // power up
 const float POWER_UP_WIDTH = 50.f;
@@ -232,7 +231,4 @@ enum class PlantType
 	GREEN = 0,
 	RED,
 	NUM_PLANT_TYPES
-};
-{
-
 };

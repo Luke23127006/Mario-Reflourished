@@ -11,9 +11,8 @@ Boss::Boss() : Enemy(sf::Vector2f(BOSS_WIDTH, BOSS_HEIGHT), sf::Vector2f(0, 0), 
 
 Boss::Boss(sf::Vector2f size,sf::Vector2f position) : Enemy(sf::Vector2f(BOSS_WIDTH, BOSS_HEIGHT), position, 100)
 {
-	sf::Vector2f size(BOSS_HEIGHT, BOSS_WIDTH);
+	this->hitbox.setSize(sf::Vector2f(BOSS_HEIGHT, BOSS_WIDTH));
 	this->sprite.setTexture(Resources::textures["BOSS"]);
-	this->hitbox.setSize(size);
 	this->hitbox.setPosition(position);
 	animation = new Animation(Resources::textures["BOSS"], 1, 1, sf::Vector2i(BOSS_WIDTH, BOSS_HEIGHT));
 	animation->setPosition(position);

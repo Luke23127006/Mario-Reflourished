@@ -42,10 +42,10 @@ void Resources::initTextures()
 	textures["GOOMBA"].loadFromFile(ENEMIES_DIRECTORY + "goomba.png");
 	
 	//Koopa
-	textures["KOOPA"].loadFromFile(ENEMIES_DIRECTORY + "Green.png");
+	textures["KOOPA"].loadFromFile(ENEMIES_DIRECTORY + "Koopa.png");
 	
 	//Koopa Shell
-	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "GreenShell.png");
+	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "Shell.png");
 
 	//Plant
 	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");

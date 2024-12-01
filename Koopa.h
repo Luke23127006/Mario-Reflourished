@@ -1,15 +1,12 @@
 #pragma once
 
-#include "Animation.h"
 #include "Enemy.h"
 #include "Resources.h"
 
 class Koopa : public Enemy
 {
-private:
-	Animation* animation;
 public:
-	Koopa(sf::Vector2f size, sf::Vector2f position);
+	Koopa(sf::Vector2f position);
 	~Koopa();
 
 	void squished() override;
