@@ -7,6 +7,8 @@ Shell::Shell(sf::Vector2f position) :
 	this->velocity = sf::Vector2f(0.f, 0.f);
 	this->hitbox.setFillColor(sf::Color(64, 128, 64, 255));
 	this->hitbox.setPosition(sf::Vector2f(position.x, position.y + KOOPA_HEIGHT - KOOPA_SHELL_HEIGHT));
+
+	this->animation = nullptr;
 }
 
 Shell::~Shell()
@@ -38,5 +40,15 @@ void Shell::turnAround()
 
 void Shell::update(float deltaTime)
 {
+	if (this->activated)
+	{
+		if (this->animation) this->animation->update(deltaTime, this->velocity.x < 0.f);
+	}
 	this->hitbox.move(this->velocity * deltaTime);
+}
+
+void Shell::render(sf::RenderTarget& target)
+{
+	//this->animation->render(target, this->hitbox.getPosition());
+	target.draw(this->hitbox);
 }

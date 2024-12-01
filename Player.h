@@ -32,6 +32,7 @@ public:
 	void die() override;
 	void gainPowerUp(PowerUp& powerUp);
 	const bool hasPowerUp(PowerUpType type) const;
+	void addCoin();
 
 	Bullet* shoot();
 	

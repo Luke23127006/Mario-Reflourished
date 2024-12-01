@@ -32,6 +32,8 @@ Player::~Player()
 		delete animation.back();
 		animation.pop_back();
 	}
+
+	delete this->nimbus;
 }
 
 void Player::stopJumping()
@@ -119,6 +121,11 @@ void Player::updatePowerUps(float deltaTime)
 		if (d >= 0.f) d -= deltaTime;
 	}
 }
+void Player::addCoin()
+{
+	this->coins++;
+}
+
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	return this->powerUpDuration[INT(type)] > 0.f;
@@ -301,7 +308,7 @@ void Player::updateMovement(float deltaTime)
 		this->velocity.y = std::max(50.f, this->velocity.y - 2 * GRAVITY * deltaTime);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			this->velocity.y = -PLAYER_JUMP_STRENGHT * 0.25f;
+			this->velocity.y = -WATER_MAX_VERTICAL_SPEED * 0.9f;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
@@ -338,22 +345,21 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	//switch (this->playerState)
-	//{
-	//case PlayerState::IDLE:
-	//	this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::WALK:
-	//	this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::JUMP:
-	//	this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::DIE:
-	//	this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//}
-	
+	switch (this->playerState)
+	{
+	case PlayerState::IDLE:
+		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::WALK:
+		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::JUMP:
+		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::DIE:
+		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
+		break;
+	}
 	target.draw(this->hitbox);
 	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }

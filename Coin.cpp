@@ -2,12 +2,10 @@
 
 Coin::Coin(sf::Vector2f position)
 {
-    const sf::Texture& texture = Resources::textures["coin_texture"];
-    int totalFrames = 6; 
-    float frameDuration = 0.1f;
-    sf::Vector2i frameSize(32, 32);
-
-    this->animation = new Animation(texture, totalFrames, frameDuration, frameSize);
+	this->hitbox.setSize(sf::Vector2f(16, 16));
+	this->hitbox.setPosition(position);
+	this->hitbox.setFillColor(sf::Color::Transparent);
+	this->animation = new Animation(Resources::textures["COIN"], 6, 0.08f, sf::Vector2i(16, 16));
     this->animation->setPosition(position);
 }
 
@@ -18,4 +16,15 @@ Coin::~Coin()
 
 void Coin::update(float deltaTime)
 {
+}
+
+void Coin::collected()
+{
+	this->enabled = false;
+}
+
+void Coin::render(sf::RenderTarget& target)
+{
+	this->animation->render(target, this->hitbox.getPosition());
+	target.draw(this->hitbox);
 }

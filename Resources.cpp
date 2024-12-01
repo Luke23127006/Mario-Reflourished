@@ -31,7 +31,37 @@ void Resources::initTextures()
 	textures["PIPE_TOP_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Top Right.png");
 	textures["PIPE_BOTTOM_LEFT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Left.png");
 	textures["PIPE_BOTTOM_RIGHT"].loadFromFile(TILES_DIRECTORY + "Pipe Bottom Right.png");
+	textures["SPIKE"].loadFromFile(TILES_DIRECTORY + "Spike.png");
+	textures["LAVA_SURFACE"].loadFromFile(TILES_DIRECTORY + "Lava Surface.png");
+	textures["LAVA_BELOW"].loadFromFile(TILES_DIRECTORY + "Lava Below.png");
+	textures["WATER_SURFACE"].loadFromFile(TILES_DIRECTORY + "Water Surface.png");
+	textures["WATER_BELOW"].loadFromFile(TILES_DIRECTORY + "Water Below.png");
 
+
+	//Goomba
+	textures["GOOMBA"].loadFromFile(ENEMIES_DIRECTORY + "goomba.png");
+	
+	//Koopa
+	textures["KOOPA"].loadFromFile(ENEMIES_DIRECTORY + "Koopa.png");
+	
+	//Koopa Shell
+	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "Shell.png");
+
+	//Plant
+	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
+	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
+
+	// Fireball
+	textures["FIREBALL"].loadFromFile(ITEMS_DIRECTORY + "Fireball.png");
+
+	// Boss
+	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");
+
+	// Banzai Bill
+	textures["BANZAI_BILL"].loadFromFile(ENEMIES_DIRECTORY + "BanzaiBill.png");
+
+	// coin
+	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);

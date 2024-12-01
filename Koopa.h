@@ -10,5 +10,6 @@ public:
 	~Koopa();
 
 	void squished() override;
+	void render(sf::RenderTarget& target) override;
 };
 

@@ -38,6 +38,10 @@ const bool LuckyBlock::isNeedUpdating() const
 	return (!this->activated || this->shakeDuration >= 0.f);
 }
 
+void LuckyBlock::seftBreak()
+{
+}
+
 void LuckyBlock::activate()
 {
 	if (this->activated) return;
@@ -54,6 +58,7 @@ void LuckyBlock::shake()
 {
 	Tile::shake();
 	this->canShake = false;
+	this->activate();
 }
 
 PowerUp* LuckyBlock::launchPowerUp()

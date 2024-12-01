@@ -62,6 +62,12 @@ AdventureMode::~AdventureMode()
 		delete this->entities.back();
 		this->entities.pop_back();
 	}
+
+	while (!this->coins.empty())
+	{
+		delete this->coins.back();
+		this->coins.pop_back();
+	}
 }
 
 void AdventureMode::setEnemiesBehaviors()

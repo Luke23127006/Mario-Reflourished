@@ -24,6 +24,11 @@ Enemy::Enemy(sf::Vector2f size, sf::Vector2f position, int health) :
 
 Enemy::~Enemy()
 {
+	while (!this->animations.empty())
+	{
+		delete this->animations.back();
+		this->animations.pop_back();
+	}
 }
 
 void Enemy::turnAround()
@@ -83,7 +88,11 @@ void Enemy::update(float deltaTime)
 	}
 	else 
 	{
-		
+		for (auto& a : this->animations)
+		{
+			a->update(deltaTime, this->velocity.x < 0.f);
+		}
+
 		if (this->onGround) this->velocity.y = 0.f;
 		else this->velocity.y += GRAVITY * deltaTime;
 	

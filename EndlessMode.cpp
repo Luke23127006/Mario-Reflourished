@@ -39,9 +39,9 @@ void EndlessMode::initMaps()
 }
 
 EndlessMode::EndlessMode() :
-	numMap(3),
+	numMap(18),
 	cameraPosition(SCREEN_WIDTH / 2),
-	cameraSpeed(200.f)
+	cameraSpeed(180.f)
 {
 	this->camera.setPosition(sf::Vector2f(cameraPosition, TILE_SIZE * MINIMAP_HEIGHT - SCREEN_HEIGHT / 2));
 	this->cameraHeightMax = this->camera.getPosition().y;
@@ -98,15 +98,29 @@ void EndlessMode::updateMap(float deltaTime)
 
 	if (this->cameraPosition > this->maps.back()->getPosition().x + this->maps.back()->getSize().x * TILE_SIZE - SCREEN_WIDTH)
 	{
-		int i = randomize(0, numMap - 1) + 1;
-		this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
+		int i;
+		do
+		{
+			i = randomize(1, this->numMap);
+		} while (i == 16 || i == 17);
+
+		if (i != 15)
+		{
+			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
+		}
+		else
+		{
+			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
+			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i + 1) + ".png");
+			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i + 2) + ".png");
+		}
 	}
 
 	if (this->cameraPosition > this->maps.front()->getPosition().x + this->maps.front()->getSize().x * TILE_SIZE + SCREEN_WIDTH)
 	{
+		std::cout << "Deleted\n";
 		delete this->maps.front();
 		this->maps.erase(this->maps.begin());
-		std::cout << "Deleted\n";
 	}
 }
 

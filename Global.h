@@ -79,20 +79,29 @@ const float ENEMY_DIE_TIME = 3.f;
 const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
 
-const float GOOMBA_WIDTH = 50.f;
-const float GOOMBA_HEIGHT = 50.f;
+const float GOOMBA_WIDTH = 48.f;
+const float GOOMBA_HEIGHT = 48.f;
 const float GOOMBA_MAX_SPEED = 200.f;
 const float GOOMBA_PACE_SPEED = 150.f;
 const float GOOMBA_FOLLOW_SPEED = 250.f;
 
-const float KOOPA_WIDTH = 50.f;
-const float KOOPA_HEIGHT = 50.f;
+const float KOOPA_WIDTH = 48.f;
+const float KOOPA_HEIGHT = 48.f;
 const float KOOPA_MAX_SPEED = 200.f;
 const float KOOPA_PACE_SPEED = 150.f;
 const float KOOPA_FOLLOW_SPEED = 200.f;
 const float KOOPA_SHELL_SPEED = 400.f;
-const float KOOPA_SHELL_WIDTH = 50.f;
-const float KOOPA_SHELL_HEIGHT = 25.f;
+const float KOOPA_SHELL_WIDTH = 48.f;
+const float KOOPA_SHELL_HEIGHT = 24.f;
+
+const float PLANT_WIDTH = 24.f;
+const float PLANT_HEIGHT = 33.f;
+
+const float BANZAI_BILL_WIDTH = 39.f;
+const float BANZAI_BILL_HEIGHT = 36.f;
+
+const float BOSS_WIDTH = 69.f;
+const float BOSS_HEIGHT = 42.f;
 
 // enemies AI
 
@@ -118,12 +127,13 @@ const float MAGNET_DURATION = 5.f;
 // tiles
 const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
+const float TILE_BREAK_DURATION = 3.f;
 
-const float WATER_ACCERATION_REDUCTION = 0.5f;
-const float WATER_GRAVITY_REDUCTION = 0.5f;
-const float WATER_MAX_SPEED = 200.f;
-const float WATER_MIN_VERTICAL_SPEED = 50.f;
-const float WATER_MAX_VERTICAL_SPEED = 200.f;
+const float WATER_ACCERATION_REDUCTION = 0.4f;
+const float WATER_GRAVITY_REDUCTION = 0.4f;
+const float WATER_MAX_SPEED = 280.f;
+const float WATER_MIN_VERTICAL_SPEED = 70.f;
+const float WATER_MAX_VERTICAL_SPEED = 230.f;
 
 // map
 const int MINIMAP_WIDTH = 32;
@@ -132,6 +142,7 @@ const int MINIMAP_HEIGHT = 14;
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 int randomize(int l, int r);
+std::string encodeString(std::string s);
 template <class T, class U>
 bool isType(const U& variable) 
 {
@@ -221,8 +232,10 @@ enum class TileType
 	PIPE_BOTTOM_RIGHT,
 	PIPE_DESTINATION,
 	SPIKE,
-	WATER,
-	LAVA,
+	WATER_BELOW,
+	WATER_SURFACE,
+	LAVA_BELOW,
+	LAVA_SURFACE,
 	PORTAL,
 	NUM_TILE_TYPES
 };
@@ -241,4 +254,19 @@ enum class PipeType
 	BOTTOM_LEFT,
 	BOTTOM_RIGHT,
 	NUM_PIPE_TYPES
+};
+
+enum class PlantState
+{
+	MOVING_UP = 0,
+	STAYING,
+	MOVING_DOWN,
+	NUM_PLANT_STATES
+};
+
+enum class PlantType
+{
+	GREEN = 0,
+	RED,
+	NUM_PLANT_TYPES
 };
