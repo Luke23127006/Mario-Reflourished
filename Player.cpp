@@ -32,6 +32,8 @@ Player::~Player()
 		delete animation.back();
 		animation.pop_back();
 	}
+
+	delete this->nimbus;
 }
 
 void Player::stopJumping()
