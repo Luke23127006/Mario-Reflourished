@@ -86,6 +86,11 @@ void Enemy::update(float deltaTime)
 		
 		if (this->onGround) this->velocity.y = 0.f;
 		else this->velocity.y += GRAVITY * deltaTime;
+	
+		if (isColliding)
+		{
+			this->turnAround();
+		}
 		for (auto behavior : this->behaviors)
 		{
 			behavior->update(deltaTime);

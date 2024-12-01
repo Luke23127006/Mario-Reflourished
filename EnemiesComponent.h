@@ -1,9 +1,9 @@
 #pragma once
 #include "Component.h"
-
-
-
-
+#include<ctime>
+#include<random>
+#include<cstdlib>
+#include<iostream>
 
 
 
@@ -12,11 +12,12 @@ private:
 
 	float followSpeed;
 	float detectionRadius;
-	
+	float timeWait;
+
 public:
 	FollowPlayer(Entity* owner, Entity* player);
 	void setEnabled();
-	FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius);
+	FollowPlayer(Entity* owner, Entity* player, float followSpeed);
 	void update(float deltaTime) override;
 };
 
@@ -30,7 +31,7 @@ private:
 	sf::Vector2f paceCenter;
 public:
 	Pace(Entity* owner, Entity * player);
-	Pace(Entity* owner, Entity* player, float paceDistance, float paceSpeed, sf::Vector2f paceCenter);
+	Pace(Entity* owner, Entity* player, float paceSpeed);
 	void setEnabled();
 	void update(float deltaTime) override;
 };

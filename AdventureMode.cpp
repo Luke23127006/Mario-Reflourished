@@ -70,14 +70,14 @@ void AdventureMode::setEnemiesBehaviors()
 	{
 		if (isType<Goomba>(*enemy))
 		{
-			enemy->addBehavior(std::make_shared<Pace>(enemy, player));
-			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player));
+			enemy->addBehavior(std::make_shared<Pace>(enemy, player, GOOMBA_PACE_SPEED));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, GOOMBA_FOLLOW_SPEED));
 			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
 		}
 		else if (isType<Koopa>(*enemy))
 		{
-			enemy->addBehavior(std::make_shared<Pace>(enemy, player));
-			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player));
+			enemy->addBehavior(std::make_shared<Pace>(enemy, player, KOOPA_PACE_SPEED));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, KOOPA_FOLLOW_SPEED));
 			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
 			
 		}

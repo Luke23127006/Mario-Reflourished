@@ -82,10 +82,14 @@ const float ENEMY_SQUISHED_TIME = 0.5f;
 const float GOOMBA_WIDTH = 50.f;
 const float GOOMBA_HEIGHT = 50.f;
 const float GOOMBA_MAX_SPEED = 200.f;
+const float GOOMBA_PACE_SPEED = 150.f;
+const float GOOMBA_FOLLOW_SPEED = 250.f;
 
 const float KOOPA_WIDTH = 50.f;
 const float KOOPA_HEIGHT = 50.f;
 const float KOOPA_MAX_SPEED = 200.f;
+const float KOOPA_PACE_SPEED = 150.f;
+const float KOOPA_FOLLOW_SPEED = 200.f;
 const float KOOPA_SHELL_SPEED = 400.f;
 const float KOOPA_SHELL_WIDTH = 50.f;
 const float KOOPA_SHELL_HEIGHT = 25.f;
@@ -93,7 +97,7 @@ const float KOOPA_SHELL_HEIGHT = 25.f;
 // enemies AI
 
 const float PACE_SPEED = 150.f;
-const float FOLLOW_SPEED = 200.f;
+const float FOLLOW_SPEED = 220.f;
 const float DETECTION_RADIUS = 300.f;
 const float ENEMY_JUMP_STRENGHT = 1000.f;
 

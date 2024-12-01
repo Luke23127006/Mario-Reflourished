@@ -171,7 +171,6 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			// ENEMY
 			if (isDerivedFrom<Enemy>(*entity))
 			{
-				dynamic_cast<Enemy*>(entity)->turnAround();
 				dynamic_cast<Enemy*>(entity)->setCollide(true);
 			}
 
