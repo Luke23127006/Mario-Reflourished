@@ -70,15 +70,7 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				this->needUpdatings.insert(this->map[i][j]);
 				break;
 
-			case TileType::LAVA_BELOW:
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
-				break;
-
 			case TileType::LAVA_SURFACE:
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
-				break;
-
-			case TileType::WATER_BELOW:
 				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
 				break;
 
@@ -177,12 +169,6 @@ const bool Map::insideMap(sf::FloatRect bounds) const
 {
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	return mapBounds.intersects(bounds);
-}
-
-void Map::update(float deltaTime)
-{
-	for (auto& lb : this->luckyBlocks)
-		lb->update(deltaTime);
 }
 
 void Map::update(float deltaTime, std::vector<Entity*>& entities)

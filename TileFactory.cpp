@@ -28,7 +28,7 @@ Tile* TileFactory::createTile(sf::Vector2f position, std::string type)
 	if (type == "barrier" || type == "BARRIER") return new Barrier(position);
 	if (type == "enemy barrier") return new EnemyBarrier(position);
 	if (type == "water surface") return new Water(position, true);
-	if (type == "water below") return new Water(position, false);
+	if (type == "water below" || type == "coin under water") return new Water(position, false);
 	if (type == "lava surface") return new Lava(position, true);
 	if (type == "lava below") return new Lava(position, false);
 	if (type == "lucky block") return TileFactory::createLuckyBlock(position);

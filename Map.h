@@ -15,7 +15,6 @@ class Map
 {
 private:
 	std::vector<std::vector<Tile*>> map;
-	std::vector<LuckyBlock*> luckyBlocks;
 	std::set<Tile*> needUpdatings;
 	std::vector<std::vector<TileType>> mapData;
 	sf::Vector2u size;
@@ -34,7 +33,6 @@ public:
 
 	const bool insideMap(sf::FloatRect bounds) const;
 
-	void update(float deltaTime);
 	void update(float deltaTime, std::vector<Entity*>& entities);
 	void render(sf::RenderWindow& target);
 };

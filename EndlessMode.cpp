@@ -98,8 +98,11 @@ void EndlessMode::updateMap(float deltaTime)
 
 	if (this->cameraPosition > this->maps.back()->getPosition().x + this->maps.back()->getSize().x * TILE_SIZE - SCREEN_WIDTH)
 	{
-		int i = randomize(0, numMap - 1) + 1;
-		while (i == 16 || i == 17) i = randomize(0, numMap - 1) + 1;
+		int i;
+		do
+		{
+			i = randomize(1, this->numMap);
+		} while (i == 16 || i == 17);
 
 		if (i != 15)
 		{
@@ -115,9 +118,9 @@ void EndlessMode::updateMap(float deltaTime)
 
 	if (this->cameraPosition > this->maps.front()->getPosition().x + this->maps.front()->getSize().x * TILE_SIZE + SCREEN_WIDTH)
 	{
+		std::cout << "Deleted\n";
 		delete this->maps.front();
 		this->maps.erase(this->maps.begin());
-		std::cout << "Deleted\n";
 	}
 }
 
