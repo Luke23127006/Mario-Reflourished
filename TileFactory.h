@@ -14,6 +14,7 @@ class TileFactory
 {
 public:
 	static Tile* createTile(sf::Vector2f position, TileType type);
+	static Tile* createTile(sf::Vector2f position, std::string type);
 	static Tile* createPortal(sf::Vector2f position, sf::Vector2f destination);
 	static Tile* createPipe(sf::Vector2f position, PipeType type);
 	static Tile* createLuckyBlock(sf::Vector2f position);

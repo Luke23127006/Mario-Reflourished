@@ -30,61 +30,52 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 			int colorCode = color.toInteger();
 
 			// Check if the color exists in ColorManager
-			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
-			{
-				std::string tileName = ColorManager::getObject[colorCode];
+			if (ColorManager::getObject.find(colorCode) == ColorManager::getObject.end()) continue;
 
-				// Map the tile name to the corresponding TileType
-				if (tileName == "ground_block")
-					this->mapData[i][j] = TileType::GROUND_BLOCK;
-				else if (tileName == "brick")
-					this->mapData[i][j] = TileType::BRICK;
-				else if (tileName == "lucky_block")
-					this->mapData[i][j] = TileType::LUCKY_BLOCK;
-				else if (tileName == "pipe")
-					this->mapData[i][j] = TileType::PIPE;
-				else if (tileName == "block")
-					this->mapData[i][j] = TileType::BLOCK;
-				else if (tileName == "pipe_destination")
-					this->mapData[i][j] = TileType::PIPE_DESTINATION;
-				else if (tileName == "barrier")
-					this->mapData[i][j] = TileType::BARRIER;
-				else if (tileName == "enemy barrier")
-					this->mapData[i][j] = TileType::ENEMY_BARRIER;
-				else if (tileName == "lava below")
-					this->mapData[i][j] = TileType::LAVA_BELOW;
-				else if (tileName == "lava surface")
-					this->mapData[i][j] = TileType::LAVA_SURFACE;
-				else if (tileName == "water below" || tileName == "coin under water")
-					this->mapData[i][j] = TileType::WATER_BELOW;
-				else if (tileName == "water surface")
-					this->mapData[i][j] = TileType::WATER_SURFACE;
-				else if (tileName == "spike")
-					this->mapData[i][j] = TileType::SPIKE;
-			}
+			std::string tileName = ColorManager::getObject[colorCode];
+
+			// Map the tile name to the corresponding TileType
+			if (tileName == "ground_block")
+				this->mapData[i][j] = TileType::GROUND_BLOCK;
+			else if (tileName == "brick")
+				this->mapData[i][j] = TileType::BRICK;
+			else if (tileName == "lucky_block")
+				this->mapData[i][j] = TileType::LUCKY_BLOCK;
+			else if (tileName == "pipe")
+				this->mapData[i][j] = TileType::PIPE;
+			else if (tileName == "block")
+				this->mapData[i][j] = TileType::BLOCK;
+			else if (tileName == "pipe_destination")
+				this->mapData[i][j] = TileType::PIPE_DESTINATION;
+			else if (tileName == "barrier")
+				this->mapData[i][j] = TileType::BARRIER;
+			else if (tileName == "enemy barrier")
+				this->mapData[i][j] = TileType::ENEMY_BARRIER;
+			else if (tileName == "lava below")
+				this->mapData[i][j] = TileType::LAVA_BELOW;
+			else if (tileName == "lava surface")
+				this->mapData[i][j] = TileType::LAVA_SURFACE;
+			else if (tileName == "water below" || tileName == "coin under water")
+				this->mapData[i][j] = TileType::WATER_BELOW;
+			else if (tileName == "water surface")
+				this->mapData[i][j] = TileType::WATER_SURFACE;
+			else if (tileName == "spike")
+				this->mapData[i][j] = TileType::SPIKE;
 
 			// Process the tile based on its type
 			switch (this->mapData[i][j])
 			{
 			case TileType::LUCKY_BLOCK:
-				this->map[i][j] = TileFactory::createLuckyBlock(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE));
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
 				this->needUpdatings.insert(this->map[i][j]);
 				break;
 
-			case TileType::LAVA_BELOW:
-				this->map[i][j] = TileFactory::createLava(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "below");
-				break;
-
 			case TileType::LAVA_SURFACE:
-				this->map[i][j] = TileFactory::createLava(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "surface");
-				break;
-
-			case TileType::WATER_BELOW:
-				this->map[i][j] = TileFactory::createWater(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "below");
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
 				break;
 
 			case TileType::WATER_SURFACE:
-				this->map[i][j] = TileFactory::createWater(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "surface");
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
 				this->needUpdatings.insert(this->map[i][j]);
 				break;
 
@@ -92,9 +83,9 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				if (this->mapData[i][j - 1] == TileType::PIPE)
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe bottom right");
 					else if (destination.empty())
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe bottom left");
 					else
 					{
 						this->map[i][j] = TileFactory::createPortal(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), destination.back());
@@ -104,9 +95,9 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				else
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE)
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe top right");
 					else
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe top left");
 				}
 				break;
 
@@ -114,24 +105,24 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				if (this->mapData[i][j - 1] == TileType::PIPE_DESTINATION)
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE_DESTINATION)
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_RIGHT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe bottom right");
 					else
 					{
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::BOTTOM_LEFT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe bottom left");
 						destination.push_back(position + sf::Vector2f(i * TILE_SIZE + this->map[i][j]->getGlobalBounds().width, j * TILE_SIZE));
 					}
 				}
 				else
 				{
 					if (this->mapData[i - 1][j] == TileType::PIPE_DESTINATION)
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_RIGHT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe top right");
 					else
-						this->map[i][j] = TileFactory::createPipe(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), PipeType::TOP_LEFT);
+						this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), "pipe top left");
 				}
 				break;
 
 			default:
-				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), this->mapData[i][j]);
+				this->map[i][j] = TileFactory::createTile(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE), tileName);
 				break;
 			}
 		}
@@ -178,12 +169,6 @@ const bool Map::insideMap(sf::FloatRect bounds) const
 {
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	return mapBounds.intersects(bounds);
-}
-
-void Map::update(float deltaTime)
-{
-	for (auto& lb : this->luckyBlocks)
-		lb->update(deltaTime);
 }
 
 void Map::update(float deltaTime, std::vector<Entity*>& entities)

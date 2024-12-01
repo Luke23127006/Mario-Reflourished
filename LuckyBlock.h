@@ -26,6 +26,9 @@ public:
 	const bool isActivated() const;
 	const LuckyBlockType getType() const;
 	const bool isNeedUpdating() const override;
+
+	void seftBreak() override;
+
 	void activate();
 	void shake() override;
 	PowerUp* launchPowerUp();

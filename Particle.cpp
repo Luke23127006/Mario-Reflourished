@@ -14,6 +14,11 @@ Particle::~Particle()
 {
 }
 
+void Particle::setTextureRect(sf::IntRect textureRect)
+{
+	this->sprite.setTextureRect(textureRect);
+}
+
 const bool Particle::isExpired() const
 {
 	return this->duration <= 0.f;

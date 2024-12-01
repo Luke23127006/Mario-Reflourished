@@ -249,20 +249,20 @@ void Player::updatePowerUps(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	//switch (this->playerState)
-	//{
-	//case PlayerState::IDLE:
-	//	this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::WALK:
-	//	this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::JUMP:
-	//	this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//case PlayerState::DIE:
-	//	this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
-	//	break;
-	//}
+	switch (this->playerState)
+	{
+	case PlayerState::IDLE:
+		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::WALK:
+		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::JUMP:
+		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
+		break;
+	case PlayerState::DIE:
+		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
+		break;
+	}
 	target.draw(this->hitbox);
 }

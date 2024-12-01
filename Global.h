@@ -92,6 +92,7 @@ const float MAGNET_DURATION = 5.f;
 // tiles
 const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
+const float TILE_BREAK_DURATION = 3.f;
 
 const float WATER_ACCERATION_REDUCTION = 0.4f;
 const float WATER_GRAVITY_REDUCTION = 0.4f;
@@ -106,6 +107,7 @@ const int MINIMAP_HEIGHT = 14;
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 int randomize(int l, int r);
+std::string encodeString(std::string s);
 template <class T, class U>
 bool isType(const U& variable) 
 {
