@@ -142,7 +142,13 @@ void Pace::update(float deltaTime)
 	}
 	else
 	{
-
+		if (owner->getVelocity().x == 0)
+		{
+			srand(time(NULL));
+			int random = rand() % 10;
+			int direction = random % 2 == 0 ? 1 : -1;
+			owner->setVelocity(sf::Vector2f(paceSpeed * direction, owner->getVelocity().y));
+		}
 		owner->setVelocity(sf::Vector2f(owner->getVelocity().x, owner->getVelocity().y));
 	}
 
