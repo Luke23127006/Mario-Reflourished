@@ -17,7 +17,7 @@ Button::Button()
 	buttonColorHover = lightenColor(buttonColor, 100);
 	button.setFillColor(buttonColor);
 	// outline color
-	button.setOutlineThickness(1.7);
+	button.setOutlineThickness(3.0);
 	outlineColor = sf::Color::Magenta;
 	outlineColorHover = sf::Color::Green;
 	button.setOutlineColor(outlineColor);

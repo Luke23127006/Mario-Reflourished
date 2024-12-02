@@ -53,26 +53,6 @@ void Play::draw(sf::RenderWindow& window)
 }
 
 
-void Play::updateClickButton(bool& held)
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		if (held == false)
-		{
-			held = true;
-			if (this->selectedButton >= 0)
-			{
-				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
-					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-				{
-					this->buttons[selectedButton]->click();
-				}
-			}
-		}
-	}
-	else held = false;
-}
-
 void Play::update(float dt, bool& held)
 {
 	this->updateHoverButton();

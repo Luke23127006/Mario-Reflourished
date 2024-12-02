@@ -21,6 +21,7 @@ protected:
 public:
 	Scene();
 	virtual ~Scene() = default;
+	virtual void updateClickButton(bool& held);
 	virtual void updateHoverButton();
 	virtual void draw(sf::RenderWindow& window);
 	virtual void update(float deltaTime, bool& held);

@@ -46,26 +46,7 @@ void Welcome::loadTexture()
 }
 
 
-void Welcome::updateClickButton(bool& held)
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
-	{
-		if (held == false)
-		{
-			held = true;
-			if (this->selectedButton >= 0)
-			{
-				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
-					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-				{
-				
-					this->buttons[this->selectedButton]->click();
-				}
-			}
-		}
-	}
-	else held = false;
-}
+
 
 void Welcome::updateAnimation(float dt)
 {

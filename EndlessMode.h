@@ -25,5 +25,6 @@ public:
 	void updateCamera(float deltaTime) override;
 
 	void render(sf::RenderWindow& target) override;
+	GameState getNextScene() override;
 };
 

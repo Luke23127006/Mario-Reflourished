@@ -25,7 +25,6 @@ public:
 	SelectLevel(sf::RenderTexture& window);
 	~SelectLevel();
 	void loadTexture();
-	void updateClickButton(bool& held);
 	void update(float dt, bool& held) override;
 	void draw(sf::RenderWindow& window) override;
 	void render(sf::RenderWindow& window) override;
