@@ -40,4 +40,6 @@ public:
 
 	virtual void update(float deltaTime) override;
 	void updateLastPosition();
+
+	virtual void render(sf::RenderTarget& target) override;
 };

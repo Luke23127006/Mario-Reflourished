@@ -6,7 +6,7 @@ Goomba::Goomba(sf::Vector2f position)
 {
 	this->sprite.setTexture(Resources::textures["GOOMBA"]);
 	this->velocity = sf::Vector2f(GOOMBA_PACE_SPEED, 0.f);
-	this->hitbox.setFillColor(sf::Color(255, 128, 0, 255));
+	this->hitbox.setFillColor(sf::Color(255, 128, 0, 128));
 	this->hitbox.setSize(sf::Vector2f(GOOMBA_WIDTH, GOOMBA_HEIGHT));
 	this->hitbox.setPosition(position);
 
@@ -15,10 +15,4 @@ Goomba::Goomba(sf::Vector2f position)
 
 Goomba::~Goomba()
 {
-}
-
-void Goomba::render(sf::RenderTarget& target)
-{
-	//target.draw(this->hitbox);
-	this->animations[0]->render(target, this->getPosition());
 }

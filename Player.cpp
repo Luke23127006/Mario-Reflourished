@@ -12,7 +12,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
 {
 	this->nimbus = nullptr;
-	this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
+	this->hitbox.setFillColor(sf::Color(0, 0, 0, 96));
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 

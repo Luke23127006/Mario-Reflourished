@@ -111,8 +111,8 @@ const float DETECTION_RADIUS = 300.f;
 const float ENEMY_JUMP_STRENGHT = 1000.f;
 
 // power up
-const float POWER_UP_WIDTH = 50.f;
-const float POWER_UP_HEIGHT = 24.f;
+const float POWER_UP_WIDTH = 40;
+const float POWER_UP_HEIGHT = 40.f;
 const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 

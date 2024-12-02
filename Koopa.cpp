@@ -21,9 +21,3 @@ void Koopa::squished()
 	Enemy::squished();
 	this->dieTimer = 0.f;
 }
-
-void Koopa::render(sf::RenderTarget& target)
-{
-	target.draw(this->hitbox);
-	this->animations[0]->render(target, this->getPosition());
-}

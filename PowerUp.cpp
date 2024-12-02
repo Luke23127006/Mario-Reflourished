@@ -8,6 +8,9 @@ PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
 {
 	sf::Vector2f distance = 0.5f * sf::Vector2f(container.width - POWER_UP_WIDTH, container.height - POWER_UP_HEIGHT);
 	this->hitbox.move(distance);
+
+	this->animations.push_back(new Animation(Resources::textures["POWER_UPS"], 6, 0.05f, sf::Vector2i(50, 50)));
+	this->animations[0]->setSize(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT));
 }
 
 PowerUp::~PowerUp()
@@ -37,6 +40,11 @@ void PowerUp::turnAround()
 
 void PowerUp::update(float deltaTime)
 {
+	for (auto& a : this->animations)
+	{
+		a->update(deltaTime, true);
+	}
+
 	if (this->hitbox.getGlobalBounds().intersects(this->container))
 	{
 		this->rise(deltaTime);

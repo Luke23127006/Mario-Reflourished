@@ -51,6 +51,10 @@ void Resources::initTextures()
 	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
 	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
 
+	//Item
+	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
+	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
+
 	// Fireball
 	textures["FIREBALL"].loadFromFile(ITEMS_DIRECTORY + "Fireball.png");
 
@@ -59,9 +63,6 @@ void Resources::initTextures()
 
 	// Banzai Bill
 	textures["BANZAI_BILL"].loadFromFile(ENEMIES_DIRECTORY + "BanzaiBill.png");
-
-	// coin
-	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);
