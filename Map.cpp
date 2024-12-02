@@ -168,7 +168,7 @@ void Map::addNeedUpdated(Tile* tile)
 const bool Map::insideMap(sf::FloatRect bounds) const
 {
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
-	return mapBounds.intersects(bounds);
+	return bounds.left >= mapBounds.left && bounds.left <= mapBounds.left + mapBounds.width;
 }
 
 void Map::update(float deltaTime, std::vector<Entity*>& entities)

@@ -18,6 +18,11 @@ Animation::~Animation()
 {
 }
 
+const sf::Vector2f Animation::getSize() const
+{
+	return sf::Vector2f(this->frameSize);
+}
+
 void Animation::setPosition(sf::Vector2f position)
 {
 	this->sprite.setPosition(position);

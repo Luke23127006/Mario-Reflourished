@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "Object.h"
+#include "Animation.h"
 
 class Entity : public Object
 {
@@ -16,6 +17,8 @@ protected:
 	float dieTimer;
 	bool dying;
 	bool underWater;
+
+	std::vector<Animation*> animations;
 
 public:
 	Entity(sf::Vector2f size, sf::Vector2f position);

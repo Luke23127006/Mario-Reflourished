@@ -9,16 +9,16 @@ Goomba::Goomba(sf::Vector2f position)
 	this->hitbox.setFillColor(sf::Color(255, 128, 0, 255));
 	this->hitbox.setSize(sf::Vector2f(GOOMBA_WIDTH, GOOMBA_HEIGHT));
 	this->hitbox.setPosition(position);
-	animation = new Animation(Resources::textures["GOOMBA"], 2, 0.08f, sf::Vector2i(GOOMBA_WIDTH, GOOMBA_HEIGHT));
+
+	this->animations.push_back(new Animation(Resources::textures["GOOMBA"], 2, 0.2f, sf::Vector2i(GOOMBA_WIDTH, GOOMBA_HEIGHT)));
 }
 
 Goomba::~Goomba()
 {
-	delete this->animation;
 }
 
 void Goomba::render(sf::RenderTarget& target)
 {
-	this->animation->render(target, this->getPosition());
-	target.draw(this->hitbox);
+	//target.draw(this->hitbox);
+	this->animations[0]->render(target, this->getPosition());
 }

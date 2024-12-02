@@ -52,6 +52,13 @@ void Enemy::die()
 	this->dying = true;
 	this->dieTimer = ENEMY_DIE_TIME;
 	this->velocity = sf::Vector2f(0.f, -ENEMY_DIE_VELOCITY);
+
+	float alpha = -1.f;
+	for (auto& a : animations)
+	{
+		a->setOrigin(sf::Vector2f(0.f, a->getSize().y));
+		a->setScale(sf::Vector2f(1.f, alpha));
+	}
 }
 
 void Enemy::squished()
@@ -61,6 +68,13 @@ void Enemy::squished()
 	this->dying = true;
 	this->dieTimer = ENEMY_SQUISHED_TIME;
 	this->velocity = sf::Vector2f(0.f, 0.f);
+
+	float alpha = 0.3f;
+	for (auto& a : animations)
+	{
+		a->setOrigin(sf::Vector2f(0.f, -a->getSize().y / alpha * (1 - alpha)));
+		a->setScale(sf::Vector2f(1.f, alpha));
+	}
 }
 
 void Enemy::takeDamage()

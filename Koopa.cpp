@@ -9,9 +9,7 @@ Koopa::Koopa(sf::Vector2f position)
 	this->hitbox.setSize(sf::Vector2f(KOOPA_WIDTH, KOOPA_HEIGHT));
 	this->hitbox.setPosition(position);
 
-	sf::Vector2f scale(3.f, 3.f);
-	this->animations.push_back(new Animation(Resources::textures["KOOPA"], 2, 0.2f, sf::Vector2i(KOOPA_WIDTH / scale.x, KOOPA_HEIGHT / scale.y)));
-	this->animations.back()->setScale(scale);
+	this->animations.push_back(new Animation(Resources::textures["KOOPA"], 2, 0.2f, sf::Vector2i(KOOPA_WIDTH, KOOPA_HEIGHT)));
 }
 
 Koopa::~Koopa()	
@@ -26,6 +24,6 @@ void Koopa::squished()
 
 void Koopa::render(sf::RenderTarget& target)
 {
-	//this->animations.back()->render(target, this->getPosition());
 	target.draw(this->hitbox);
+	this->animations[0]->render(target, this->getPosition());
 }

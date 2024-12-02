@@ -153,8 +153,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 				{
 					if (tile->isBreakable()) tile->seftBreak();
 				}
-				else 
-					tile->shake();
+				tile->shake();
 			}
 		}
 		else

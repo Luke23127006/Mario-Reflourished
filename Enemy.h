@@ -15,7 +15,6 @@ protected:
 	bool followPlayer = false;
 	bool isSquished = false;
 	bool isColliding = false;
-	std::vector<Animation*> animations;
 public:
 	Enemy();
 	Enemy(sf::Vector2f size, sf::Vector2f position);
