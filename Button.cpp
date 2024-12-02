@@ -183,12 +183,14 @@ void Button::colorHoverButton()
 		button.setFillColor(buttonColorHover);
 		button.setOutlineColor(outlineColorHover);
 		buttonText.setTextSize(33);
+		this->updateSizeButton();
 	}
 	else
 	{
 		button.setFillColor(buttonColor);
 		button.setOutlineColor(outlineColor);
 		buttonText.setTextSize(30);
+		this->updateSizeButton();
 	}
 }
 

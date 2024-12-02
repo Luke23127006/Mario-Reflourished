@@ -20,24 +20,24 @@ Pause::Pause(sf::RenderTexture& window)
 	this->resumeButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - 2 * this->resumeButton->getSize().y));
 	this->resumeButton->addCommand(new changeSceneCommand(GameState::PAUSE, GameState::RESUME));
 
-	this->resumeButton->setButtonColor(sf::Color::Transparent);
-	this->resumeButton->setTextColor(sf::Color::Black);
+	this->resumeButton->setButtonColor(sf::Color (0, 0, 0, 150));
+
 	// replay button
 	this->replayButton = new Button();
 	this->replayButton->setText("Replay");
 	this->replayButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
 	this->replayButton->addCommand(new changeSceneCommand(GameState::PAUSE, GameState::REPLAY));
 
-	this->replayButton->setButtonColor(sf::Color::Transparent);
-	this->replayButton->setTextColor(sf::Color::Black);
+	this->replayButton->setButtonColor(sf::Color(0, 0, 0, 150));
+
 	// exit button
 	this->exitButton = new Button();
 	this->exitButton->setText("Exit");
 	this->exitButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + 2 * this->exitButton->getSize().y));
 	this->exitButton->addCommand(new changeSceneCommand(GameState::PAUSE, GameState::PLAY));
 
-	this->exitButton->setButtonColor(sf::Color::Transparent);
-	this->exitButton->setTextColor(sf::Color::Black);
+	this->exitButton->setButtonColor(sf::Color(0, 0, 0, 150));
+
 
 	// add buttons
 	this->buttons.push_back(this->resumeButton);
