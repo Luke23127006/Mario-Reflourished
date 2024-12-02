@@ -14,6 +14,8 @@ public:
 	void bounce();
 	bool isExpired();
 
+	void die() override;
+
 	void update(float deltaTime) override;
 
 	void render(sf::RenderTarget& target) override;

@@ -27,6 +27,13 @@ bool Bullet::isExpired()
 	return this->duration <= 0.f;
 }
 
+void Bullet::die()
+{
+	this->enabled = false;
+	this->dying = true;
+	this->dieTimer = 0.25f;
+}
+
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)
@@ -41,6 +48,10 @@ void Bullet::update(float deltaTime)
 		if (this->duration <= 0.f) this->die();
 		this->velocity.y += GRAVITY * deltaTime;
 		this->hitbox.move(this->velocity * deltaTime);
+	}
+	else
+	{
+		this->dieTimer = std::max(0.f, this->dieTimer - deltaTime);
 	}
 }
 
