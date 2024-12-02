@@ -27,9 +27,9 @@ Entity* EntityFactory::createPowerUp(sf::FloatRect container, PowerUpType type)
 
 PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 {
-	//int chance = rand() % 100;
-	//if (chance < 40) return new PowerUp(PowerUpType::MUSHROOM, containner);
-	//if (chance < 80) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
-	//return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
+	int chance = rand() % 100;
+	if (chance < 30) return new PowerUp(PowerUpType::MUSHROOM, containner);
+	if (chance < 60) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
+	if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
 	return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
 }
