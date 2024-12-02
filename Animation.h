@@ -25,6 +25,8 @@ public:
 	void setSize(sf::Vector2f size);
 	void setTransparency(int alpha);
 
+	int getTransparency() const;
+
 	void update(float deltaTime, bool flipped);
 	void render(sf::RenderTarget& target, sf::Vector2f position);
 };

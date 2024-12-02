@@ -17,6 +17,7 @@ private:
 	float blinkTimer;
 	float invicibleTimer;
 	float jumpTimer;
+	float flickerTimer;
 	int coins;
 	int lives;
 	bool canShoot = true;

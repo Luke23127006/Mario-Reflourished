@@ -4,6 +4,7 @@
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
 	blinkTimer(0.f),
+	flickerTimer(0.f),
 	playerState(PlayerState::IDLE),
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
@@ -177,11 +178,22 @@ void Player::update(float deltaTime)
 		//Handle nhap nhay
 		if (this->invicibleTimer - deltaTime > 0.f)
 		{
-			this->hitbox.setFillColor(this->hitbox.getFillColor().a == 0 ? sf::Color(0, 0, 0, 120) : sf::Color(0, 0, 0, 0));
-		}
-		else
-		{
-			this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
+			flickerTimer += deltaTime;
+			if (flickerTimer > 0.08f)
+			{
+				for (int i = 0; i < animation.size(); i++)
+				{
+					this->animation[i]->setTransparency(this->animation.back()->getTransparency() == 0 ? 255 : 0);
+				}
+				flickerTimer = 0.f;
+			}
+			else 
+			{
+				for (int i = 0; i < animation.size(); i++)
+				{
+					this->animation[i]->setTransparency(255);
+				}
+			}
 		}
 	}
 }
