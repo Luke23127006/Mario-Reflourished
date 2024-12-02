@@ -166,3 +166,13 @@ void EndlessMode::render(sf::RenderWindow& target)
 	}
 	spikeWall->render(target);
 }
+
+GameState EndlessMode::getNextScene()
+{
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		return GameState::PAUSE;
+	}
+	return GameState::LEVEL3;
+}

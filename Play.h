@@ -23,7 +23,6 @@ public:
 	~Play();
 	void loadTexture();
 	void draw(sf::RenderWindow& window) override;
-	void updateClickButton(bool& held);
 	void update(float dt, bool& held) override;
 	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;

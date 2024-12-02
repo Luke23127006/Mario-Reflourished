@@ -21,7 +21,6 @@ private:
 public:
 	Welcome(sf::RenderTexture& window);
 	void loadTexture();
-	void updateClickButton(bool& held);
 	void updateAnimation(float dt);
 	void draw(sf::RenderWindow& window) override;
 	void update(float dt, bool& held) override;

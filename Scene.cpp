@@ -19,6 +19,30 @@ Scene::Scene()
 void Scene::update(float deltaTime, bool& held)
 {
 }
+
+
+
+
+void Scene::updateClickButton(bool& held)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (held == false)
+		{
+			held = true;
+			if (this->selectedButton >= 0)
+			{
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+
+					this->buttons[this->selectedButton]->click();
+				}
+			}
+		}
+	}
+	else held = false;
+}
 void Scene::updateHoverButton()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -78,6 +102,9 @@ void Scene::updateHoverButton()
 		this->buttons[i]->colorHoverButton();
 	}
 }
+
+
+
 
 void Scene::draw(sf::RenderWindow& window)
 {

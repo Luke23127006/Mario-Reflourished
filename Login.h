@@ -48,7 +48,7 @@ public :
 	Login(sf::RenderTexture& window);
 	void loadTexture();
 	void updateHoverButton() override;
-	void updateClickButton(bool& held);
+	void updateClickButton(bool& held) override;
 	void updateRegisterMovement(float dt);
 	//void updateText();
 	void addConfirmButton();

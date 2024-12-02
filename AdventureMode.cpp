@@ -49,6 +49,10 @@ AdventureMode::AdventureMode()
 
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 {
+	if (fileName == MAPS_DIRECTORY + "Level 1.png")
+		typeMap = GameState::LEVEL1;
+	else if (fileName == MAPS_DIRECTORY + "Level 2.png")
+		typeMap = GameState::LEVEL2;
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
 }
@@ -209,7 +213,15 @@ void AdventureMode::render(sf::RenderWindow& target)
 
 GameState AdventureMode::getNextScene()
 {
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		return GameState::SELECT_LEVEL;
-	return GameState::ADVENTURE_MODE;
+		return GameState::PAUSE;
+	if (typeMap == GameState::LEVEL1)
+	{
+		return GameState::LEVEL1;
+	}
+	else if (typeMap == GameState::LEVEL2)
+	{
+		return GameState::LEVEL2;
+	}
 }

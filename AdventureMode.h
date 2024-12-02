@@ -23,7 +23,7 @@ protected:
 	sf::Vector2f cameraOrigin;
 	Camera camera;
 	std::vector<Coin*> coins;
-
+	GameState typeMap;
 	void initMap(std::string fileName);
 
 public:
