@@ -55,8 +55,8 @@ const float PLAYER_SHOOT_COOLDOWN = 0.5f;
 
 
 // bullets
-const float BULLET_WIDTH = 10.f;
-const float BULLET_HEIGHT = 10.f;
+const float BULLET_WIDTH = 16.f;
+const float BULLET_HEIGHT = 16.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
