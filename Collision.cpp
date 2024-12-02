@@ -79,8 +79,13 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
+	// enemies is blocked by enemy barrier
 	if (!isDerivedFrom<Enemy>(*entity) && isType<EnemyBarrier>(*tile)) return;
+
+	// powerup is RISING from the Lucky Block
 	if (isType<PowerUp>(*entity) && entity->getVelocity().x == 0) return;
+
+	// underwater
 	if (isType<Water>(*tile))
 	{
 		Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
@@ -131,6 +136,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top - entityBounds.height));
 
+			// BULLET bounces when touching the ground
 			if (isType<Bullet>(*entity))
 			{
 				dynamic_cast<Bullet*>(entity)->bounce();
@@ -146,6 +152,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			entity->setVelocity(sf::Vector2f(entity->getVelocity().x, 0.f));
 			entity->setPosition(sf::Vector2f(entity->getPosition().x, tileBounds.top + tileBounds.height));
 
+			// PLAYER collision with TILE from below
 			if (isType<Player>(*entity) && !entity->isUnderWater())
 			{
 				Player* player = dynamic_cast<Player*>(entity);
@@ -153,13 +160,12 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 				{
 					if (tile->isBreakable()) tile->seftBreak();
 				}
-				else 
-					tile->shake();
+				tile->shake();
 			}
 		}
 		else
 		{
-			// BULLET
+			// BULLET expire when touching the wall
 			if (isType<Bullet>(*entity))
 			{
 				dynamic_cast<Bullet*>(entity)->die();

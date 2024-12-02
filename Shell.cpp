@@ -44,6 +44,9 @@ void Shell::update(float deltaTime)
 	{
 		if (this->animation) this->animation->update(deltaTime, this->velocity.x < 0.f);
 	}
+
+	if (!this->onGround) this->velocity.y += GRAVITY * deltaTime;
+	else this->velocity.y = 0.f;
 	this->hitbox.move(this->velocity * deltaTime);
 }
 
