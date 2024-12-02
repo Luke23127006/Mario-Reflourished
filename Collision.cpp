@@ -86,7 +86,6 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
 		return;
 	}
-	if (!tile->isSolid()) return;
 
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::Vector2f lastPosition = entity->getLastPosition();
@@ -121,6 +120,10 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 		else if (isType<Portal>(*tile) && entityBounds.left > tileBounds.left)
 		{
 			entity->setPosition(dynamic_cast<Portal*>(tile)->getDestination());
+		}
+		else if (!tile->isSolid())
+		{
+			return;
 		}
 		else if (above)
 		{
@@ -177,7 +180,6 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 			// ENEMY
 			if (isDerivedFrom<Enemy>(*entity))
 			{
-				dynamic_cast<Enemy*>(entity)->turnAround();
 				dynamic_cast<Enemy*>(entity)->setCollide(true);
 			}
 

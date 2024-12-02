@@ -37,7 +37,7 @@ const float CAMERA_FOLLOW_DISTANCE = 50.f;
 const float CAMERA_SMOOTHING_FACTOR = 5.f;
 
 // player
-const float PLAYER_WIDTH = 48.f;
+const float PLAYER_WIDTH = 42.f;
 const float PLAYER_HEIGHT = 48.f;
 const float PLAYER_BIGGER_HEIGHT = 96.f;
 const float PLAYER_MAX_SPEED = 400.f;
@@ -82,10 +82,14 @@ const float ENEMY_SQUISHED_TIME = 0.5f;
 const float GOOMBA_WIDTH = 48.f;
 const float GOOMBA_HEIGHT = 48.f;
 const float GOOMBA_MAX_SPEED = 200.f;
+const float GOOMBA_PACE_SPEED = 150.f;
+const float GOOMBA_FOLLOW_SPEED = 250.f;
 
 const float KOOPA_WIDTH = 48.f;
 const float KOOPA_HEIGHT = 48.f;
 const float KOOPA_MAX_SPEED = 200.f;
+const float KOOPA_PACE_SPEED = 150.f;
+const float KOOPA_FOLLOW_SPEED = 200.f;
 const float KOOPA_SHELL_SPEED = 400.f;
 const float KOOPA_SHELL_WIDTH = 48.f;
 const float KOOPA_SHELL_HEIGHT = 24.f;
@@ -102,7 +106,7 @@ const float BOSS_HEIGHT = 42.f;
 // enemies AI
 
 const float PACE_SPEED = 150.f;
-const float FOLLOW_SPEED = 200.f;
+const float FOLLOW_SPEED = 220.f;
 const float DETECTION_RADIUS = 300.f;
 const float ENEMY_JUMP_STRENGHT = 1000.f;
 
