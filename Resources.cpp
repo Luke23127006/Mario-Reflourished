@@ -21,7 +21,7 @@ void Resources::initTextures()
 	textures["MARIO_DIE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_die.png");
 
     // tiles
-	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "Ground Block.png");
+	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "Ground Block.png"); // "Ground Block.png"
 	textures["BRICK"].loadFromFile(TILES_DIRECTORY + "Bricks.png");
 	textures["LUCKY_BLOCK"].loadFromFile(TILES_DIRECTORY + "Lucky Block.png");
 	textures["PIPE"].loadFromFile(TILES_DIRECTORY + "Pipe.png");
