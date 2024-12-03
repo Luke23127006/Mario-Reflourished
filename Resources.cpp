@@ -55,9 +55,10 @@ void Resources::initTextures()
 	//Item
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
-
-	// Fireball
 	textures["BULLET"].loadFromFile(ITEMS_DIRECTORY + "Fire Ball.png");
+
+	// Decoration
+	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");
 
 	// Boss
 	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");

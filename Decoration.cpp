@@ -31,3 +31,9 @@ void Decoration::render(sf::RenderTarget& target)
 {
 	target.draw(this->sprite);
 }
+
+void Decoration::render(sf::RenderTarget& target, sf::Vector2f position)
+{
+	this->sprite.setPosition(position);
+	target.draw(this->sprite);
+}
