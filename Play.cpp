@@ -12,14 +12,14 @@ Play::Play(sf::RenderTexture& window)
 	// Select level button
 	this->selectLevelButton = new Button();
 	this->selectLevelButton->setText("Select Level");
-	this->selectLevelButton->setButtonSize(sf::Vector2f(300, 50));
+	this->selectLevelButton->setButtonSize(sf::Vector2f(350, 50));
 	this->selectLevelButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->selectLevelButton->getSize().y));
 	this->selectLevelButton->addCommand(new changeSceneCommand(GameState::PLAY, GameState::SELECT_LEVEL));
 
 	// Select character button
 	this->selectCharacterButton = new Button();
 	this->selectCharacterButton->setText("Select Character");
-	this->selectCharacterButton->setButtonSize(sf::Vector2f(300, 50));
+	this->selectCharacterButton->setButtonSize(sf::Vector2f(350, 50));
 	this->selectCharacterButton->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->selectCharacterButton->getSize().y));
 	this->selectCharacterButton->addCommand(new changeSceneCommand(GameState::PLAY, GameState::SELECT_CHARACTER));
 

@@ -8,6 +8,7 @@
 #include "Shell.h"
 #include "PowerUp.h"
 #include "Bullet.h"
+#include "Bird.h"
 
 #include <ctime>
 

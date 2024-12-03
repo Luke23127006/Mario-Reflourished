@@ -4,9 +4,10 @@
 #include<random>
 #include<cstdlib>
 #include<iostream>
+#include <math.h>
 
 
-
+// Enemy Follow
 class FollowPlayer : public Component {
 private:
 
@@ -16,13 +17,15 @@ private:
 
 public:
 	FollowPlayer(Entity* owner, Entity* player);
-	void setEnabled();
 	FollowPlayer(Entity* owner, Entity* player, float followSpeed);
+	FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius);
+	FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius, float timeWait);
+	void setEnabled();		
 	void update(float deltaTime) override;
 };
 
 
-
+// Enemy Pace
 class Pace : public Component {
 private:
 
@@ -36,6 +39,8 @@ public:
 	void update(float deltaTime) override;
 };
 
+
+// Enemy Jump
 class EnemiesJump : public Component {
 private:
 	float jumpSpeed;
@@ -45,3 +50,27 @@ public:
 	void setEnabled();
 	void update(float deltaTime) override;
 };
+
+
+
+
+// Enemy Pace Fly
+class PaceFly : public Component {
+private:
+	sf::Vector2f paceCenter;
+	float paceX;
+	float paceY;
+	float paceSpeed;
+	float angle;
+	
+public:
+	PaceFly(Entity* owner, Entity* player);
+	PaceFly(Entity* owner, Entity* player, float paceX, float paceY, float paceSpeed);
+	bool onEllipse();
+	void update(float deltaTime) override;
+};
+
+
+
+
+

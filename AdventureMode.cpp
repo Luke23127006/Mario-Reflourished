@@ -34,6 +34,12 @@ void AdventureMode::initMap(std::string fileName)
 					this->entities.push_back(koopa);
 					this->enemies.push_back(koopa);
 				}
+				else if (name == "bird")
+				{
+					Bird * bird = new Bird(sf::Vector2f(i * 50.f, j * 50.f));
+					this->entities.push_back(bird);
+					this->enemies.push_back(bird);
+				}
 			}
 		}
 	this->setEnemiesBehaviors();
@@ -41,6 +47,7 @@ void AdventureMode::initMap(std::string fileName)
 
 AdventureMode::AdventureMode()
 {
+	this->typeMap = GameState::LEVEL1;
 	this->cameraOrigin = sf::Vector2f(0.f, 0.f);
 	this->map = nullptr;
 	this->player = nullptr;
@@ -90,6 +97,11 @@ void AdventureMode::setEnemiesBehaviors()
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, KOOPA_FOLLOW_SPEED));
 			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
 			
+		}
+		else if (isType<Bird>(*enemy))
+		{
+			enemy->addBehavior(std::make_shared<PaceFly>(enemy, player, BIRD_PACE_X, BIRD_PACE_Y, BIRD_PACE_SPEED));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BIRD_FOLLOW_SPEED, BIRD_DETECTION_RADIUS, 6));
 		}
 	}
 }

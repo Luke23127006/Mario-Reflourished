@@ -20,7 +20,7 @@ void ColorManager::initColors()
 
     getObject[sf::Color(255, 128, 0, 255).toInteger()] = "goomba";
     getObject[sf::Color(64, 128, 64, 255).toInteger()] = "koopa";
-
+    getObject[sf::Color(200, 250, 100, 255).toInteger()] = "bird";
 
     getObject[sf::Color(255, 235, 59, 255).toInteger()] = "coin";
     getObject[sf::Color(205, 192, 110, 255).toInteger()] = "coin under water";

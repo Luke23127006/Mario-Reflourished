@@ -18,7 +18,7 @@ Button::Button()
 	button.setFillColor(buttonColor);
 	// outline color
 	button.setOutlineThickness(3.0);
-	outlineColor = sf::Color::Magenta;
+	outlineColor = sf::Color::Transparent; //sf::Color::Magenta;
 	outlineColorHover = sf::Color::Green;
 	button.setOutlineColor(outlineColor);
 
@@ -182,7 +182,7 @@ void Button::colorHoverButton()
 	{
 		button.setFillColor(buttonColorHover);
 		button.setOutlineColor(outlineColorHover);
-		buttonText.setTextSize(33);
+		buttonText.setTextSize(38);
 		this->updateSizeButton();
 	}
 	else

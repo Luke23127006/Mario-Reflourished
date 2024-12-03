@@ -23,7 +23,14 @@ FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed) : C
 }
 
 
+FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius) : Component(owner, player), followSpeed(followSpeed), detectionRadius(detectionRadius)
+{
+	timeWait = 2.0f;
+}
 
+FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius, float timeWait) : Component(owner, player), followSpeed(followSpeed), detectionRadius(detectionRadius), timeWait(timeWait)
+{
+}
 void FollowPlayer::setEnabled()
 {
 	sf::Vector2f playerPosition = player->getPosition();
@@ -132,6 +139,10 @@ void Pace::update(float deltaTime)
 {
 	setEnabled();
 	sf::Vector2f thisPosition = owner->getPosition();
+	if (dynamic_cast<Enemy*>(owner)->isCollide())
+	{
+		dynamic_cast<Enemy*>(owner)->turnAround();
+	}
 	if (thisPosition.x < paceCenter.x - paceDistance && !enabled)
 	{
 		owner->setVelocity(sf::Vector2f(paceSpeed, owner->getVelocity().y));
@@ -194,3 +205,70 @@ void EnemiesJump::update(float deltaTime)
 	owner->setVelocity(sf::Vector2f(owner->getVelocity().x, -jumpSpeed));
 	timeWaitToJump = 0.5;
 }
+
+
+
+// PACE FLY
+
+
+
+
+
+
+
+
+PaceFly::PaceFly(Entity* owner, Entity* player) : Component(owner, player)
+{
+
+	paceX = 300;
+	paceY = 100;
+	paceSpeed = PACE_SPEED;
+	angle = 0.0f;
+	paceCenter = owner->getPosition() - sf::Vector2f(paceX, 0.f);
+
+}
+
+PaceFly::PaceFly(Entity* owner, Entity* player, float paceX, float paceY, float paceSpeed) : Component(owner, player), paceX(paceX), paceY(paceY), paceSpeed(paceSpeed)
+{
+	paceCenter = owner->getPosition();
+	angle = 0.0f;
+}
+
+
+
+
+
+
+
+bool PaceFly::onEllipse()
+{
+	sf::Vector2f thisPosition = owner->getPosition();
+	float dx = thisPosition.x - paceCenter.x;
+	float dy = thisPosition.y - paceCenter.y;
+	float dx2 = dx * dx;
+	float dy2 = dy * dy;
+	float a2 = paceX * paceX;
+	float b2 = paceY * paceY;
+	return abs((dx2 / a2 + dy2 / b2) - 1.f) < 1.0 / 10;
+}
+
+void PaceFly::update(float deltaTime)
+{
+
+	sf::Vector2f thisPosition = owner->getPosition();
+
+	angle += 0.001;
+	float targetX = paceCenter.x + paceX * cos(angle);
+	float targetY = paceCenter.y + paceY * sin(angle);
+	sf::Vector2f VectorDirection = sf::Vector2f(targetX - thisPosition.x, targetY - thisPosition.y);
+	sf::Vector2f direction = sf::Vector2f(VectorDirection.x > 0 ? 1 : -1, VectorDirection.y > 0 ? 1 : -1);
+	if (dynamic_cast<Enemy*>(owner)->isCollide())
+	{
+		owner->setVelocity(sf::Vector2f(direction.x * paceSpeed, -paceSpeed / 2));
+	}
+	else
+		owner->setVelocity(sf::Vector2f(direction.x * paceSpeed, direction.y * paceSpeed));
+
+	
+}
+

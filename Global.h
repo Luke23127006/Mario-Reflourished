@@ -21,7 +21,7 @@ const int ZOOM_LEVEL = 720;
 const float GRAVITY = 3000.f;
 
 // colors
-const sf::Color PINK = sf::Color(177, 80, 199);
+const sf::Color PINK = sf::Color(177, 80, 199, 180);
 // directories
 const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/Mario/";
 const std::string DECORATIONS_DIRECTORY = "./Resources/Decorations/";
@@ -79,12 +79,14 @@ const float ENEMY_DIE_TIME = 3.f;
 const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
 
+// GOOMBA
 const float GOOMBA_WIDTH = 51.f;
 const float GOOMBA_HEIGHT = 48.f;
 const float GOOMBA_MAX_SPEED = 200.f;
 const float GOOMBA_PACE_SPEED = 150.f;
 const float GOOMBA_FOLLOW_SPEED = 250.f;
 
+//KOOPA
 const float KOOPA_WIDTH = 51.f;
 const float KOOPA_HEIGHT = 48.f;
 const float KOOPA_MAX_SPEED = 200.f;
@@ -93,6 +95,21 @@ const float KOOPA_FOLLOW_SPEED = 200.f;
 const float KOOPA_SHELL_SPEED = 400.f;
 const float KOOPA_SHELL_WIDTH = 48.f;
 const float KOOPA_SHELL_HEIGHT = 24.f;
+
+
+// BIRD
+const float BIRD_WIDTH = 51.f;
+const float BIRD_HEIGHT = 48.f;
+const float BIRD_PACE_SPEED = 150.f;
+const float BIRD_FOLLOW_SPEED = 180.f;
+const float BIRD_PACE_X = 300.f;
+const float BIRD_PACE_Y = 200.f;
+const float BIRD_DETECTION_RADIUS = 600.f;
+
+
+
+
+
 
 const float PLANT_WIDTH = 24.f;
 const float PLANT_HEIGHT = 33.f;
