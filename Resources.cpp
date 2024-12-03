@@ -18,6 +18,7 @@ void Resources::initTextures()
     textures["MARIO_IDLE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_idle.png");
 	textures["MARIO_WALK"].loadFromFile(CHARACTERS_DIRECTORY + "mario_walk.png");
 	textures["MARIO_JUMP"].loadFromFile(CHARACTERS_DIRECTORY + "mario_jump.png");
+	textures["MARIO_SWIM"].loadFromFile(CHARACTERS_DIRECTORY + "mario_swim.png");
 	textures["MARIO_DIE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_die.png");
 
     // tiles

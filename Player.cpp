@@ -12,7 +12,8 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
 {
 	this->nimbus = nullptr;
-	this->hitbox.setFillColor(sf::Color(0, 0, 0, 96));
+	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
+
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
@@ -21,6 +22,9 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 	animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
 	animation[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+
+	animation[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.08f, sf::Vector2i(54, 48));
+	animation[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
 	animation[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 }
@@ -175,14 +179,14 @@ void Player::update(float deltaTime)
 			this->nimbus->update(deltaTime);
 		}
 		//Handle nhap nhay
-		if (this->invicibleTimer - deltaTime > 0.f)
+		/*if (this->invicibleTimer - deltaTime > 0.f)
 		{
 			this->hitbox.setFillColor(this->hitbox.getFillColor().a == 0 ? sf::Color(0, 0, 0, 120) : sf::Color(0, 0, 0, 0));
 		}
 		else
 		{
 			this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
-		}
+		}*/
 	}
 }
 
@@ -337,6 +341,7 @@ void Player::updateAnimation(float deltaTime)
 	{
 		this->playerState = PlayerState::JUMP;
 	}
+	if (this->underWater) this->playerState = PlayerState::SWIM;
 
 	for (auto& a : animation) a->update(deltaTime, this->flipped);
 }
@@ -345,21 +350,7 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	switch (this->playerState)
-	{
-	case PlayerState::IDLE:
-		this->animation[INT(PlayerState::IDLE)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::WALK:
-		this->animation[INT(PlayerState::WALK)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::JUMP:
-		this->animation[INT(PlayerState::JUMP)]->render(target, this->hitbox.getPosition());
-		break;
-	case PlayerState::DIE:
-		this->animation[INT(PlayerState::DIE)]->render(target, this->hitbox.getPosition());
-		break;
-	}
+	this->animation[INT(this->playerState)]->render(target, this->hitbox.getPosition());
 	target.draw(this->hitbox);
 	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }
