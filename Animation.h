@@ -30,4 +30,3 @@ public:
 	void update(float deltaTime, bool flipped);
 	void render(sf::RenderTarget& target, sf::Vector2f position);
 };
-
