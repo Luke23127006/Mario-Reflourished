@@ -23,7 +23,6 @@ FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed) : C
 }
 
 
-
 void FollowPlayer::setEnabled()
 {
 	sf::Vector2f playerPosition = player->getPosition();

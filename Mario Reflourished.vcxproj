@@ -153,6 +153,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="ColorManager.cpp" />
     <ClCompile Include="CommandList.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="EndlessMode.cpp" />

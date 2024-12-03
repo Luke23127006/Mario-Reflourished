@@ -18,4 +18,5 @@ public:
 	void setScale(sf::Vector2f scale);
 
     void render(sf::RenderTarget& target); 
+	void render(sf::RenderTarget& target, sf::Vector2f position);
 };

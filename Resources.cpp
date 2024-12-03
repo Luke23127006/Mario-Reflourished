@@ -18,6 +18,7 @@ void Resources::initTextures()
     textures["MARIO_IDLE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_idle.png");
 	textures["MARIO_WALK"].loadFromFile(CHARACTERS_DIRECTORY + "mario_walk.png");
 	textures["MARIO_JUMP"].loadFromFile(CHARACTERS_DIRECTORY + "mario_jump.png");
+	textures["MARIO_SWIM"].loadFromFile(CHARACTERS_DIRECTORY + "mario_swim.png");
 	textures["MARIO_DIE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_die.png");
 
     // tiles
@@ -51,17 +52,19 @@ void Resources::initTextures()
 	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
 	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
 
-	// Fireball
-	textures["FIREBALL"].loadFromFile(ITEMS_DIRECTORY + "Fireball.png");
+	//Item
+	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
+	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
+	textures["BULLET"].loadFromFile(ITEMS_DIRECTORY + "Fire Ball.png");
+
+	// Decoration
+	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");
 
 	// Boss
 	textures["BOSS"].loadFromFile(ENEMIES_DIRECTORY + "Boss.png");
 
 	// Banzai Bill
 	textures["BANZAI_BILL"].loadFromFile(ENEMIES_DIRECTORY + "BanzaiBill.png");
-
-	// coin
-	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 
 	// all above textures are smooth
 	for (auto& t : textures) t.second.setSmooth(true);
