@@ -196,7 +196,7 @@ void Login::updateClickButton(bool& held)
 
 
 					case 2:
-						if (!isRegister)
+						if (!this->isRegister)
 						{
 							this->isRegister = true;
 							this->updateRegisterAnimation = true;
@@ -215,6 +215,7 @@ void Login::updateClickButton(bool& held)
 							this->buttons[selectedButton]->click();
 						}
 						this->isErrorRegister = true;
+						break;
 
 					case 3:
 						this->buttons[selectedButton]->click();
