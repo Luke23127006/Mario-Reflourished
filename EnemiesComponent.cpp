@@ -22,6 +22,11 @@ FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed) : C
 	timeWait = 2.0f;
 }
 
+FollowPlayer::~FollowPlayer()
+{
+	delete this->exclamation;
+}
+
 
 
 void FollowPlayer::setEnabled()
