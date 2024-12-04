@@ -1,409 +1,406 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cloud.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Decoration.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Login.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LuckyBlock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Play.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Resources.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Welcome.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Barrier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Plant.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BanzaiBill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AdventureMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBarrier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TileFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EndlessMode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyingNimbus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lava.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpikeWall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Water.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemiesComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pause.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bird.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cloud.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Decoration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Login.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LuckyBlock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Play.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Welcome.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Barrier.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Plant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BanzaiBill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AdventureMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBarrier.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EndlessMode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyingNimbus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lava.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpikeWall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Water.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemiesComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pause.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bird.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\Maps\Level 1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\demo_map.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map0.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map7.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map9.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map10.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map5.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map6.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map8.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map11.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map12.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map13.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map14.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map15.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map16.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map17.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map18.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\Map19.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Level 3\MapReward.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{346847aa-83a8-4d51-82ee-c139ea3805ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{d8140561-6ea8-4afb-a2ca-900a28b8152b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{ba380cec-851b-4b2d-8839-c8f3dd8f4c43}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
+	<ItemGroup>
+		<Filter Include="Source Files">
+			<UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+			<Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+		</Filter>
+		<Filter Include="Header Files">
+			<UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+			<Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+		</Filter>
+		<Filter Include="Resource Files">
+			<UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+			<Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="Animation.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Bullet.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Button.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Camera.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Cloud.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Coin.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Collision.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Decoration.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Entity.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Game.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Global.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Login.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="LuckyBlock.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="main.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Map.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Object.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Play.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Player.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="PowerUp.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Resources.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SelectLevel.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Text.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Tile.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Scene.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Welcome.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Portal.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Pipe.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Barrier.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Enemy.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Shell.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Goomba.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Koopa.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Plant.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="BanzaiBill.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Boss.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="AdventureMode.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="ColorManager.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="EnemyBarrier.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Particle.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="TileFactory.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="EntityFactory.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="EndlessMode.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="CommandList.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="FlyingNimbus.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Lava.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="SpikeWall.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Water.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="EnemiesComponent.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Pause.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+		<ClCompile Include="Component.cpp">
+			<Filter>Source Files</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="Animation.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Bullet.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Button.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Camera.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Cloud.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Coin.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Collision.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Decoration.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Entity.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Game.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Global.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Login.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="LuckyBlock.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Map.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Object.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Play.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Player.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="PowerUp.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Resources.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SelectLevel.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Text.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Tile.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Scene.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Welcome.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Portal.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Pipe.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Barrier.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Enemy.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Shell.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Goomba.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Koopa.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Plant.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="BanzaiBill.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Boss.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="AdventureMode.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="ColorManager.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="EnemyBarrier.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Particle.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="TileFactory.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="EntityFactory.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="EndlessMode.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Command.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="CommandList.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="FlyingNimbus.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Lava.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="SpikeWall.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Water.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Component.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="EnemiesComponent.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+		<ClInclude Include="Pause.h">
+			<Filter>Header Files</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<Image Include="Resources\Maps\Level 1.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 2.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\demo_map.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map2.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map0.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map7.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map9.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map10.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map1.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map3.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map4.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map5.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map6.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map8.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map11.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map12.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map13.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map14.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map15.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map16.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map17.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map18.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\Map19.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+		<Image Include="Resources\Maps\Level 3\MapReward.png">
+			<Filter>Resource Files</Filter>
+		</Image>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="Header Files">
+			<UniqueIdentifier>{346847aa-83a8-4d51-82ee-c139ea3805ed}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="Source Files">
+			<UniqueIdentifier>{d8140561-6ea8-4afb-a2ca-900a28b8152b}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="Resource Files">
+			<UniqueIdentifier>{ba380cec-851b-4b2d-8839-c8f3dd8f4c43}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
 </Project>

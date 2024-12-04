@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "EnemiesComponent.h"
 #include "Animation.h"
+#include "Decoration.h"
+#include "Resources.h"
 
 class Enemy : public Entity
 {
@@ -11,11 +13,13 @@ protected:
 	sf::Vector2f playerPosition;
 
 	std::vector<std::shared_ptr<Component>> behaviors;
+
 	int health;
 	bool followPlayer = false;
 	bool isSquished = false;
 	bool isColliding = false;
-	std::vector<Animation*> animations;
+
+	Decoration exclamation = Decoration(Resources::textures["EXCLAMATION"]);
 public:
 	Enemy();
 	Enemy(sf::Vector2f size, sf::Vector2f position);
@@ -33,5 +37,6 @@ public:
 
 	virtual void takeDamage();
 	virtual void update(float deltaTime) override;
+	virtual void render(sf::RenderTarget& target) override;
 };
 

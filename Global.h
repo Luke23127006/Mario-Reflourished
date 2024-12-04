@@ -55,8 +55,8 @@ const float PLAYER_SHOOT_COOLDOWN = 0.5f;
 
 
 // bullets
-const float BULLET_WIDTH = 10.f;
-const float BULLET_HEIGHT = 10.f;
+const float BULLET_WIDTH = 16.f;
+const float BULLET_HEIGHT = 16.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
@@ -111,8 +111,9 @@ const float BIRD_DETECTION_RADIUS = 600.f;
 
 
 
-const float PLANT_WIDTH = 24.f;
-const float PLANT_HEIGHT = 33.f;
+
+const float PLANT_WIDTH = 48.f;
+const float PLANT_HEIGHT = 48.f;
 
 const float BANZAI_BILL_WIDTH = 39.f;
 const float BANZAI_BILL_HEIGHT = 36.f;
@@ -128,8 +129,8 @@ const float DETECTION_RADIUS = 300.f;
 const float ENEMY_JUMP_STRENGHT = 1000.f;
 
 // power up
-const float POWER_UP_WIDTH = 50.f;
-const float POWER_UP_HEIGHT = 24.f;
+const float POWER_UP_WIDTH = 40;
+const float POWER_UP_HEIGHT = 40.f;
 const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 
@@ -202,6 +203,7 @@ enum class PlayerState
 	IDLE = 0,
 	WALK,
 	JUMP,
+	SWIM,
 	DIE,
 	NUM_PLAYER_STATES
 };

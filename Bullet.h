@@ -6,6 +6,7 @@ class Bullet : public Entity
 {
 private:
 	float duration;
+	float angle;
 public:
 	Bullet(sf::Vector2f position, sf::Vector2f velocity);
 	virtual ~Bullet();
@@ -13,6 +14,10 @@ public:
 	void bounce();
 	bool isExpired();
 
+	void die() override;
+
 	void update(float deltaTime) override;
+
+	void render(sf::RenderTarget& target) override;
 };
 

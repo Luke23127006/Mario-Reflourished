@@ -9,6 +9,9 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	underWater(false),
 	lastPosition(position - sf::Vector2f(0, 1))
 {
+	sf::Color color = this->hitbox.getFillColor();
+	color.a = 128;
+	this->hitbox.setFillColor(color);
 }
 
 Entity::~Entity()
@@ -91,4 +94,13 @@ void Entity::update(float deltaTime)
 void Entity::updateLastPosition()
 {
 	this->lastPosition = this->hitbox.getPosition();
+}
+
+void Entity::render(sf::RenderTarget& target)
+{
+	for (auto& a : this->animations)
+	{
+		a->render(target, this->hitbox.getPosition());
+	}
+	target.draw(this->hitbox);
 }

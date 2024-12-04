@@ -19,6 +19,9 @@ public:
 	Animation(const sf::Texture& texture, int totalFrames, float frameDuration, sf::Vector2i frameSize);
 	virtual ~Animation();
 
+	const sf::Vector2f getSize() const;
+
+	void setRotation(float angle);
 	void setPosition(sf::Vector2f position);
 	void setOrigin(sf::Vector2f origin);
 	void setScale(sf::Vector2f scale);
