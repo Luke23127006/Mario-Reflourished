@@ -14,6 +14,7 @@ private:
 	float followSpeed;
 	float detectionRadius;
 	float timeWait;
+	float countTime;
 
 public:
 	FollowPlayer(Entity* owner, Entity* player);
@@ -45,8 +46,10 @@ class EnemiesJump : public Component {
 private:
 	float jumpSpeed;
 	float timeWaitToJump;
+	float countTime;
 public:
 	EnemiesJump(Entity* owner, Entity* player);
+	EnemiesJump(Entity* owner, Entity* player, float jumpSpeed, float timeWaitToJump);
 	void setEnabled();
 	void update(float deltaTime) override;
 };

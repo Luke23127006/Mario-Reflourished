@@ -12,24 +12,28 @@ FollowPlayer::FollowPlayer(Entity* owner, Entity* player) : Component(owner, pla
 {
 	followSpeed = FOLLOW_SPEED;
 	detectionRadius = DETECTION_RADIUS;
-	timeWait = 2.0f;
+	timeWait =3.0f;
+	countTime = timeWait;
 }
 
 
 FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed) : Component(owner, player), followSpeed(followSpeed)
 {
 	detectionRadius = DETECTION_RADIUS;
-	timeWait = 2.0f;
+	timeWait = 3.0f;
+	countTime = timeWait;
 }
 
 
 FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius) : Component(owner, player), followSpeed(followSpeed), detectionRadius(detectionRadius)
 {
-	timeWait = 2.0f;
+	timeWait = 3.0f;
+	countTime = timeWait;
 }
 
 FollowPlayer::FollowPlayer(Entity* owner, Entity* player, float followSpeed, float detectionRadius, float timeWait) : Component(owner, player), followSpeed(followSpeed), detectionRadius(detectionRadius), timeWait(timeWait)
 {
+		countTime = timeWait;
 }
 void FollowPlayer::setEnabled()
 {
@@ -61,16 +65,13 @@ void FollowPlayer::update(float deltaTime)
 
 	
 
-	if (timeWait > 0)
+	if (countTime > 0)
 	{
 		
-		if (abs(vectorDirection.x) < 100)
+		countTime = std::max(0.f, countTime - deltaTime);
+		if (countTime == 0.f)
 		{
-			timeWait = std::max(0.f, timeWait - deltaTime);
-			if (timeWait == 0)
-			{
-				timeWait = -2.0f;
-			}
+			countTime = -2.f;
 		}
 		if (abs(vectorDirection.x) < 10)
 		{
@@ -86,14 +87,11 @@ void FollowPlayer::update(float deltaTime)
 		srand(time(NULL));
 		int random = rand() % 10;
 		int newDirection = random % 2 == 0 ? 1 : -1;
-		if (abs(this->owner->getVelocity().x) == 0.0f)
+		this->owner->setVelocity(sf::Vector2f(newDirection * followSpeed, this->owner->getVelocity().y));
+		countTime = std::min (0.0f, countTime + deltaTime);
+		if (countTime == 0.f)
 		{
-			this->owner->setVelocity(sf::Vector2f( newDirection * followSpeed, this->owner->getVelocity().y));
-		}
-		timeWait = std::min (0.0f, timeWait + deltaTime);
-		if (timeWait == 0)
-		{
-			timeWait = 2.0f;
+			countTime = timeWait;
 		}
 		
 	}
@@ -125,7 +123,7 @@ void Pace::setEnabled()
 	sf::Vector2f playerPosition = player->getPosition();
 	sf::Vector2f ownerPosition = owner->getPosition();
 	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
-	if (distance < paceDistance)
+	if (distance > paceDistance)
 	{
 		enabled = true;
 	}
@@ -139,28 +137,25 @@ void Pace::update(float deltaTime)
 {
 	setEnabled();
 	sf::Vector2f thisPosition = owner->getPosition();
-	if (dynamic_cast<Enemy*>(owner)->isCollide())
+	if (dynamic_cast<Enemy*>(owner)->isCollide() && enabled)
 	{
-		dynamic_cast<Enemy*>(owner)->turnAround();
+		if ((thisPosition.x - paceCenter.x) * this->owner->getVelocity().x >= 0 
+			|| abs(thisPosition.x - paceCenter.x) < 10.f) // for epsilon
+			owner->setVelocity(sf::Vector2f(-this->owner->getVelocity().x, owner->getVelocity().y));
+	
 	}
-	if (thisPosition.x < paceCenter.x - paceDistance && !enabled)
+	if (thisPosition.x < paceCenter.x - paceDistance)
 	{
 		owner->setVelocity(sf::Vector2f(paceSpeed, owner->getVelocity().y));
 	}
-	else if (thisPosition.x > paceCenter.x + paceDistance && !enabled)
+	else if (thisPosition.x > paceCenter.x + paceDistance)
 	{
 		owner->setVelocity(sf::Vector2f(-paceSpeed, owner->getVelocity().y));
 	}
 	else
 	{
-		if (owner->getVelocity().x == 0)
-		{
-			srand(time(NULL));
-			int random = rand() % 10;
-			int direction = random % 2 == 0 ? 1 : -1;
-			owner->setVelocity(sf::Vector2f(paceSpeed * direction, owner->getVelocity().y));
-		}
-		owner->setVelocity(sf::Vector2f(owner->getVelocity().x, owner->getVelocity().y));
+		
+		owner->setVelocity(sf::Vector2f(owner->getVelocity().x > 0 ? paceSpeed : -paceSpeed, owner->getVelocity().y));
 	}
 
 }
@@ -173,12 +168,18 @@ void Pace::update(float deltaTime)
 EnemiesJump::EnemiesJump(Entity* owner, Entity* player) : Component(owner, player)
 {
 	jumpSpeed = ENEMY_JUMP_STRENGHT;
-	timeWaitToJump = 0.5;
+	timeWaitToJump = 0.8;
+	countTime = timeWaitToJump;
+}
+
+EnemiesJump::EnemiesJump(Entity* owner, Entity* player, float jumpSpeed, float timeWaitToJump) : Component(owner, player), jumpSpeed(jumpSpeed), timeWaitToJump(timeWaitToJump)
+{
+	countTime = timeWaitToJump;
 }
 
 void EnemiesJump::setEnabled()
 {
-	if (timeWaitToJump <= 0)
+	if (countTime <= 0)
 	{
 		enabled = true;
 	}
@@ -195,15 +196,14 @@ void EnemiesJump::update(float deltaTime)
 	sf::Vector2f ownerPosition = owner->getPosition();
 
 	
-	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
 	if (dynamic_cast<Enemy*>(owner)->isCollide())
 	{
-		timeWaitToJump -= deltaTime;
+		countTime -= deltaTime;
 	}
 	setEnabled();
 	if (!enabled) return;
 	owner->setVelocity(sf::Vector2f(owner->getVelocity().x, -jumpSpeed));
-	timeWaitToJump = 0.5;
+	countTime = timeWaitToJump;
 }
 
 
