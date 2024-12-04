@@ -100,7 +100,7 @@ void Game::changeScene(GameState nextScene)
 		this->currentGameState = GameState::REPLAY;
 		break;
 	case GameState::EXIT:
-		clearState();
+
 		this->window->close();
 		break;
 

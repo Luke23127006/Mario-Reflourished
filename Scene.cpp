@@ -1,4 +1,4 @@
-#include "Scene.h"
+﻿#include "Scene.h"
 
 
 
@@ -10,9 +10,10 @@
 
 Scene::Scene()
 {
-	this->selectedButton = -1;
+	this->selectedButton = 0;
 	this->isPressedDown = false;
 	this->isPressedUp = false;
+	this->currentControlMode = ControlMode::KEYBOARD;
 }
 
 
@@ -43,16 +44,16 @@ void Scene::updateClickButton(bool& held)
 	}
 	else held = false;
 }
-void Scene::updateHoverButton()
+
+void Scene::updateKeyBoardControl()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		if (!this->isPressedDown)
 		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
+			currentControlMode = ControlMode::KEYBOARD;
+			this->buttons[this->selectedButton]->setHovered(false);
 			this->selectedButton = (this->selectedButton + 1) % this->buttons.size();
-			(*this->buttons[this->selectedButton]).changeHovered();
 			this->isPressedDown = true;
 			std::cout << "Down\n";
 		}
@@ -65,13 +66,9 @@ void Scene::updateHoverButton()
 	{
 		if (!this->isPressedUp)
 		{
-			if (this->selectedButton != -1)
-				(*this->buttons[this->selectedButton]).changeHovered();
-			else {
-				this->selectedButton = static_cast<int>(this->buttons.size());
-			}
+			currentControlMode = ControlMode::KEYBOARD;
+			this->buttons[this->selectedButton]->setHovered(false);
 			this->selectedButton = (this->selectedButton - 1 + this->buttons.size()) % static_cast<int>(this->buttons.size());
-			(*this->buttons[this->selectedButton]).changeHovered();
 			this->isPressedUp = true;
 			std::cout << "Up\n";
 		}
@@ -79,28 +76,51 @@ void Scene::updateHoverButton()
 	else {
 		this->isPressedUp = false;
 	}
-	// Mouse hover
-	for (int i = 0; i < this->buttons.size(); i++)
+}
+
+
+void Scene::updateMouseControl()
+{
+	// Switch to use mouse
+	if (sqrt(pow((MOUSE_VIEW_POSITION.x - MOUSE_VIEW_LAST_POSITION.x), 2) +
+		pow((MOUSE_VIEW_POSITION.y - MOUSE_VIEW_LAST_POSITION.y), 2)) > 30.f ||
+		sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (this->buttons[i]->isHoverMouse())
+		currentControlMode = ControlMode::MOUSE;
+		MOUSE_VIEW_LAST_POSITION = MOUSE_VIEW_POSITION;
+
+	}
+	// Mouse hover
+	if (currentControlMode == ControlMode::MOUSE)
+	{
+		for (int i = 0; i < this->buttons.size(); i++)
 		{
-			if (i == this->selectedButton)
+			if (this->buttons[i]->isHoverMouse())
 			{
-				break;
+				if (i == this->selectedButton)
+				{
+					break;
+				}
+				this->buttons[selectedButton]->setHovered(false);
+				this->selectedButton = i;
 			}
-			if (this->selectedButton != -1)
-				this->buttons[this->selectedButton]->changeHovered();
-			this->selectedButton = i;
-			this->buttons[i]->changeHovered();
 		}
 	}
+}
+void Scene::colorButton()
+{
+	this->buttons[this->selectedButton]->setHovered(true);
 
-
-	// Color Button
 	for (int i = 0; i < this->buttons.size(); i++)
 	{
 		this->buttons[i]->colorHoverButton();
 	}
+}
+void Scene::updateHoverButton()
+{
+	this->updateKeyBoardControl();
+	this->updateMouseControl();
+	this->colorButton();
 }
 
 

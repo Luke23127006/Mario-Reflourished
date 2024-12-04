@@ -33,7 +33,7 @@ Play::Play(sf::RenderTexture& window)
 	this->buttons.push_back(this->selectCharacterButton);
 	this->buttons.push_back(this->backButton);
 
-
+	buttons[0]->changeHovered();
 }
 
 void Play::loadTexture()

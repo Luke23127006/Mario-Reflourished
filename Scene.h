@@ -3,7 +3,7 @@
 #include "Button.h"
 #include "Global.h"
 #include "Resources.h"
-
+#include <math.h>
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -17,10 +17,15 @@ protected:
 	int selectedButton;
 	bool isPressedUp;
 	bool isPressedDown;
+	ControlMode currentControlMode;
+
 
 public:
 	Scene();
 	virtual ~Scene() = default;
+	void updateKeyBoardControl();
+	void updateMouseControl();
+	void colorButton();
 	virtual void updateClickButton(bool& held);
 	virtual void updateHoverButton();
 	virtual void draw(sf::RenderWindow& window);

@@ -87,7 +87,7 @@ Login::Login(sf::RenderTexture& window)
 
 
 
-
+	buttons[0]->changeHovered();
 	this->isRegister = false;
 	this->updateRegisterAnimation = false;
 	this->isErrorLogin = false;
@@ -149,8 +149,6 @@ void Login::updateHoverButton()
 void Login::updateClickButton(bool& held)
 {
 
-	if (this->selectedButton == -1)
-		return;
 
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)
@@ -171,9 +169,10 @@ void Login::updateClickButton(bool& held)
 						{
 							break;
 						}
-						this->buttons[selectedButton]->changeHovered();
+						currentControlMode = ControlMode::KEYBOARD;
+						this->buttons[selectedButton]->setHovered(false);
 						this->selectedButton++;
-						this->buttons[selectedButton]->changeHovered();
+						this->buttons[selectedButton]->setHovered(true);
 						break;
 					case 1:
 						if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
@@ -189,9 +188,10 @@ void Login::updateClickButton(bool& held)
 							this->isErrorLogin = true;
 							break;
 						}
-						this->buttons[selectedButton]->changeHovered();
+						currentControlMode = ControlMode::KEYBOARD;
+						this->buttons[selectedButton]->setHovered(false);
 						this->selectedButton++;
-						this->buttons[selectedButton]->changeHovered();
+						this->buttons[selectedButton]->setHovered(true);
 						break;
 
 
@@ -268,7 +268,7 @@ void Login::updateRegisterMovement(float dt)
 	if (this->moveTime <= 0)
 	{
 		this->updateRegisterAnimation = false;
-		this->selectedButton = -1;
+		this->selectedButton = 0;
 		this->buttons.pop_back();
 		return;
 	}

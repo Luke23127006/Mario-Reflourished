@@ -24,6 +24,7 @@ Welcome::Welcome(sf::RenderTexture& window)
 	this->buttons.push_back(this->playButton);
 	this->buttons.push_back(this->exitButton);
 
+	buttons[0]->changeHovered();
 }
 
 void Welcome::draw(sf::RenderWindow& window)

@@ -40,10 +40,12 @@ void Shell::turnAround()
 
 void Shell::update(float deltaTime)
 {
+	
 	if (this->activated)
 	{
 		if (this->animation) this->animation->update(deltaTime, this->velocity.x < 0.f);
 	}
+	this->velocity = sf::Vector2f(this->velocity.x > 0 ? this->velocity.x - 0.1f : this->velocity.x + 0.1f, this->velocity.y + GRAVITY * deltaTime);
 	this->hitbox.move(this->velocity * deltaTime);
 }
 

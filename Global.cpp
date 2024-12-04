@@ -26,3 +26,4 @@ std::string encodeString(std::string s)
 sf::Vector2i MOUSE_POSITION;
 sf::Vector2f MOUSE_VIEW_POSITION;
 sf::Vector2u WINDOW_SIZE;
+sf::Vector2f MOUSE_VIEW_LAST_POSITION;

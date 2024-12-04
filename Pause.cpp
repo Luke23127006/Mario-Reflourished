@@ -43,7 +43,7 @@ Pause::Pause(sf::RenderTexture& window)
 	this->buttons.push_back(this->resumeButton);
 	this->buttons.push_back(this->replayButton);
 	this->buttons.push_back(this->exitButton);
-
+	buttons[0]->changeHovered();
 	//this->pauseBackground.setScale(window.getSize().x / this->pauseBackground.getGlobalBounds().width, window.getSize().y / this->pauseBackground.getGlobalBounds().height);
 }
 

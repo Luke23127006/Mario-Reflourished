@@ -176,6 +176,11 @@ void Button::changeHovered()
 	isHovered = !isHovered;
 
 }
+
+void Button::setHovered(bool isHovered)
+{
+	this->isHovered = isHovered;
+}
 void Button::colorHoverButton()
 {
 	if (isHovered)

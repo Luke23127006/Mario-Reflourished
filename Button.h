@@ -64,6 +64,7 @@ public:
 	bool isHoverMouse();
 	sf::Color lightenColor(const sf::Color& color, int increase);
 	void colorHoverButton();
+	void setHovered(bool isHovered);
 	void changeHovered();
 	void move(const sf::Vector2f vector);
 

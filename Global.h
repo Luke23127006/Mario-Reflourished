@@ -11,7 +11,7 @@
 extern sf::Vector2i MOUSE_POSITION;
 extern sf::Vector2f MOUSE_VIEW_POSITION;
 extern sf::Vector2u WINDOW_SIZE;
-
+extern sf::Vector2f MOUSE_VIEW_LAST_POSITION;
 
 
 const int SCREEN_WIDTH = 1280;
@@ -188,6 +188,13 @@ enum class GameState
 	ENDLESS_MODE,
 	NUM_GAME_STATES,
 	EXIT
+};
+
+
+
+enum class ControlMode {
+	KEYBOARD,
+	MOUSE
 };
 
 enum class PlayerState

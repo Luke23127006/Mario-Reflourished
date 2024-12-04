@@ -35,6 +35,8 @@ SelectLevel::SelectLevel(sf::RenderTexture& window)
 	this->buttons.push_back(this->level3Button);
 	this->buttons.push_back(this->backButton);
 
+	buttons[0]->changeHovered();
+
 }
 
 void SelectLevel::loadTexture()
