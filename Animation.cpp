@@ -59,20 +59,26 @@ void Animation::update(float deltaTime, bool flipped)
 {
 	this->frameTimer = std::max(0.f, this->frameTimer - deltaTime);
 
+	this->flipTimer += deltaTime;
 	if (this->frameTimer <= 0.f)
 	{
 		this->frameTimer = this->frameDuration;
 		this->frameIndex = (this->frameIndex + 1) % this->totalFrames;
 	}
 
-	if (!flipped)
+	if (this->flipTimer > this->flipInterval)
 	{
-		this->currentFrame = sf::IntRect(this->frameIndex * this->frameSize.x, 0.f, frameSize.x, frameSize.y);
+		if (!flipped)
+		{
+			this->currentFrame = sf::IntRect(this->frameIndex * this->frameSize.x, 0.f, frameSize.x, frameSize.y);
+		}
+		else
+		{
+			this->currentFrame = sf::IntRect((this->frameIndex + 1) * this->frameSize.x, 0.f, -frameSize.x, frameSize.y);
+		}
+		this->flipTimer = 0.f;
 	}
-	else
-	{
-		this->currentFrame = sf::IntRect((this->frameIndex + 1) * this->frameSize.x, 0.f, -frameSize.x, frameSize.y);
-	}
+	
 
 	this->sprite.setTextureRect(this->currentFrame);
 }

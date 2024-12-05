@@ -5,7 +5,7 @@
 #include <string>
 #include <ctime>
 
-
+#define PI 3.14159265
 
 // Mouse Position
 extern sf::Vector2i MOUSE_POSITION;

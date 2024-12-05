@@ -13,6 +13,8 @@ private:
 	float frameDuration;
 	float frameTimer;
 
+	float flipTimer = 0.0f;
+	float flipInterval = 0.1f;
 	sf::Vector2i frameSize;
 
 public:

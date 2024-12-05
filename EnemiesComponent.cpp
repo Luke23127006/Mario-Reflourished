@@ -84,11 +84,14 @@ void FollowPlayer::update(float deltaTime)
 		}
 	}
 	else {
-		srand(time(NULL));
-		int random = rand() % 10;
-		int newDirection = random % 2 == 0 ? 1 : -1;
-		this->owner->setVelocity(sf::Vector2f(newDirection * followSpeed, this->owner->getVelocity().y));
-		countTime = std::min (0.0f, countTime + deltaTime);
+		if (dynamic_cast<Enemy*>(owner)->isCollide())
+		{
+			srand(time(NULL));
+			int random = rand() % 10;
+			int newDirection = random % 2 == 0 ? 1 : -1;
+			this->owner->setVelocity(sf::Vector2f(newDirection * followSpeed, this->owner->getVelocity().y));
+		}
+		countTime = std::min (0.f, countTime + deltaTime);
 		if (countTime == 0.f)
 		{
 			countTime = timeWait;
@@ -154,7 +157,13 @@ void Pace::update(float deltaTime)
 	}
 	else
 	{
-		
+		if (this->owner->getVelocity().x == 0.f)
+		{
+			srand(time(NULL));
+			int random = rand() % 10;
+			int newDirection = random % 2 == 0 ? 1 : -1;
+			this->owner->setVelocity(sf::Vector2f(newDirection * paceSpeed, this->owner->getVelocity().y));
+		}
 		owner->setVelocity(sf::Vector2f(owner->getVelocity().x > 0 ? paceSpeed : -paceSpeed, owner->getVelocity().y));
 	}
 
@@ -257,7 +266,8 @@ void PaceFly::update(float deltaTime)
 
 	sf::Vector2f thisPosition = owner->getPosition();
 
-	angle += 0.001;
+	angle += 2 * PI / 3600;
+	if (angle > 2 * PI) angle = 0;
 	float targetX = paceCenter.x + paceX * cos(angle);
 	float targetY = paceCenter.y + paceY * sin(angle);
 	sf::Vector2f VectorDirection = sf::Vector2f(targetX - thisPosition.x, targetY - thisPosition.y);
@@ -268,7 +278,14 @@ void PaceFly::update(float deltaTime)
 	}
 	else
 		owner->setVelocity(sf::Vector2f(direction.x * paceSpeed, direction.y * paceSpeed));
-
+	
+	if (this->owner->getVelocity().x == 0.f)
+	{
+		srand(time(NULL));
+		int random = rand() % 10;
+		int newDirection = random % 2 == 0 ? 1 : -1;
+		this->owner->setVelocity(sf::Vector2f(newDirection * paceSpeed, this->owner->getVelocity().y));
+	}
 	
 }
 

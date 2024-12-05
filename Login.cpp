@@ -349,21 +349,26 @@ Login::~Login()
 }
 
 
+
 bool Login::checkAccount()
 {
 	std::string userName = this->userNameButton->getText();
 	std::string passWord = this->passwordButton->getText();
+	std::cout << userName << std::endl;
+	std::cout << passWord << std::endl;
 	std::ifstream fin("./Resources/UserAccount/" + userName + "/" + userName + ".txt");
 	if (!fin.is_open())
 	{
 		fin.close();
 		return false;
 	}
+	std::string account;
 	std::string pass;
+	getline(fin, account);
 	getline(fin, pass);
 	std::cout << pass << std::endl;
 	fin.close();
-	if (pass != passWord)
+	if (pass != passWord || account != userName)
 	{
 		return false;
 	}
@@ -383,6 +388,7 @@ bool Login::checkRegister()
 
 	bool makeFile = _mkdir(("./Resources/UserAccount/" + userName).c_str());
 	std::ofstream fout("./Resources/UserAccount/" + userName + "/" + userName + ".txt");
+	fout << userName << std::endl;
 	fout << passWord << std::endl;
 	fout.close();
 	return true;

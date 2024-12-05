@@ -3,7 +3,6 @@
 #include "Animation.h"
 
 #include "Scene.h"
-
 #include <SFML\Graphics.hpp>
 #include <string>
 #include <vector>
