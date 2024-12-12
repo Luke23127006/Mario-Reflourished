@@ -80,14 +80,14 @@ const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
 
 // GOOMBA
-const float GOOMBA_WIDTH = 51.f;
+const float GOOMBA_WIDTH = 48.f;
 const float GOOMBA_HEIGHT = 48.f;
 const float GOOMBA_MAX_SPEED = 200.f;
 const float GOOMBA_PACE_SPEED = 150.f;
 const float GOOMBA_FOLLOW_SPEED = 250.f;
 
 //KOOPA
-const float KOOPA_WIDTH = 51.f;
+const float KOOPA_WIDTH = 48.f;
 const float KOOPA_HEIGHT = 48.f;
 const float KOOPA_MAX_SPEED = 200.f;
 const float KOOPA_PACE_SPEED = 140.f;
@@ -98,7 +98,7 @@ const float KOOPA_SHELL_HEIGHT = 24.f;
 
 
 // BIRD
-const float BIRD_WIDTH = 51.f;
+const float BIRD_WIDTH = 48.f;
 const float BIRD_HEIGHT = 48.f;
 const float BIRD_PACE_SPEED = 150.f;
 const float BIRD_FOLLOW_SPEED = 200.f;
