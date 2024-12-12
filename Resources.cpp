@@ -81,6 +81,7 @@ void Resources::initTextures()
 void Resources::initFonts()
 {
     fonts["Standard"].loadFromFile("./Resources/Fonts/Mario.ttf");
+	fonts["NewPixel"].loadFromFile("./Resources/Fonts/04B_30__.TTF");
 }
 
 void Resources::initSounds()
