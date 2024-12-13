@@ -73,16 +73,16 @@ void Player::gainPowerUp(PowerUp& powerUp)
 		if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] > 0.f) break;
 		this->invicibleTimer = INVICIBLE_DURATION;
 		break;
-	// test flying nimbus	
+		// test flying nimbus	
 	case PowerUpType::FLYING_NIMBUS:
 		if (this->isNimbusActive) break;
 		if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f) break;
 		nimbus = new FlyingNimbus(this->getPosition()
-			);
-		
+		);
+
 		break;
 	}
-	
+
 
 	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
@@ -169,7 +169,6 @@ void Player::update(float deltaTime)
 		if (this->isNimbusActive) this->updateMovementNimbus(deltaTime);
 		else
 			this->updateMovement(deltaTime);
-		this->updateAnimation(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
 		if (this->nimbus)
@@ -188,6 +187,7 @@ void Player::update(float deltaTime)
 			this->hitbox.setFillColor(sf::Color(0, 0, 0, 120));
 		}*/
 	}
+	this->updateAnimation(deltaTime);
 }
 
 void Player::updateMovementNimbus(float deltaTime)
@@ -224,7 +224,7 @@ void Player::updateMovementNimbus(float deltaTime)
 				deceleration = NIMBUS_DECELERATION;
 			}
 		}
-		
+
 		if (acceleration == 0.f)
 		{
 			if (this->velocity.x > 0.f)
@@ -343,7 +343,9 @@ void Player::updateAnimation(float deltaTime)
 	}
 	if (this->underWater) this->playerState = PlayerState::SWIM;
 
-	for (auto& a : animation) a->update(deltaTime, this->flipped);
+	if (this->dying) this->playerState = PlayerState::DIE;
+
+	animation[INT(this->playerState)]->update(deltaTime, this->flipped);
 }
 
 
