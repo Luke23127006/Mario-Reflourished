@@ -294,7 +294,7 @@ void Collision::handle_player_powerUp(Player* player, PowerUp* powerUp)
 
 void Collision::handle_entity_spikeWall(Entity* entity, SpikeWall* spikeWall)
 {
-	if (entity->getGlobalBounds().intersects(spikeWall->getGlobalBounds()))
+	if (entity->getGlobalBounds().left < spikeWall->getGLobalBounds().left + spikeWall->getGlobalBounds().width)
 	{
 		entity->die();
 	}

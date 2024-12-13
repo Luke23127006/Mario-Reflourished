@@ -37,6 +37,7 @@ void Resources::initTextures()
 	textures["LAVA_BELOW"].loadFromFile(TILES_DIRECTORY + "Lava Below.png");
 	textures["WATER_SURFACE"].loadFromFile(TILES_DIRECTORY + "Water Surface.png");
 	textures["WATER_BELOW"].loadFromFile(TILES_DIRECTORY + "Water Below.png");
+	textures["SPIKE_WALL"].loadFromFile(TILES_DIRECTORY + "Spike Wall.png");
 
 
 	//Goomba

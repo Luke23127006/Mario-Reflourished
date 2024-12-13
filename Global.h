@@ -162,6 +162,8 @@ const int MINIMAP_HEIGHT = 14;
 const float SPIKE_WALL_SPEED = 100.f;
 const float SPIKE_WALL_MAX_SPEED = 200.f;
 const float SPIKE_WALL_ACCERATION = 0.5f;
+const float SPIKE_WALL_WIDTH = 50.f;
+const float SPIKE_WALL_HEIGHT = 1000.f;
 
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);

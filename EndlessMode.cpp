@@ -147,6 +147,7 @@ void EndlessMode::updateCamera(float deltaTime)
 	if (this->player->isDead()) return;
 
 	this->gameSpeed = std::min(this->gameSpeed + SPIKE_WALL_ACCERATION * deltaTime, SPIKE_WALL_MAX_SPEED); // spike speed up
+	this->spikeSpeed = this->gameSpeed;
 
 	// player can not leave the spike wall far away
 	if (this->player->getPosition().x - SCREEN_WIDTH * 1.0f > this->spikeWall->getPosition().x)
