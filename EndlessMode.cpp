@@ -41,7 +41,8 @@ void EndlessMode::initMaps()
 EndlessMode::EndlessMode() :
 	numMap(18),
 	cameraPosition(SCREEN_WIDTH / 2),
-	cameraSpeed(180.f)
+	gameSpeed(SPIKE_WALL_SPEED),
+	spikeSpeed(100.f)
 {
 	this->camera.setPosition(sf::Vector2f(cameraPosition, TILE_SIZE * MINIMAP_HEIGHT - SCREEN_HEIGHT / 2));
 	this->cameraHeightMax = this->camera.getPosition().y;
@@ -61,6 +62,8 @@ EndlessMode::~EndlessMode()
 		delete this->entities.back();
 		this->entities.pop_back();
 	}
+
+	delete this->spikeWall;
 }
 
 void EndlessMode::addMap(std::string fileName)
@@ -142,15 +145,26 @@ void EndlessMode::updateCollision()
 void EndlessMode::updateCamera(float deltaTime)
 {
 	if (this->player->isDead()) return;
-	this->cameraPosition += this->cameraSpeed * deltaTime;
+
+	this->gameSpeed = std::min(this->gameSpeed + SPIKE_WALL_ACCERATION * deltaTime, SPIKE_WALL_MAX_SPEED); // spike speed up
+
+	// player can not leave the spike wall far away
+	if (this->player->getPosition().x - SCREEN_WIDTH * 1.0f > this->spikeWall->getPosition().x)
+	{
+		this->spikeSpeed = std::max(this->gameSpeed, this->player->getVelocity().x);
+	}
+
+	this->spikeWall->move(sf::Vector2f(spikeSpeed * deltaTime, 0.f));
+
+	float pos1 = this->player->getPosition().x;
+	float pos2 = this->spikeWall->getPosition().x + SCREEN_WIDTH * 0.56f;
+	this->cameraPosition = std::max(pos1, pos2);
 	this->camera.update(deltaTime, sf::Vector2f(this->cameraPosition, this->player->getPosition().y + SCREEN_HEIGHT * 0.4f));
+
 	if (this->camera.getPosition().y > this->cameraHeightMax)
 	{
 		this->camera.setPosition(sf::Vector2f(this->camera.getPosition().x, this->cameraHeightMax));
 	}
-
-	this->spikeWall->move(sf::Vector2f(this->cameraSpeed, 0.f) * deltaTime);
-	//this->camera.update(deltaTime, this->player->getPosition());
 }
 
 void EndlessMode::render(sf::RenderWindow& target)

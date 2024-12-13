@@ -38,7 +38,7 @@ void Camera::setPosition(sf::Vector2f position)
 
 void Camera::move(sf::Vector2f velocity)
 {
-	this->position += this->velocity;
+	this->position += velocity;
 }
 
 void Camera::update(float deltaTime, sf::Vector2f playerPosition)
@@ -47,7 +47,7 @@ void Camera::update(float deltaTime, sf::Vector2f playerPosition)
 
     if (std::abs(offset.x) > CAMERA_FOLLOW_DISTANCE)
     {
-        velocity.x = (offset.x - CAMERA_FOLLOW_DISTANCE * (offset.x > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR * deltaTime;
+        velocity.x = (offset.x - CAMERA_FOLLOW_DISTANCE * (offset.x > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR;
     }
     else
     {
@@ -56,7 +56,7 @@ void Camera::update(float deltaTime, sf::Vector2f playerPosition)
 
     if (std::abs(offset.y) > CAMERA_FOLLOW_DISTANCE)
     {
-        velocity.y = (offset.y - CAMERA_FOLLOW_DISTANCE * (offset.y > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR * deltaTime;
+        velocity.y = (offset.y - CAMERA_FOLLOW_DISTANCE * (offset.y > 0 ? 1 : -1)) * CAMERA_SMOOTHING_FACTOR;
     }
     else
     {

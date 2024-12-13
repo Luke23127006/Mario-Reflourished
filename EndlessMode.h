@@ -10,7 +10,8 @@ private:
 	SpikeWall* spikeWall;
 	int numMap;
 	float cameraPosition;
-	float cameraSpeed;
+	float gameSpeed;
+	float spikeSpeed;
 	float cameraHeightMax;
 
 	void initMaps();

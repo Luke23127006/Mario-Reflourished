@@ -13,11 +13,12 @@ extern sf::Vector2f MOUSE_VIEW_POSITION;
 extern sf::Vector2u WINDOW_SIZE;
 extern sf::Vector2f MOUSE_VIEW_LAST_POSITION;
 
-
+// Screen
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
 
+// gravity
 const float GRAVITY = 3000.f;
 
 // colors
@@ -157,10 +158,16 @@ const float WATER_MAX_VERTICAL_SPEED = 230.f;
 const int MINIMAP_WIDTH = 32;
 const int MINIMAP_HEIGHT = 14;
 
+// endless map
+const float SPIKE_WALL_SPEED = 100.f;
+const float SPIKE_WALL_MAX_SPEED = 200.f;
+const float SPIKE_WALL_ACCERATION = 0.5f;
+
 // utilities
 void adjustBetween(float& value, float minValue, float maxValue);
 int randomize(int l, int r);
 std::string encodeString(std::string s);
+
 template <class T, class U>
 bool isType(const U& variable) 
 {
@@ -172,6 +179,7 @@ bool isDerivedFrom(U& variable)
 	return dynamic_cast<T*>(&variable) != nullptr;
 }
 
+// enums
 enum class GameState
 {
 	WELCOME = 0,
