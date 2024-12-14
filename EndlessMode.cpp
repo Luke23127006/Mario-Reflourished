@@ -21,20 +21,6 @@ void EndlessMode::initMaps()
 				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
 				this->entities.insert(this->entities.begin(), this->player);
 			}
-
-			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
-			{
-				std::string enemyName = ColorManager::getObject[colorCode];
-
-				if (enemyName == "goomba")
-				{
-					this->entities.push_back(new Goomba(sf::Vector2f(i * 50.f, j * 50.f)));
-				}
-				else if (enemyName == "koopa")
-				{
-					this->entities.push_back(new Koopa(sf::Vector2f(i * 50.f, j * 50.f)));
-				}
-			}
 		}
 }
 
@@ -51,16 +37,12 @@ EndlessMode::EndlessMode() :
 
 EndlessMode::~EndlessMode()
 {
+	AdventureMode::~AdventureMode();
+
 	while (!this->maps.empty())
 	{
 		delete this->maps.back();
 		this->maps.pop_back();
-	}
-
-	while (!this->entities.empty())
-	{
-		delete this->entities.back();
-		this->entities.pop_back();
 	}
 
 	delete this->spikeWall;
@@ -70,26 +52,24 @@ void EndlessMode::addMap(std::string fileName)
 {
 	sf::Vector2f position = this->maps.back()->getPosition() + TILE_SIZE * sf::Vector2f(this->maps.back()->getSize().x, 0.f);
 	this->maps.push_back(new Map(fileName, position));
-	sf::Image image;
-	image.loadFromFile(fileName);
-	for (int i = 0; i < image.getSize().x; i++)
-		for (int j = 0; j < image.getSize().y; j++)
-		{
-			//sf::Color color = image.getPixel(i, j);
-			//int colorCode = color.toInteger();
+	this->addEntitiesAndCoins(fileName, position);
+}
 
-			/*switch (ColorManager::getEnemyAsColor[colorCode])
-			{
-			case EnemyType::GOOMBA:
-				this->entities.push_back(new Goomba(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE)));
-				break;
-			case EnemyType::KOOPA:
-				this->entities.push_back(new Koopa(position + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE)));
-				break;
-			default:
-				break;
-			}*/
+void EndlessMode::updateCoins(float deltaTime)
+{
+	AdventureMode::updateCoins(deltaTime);
+
+	int counter = 0;
+	for (auto& coin : coins)
+	{
+		if (coin->getGlobalBounds().left + coin->getGlobalBounds().width < this->spikeWall->getPosition().x)
+		{
+			delete coins.at(counter);
+			coins.erase(coins.begin() + counter);
+			counter--;
 		}
+		counter++;
+	}
 }
 
 void EndlessMode::updateMap(float deltaTime)
@@ -171,10 +151,7 @@ void EndlessMode::updateCamera(float deltaTime)
 void EndlessMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& e : this->entities)
-	{
-		e->render(target);
-	}
+	AdventureMode::render(target);
 	for (auto& m : this->maps)
 	{
 		m->render(target);

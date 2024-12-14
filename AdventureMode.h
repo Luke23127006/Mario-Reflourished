@@ -18,7 +18,6 @@ class AdventureMode : public Scene
 protected:
 	// map objects
 	std::vector<Entity*> entities;
-	std::vector<Enemy*> enemies;
 	std::vector<Coin*> coins;
 
 	Player* player;
@@ -27,6 +26,7 @@ protected:
 	Camera camera;
 	GameState typeMap;
 	void initMap(std::string fileName);
+	void addEntitiesAndCoins(std::string fileName, sf::Vector2f cornerPosition);
 
 public:
 	AdventureMode();
@@ -35,7 +35,7 @@ public:
 	void setEnemiesBehaviors();
 	void update(float deltaTime, bool& held) override;
 	void updateEntities(float deltaTime);
-	void updateCoins(float deltaTime);
+	virtual void updateCoins(float deltaTime);
 	virtual void updateMap(float deltaTime);
 	virtual void updateCollision();
 	virtual void updateCamera(float deltaTime);

@@ -3,10 +3,13 @@
 void AdventureMode::initMap(std::string fileName)
 {
 	this->map = new Map(fileName, sf::Vector2f(0.f, 0.f));
+}
+
+void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f cornerPosition)
+{
 	sf::Image image;
 	image.loadFromFile(fileName);
 
-	this->entities.clear();
 	for (int i = 0; i < image.getSize().x; i++)
 		for (int j = 0; j < image.getSize().y; j++)
 		{
@@ -16,8 +19,8 @@ void AdventureMode::initMap(std::string fileName)
 			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
 			{
 				std::string name = ColorManager::getObject[colorCode];
-				sf::Vector2f position = sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE);
-				
+				sf::Vector2f position = cornerPosition + sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE);
+
 				if (name == "player")
 				{
 					this->player = EntityFactory::createPlayer(position);
@@ -25,26 +28,23 @@ void AdventureMode::initMap(std::string fileName)
 				}
 				else if (name == "coin" || name == "coin under water")
 				{
-					Coin* coin = new Coin(sf::Vector2f(i * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_WIDTH), j * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_HEIGHT)));
+					Coin* coin = new Coin(cornerPosition + sf::Vector2f(i * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_WIDTH), j * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_HEIGHT)));
 					this->coins.push_back(coin);
 				}
 				else if (name == "goomba")
 				{
 					Goomba* goomba = new Goomba(position);
 					this->entities.push_back(goomba);
-					this->enemies.push_back(goomba);
 				}
 				else if (name == "koopa")
 				{
 					Koopa* koopa = new Koopa(position);
 					this->entities.push_back(koopa);
-					this->enemies.push_back(koopa);
 				}
 				else if (name == "bird")
 				{
-					Bird * bird = new Bird(position);
+					Bird* bird = new Bird(position);
 					this->entities.push_back(bird);
-					this->enemies.push_back(bird);
 				}
 			}
 		}
@@ -68,11 +68,12 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 		typeMap = GameState::LEVEL2;
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
+	this->addEntitiesAndCoins(fileName, this->map->getPosition());
 }
 
 AdventureMode::~AdventureMode()
 {
-	delete this->map;
+	if (this->map) delete this->map;
 
 	while (!this->entities.empty())
 	{
@@ -89,8 +90,12 @@ AdventureMode::~AdventureMode()
 
 void AdventureMode::setEnemiesBehaviors()
 {
-	for (auto& enemy : enemies)
+	for (auto& entity : this->entities)
 	{
+		Enemy* enemy = nullptr;
+		if (isDerivedFrom<Enemy>(*entity)) enemy = dynamic_cast<Enemy*>(entity);
+		else continue;
+
 		if (isType<Goomba>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, GOOMBA_PACE_SPEED));
@@ -102,7 +107,7 @@ void AdventureMode::setEnemiesBehaviors()
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, KOOPA_PACE_SPEED));
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, KOOPA_FOLLOW_SPEED));
 			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
-			
+
 		}
 		else if (isType<Bird>(*enemy))
 		{
@@ -135,7 +140,7 @@ void AdventureMode::updateEntities(float deltaTime)
 			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
 			if (bullet) newEntities.push_back(bullet);
 		}
-		
+
 
 		if (!isType<Player>(*e) && e->isDead())
 		{
@@ -254,7 +259,7 @@ void AdventureMode::render(sf::RenderWindow& target)
 	target.setView(this->camera.getView(target.getSize()));
 	for (auto& e : this->entities) e->render(target);
 	for (auto& coin : this->coins) coin->render(target);
-	this->map->render(target);
+	if (this->map) this->map->render(target);
 }
 
 GameState AdventureMode::getNextScene()
@@ -262,12 +267,5 @@ GameState AdventureMode::getNextScene()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		return GameState::PAUSE;
-	if (typeMap == GameState::LEVEL1)
-	{
-		return GameState::LEVEL1;
-	}
-	else if (typeMap == GameState::LEVEL2)
-	{
-		return GameState::LEVEL2;
-	}
+	return typeMap;
 }

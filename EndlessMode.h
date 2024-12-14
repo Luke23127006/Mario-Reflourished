@@ -20,7 +20,8 @@ public:
 	virtual ~EndlessMode();
 
 	void addMap(std::string fileName);
-
+	
+	void updateCoins(float deltaTime) override;
 	void updateMap(float deltaTime) override;
 	void updateCollision() override;
 	void updateCamera(float deltaTime) override;
