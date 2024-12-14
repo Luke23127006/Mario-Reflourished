@@ -34,7 +34,7 @@ bool Collision::checkOnGround(sf::FloatRect firstBounds, sf::FloatRect secondBou
 
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
-	if (!map->insideMap(entity->getGlobalBounds())) return;
+	if (!map->insideMap(entity)) return;
 
 	sf::Vector2u size = map->getSize();
 	int i = (1.f * (entity->getGlobalBounds().left - map->getPosition().x) / TILE_SIZE);

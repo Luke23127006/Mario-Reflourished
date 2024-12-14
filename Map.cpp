@@ -171,6 +171,14 @@ const bool Map::insideMap(sf::FloatRect bounds) const
 	return bounds.left >= mapBounds.left && bounds.left <= mapBounds.left + mapBounds.width;
 }
 
+const bool Map::insideMap(Entity* entity) const
+{
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
+	if (entityBounds.top > mapBounds.top + mapBounds.height) entity->die();
+	return entityBounds.left >= mapBounds.left && entityBounds.left <= mapBounds.left + mapBounds.width;
+}
+
 void Map::update(float deltaTime, std::vector<Entity*>& entities)
 {
 	for (auto it = this->needUpdatings.begin(); it != this->needUpdatings.end();)

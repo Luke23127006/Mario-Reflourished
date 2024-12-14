@@ -32,6 +32,7 @@ public:
 	void addNeedUpdated(Tile* tile);
 
 	const bool insideMap(sf::FloatRect bounds) const;
+	const bool insideMap(Entity* entity) const;
 
 	void update(float deltaTime, std::vector<Entity*>& entities);
 	void render(sf::RenderWindow& target);
