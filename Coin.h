@@ -13,6 +13,8 @@ public:
 	Coin(sf::Vector2f position);
 	virtual ~Coin();
 
+	const bool isCollected() const;
+
 	void update(float deltaTime) override;
 	void collected();
 	void render(sf::RenderTarget& target) override;

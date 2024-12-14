@@ -16,27 +16,33 @@ void AdventureMode::initMap(std::string fileName)
 			if (ColorManager::getObject.find(colorCode) != ColorManager::getObject.end())
 			{
 				std::string name = ColorManager::getObject[colorCode];
+				sf::Vector2f position = sf::Vector2f(i * TILE_SIZE, j * TILE_SIZE);
 				
 				if (name == "player")
 				{
-					this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
+					this->player = EntityFactory::createPlayer(position);
 					this->entities.insert(this->entities.begin(), this->player);
 				}
-				if (name == "goomba")
+				else if (name == "coin" || name == "coin under water")
 				{
-					Goomba* goomba = new Goomba(sf::Vector2f(i * 50.f, j * 50.f));
+					Coin* coin = new Coin(sf::Vector2f(i * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_WIDTH), j * TILE_SIZE + 0.5f * (TILE_SIZE - COIN_HEIGHT)));
+					this->coins.push_back(coin);
+				}
+				else if (name == "goomba")
+				{
+					Goomba* goomba = new Goomba(position);
 					this->entities.push_back(goomba);
 					this->enemies.push_back(goomba);
 				}
 				else if (name == "koopa")
 				{
-					Koopa* koopa = new Koopa(sf::Vector2f(i * 50.f, j * 50.f));
+					Koopa* koopa = new Koopa(position);
 					this->entities.push_back(koopa);
 					this->enemies.push_back(koopa);
 				}
 				else if (name == "bird")
 				{
-					Bird * bird = new Bird(sf::Vector2f(i * 50.f, j * 50.f));
+					Bird * bird = new Bird(position);
 					this->entities.push_back(bird);
 					this->enemies.push_back(bird);
 				}
@@ -108,6 +114,7 @@ void AdventureMode::setEnemiesBehaviors()
 void AdventureMode::update(float deltaTime, bool& held)
 {
 	this->updateEntities(deltaTime);
+	this->updateCoins(deltaTime);
 	this->updateCollision();
 	this->updateMap(deltaTime);
 	this->updateCamera(deltaTime);
@@ -148,6 +155,26 @@ void AdventureMode::updateEntities(float deltaTime)
 	this->entities.insert(this->entities.end(), newEntities.begin(), newEntities.end());
 }
 
+void AdventureMode::updateCoins(float deltaTime)
+{
+	for (auto& coin : this->coins)
+	{
+		coin->update(deltaTime);
+	}
+
+	int counter = 0;
+	for (auto& coin : coins)
+	{
+		if (coin->isCollected())
+		{
+			delete coins.at(counter);
+			coins.erase(coins.begin() + counter);
+			counter--;
+		}
+		counter++;
+	}
+}
+
 void AdventureMode::updateMap(float deltaTime)
 {
 	this->map->update(deltaTime, this->entities);
@@ -162,6 +189,13 @@ void AdventureMode::updateCollision()
 			Collision::handle_entity_map(e, this->map);
 		}
 
+	for (auto& coin : this->coins)
+	{
+		if (!coin->getEnabled()) continue;
+		Collision::handle_player_coin(this->player, coin);
+	}
+
+	// handle collision between entities
 	for (int i = 0; i < this->entities.size(); i++)
 	{
 		for (int j = 0; j < this->entities.size(); j++)
@@ -218,8 +252,8 @@ void AdventureMode::updateLastPosition()
 void AdventureMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& e : this->entities)
-		e->render(target);
+	for (auto& e : this->entities) e->render(target);
+	for (auto& coin : this->coins) coin->render(target);
 	this->map->render(target);
 }
 

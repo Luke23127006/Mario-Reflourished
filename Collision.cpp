@@ -305,6 +305,6 @@ void Collision::handle_player_coin(Player* player, Coin* coin)
 	if (player->getGlobalBounds().intersects(coin->getGlobalBounds()))
 	{
 		player->addCoin();
-		coin->collected();
+		coin->setEnabled(false);
 	}
 }

@@ -9,6 +9,7 @@
 #include "PowerUp.h"
 #include "Resources.h"
 #include "Scene.h"
+#include "Coin.h"
 
 #include <vector>
 
@@ -18,11 +19,12 @@ protected:
 	// map objects
 	std::vector<Entity*> entities;
 	std::vector<Enemy*> enemies;
+	std::vector<Coin*> coins;
+
 	Player* player;
 	Map* map;
 	sf::Vector2f cameraOrigin;
 	Camera camera;
-	std::vector<Coin*> coins;
 	GameState typeMap;
 	void initMap(std::string fileName);
 
@@ -33,6 +35,7 @@ public:
 	void setEnemiesBehaviors();
 	void update(float deltaTime, bool& held) override;
 	void updateEntities(float deltaTime);
+	void updateCoins(float deltaTime);
 	virtual void updateMap(float deltaTime);
 	virtual void updateCollision();
 	virtual void updateCamera(float deltaTime);

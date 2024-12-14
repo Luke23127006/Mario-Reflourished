@@ -2,11 +2,12 @@
 
 Coin::Coin(sf::Vector2f position)
 {
-	this->hitbox.setSize(sf::Vector2f(16, 16));
+	this->hitbox.setSize(sf::Vector2f(COIN_WIDTH, COIN_HEIGHT));
 	this->hitbox.setPosition(position);
-	this->hitbox.setFillColor(sf::Color::Transparent);
+	this->hitbox.setFillColor(sf::Color(255, 235, 59, 128));
 
-	this->animation = new Animation(Resources::textures["COIN"], 6, 0.08f, sf::Vector2i(16, 16));
+	this->animation = new Animation(Resources::textures["COIN"], 6, 0.1f, sf::Vector2i(16, 16));
+	this->animation->setSize(this->hitbox.getSize());
     this->animation->setPosition(position);
 }
 
@@ -15,8 +16,14 @@ Coin::~Coin()
     delete this->animation;
 }
 
+const bool Coin::isCollected() const
+{
+	return !this->enabled;
+}
+
 void Coin::update(float deltaTime)
 {
+	this->animation->update(deltaTime, false);
 }
 
 void Coin::collected()

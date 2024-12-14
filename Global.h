@@ -75,7 +75,6 @@ const float ANTI_GRAVITY = -GRAVITY;
 const float ENTITY_JUMP_STRENGHT = 500.f;
 
 // enemies
-
 const float ENEMY_DIE_TIME = 3.f;
 const float ENEMY_DIE_VELOCITY = 400.f;
 const float ENEMY_SQUISHED_TIME = 0.5f;
@@ -142,6 +141,10 @@ const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
 const float SHIELD_DURATION = 5.f;
 const float MAGNET_DURATION = 5.f;
+
+// coin
+const float COIN_WIDTH = 28.f;
+const float COIN_HEIGHT = 28.f;
 
 // tiles
 const float TILE_SIZE = 50;
