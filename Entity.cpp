@@ -85,7 +85,7 @@ void Entity::collisionTile(Tile* tile)
 	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
 
 	// Entity in ON GROUND
-	if (checkOnGround(entityBounds, tileBounds))
+	if (checkOnGround(entityBounds, tileBounds) && tile->isSolid())
 	{
 		entity->setOnGround(true);
 	}
@@ -162,6 +162,10 @@ void Entity::collisionTile(Tile* tile, Direction from)
 	{
 		this->collisionTile(dynamic_cast<Lava*>(tile), from);
 	}
+	if (isType<Water>(*tile))
+	{
+		this->collisionTile(dynamic_cast<Water*>(tile), from);
+	}
 }
 
 void Entity::collisionTile(LuckyBlock* luckyBlock, Direction from)
@@ -175,6 +179,14 @@ void Entity::collisionTile(Portal* portal, Direction from)
 void Entity::collisionTile(Lava* lava, Direction from)
 {
 	if (from != Direction::NONE) this->die();
+}
+
+void Entity::collisionTile(Water* water, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->setUnderWater(true);
+	}
 }
 
 sf::Vector2f Entity::getLastPosition()
