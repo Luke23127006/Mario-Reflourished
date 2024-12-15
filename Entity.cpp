@@ -7,7 +7,7 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	dieTimer(0.f),
 	dying(false),
 	underWater(false),
-	lastPosition(position - sf::Vector2f(0, 1))
+	lastPosition(position - sf::Vector2f(0, 0.001))
 {
 	sf::Color color = this->hitbox.getFillColor();
 	color.a = 128;
@@ -74,7 +74,7 @@ void Entity::collisionTile(Tile* tile)
 {
 	Direction from = Direction::NONE;
 
-	if (!tile->isSolid()) return;
+	if (!tile->isSolid() || this->dying) return;
 
 	Entity* entity = this;
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
@@ -138,11 +138,9 @@ void Entity::collisionTile(Tile* tile, Direction from)
 		this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top + tileBounds.height));
 		break;
 	case Direction::LEFT:
-		this->velocity.x = 0.f;
 		this->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entityBounds.top));
 		break;
 	case Direction::RIGHT:
-		this->velocity.x = 0.f;
 		this->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entityBounds.top));
 		break;
 	default:

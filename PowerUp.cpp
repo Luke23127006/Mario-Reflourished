@@ -38,6 +38,17 @@ void PowerUp::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
+void PowerUp::collisionTile(Tile* tile, Direction from)
+{
+	if (this->velocity.x == 0) return;
+	Entity::collisionTile(tile, from);
+
+	if (from == Direction::LEFT || from == Direction::RIGHT)
+	{
+		this->turnAround();
+	}
+}
+
 void PowerUp::update(float deltaTime)
 {
 	for (auto& a : this->animations)

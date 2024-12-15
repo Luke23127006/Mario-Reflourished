@@ -157,14 +157,22 @@ Bullet* Player::shoot()
 void Player::collisionTile(Tile* tile, Direction from)
 {
 	Entity::collisionTile(tile, from);
-	
-	if (from == Direction::DOWN)
+
+	switch (from)
 	{
+	case Direction::LEFT: case Direction::RIGHT:
+		this->velocity.x = 0.f;
+		break;
+	case Direction::UP:
+		this->jumpTimer = 0.f;
+		break;
+	case Direction::DOWN:
 		this->jumpTimer = 0.f;
 		if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
 			tile->seftBreak();
-		else 
+		else
 			tile->shake();
+		break;
 	}
 }
 

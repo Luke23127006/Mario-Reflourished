@@ -81,7 +81,16 @@ void Enemy::takeDamage()
 {
 }
 
+void Enemy::collisionTile(Tile* tile, Direction from)
+{
+	Entity::collisionTile(tile, from);
 
+	if (from == Direction::LEFT || from == Direction::RIGHT)
+	{
+		this->setCollide(true);
+		this->turnAround();
+	}
+}
 
 void Enemy::addBehavior(std::shared_ptr<Component> behavior)
 {

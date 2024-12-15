@@ -34,8 +34,10 @@ public:
 	void turnAround();
 	virtual void die() override;
 	virtual void squished();
-
 	virtual void takeDamage();
+
+	void collisionTile(Tile* tile, Direction from) override;
+
 	virtual void update(float deltaTime) override;
 	virtual void render(sf::RenderTarget& target) override;
 };

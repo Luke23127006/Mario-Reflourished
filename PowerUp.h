@@ -23,5 +23,7 @@ public:
 	void rise(float deltaTime);
 	void turnAround();
 
+	void collisionTile(Tile* tile, Direction from) override;
+
 	void update(float deltaTime) override;
 };
