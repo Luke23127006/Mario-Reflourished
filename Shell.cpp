@@ -38,6 +38,15 @@ void Shell::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
+void Shell::collisionTile(Tile* tile, Direction from)
+{
+	Entity::collisionTile(tile, from);
+	if (from == Direction::LEFT || from == Direction::RIGHT)
+	{
+		this->turnAround();
+	}
+}
+
 void Shell::update(float deltaTime)
 {
 	
