@@ -9,9 +9,6 @@
 class Collision
 {
 private:
-	static bool checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds);
-	static bool checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds);
-	static bool checkOnGround(sf::FloatRect firstBounds, sf::FloatRect secondBounds);
 public:
 	static void handle_entity_map(Entity* entity, Map* map);
 	static void handle_entity_tile(Entity* entity, Tile* tile);

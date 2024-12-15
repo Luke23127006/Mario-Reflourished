@@ -3,6 +3,7 @@
 #include "Global.h"
 #include "Object.h"
 #include "Animation.h"
+#include "TileFactory.h"
 
 class Entity : public Object
 {
@@ -33,6 +34,12 @@ public:
 	void setVelocity(sf::Vector2f velocity);
 	void jump();
 	void move(sf::Vector2f distance);
+
+	void collisionTile(Tile* tile);
+	virtual void collisionTile(Tile* tile, Direction from);
+	virtual void collisionTile(LuckyBlock* luckyBlock, Direction from);
+	virtual void collisionTile(Portal* portal, Direction from);
+
 
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();

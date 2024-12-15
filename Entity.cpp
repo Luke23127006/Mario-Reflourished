@@ -60,7 +60,7 @@ void Entity::jump()
 
 void Entity::move(sf::Vector2f distance)
 {
-	if (this->underWater) 
+	if (this->underWater)
 	{
 		this->hitbox.move(distance * 0.5f);
 	}
@@ -68,6 +68,103 @@ void Entity::move(sf::Vector2f distance)
 	{
 		this->hitbox.move(distance);
 	}
+}
+
+void Entity::collisionTile(Tile* tile)
+{
+	Direction from = Direction::NONE;
+
+	if (!tile->isSolid()) return;
+
+	Entity* entity = this;
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::Vector2f lastPosition = entity->getLastPosition();
+	sf::FloatRect tileBounds = tile->getGlobalBounds();
+
+	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
+	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
+
+	// Entity in ON GROUND
+	if (checkOnGround(entityBounds, tileBounds))
+	{
+		entity->setOnGround(true);
+	}
+
+	// Entity in INTERSECT with TILE
+	if (entityBounds.intersects(tileBounds))
+	{
+		if (tile->isDanger())
+		{
+			entity->die();
+		}
+		else if (above)
+		{
+			from = Direction::UP;
+		}
+		else if (below)
+		{
+			from = Direction::DOWN;
+		}
+		else
+		{
+			// PLAYER
+			if (entityBounds.left <= tileBounds.left)
+			{
+				from = Direction::LEFT;
+			}
+			else if (entityBounds.left > tileBounds.left)
+			{
+				from = Direction::RIGHT;
+			}
+		}
+	}
+
+	entity->collisionTile(tile, from);
+}
+
+void Entity::collisionTile(Tile* tile, Direction from)
+{
+	sf::FloatRect tileBounds = tile->getGlobalBounds();
+	sf::FloatRect entityBounds = this->getGlobalBounds();
+	switch (from)
+	{
+	case Direction::UP:
+		this->onGround = true;
+		this->velocity.y = 0.f;
+		this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top - entityBounds.height));
+		break;
+	case Direction::DOWN:
+		this->velocity.y = 0.f;
+		this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top + tileBounds.height));
+		break;
+	case Direction::LEFT:
+		this->velocity.x = 0.f;
+		this->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entityBounds.top));
+		break;
+	case Direction::RIGHT:
+		this->velocity.x = 0.f;
+		this->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entityBounds.top));
+		break;
+	default:
+		return;
+	}
+
+	if (isType<Portal>(*tile))
+	{
+		this->collisionTile(dynamic_cast<Portal*>(tile), from);
+	}
+	if (isType<LuckyBlock>(*tile))
+	{
+		this->collisionTile(dynamic_cast<LuckyBlock*>(tile), from);
+	}
+}
+
+void Entity::collisionTile(LuckyBlock* luckyBlock, Direction from)
+{
+}
+
+void Entity::collisionTile(Portal* portal, Direction from)
+{
 }
 
 sf::Vector2f Entity::getLastPosition()

@@ -35,6 +35,10 @@ public:
 	void addCoin();
 
 	Bullet* shoot();
+
+	void collisionTile(Tile* tile, Direction from) override;
+	void collisionTile(LuckyBlock* tile, Direction from) override;
+	void collisionTile(Portal* tile, Direction from) override;
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);

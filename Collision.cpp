@@ -2,36 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-bool Collision::checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
-{
-	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
-		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
-	{
-		return (floor(firstLastPosition.y + firstBounds.height) <= secondBounds.top);
-	}
-	return false;
-}
-
-bool Collision::checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds)
-{
-	if ((firstLastPosition.x + firstBounds.width > secondBounds.left && firstLastPosition.x - secondBounds.left <= secondBounds.width) ||
-		(firstLastPosition.x + firstBounds.width < secondBounds.left && secondBounds.left - firstLastPosition.x <= firstBounds.width))
-	{
-		return (ceil(firstLastPosition.y) >= secondBounds.top + secondBounds.height);
-	}
-	return false;
-}
-
-bool Collision::checkOnGround(sf::FloatRect firstBounds, sf::FloatRect secondBounds)
-{
-	if (firstBounds.left <= secondBounds.left && firstBounds.left + firstBounds.width >= secondBounds.left ||
-		firstBounds.left >= secondBounds.left && firstBounds.left <= secondBounds.left + secondBounds.width)
-	{
-		return (firstBounds.top + firstBounds.height == secondBounds.top);
-	}
-	return false;
-}
-
 void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity)) return;
@@ -79,6 +49,9 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
+	entity->collisionTile(tile);
+	return;
+
 	// enemies is blocked by enemy barrier
 	if (!isDerivedFrom<Enemy>(*entity) && isType<EnemyBarrier>(*tile)) return;
 

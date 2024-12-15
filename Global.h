@@ -172,6 +172,9 @@ const float SPIKE_WALL_HEIGHT = 1000.f;
 void adjustBetween(float& value, float minValue, float maxValue);
 int randomize(int l, int r);
 std::string encodeString(std::string s);
+bool checkAbove(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds);
+bool checkBelow(sf::FloatRect firstBounds, sf::Vector2f firstLastPosition, sf::FloatRect secondBounds);
+bool checkOnGround(sf::FloatRect firstBounds, sf::FloatRect secondBounds);
 
 template <class T, class U>
 bool isType(const U& variable) 
@@ -185,6 +188,16 @@ bool isDerivedFrom(U& variable)
 }
 
 // enums
+enum class Direction
+{
+	NONE = 0,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	NUM_DIRECTIONS
+};
+
 enum class GameState
 {
 	WELCOME = 0,

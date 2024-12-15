@@ -154,6 +154,33 @@ Bullet* Player::shoot()
 	return nullptr;
 }
 
+void Player::collisionTile(Tile* tile, Direction from)
+{
+	Entity::collisionTile(tile, from);
+	
+	if (from == Direction::DOWN)
+	{
+		this->jumpTimer = 0.f;
+		if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
+			tile->seftBreak();
+		else 
+			tile->shake();
+	}
+}
+
+void Player::collisionTile(LuckyBlock* tile, Direction from)
+{
+}
+
+void Player::collisionTile(Portal* portal, Direction from)
+{
+	if (from != Direction::NONE && this->getGlobalBounds().left > portal->getGlobalBounds().left)
+	{
+		this->setPosition(portal->getDestination());
+		this->velocity.y = 2000.f;
+	}
+}
+
 // Test FlyingNimbus
 
 
