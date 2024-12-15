@@ -126,6 +126,7 @@ void Entity::collisionTile(Tile* tile, Direction from)
 {
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 	sf::FloatRect entityBounds = this->getGlobalBounds();
+
 	if (tile->isSolid())
 	{
 		switch (from)
@@ -150,6 +151,7 @@ void Entity::collisionTile(Tile* tile, Direction from)
 		}
 	}
 
+	if (from == Direction::NONE) return;
 	if (isType<Portal>(*tile))
 	{
 		this->collisionTile(dynamic_cast<Portal*>(tile), from);
@@ -178,15 +180,12 @@ void Entity::collisionTile(Portal* portal, Direction from)
 
 void Entity::collisionTile(Lava* lava, Direction from)
 {
-	if (from != Direction::NONE) this->die();
+	this->die();
 }
 
 void Entity::collisionTile(Water* water, Direction from)
 {
-	if (from != Direction::NONE)
-	{
-		this->setUnderWater(true);
-	}
+	this->underWater = true;
 }
 
 sf::Vector2f Entity::getLastPosition()

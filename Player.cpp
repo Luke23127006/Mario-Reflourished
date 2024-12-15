@@ -158,21 +158,24 @@ void Player::collisionTile(Tile* tile, Direction from)
 {
 	Entity::collisionTile(tile, from);
 
-	switch (from)
+	if (tile->isSolid())
 	{
-	case Direction::LEFT: case Direction::RIGHT:
-		this->velocity.x = 0.f;
-		break;
-	case Direction::UP:
-		this->jumpTimer = 0.f;
-		break;
-	case Direction::DOWN:
-		this->jumpTimer = 0.f;
-		if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
-			tile->seftBreak();
-		else
-			tile->shake();
-		break;
+		switch (from)
+		{
+		case Direction::LEFT: case Direction::RIGHT:
+			this->velocity.x = 0.f;
+			break;
+		case Direction::UP:
+			this->jumpTimer = 0.f;
+			break;
+		case Direction::DOWN:
+			this->jumpTimer = 0.f;
+			if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
+				tile->seftBreak();
+			else
+				tile->shake();
+			break;
+		}
 	}
 }
 
@@ -182,7 +185,7 @@ void Player::collisionTile(LuckyBlock* tile, Direction from)
 
 void Player::collisionTile(Portal* portal, Direction from)
 {
-	if (from != Direction::NONE && this->getGlobalBounds().left > portal->getGlobalBounds().left)
+	if (this->getGlobalBounds().left > portal->getGlobalBounds().left)
 	{
 		this->setPosition(portal->getDestination());
 		this->velocity.y = 2000.f;
