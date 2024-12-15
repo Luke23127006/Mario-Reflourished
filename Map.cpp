@@ -186,9 +186,11 @@ void Map::update(float deltaTime, std::vector<Entity*>& entities)
 		auto* tile = *it;
 		if (isType<LuckyBlock>(*tile) && dynamic_cast<LuckyBlock*>(tile)->isActivated())
 		{
-			if (dynamic_cast<LuckyBlock*>(tile)->getType() == LuckyBlockType::POWER_UP)
+			LuckyBlock* luckyBlock = dynamic_cast<LuckyBlock*>(tile);
+			if (luckyBlock->getType() == LuckyBlockType::POWER_UP)
 			{
-				entities.push_back(dynamic_cast<LuckyBlock*>(tile)->launchPowerUp());
+				luckyBlock->launchPowerUp();
+				entities.push_back(EntityFactory::createPowerUp(luckyBlock->getGlobalBounds()));
 			}
 		}
 		tile->update(deltaTime);

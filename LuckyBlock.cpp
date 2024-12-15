@@ -61,10 +61,9 @@ void LuckyBlock::shake()
 	this->activate();
 }
 
-PowerUp* LuckyBlock::launchPowerUp()
+void LuckyBlock::launchPowerUp()
 {
 	this->type = LuckyBlockType::ACTIVATED;
-	return EntityFactory::createPowerUp(this->getGlobalBounds());
 }
 
 void LuckyBlock::update(float deltaTime)

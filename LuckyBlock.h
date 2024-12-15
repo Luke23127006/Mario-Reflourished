@@ -5,7 +5,6 @@
 #include "Particle.h"
 #include "Resources.h"
 #include "Tile.h"
-#include "EntityFactory.h"
 
 #include <ctime>
 
@@ -31,7 +30,7 @@ public:
 
 	void activate();
 	void shake() override;
-	PowerUp* launchPowerUp();
+	void launchPowerUp();
 
 	void update(float deltaTime) override;
 	void render(sf::RenderTarget& target) override;

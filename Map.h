@@ -6,6 +6,7 @@
 #include "PowerUp.h"
 #include "Resources.h"
 #include "TileFactory.h"
+#include "EntityFactory.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
