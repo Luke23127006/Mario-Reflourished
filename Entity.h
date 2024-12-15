@@ -39,6 +39,7 @@ public:
 	virtual void collisionTile(Tile* tile, Direction from);
 	virtual void collisionTile(LuckyBlock* luckyBlock, Direction from);
 	virtual void collisionTile(Portal* portal, Direction from);
+	virtual void collisionTile(Lava* lava, Direction from);
 
 
 	sf::Vector2f getLastPosition();

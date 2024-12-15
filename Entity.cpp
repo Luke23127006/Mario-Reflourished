@@ -74,7 +74,7 @@ void Entity::collisionTile(Tile* tile)
 {
 	Direction from = Direction::NONE;
 
-	if (!tile->isSolid() || this->dying) return;
+	if (this->dying) return;
 
 	Entity* entity = this;
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
@@ -126,25 +126,28 @@ void Entity::collisionTile(Tile* tile, Direction from)
 {
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 	sf::FloatRect entityBounds = this->getGlobalBounds();
-	switch (from)
+	if (tile->isSolid())
 	{
-	case Direction::UP:
-		this->onGround = true;
-		this->velocity.y = 0.f;
-		this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top - entityBounds.height));
-		break;
-	case Direction::DOWN:
-		this->velocity.y = 0.f;
-		this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top + tileBounds.height));
-		break;
-	case Direction::LEFT:
-		this->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entityBounds.top));
-		break;
-	case Direction::RIGHT:
-		this->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entityBounds.top));
-		break;
-	default:
-		return;
+		switch (from)
+		{
+		case Direction::UP:
+			this->onGround = true;
+			this->velocity.y = 0.f;
+			this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top - entityBounds.height));
+			break;
+		case Direction::DOWN:
+			this->velocity.y = 0.f;
+			this->setPosition(sf::Vector2f(entityBounds.left, tileBounds.top + tileBounds.height));
+			break;
+		case Direction::LEFT:
+			this->setPosition(sf::Vector2f(tileBounds.left - entityBounds.width, entityBounds.top));
+			break;
+		case Direction::RIGHT:
+			this->setPosition(sf::Vector2f(tileBounds.left + tileBounds.width, entityBounds.top));
+			break;
+		default:
+			return;
+		}
 	}
 
 	if (isType<Portal>(*tile))
@@ -155,6 +158,10 @@ void Entity::collisionTile(Tile* tile, Direction from)
 	{
 		this->collisionTile(dynamic_cast<LuckyBlock*>(tile), from);
 	}
+	if (isType<Lava>(*tile))
+	{
+		this->collisionTile(dynamic_cast<Lava*>(tile), from);
+	}
 }
 
 void Entity::collisionTile(LuckyBlock* luckyBlock, Direction from)
@@ -163,6 +170,11 @@ void Entity::collisionTile(LuckyBlock* luckyBlock, Direction from)
 
 void Entity::collisionTile(Portal* portal, Direction from)
 {
+}
+
+void Entity::collisionTile(Lava* lava, Direction from)
+{
+	if (from != Direction::NONE) this->die();
 }
 
 sf::Vector2f Entity::getLastPosition()
