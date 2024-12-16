@@ -278,9 +278,6 @@ void Entity::updateLastPosition()
 
 void Entity::render(sf::RenderTarget& target)
 {
-	for (auto& a : this->animations)
-	{
-		a->render(target, this->hitbox.getPosition());
-	}
-	target.draw(this->hitbox);
+	Object::render(target);
+	if (this->animations.size() == 1) animations[0]->render(target, this->hitbox.getPosition());
 }

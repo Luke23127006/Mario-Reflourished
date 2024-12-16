@@ -451,7 +451,7 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
+	Entity::render(target);
 	this->animation[INT(this->playerState)]->render(target, this->hitbox.getPosition());
-	target.draw(this->hitbox);
 	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }

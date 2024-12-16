@@ -71,9 +71,3 @@ void Shell::update(float deltaTime)
 	this->velocity = sf::Vector2f(this->velocity.x > 0 ? this->velocity.x - 0.1f : this->velocity.x + 0.1f, this->velocity.y + GRAVITY * deltaTime);
 	this->hitbox.move(this->velocity * deltaTime);
 }
-
-void Shell::render(sf::RenderTarget& target)
-{
-	this->animations[0]->render(target, this->hitbox.getPosition());
-	//target.draw(this->hitbox);
-}

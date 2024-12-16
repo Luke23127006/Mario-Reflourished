@@ -4,7 +4,6 @@
 Goomba::Goomba(sf::Vector2f position)
 	: Enemy(sf::Vector2f(GOOMBA_WIDTH, GOOMBA_HEIGHT), position)
 {
-	this->sprite.setTexture(Resources::textures["GOOMBA"]);
 	this->velocity = sf::Vector2f(GOOMBA_PACE_SPEED, 0.f);
 	this->hitbox.setFillColor(sf::Color(255, 128, 0, 128));
 	this->hitbox.setSize(sf::Vector2f(GOOMBA_WIDTH, GOOMBA_HEIGHT));

@@ -54,6 +54,14 @@ void Bullet::collisionEntity(Entity* entity, Direction& from)
 	entity->collisionEntity(this, from);
 }
 
+void Bullet::collisionEntity(Shell* shell, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
+
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)
@@ -77,8 +85,6 @@ void Bullet::update(float deltaTime)
 
 void Bullet::render(sf::RenderTarget& target)
 {
-	for (auto& a : this->animations)
-	{
-		a->render(target, this->hitbox.getPosition() + 0.5f * this->hitbox.getSize());
-	}
+	Object::render(target);
+	animations[0]->render(target, this->hitbox.getPosition() + 0.5f * this->hitbox.getSize());
 }
