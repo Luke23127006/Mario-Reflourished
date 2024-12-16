@@ -208,46 +208,6 @@ void AdventureMode::updateCollision()
 			if (!a->getEnabled() || !b->getEnabled()) continue;
 			Collision::handle_entity_entity(a, b);
 		}
-
-	// handle collision between entities
-	//for (int i = 0; i < this->entities.size(); i++)
-	//{
-	//	for (int j = 0; j < this->entities.size(); j++)
-	//	{
-	//		if (i == j) continue;
-	//		auto& a = this->entities[i];
-	//		auto& b = this->entities[j];
-	//		if (!a->getEnabled() || !b->getEnabled()) continue;
-
-	//		if (isType<Player>(*a))
-	//		{
-	//			if (isDerivedFrom<Enemy>(*b))
-	//			{
-	//				Collision::handle_player_enemy(dynamic_cast<Player*>(a), dynamic_cast<Enemy*>(b));
-	//			}
-	//			if (isDerivedFrom<Shell>(*b))
-	//			{
-	//				Collision::handle_entity_shell(dynamic_cast<Player*>(a), dynamic_cast<Shell*>(b));
-	//			}
-	//			if (isDerivedFrom<PowerUp>(*b))
-	//			{
-	//				Collision::handle_player_powerUp(dynamic_cast<Player*>(a), dynamic_cast<PowerUp*>(b));
-	//			}
-	//		}
-
-	//		if (isDerivedFrom<Enemy>(*a))
-	//		{
-	//			if (isDerivedFrom<Shell>(*b))
-	//			{
-	//				Collision::handle_entity_shell(dynamic_cast<Enemy*>(a), dynamic_cast<Shell*>(b));
-	//			}
-	//			if (isDerivedFrom<Bullet>(*b))
-	//			{
-	//				Collision::handle_bullet_enemy(dynamic_cast<Bullet*>(b), dynamic_cast<Enemy*>(a));
-	//			}
-	//		}
-	//	}
-	//}
 }
 
 void AdventureMode::updateCamera(float deltaTime)
