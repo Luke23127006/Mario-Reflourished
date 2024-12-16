@@ -17,13 +17,13 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
 	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
-	animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.08f, sf::Vector2i(54, 48));
+	animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
 	animation[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
 	animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
 	animation[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
 
-	animation[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.08f, sf::Vector2i(54, 48));
+	animation[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.1f, sf::Vector2i(54, 48));
 	animation[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
 	animation[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
@@ -169,6 +169,7 @@ void Player::collisionTile(Tile* tile, Direction from)
 			this->jumpTimer = 0.f;
 			break;
 		case Direction::DOWN:
+			if (this->underWater) break;
 			this->jumpTimer = 0.f;
 			if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
 				tile->seftBreak();
@@ -435,7 +436,6 @@ void Player::updateAnimation(float deltaTime)
 		this->playerState = PlayerState::WALK;
 		this->flipped = false;
 	}
-	if (this->velocity.x == 0.f) this->playerState = PlayerState::IDLE;
 	if (this->velocity.y != 0.f)
 	{
 		this->playerState = PlayerState::JUMP;
@@ -444,7 +444,10 @@ void Player::updateAnimation(float deltaTime)
 
 	if (this->dying) this->playerState = PlayerState::DIE;
 
-	animation[INT(this->playerState)]->update(deltaTime, this->flipped);
+	for (auto& a : this->animation)
+	{
+		a->update(deltaTime, this->flipped);
+	}
 }
 
 

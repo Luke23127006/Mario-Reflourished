@@ -33,6 +33,6 @@ void Coin::collected()
 
 void Coin::render(sf::RenderTarget& target)
 {
+	Object::render(target);
 	this->animation->render(target, this->hitbox.getPosition());
-	target.draw(this->hitbox);
 }
