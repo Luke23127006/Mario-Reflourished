@@ -6,8 +6,17 @@ Particle::Particle(const sf::Texture& texture, sf::Vector2f position, sf::Vector
 	acceleration(acceleration),
 	duration(duration)
 {
-	this->sprite.setOrigin(sf::Vector2f(this->sprite.getGlobalBounds().width / 2, this->sprite.getGlobalBounds().height / 2));
+	//this->sprite.setOrigin(sf::Vector2f(this->sprite.getGlobalBounds().width / 2, this->sprite.getGlobalBounds().height / 2));
 	this->sprite.setPosition(position);
+}
+
+Particle::Particle(Animation* animation, sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f acceleration, float duration) :
+	Decoration(animation, position),
+	velocity(velocity),
+	acceleration(acceleration),
+	duration(duration)
+{
+	this->animation->setPosition(position);
 }
 
 Particle::~Particle()
@@ -26,6 +35,7 @@ const bool Particle::isExpired() const
 
 void Particle::update(float deltaTime)
 {
+	Decoration::update(deltaTime);
 	this->duration = std::max(0.f, this->duration - deltaTime);
 	this->velocity += this->acceleration * deltaTime;
 	this->sprite.move(this->velocity * deltaTime);

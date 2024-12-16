@@ -29,6 +29,7 @@ public:
 	void setScale(sf::Vector2f scale);
 	void setSize(sf::Vector2f size);
 	void setTransparency(int alpha);
+	void setCenter();
 
 	void update(float deltaTime, bool flipped);
 	void render(sf::RenderTarget& target, sf::Vector2f position);

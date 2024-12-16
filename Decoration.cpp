@@ -18,8 +18,16 @@ Decoration::Decoration(const sf::Texture& texture, sf::Vector2f position)
 	this->sprite.setPosition(position);
 }
 
+Decoration::Decoration(Animation* animation, sf::Vector2f position)
+{
+	this->sprite.setPosition(position);
+	this->animation = animation;
+	this->animation->setPosition(position);
+}
+
 Decoration::~Decoration()
 {
+	if (this->animation) delete this->animation;
 }
 
 void Decoration::setScale(sf::Vector2f scale)
@@ -27,13 +35,34 @@ void Decoration::setScale(sf::Vector2f scale)
 	this->sprite.setScale(scale);
 }
 
+void Decoration::setCenter()
+{
+	this->sprite.setOrigin(this->sprite.getGlobalBounds().width / 2, this->sprite.getGlobalBounds().height / 2);
+	if (this->animation) this->animation->setCenter();
+}
+
+void Decoration::update(float deltaTime)
+{
+	if (this->animation) this->animation->update(deltaTime, false);
+}
+
 void Decoration::render(sf::RenderTarget& target)
 {
+	if (this->animation)
+	{
+		animation->render(target, this->sprite.getPosition());
+		return;
+	}
 	target.draw(this->sprite);
 }
 
 void Decoration::render(sf::RenderTarget& target, sf::Vector2f position)
 {
 	this->sprite.setPosition(position);
+	if (this->animation)
+	{
+		animation->render(target, position);
+		return;
+	}
 	target.draw(this->sprite);
 }

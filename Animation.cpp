@@ -55,6 +55,11 @@ void Animation::setTransparency(int alpha)
 	this->sprite.setColor(color);
 }
 
+void Animation::setCenter()
+{
+	this->sprite.setOrigin(this->frameSize.x / 2, this->frameSize.y / 2);
+}
+
 void Animation::update(float deltaTime, bool flipped)
 {
 	this->frameTimer = std::max(0.f, this->frameTimer - deltaTime);

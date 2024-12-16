@@ -50,7 +50,10 @@ void LuckyBlock::activate()
 	if (this->type == LuckyBlockType::COIN)
 	{
 		this->type = LuckyBlockType::ACTIVATED;
-		this->particle = new Particle(Resources::textures["EMPTY_BLOCK"], this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 200.f), 0.25f);
+		Animation* animation = new Animation(Resources::textures["COIN"], 6, 0.1f, sf::Vector2i(16, 16));
+		animation->setScale(sf::Vector2f(2.f, 2.f));
+		this->particle = new Particle(animation, this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 200.f), 1.f);
+		this->particle->setCenter();
 	}
 }
 
