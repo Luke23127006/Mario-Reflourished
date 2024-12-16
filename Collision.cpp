@@ -10,12 +10,16 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 	int i = (1.f * (entity->getGlobalBounds().left - map->getPosition().x) / TILE_SIZE);
 	int j = (1.f * (entity->getGlobalBounds().top - map->getPosition().y) / TILE_SIZE);
 
+	int iRange = int(entity->getGlobalBounds().width / TILE_SIZE) + 1;
+	int jRange = int(entity->getGlobalBounds().height / TILE_SIZE) + 1;
+
 	entity->setOnGround(false);
 	entity->setUnderWater(false);
+
 	std::vector<Tile*> tiles;
-	for (int _i = i; _i < i + 3; _i++)
+	for (int _i = i; _i <= i + iRange; _i++)
 	{
-		for (int _j = j; _j < j + 3; _j++)
+		for (int _j = j; _j <= j + jRange; _j++)
 		{
 			if (0 <= _i && _i < size.x && 0 <= _j && _j < size.y && map->getTileType(_i, _j) != TileType::EMPTY)
 			{
