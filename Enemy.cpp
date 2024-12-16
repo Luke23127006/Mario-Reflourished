@@ -88,7 +88,11 @@ void Enemy::collisionTile(Tile* tile, Direction from)
 	if (from == Direction::LEFT || from == Direction::RIGHT)
 	{
 		this->setCollide(true);
-		this->turnAround();
+	}
+
+	if (tile->isHarming() && checkOnGround(this->getGLobalBounds(), tile->getGLobalBounds()))
+	{
+		this->die();
 	}
 }
 

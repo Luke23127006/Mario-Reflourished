@@ -47,6 +47,11 @@ void PowerUp::collisionTile(Tile* tile, Direction from)
 	{
 		this->turnAround();
 	}
+	
+	if (tile->isHarming() && checkOnGround(this->getGlobalBounds(), tile->getGlobalBounds()))
+	{
+		this->jump();
+	}
 }
 
 void PowerUp::update(float deltaTime)

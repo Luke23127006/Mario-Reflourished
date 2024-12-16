@@ -34,6 +34,20 @@ void Bullet::die()
 	this->dieTimer = 0.25f;
 }
 
+void Bullet::collisionTile(Tile* tile, Direction from)
+{
+	Entity::collisionTile(tile, from);
+	if (!tile->isSolid()) return;
+	if (from == Direction::UP)
+	{
+		this->bounce();
+	}
+	else if (from == Direction::LEFT || from == Direction::RIGHT)
+	{
+		this->die();
+	}
+}
+
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)
