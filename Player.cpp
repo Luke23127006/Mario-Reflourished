@@ -187,8 +187,7 @@ void Player::collisionTile(Portal* portal, Direction from)
 {
 	if (this->getGlobalBounds().left > portal->getGlobalBounds().left)
 	{
-		this->setPosition(portal->getDestination());
-		this->velocity.y = 2000.f;
+		this->setPosition(portal->getDestination() + sf::Vector2f(0.f, portal->getGlobalBounds().height - this->getGlobalBounds().height));
 	}
 }
 
