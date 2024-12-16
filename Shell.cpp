@@ -45,6 +45,17 @@ void Shell::collisionTile(Tile* tile, Direction from)
 	{
 		this->turnAround();
 	}
+	if (tile->isHarming() && checkOnGround(this->getGlobalBounds(), tile->getGlobalBounds()))
+	{
+		this->jump();
+	}
+}
+
+void Shell::collisionEntity(Entity* entity, Direction& from)
+{
+	if (isType<Entity>(*entity)) return;
+	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
+	entity->collisionEntity(this, from);
 }
 
 void Shell::update(float deltaTime)

@@ -38,7 +38,7 @@ bool checkBelow(sf::FloatRect entityBounds, sf::Vector2f entityLastPosition, sf:
 	if ((entityLastPosition.x + entityBounds.width > tileBounds.left && entityLastPosition.x - tileBounds.left <= tileBounds.width) ||
 		(entityLastPosition.x + entityBounds.width < tileBounds.left && tileBounds.left - entityLastPosition.x <= entityBounds.width))
 	{
-		return (ceil(entityLastPosition.y) >= tileBounds.top + tileBounds.height);
+		return ((entityLastPosition.y) >= tileBounds.top + tileBounds.height);
 	}
 	return false;
 }

@@ -192,6 +192,60 @@ void Player::collisionTile(Portal* portal, Direction from)
 	}
 }
 
+void Player::collisionEntity(Enemy* enemy, Direction from)
+{
+	if (from == Direction::UP)
+	{
+		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
+		enemy->squished();
+	}
+	else if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
+
+void Player::collisionEntity(Shell* shell, Direction from)
+{
+	sf::FloatRect playerBounds = this->getGlobalBounds();
+	sf::FloatRect shellBounds = shell->getGlobalBounds();
+	if (from == Direction::UP)
+	{
+		this->setPosition(sf::Vector2f(this->getPosition().x, shellBounds.top - playerBounds.height));
+		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
+		shell->switchActivation();
+		if (shell->isActivated())
+		{
+			if (playerBounds.left + playerBounds.width / 2 < shellBounds.left + shellBounds.width / 2)
+			{
+				shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+			}
+			else
+			{
+				shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+			}
+		}
+	}
+	else if (!shell->isActivated())
+	{
+		if (from == Direction::LEFT)
+		{
+			shell->switchActivation();
+			this->setPosition(sf::Vector2f(shellBounds.left - playerBounds.width, this->getPosition().y));
+			shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+		}
+		else if (from == Direction::RIGHT)
+		{
+			shell->switchActivation();
+			this->setPosition(sf::Vector2f(shellBounds.left + shellBounds.width, this->getPosition().y));
+			shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+		}
+	}
+	else if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
 // Test FlyingNimbus
 
 

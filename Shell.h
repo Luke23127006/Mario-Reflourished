@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Global.h"
 #include "Resources.h"
+#include "Player.h"
 
 class Shell : public Entity
 {
@@ -17,6 +18,8 @@ public:
 	void turnAround();
 
 	void collisionTile(Tile* tile, Direction from) override;
+
+	void collisionEntity(Entity* entity, Direction& from) override;
 
 	void update(float deltaTime) override;
 	void render(sf::RenderTarget& target) override;

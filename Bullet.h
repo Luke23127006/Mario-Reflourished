@@ -18,6 +18,8 @@ public:
 
 	void collisionTile(Tile* tile, Direction from) override;
 
+	void collisionEntity(Entity* entity, Direction& from) override;
+
 	void update(float deltaTime) override;
 
 	void render(sf::RenderTarget& target) override;

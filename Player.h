@@ -7,6 +7,8 @@
 #include "Resources.h"
 #include "Bullet.h"
 #include "FlyingNimbus.h"
+#include "Enemy.h"
+#include "Shell.h"
 #include <vector>
 
 class Player : public Entity
@@ -39,6 +41,9 @@ public:
 	void collisionTile(Tile* tile, Direction from) override;
 	void collisionTile(LuckyBlock* tile, Direction from) override;
 	void collisionTile(Portal* tile, Direction from) override;
+
+	void collisionEntity(Enemy* enemy, Direction from) override;
+	void collisionEntity(Shell* shell, Direction from) override;
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);

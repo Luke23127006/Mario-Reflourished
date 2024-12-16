@@ -96,6 +96,48 @@ void Enemy::collisionTile(Tile* tile, Direction from)
 	}
 }
 
+void Enemy::collisionEntity(Player* player, Direction from)
+{
+	player->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
+	player->collisionEntity(this, from);
+}
+
+void Enemy::collisionEntity(Shell* shell, Direction from)
+{
+	if (shell->isActivated())
+	{
+		if (from != Direction::NONE)
+		{
+			this->die();
+		}
+	}
+	else if (from == Direction::UP)
+	{
+		this->setPosition(sf::Vector2f(this->getPosition().x, shell->getGLobalBounds().top - this->getGlobalBounds().height));
+	}
+	else if (from == Direction::LEFT)
+	{
+		shell->switchActivation();
+		this->setPosition(sf::Vector2f(shell->getGlobalBounds().left - this->getGlobalBounds().width, this->getPosition().y));
+		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+	}
+	else if (from == Direction::RIGHT)
+	{
+		shell->switchActivation();
+		this->setPosition(sf::Vector2f(shell->getGlobalBounds().left + shell->getGlobalBounds().width, this->getPosition().y));
+		shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+	}
+}
+
+void Enemy::collisionEntity(Bullet* bullet, Direction from)
+{
+	if (from != Direction::NONE) 
+	{
+		this->die();
+		bullet->die();
+	}
+}
+
 void Enemy::addBehavior(std::shared_ptr<Component> behavior)
 {
 	this->behaviors.push_back(behavior);
@@ -112,7 +154,7 @@ void Enemy::update(float deltaTime)
 			this->move(this->velocity * deltaTime);
 		}
 	}
-	else 
+	else
 	{
 		for (auto& a : this->animations)
 		{
@@ -122,7 +164,7 @@ void Enemy::update(float deltaTime)
 		// For Gravity
 		if (this->onGround) this->velocity.y = 0.f;
 		else this->velocity.y += GRAVITY * deltaTime;
-	
+
 
 		// For All Behaviors
 		for (auto behavior : this->behaviors)
@@ -134,7 +176,7 @@ void Enemy::update(float deltaTime)
 			}
 		}
 		isColliding = false;
-		
+
 		this->move(this->velocity * deltaTime);
 	}
 }

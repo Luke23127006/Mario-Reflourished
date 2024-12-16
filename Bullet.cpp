@@ -48,6 +48,12 @@ void Bullet::collisionTile(Tile* tile, Direction from)
 	}
 }
 
+void Bullet::collisionEntity(Entity* entity, Direction& from)
+{
+	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
+	entity->collisionEntity(this, from);
+}
+
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)

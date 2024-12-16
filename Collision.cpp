@@ -61,7 +61,7 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	// underwater
 	if (isType<Water>(*tile))
 	{
-		Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
+		//Collision::handle_entity_water(entity, dynamic_cast<Water*>(tile));
 		return;
 	}
 
@@ -177,11 +177,30 @@ void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 	}
 }
 
-void Collision::handle_entity_water(Entity* entity, Water* water)
+void Collision::handle_entity_entity(Entity* entity, Entity* other)
 {
-	if (entity->getGlobalBounds().intersects(water->getGlobalBounds()))
+	Direction from = Direction::NONE;
+	entity->collisionEntity(other, from);
+	if (from == Direction::NONE) return;
+	if (isDerivedFrom<Player>(*other))
 	{
-		entity->setUnderWater(true);
+		entity->collisionEntity(dynamic_cast<Player*>(other), from);
+	}
+	else if (isDerivedFrom<Enemy>(*other))
+	{
+		entity->collisionEntity(dynamic_cast<Enemy*>(other), from);
+	}
+	else if (isDerivedFrom<Bullet>(*other))
+	{
+		entity->collisionEntity(dynamic_cast<Bullet*>(other), from);
+	}
+	else if (isDerivedFrom<Shell>(*other))
+	{
+		entity->collisionEntity(dynamic_cast<Shell*>(other), from);
+	}
+	else if (isDerivedFrom<PowerUp>(*other))
+	{
+		entity->collisionEntity(dynamic_cast<PowerUp*>(other), from);
 	}
 }
 

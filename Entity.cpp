@@ -188,6 +188,68 @@ void Entity::collisionTile(Water* water, Direction from)
 	this->underWater = true;
 }
 
+void Entity::collisionEntity(Entity* other, Direction& from)
+{
+	from = Direction::NONE;
+
+	Entity* entity = this;
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::Vector2f lastPosition = entity->getLastPosition();
+	sf::FloatRect tileBounds = other->getGlobalBounds();
+
+	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
+	bool below = checkBelow(entityBounds, lastPosition, tileBounds);
+
+	// Entity in ON GROUND
+	if (checkOnGround(entityBounds, tileBounds))
+	{
+		entity->setOnGround(true);
+	}
+
+	if (entityBounds.intersects(tileBounds))
+	{
+		if (above)
+		{
+			from = Direction::UP;
+		}
+		else if (below)
+		{
+			from = Direction::DOWN;
+		}
+		else
+		{
+			if (entityBounds.left <= tileBounds.left)
+			{
+				from = Direction::LEFT;
+			}
+			else if (entityBounds.left > tileBounds.left)
+			{
+				from = Direction::RIGHT;
+			}
+		}
+	}
+}
+
+void Entity::collisionEntity(Player* player, Direction from)
+{
+}
+
+void Entity::collisionEntity(Enemy* enemy, Direction from)
+{
+}
+
+void Entity::collisionEntity(Bullet* bullet, Direction from)
+{
+}
+
+void Entity::collisionEntity(Shell* shell, Direction from)
+{
+}
+
+void Entity::collisionEntity(PowerUp* powerUp, Direction from)
+{
+}
+
 sf::Vector2f Entity::getLastPosition()
 {
 	return this->lastPosition;

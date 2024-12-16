@@ -5,6 +5,12 @@
 #include "Animation.h"
 #include "TileFactory.h"
 
+class Player;
+class Enemy;
+class Bullet;
+class Shell;
+class PowerUp;
+
 class Entity : public Object
 {
 private:
@@ -34,7 +40,8 @@ public:
 	void setVelocity(sf::Vector2f velocity);
 	void jump();
 	void move(sf::Vector2f distance);
-
+	
+	// collision with tiles
 	void collisionTile(Tile* tile);
 	virtual void collisionTile(Tile* tile, Direction from);
 	virtual void collisionTile(LuckyBlock* luckyBlock, Direction from);
@@ -42,6 +49,13 @@ public:
 	virtual void collisionTile(Lava* lava, Direction from);
 	virtual void collisionTile(Water* water, Direction from);
 
+	// collision with other entities
+	virtual void collisionEntity(Entity* other, Direction& from);
+	virtual void collisionEntity(Player* player, Direction from);
+	virtual void collisionEntity(Enemy* enemy, Direction from);
+	virtual void collisionEntity(Bullet* bullet, Direction from);
+	virtual void collisionEntity(Shell* shell, Direction from);
+	virtual void collisionEntity(PowerUp* powerUp, Direction from);
 
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();

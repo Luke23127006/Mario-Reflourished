@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Decoration.h"
 #include "Resources.h"
+#include "Player.h"
 
 class Enemy : public Entity
 {
@@ -37,6 +38,10 @@ public:
 	virtual void takeDamage();
 
 	void collisionTile(Tile* tile, Direction from) override;
+
+	void collisionEntity(Player* player, Direction from) override;
+	void collisionEntity(Shell* shell, Direction from) override;
+	void collisionEntity(Bullet* bullet, Direction from) override;
 
 	virtual void update(float deltaTime) override;
 	virtual void render(sf::RenderTarget& target) override;
