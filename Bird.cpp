@@ -27,16 +27,7 @@ Bird::~Bird()
 }
 
 void Bird::render(sf::RenderTarget& target)
-{
-	/*if (this->getVelocity().x > 0)
-	{
-		this->hitbox.setFillColor (sf::Color(200, 250, 100, 255));
-	}
-	else {
-				this->hitbox.setFillColor(sf::Color(250, 150, 100, 255));
-	}
-	target.draw(this->hitbox);*/
-	
+{	
 	Enemy::render(target);
 
 	if (this->followPlayer)
