@@ -246,6 +246,14 @@ void Player::collisionEntity(Shell* shell, Direction from)
 		this->die();
 	}
 }
+void Player::collisionEntity(PowerUp* powerUp, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->gainPowerUp(*powerUp);
+		powerUp->die();
+	}
+}
 // Test FlyingNimbus
 
 

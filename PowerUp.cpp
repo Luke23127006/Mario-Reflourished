@@ -54,6 +54,12 @@ void PowerUp::collisionTile(Tile* tile, Direction from)
 	}
 }
 
+void PowerUp::collisionEntity(Entity* entity, Direction& from)
+{
+	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
+	entity->collisionEntity(this, from);
+}
+
 void PowerUp::update(float deltaTime)
 {
 	for (auto& a : this->animations)

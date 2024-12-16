@@ -44,6 +44,7 @@ public:
 
 	void collisionEntity(Enemy* enemy, Direction from) override;
 	void collisionEntity(Shell* shell, Direction from) override;
+	void collisionEntity(PowerUp* powerUp, Direction from) override;
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);
