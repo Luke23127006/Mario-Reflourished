@@ -40,6 +40,7 @@ const float CAMERA_SMOOTHING_FACTOR = 5.f;
 // player
 const float PLAYER_WIDTH = 42.f;
 const float PLAYER_HEIGHT = 48.f;
+const float PLAYER_BIGGER_WIDTH = 48.f;
 const float PLAYER_BIGGER_HEIGHT = 96.f;
 const float PLAYER_MAX_SPEED = 400.f;
 const float PLAYER_MAX_FALL_SPEED = 2000.f;
