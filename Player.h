@@ -37,9 +37,8 @@ public:
 
 	Bullet* shoot();
 
-	void collideWithTile(Tile* tile, Direction from) override;
-	void collideWithTile(LuckyBlock* tile, Direction from) override;
-	void collideWithTile(Portal* tile, Direction from) override;
+	void collideWithTile(Tile& tile, Direction from) override;
+	void collideWithTile(Portal& tile, Direction from) override;
 
 	void collideWithEntity(Enemy* enemy, Direction from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;

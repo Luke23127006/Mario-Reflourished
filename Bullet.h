@@ -16,7 +16,7 @@ public:
 
 	void die() override;
 
-	void collideWithTile(Tile* tile, Direction from) override;
+	void collideWithTile(Tile& tile, Direction from) override;
 
 	void collideWithEntity(Entity* entity, Direction& from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;

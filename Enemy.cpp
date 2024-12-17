@@ -81,7 +81,7 @@ void Enemy::takeDamage()
 {
 }
 
-void Enemy::collideWithTile(Tile* tile, Direction from)
+void Enemy::collideWithTile(Tile& tile, Direction from)
 {
 	Entity::collideWithTile(tile, from);
 
@@ -90,7 +90,7 @@ void Enemy::collideWithTile(Tile* tile, Direction from)
 		this->setCollide(true);
 	}
 
-	if (tile->isHarming() && checkOnGround(this->getGLobalBounds(), tile->getGLobalBounds()))
+	if (tile.isHarming() && checkOnGround(this->getGLobalBounds(), tile.getGLobalBounds()))
 	{
 		this->die();
 	}

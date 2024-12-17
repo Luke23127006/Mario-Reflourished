@@ -38,14 +38,14 @@ void Shell::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
-void Shell::collideWithTile(Tile* tile, Direction from)
+void Shell::collideWithTile(Tile& tile, Direction from)
 {
 	Entity::collideWithTile(tile, from);
 	if (from == Direction::LEFT || from == Direction::RIGHT)
 	{
 		this->turnAround();
 	}
-	if (tile->isHarming() && checkOnGround(this->getGlobalBounds(), tile->getGlobalBounds()))
+	if (tile.isHarming() && checkOnGround(this->getGlobalBounds(), tile.getGlobalBounds()))
 	{
 		this->jump();
 	}

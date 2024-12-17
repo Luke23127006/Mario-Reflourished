@@ -37,7 +37,7 @@ public:
 	virtual void squished();
 	virtual void takeDamage();
 
-	void collideWithTile(Tile* tile, Direction from) override;
+	void collideWithTile(Tile& tile, Direction from) override;
 
 	void collideWithEntity(Player* player, Direction from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;
