@@ -76,8 +76,9 @@ void Entity::collideWithTile(Tile* tile)
 
 	if (this->dying) return;
 
-	sf::FloatRect entityBounds = this->getGlobalBounds();
-	sf::Vector2f lastPosition = this->getLastPosition();
+	Entity* entity = this;
+	sf::FloatRect entityBounds = entity->getGlobalBounds();
+	sf::Vector2f lastPosition = entity->getLastPosition();
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 
 	bool above = checkAbove(entityBounds, lastPosition, tileBounds);
@@ -86,7 +87,7 @@ void Entity::collideWithTile(Tile* tile)
 	// Entity in ON GROUND
 	if (checkOnGround(entityBounds, tileBounds) && tile->isSolid())
 	{
-		this->setOnGround(true);
+		entity->setOnGround(true);
 	}
 
 	// Entity in INTERSECT with TILE
@@ -94,7 +95,7 @@ void Entity::collideWithTile(Tile* tile)
 	{
 		if (tile->isDanger())
 		{
-			this->die();
+			entity->die();
 		}
 		else if (above)
 		{
@@ -118,16 +119,18 @@ void Entity::collideWithTile(Tile* tile)
 		}
 	}
 
-	this->collideWithTile(*tile, from);
+	entity->collideWithTile(tile, from);
 }
 
-void Entity::collideWithTile(Tile& tile, Direction from)
+void Entity::collideWithTile(Tile* tile, Direction from)
 {
-	sf::FloatRect tileBounds = tile.getGlobalBounds();
+	sf::FloatRect tileBounds = tile->getGlobalBounds();
 	sf::FloatRect entityBounds = this->getGlobalBounds();
 
-	if (tile.isSolid()) {
-		switch (from) {
+	if (tile->isSolid())
+	{
+		switch (from)
+		{
 		case Direction::UP:
 			this->onGround = true;
 			this->velocity.y = 0.f;
@@ -147,22 +150,40 @@ void Entity::collideWithTile(Tile& tile, Direction from)
 			return;
 		}
 	}
+
+	if (from == Direction::NONE) return;
+	if (isType<Portal>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<Portal*>(tile), from);
+	}
+	if (isType<LuckyBlock>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<LuckyBlock*>(tile), from);
+	}
+	if (isType<Lava>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<Lava*>(tile), from);
+	}
+	if (isType<Water>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<Water*>(tile), from);
+	}
 }
 
-void Entity::collideWithTile(LuckyBlock& luckyBlock, Direction from)
+void Entity::collideWithTile(LuckyBlock* luckyBlock, Direction from)
 {
 }
 
-void Entity::collideWithTile(Portal& portal, Direction from)
+void Entity::collideWithTile(Portal* portal, Direction from)
 {
 }
 
-void Entity::collideWithTile(Lava& lava, Direction from)
+void Entity::collideWithTile(Lava* lava, Direction from)
 {
 	this->die();
 }
 
-void Entity::collideWithTile(Water& water, Direction from)
+void Entity::collideWithTile(Water* water, Direction from)
 {
 	this->underWater = true;
 }

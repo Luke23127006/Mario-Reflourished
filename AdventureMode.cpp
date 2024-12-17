@@ -203,8 +203,8 @@ void AdventureMode::updateCollision()
 	for (int i = 0; i < this->entities.size(); i++)
 		for (int j = i + 1; j < this->entities.size(); j++)
 		{
-			auto& a = this->entities[i];
-			auto& b = this->entities[j];
+			auto& b = this->entities[i];
+			auto& a = this->entities[j];
 			if (!a->getEnabled() || !b->getEnabled()) continue;
 			Collision::handle_entity_entity(a, b);
 		}

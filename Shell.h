@@ -17,7 +17,7 @@ public:
 	void switchActivation();
 	void turnAround();
 
-	void collideWithTile(Tile& tile, Direction from) override;
+	void collideWithTile(Tile* tile, Direction from) override;
 
 	void collideWithEntity(Entity* entity, Direction& from) override;
 

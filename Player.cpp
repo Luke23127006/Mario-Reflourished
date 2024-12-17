@@ -148,11 +148,11 @@ Bullet* Player::shoot()
 	return nullptr;
 }
 
-void Player::collideWithTile(Tile& tile, Direction from)
+void Player::collideWithTile(Tile* tile, Direction from)
 {
 	Entity::collideWithTile(tile, from);
 
-	if (tile.isSolid())
+	if (tile->isSolid())
 	{
 		switch (from)
 		{
@@ -165,20 +165,24 @@ void Player::collideWithTile(Tile& tile, Direction from)
 		case Direction::DOWN:
 			if (this->underWater) break;
 			this->jumpTimer = 0.f;
-			if (tile.isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
-				tile.seftBreak();
+			if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
+				tile->seftBreak();
 			else
-				tile.shake();
+				tile->shake();
 			break;
 		}
 	}
 }
 
-void Player::collideWithTile(Portal& portal, Direction from)
+void Player::collideWithTile(LuckyBlock* tile, Direction from)
 {
-	if (this->getGlobalBounds().left > portal.getGlobalBounds().left)
+}
+
+void Player::collideWithTile(Portal* portal, Direction from)
+{
+	if (this->getGlobalBounds().left > portal->getGlobalBounds().left)
 	{
-		this->setPosition(portal.getDestination() + sf::Vector2f(0.f, portal.getGlobalBounds().height - this->getGlobalBounds().height));
+		this->setPosition(portal->getDestination() + sf::Vector2f(0.f, portal->getGlobalBounds().height - this->getGlobalBounds().height));
 	}
 }
 

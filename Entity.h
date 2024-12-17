@@ -43,11 +43,11 @@ public:
 	
 	// collision with tiles
 	void collideWithTile(Tile* tile);
-	virtual void collideWithTile(Tile& tile, Direction from);
-	virtual void collideWithTile(LuckyBlock& luckyBlock, Direction from);
-	virtual void collideWithTile(Portal& portal, Direction from);
-	virtual void collideWithTile(Lava& lava, Direction from);
-	virtual void collideWithTile(Water& water, Direction from);
+	virtual void collideWithTile(Tile* tile, Direction from);
+	virtual void collideWithTile(LuckyBlock* luckyBlock, Direction from);
+	virtual void collideWithTile(Portal* portal, Direction from);
+	virtual void collideWithTile(Lava* lava, Direction from);
+	virtual void collideWithTile(Water* water, Direction from);
 
 	// collision with other entities
 	virtual void collideWithEntity(Entity* other, Direction& from);

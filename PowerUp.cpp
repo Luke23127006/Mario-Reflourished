@@ -38,7 +38,7 @@ void PowerUp::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
-void PowerUp::collideWithTile(Tile& tile, Direction from)
+void PowerUp::collideWithTile(Tile* tile, Direction from)
 {
 	if (this->velocity.x == 0) return;
 	Entity::collideWithTile(tile, from);
@@ -48,7 +48,7 @@ void PowerUp::collideWithTile(Tile& tile, Direction from)
 		this->turnAround();
 	}
 	
-	if (tile.isHarming() && checkOnGround(this->getGlobalBounds(), tile.getGlobalBounds()))
+	if (tile->isHarming() && checkOnGround(this->getGlobalBounds(), tile->getGlobalBounds()))
 	{
 		this->jump();
 	}

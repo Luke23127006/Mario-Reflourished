@@ -34,10 +34,10 @@ void Bullet::die()
 	this->dieTimer = 0.25f;
 }
 
-void Bullet::collideWithTile(Tile& tile, Direction from)
+void Bullet::collideWithTile(Tile* tile, Direction from)
 {
 	Entity::collideWithTile(tile, from);
-	if (!tile.isSolid()) return;
+	if (!tile->isSolid()) return;
 	if (from == Direction::UP)
 	{
 		this->bounce();
