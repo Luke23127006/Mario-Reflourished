@@ -37,13 +37,13 @@ public:
 
 	Bullet* shoot();
 
-	void collisionTile(Tile* tile, Direction from) override;
-	void collisionTile(LuckyBlock* tile, Direction from) override;
-	void collisionTile(Portal* tile, Direction from) override;
+	void collideWithTile(Tile* tile, Direction from) override;
+	void collideWithTile(LuckyBlock* tile, Direction from) override;
+	void collideWithTile(Portal* tile, Direction from) override;
 
-	void collisionEntity(Enemy* enemy, Direction from) override;
-	void collisionEntity(Shell* shell, Direction from) override;
-	void collisionEntity(PowerUp* powerUp, Direction from) override;
+	void collideWithEntity(Enemy* enemy, Direction from) override;
+	void collideWithEntity(Shell* shell, Direction from) override;
+	void collideWithEntity(PowerUp* powerUp, Direction from) override;
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);

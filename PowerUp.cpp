@@ -38,10 +38,10 @@ void PowerUp::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
-void PowerUp::collisionTile(Tile* tile, Direction from)
+void PowerUp::collideWithTile(Tile* tile, Direction from)
 {
 	if (this->velocity.x == 0) return;
-	Entity::collisionTile(tile, from);
+	Entity::collideWithTile(tile, from);
 
 	if (from == Direction::LEFT || from == Direction::RIGHT)
 	{
@@ -54,10 +54,10 @@ void PowerUp::collisionTile(Tile* tile, Direction from)
 	}
 }
 
-void PowerUp::collisionEntity(Entity* entity, Direction& from)
+void PowerUp::collideWithEntity(Entity* entity, Direction& from)
 {
-	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
-	entity->collisionEntity(this, from);
+	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
+	entity->collideWithEntity(this, from);
 }
 
 void PowerUp::update(float deltaTime)

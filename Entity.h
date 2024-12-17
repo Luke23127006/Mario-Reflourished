@@ -42,20 +42,20 @@ public:
 	void move(sf::Vector2f distance);
 	
 	// collision with tiles
-	void collisionTile(Tile* tile);
-	virtual void collisionTile(Tile* tile, Direction from);
-	virtual void collisionTile(LuckyBlock* luckyBlock, Direction from);
-	virtual void collisionTile(Portal* portal, Direction from);
-	virtual void collisionTile(Lava* lava, Direction from);
-	virtual void collisionTile(Water* water, Direction from);
+	void collideWithTile(Tile* tile);
+	virtual void collideWithTile(Tile* tile, Direction from);
+	virtual void collideWithTile(LuckyBlock* luckyBlock, Direction from);
+	virtual void collideWithTile(Portal* portal, Direction from);
+	virtual void collideWithTile(Lava* lava, Direction from);
+	virtual void collideWithTile(Water* water, Direction from);
 
 	// collision with other entities
-	virtual void collisionEntity(Entity* other, Direction& from);
-	virtual void collisionEntity(Player* player, Direction from);
-	virtual void collisionEntity(Enemy* enemy, Direction from);
-	virtual void collisionEntity(Bullet* bullet, Direction from);
-	virtual void collisionEntity(Shell* shell, Direction from);
-	virtual void collisionEntity(PowerUp* powerUp, Direction from);
+	virtual void collideWithEntity(Entity* other, Direction& from);
+	virtual void collideWithEntity(Player* player, Direction from);
+	virtual void collideWithEntity(Enemy* enemy, Direction from);
+	virtual void collideWithEntity(Bullet* bullet, Direction from);
+	virtual void collideWithEntity(Shell* shell, Direction from);
+	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();

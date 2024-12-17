@@ -37,11 +37,11 @@ public:
 	virtual void squished();
 	virtual void takeDamage();
 
-	void collisionTile(Tile* tile, Direction from) override;
+	void collideWithTile(Tile* tile, Direction from) override;
 
-	void collisionEntity(Player* player, Direction from) override;
-	void collisionEntity(Shell* shell, Direction from) override;
-	void collisionEntity(Bullet* bullet, Direction from) override;
+	void collideWithEntity(Player* player, Direction from) override;
+	void collideWithEntity(Shell* shell, Direction from) override;
+	void collideWithEntity(Bullet* bullet, Direction from) override;
 
 	virtual void update(float deltaTime) override;
 	virtual void render(sf::RenderTarget& target) override;

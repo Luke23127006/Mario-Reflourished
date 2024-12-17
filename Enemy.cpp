@@ -81,9 +81,9 @@ void Enemy::takeDamage()
 {
 }
 
-void Enemy::collisionTile(Tile* tile, Direction from)
+void Enemy::collideWithTile(Tile* tile, Direction from)
 {
-	Entity::collisionTile(tile, from);
+	Entity::collideWithTile(tile, from);
 
 	if (from == Direction::LEFT || from == Direction::RIGHT)
 	{
@@ -96,13 +96,13 @@ void Enemy::collisionTile(Tile* tile, Direction from)
 	}
 }
 
-void Enemy::collisionEntity(Player* player, Direction from)
+void Enemy::collideWithEntity(Player* player, Direction from)
 {
-	player->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
-	player->collisionEntity(this, from);
+	player->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
+	player->collideWithEntity(this, from);
 }
 
-void Enemy::collisionEntity(Shell* shell, Direction from)
+void Enemy::collideWithEntity(Shell* shell, Direction from)
 {
 	if (shell->isActivated())
 	{
@@ -129,7 +129,7 @@ void Enemy::collisionEntity(Shell* shell, Direction from)
 	}
 }
 
-void Enemy::collisionEntity(Bullet* bullet, Direction from)
+void Enemy::collideWithEntity(Bullet* bullet, Direction from)
 {
 	if (from != Direction::NONE) 
 	{

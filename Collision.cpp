@@ -53,33 +53,33 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 
 void Collision::handle_entity_tile(Entity* entity, Tile* tile)
 {
-	entity->collisionTile(tile);
+	entity->collideWithTile(tile);
 }
 
 void Collision::handle_entity_entity(Entity* entity, Entity* other)
 {
 	Direction from = Direction::NONE;
-	entity->collisionEntity(other, from);
+	entity->collideWithEntity(other, from);
 	if (from == Direction::NONE) return;
 	if (isDerivedFrom<Player>(*other))
 	{
-		entity->collisionEntity(dynamic_cast<Player*>(other), from);
+		entity->collideWithEntity(dynamic_cast<Player*>(other), from);
 	}
 	else if (isDerivedFrom<Enemy>(*other))
 	{
-		entity->collisionEntity(dynamic_cast<Enemy*>(other), from);
+		entity->collideWithEntity(dynamic_cast<Enemy*>(other), from);
 	}
 	else if (isDerivedFrom<Bullet>(*other))
 	{
-		entity->collisionEntity(dynamic_cast<Bullet*>(other), from);
+		entity->collideWithEntity(dynamic_cast<Bullet*>(other), from);
 	}
 	else if (isDerivedFrom<Shell>(*other))
 	{
-		entity->collisionEntity(dynamic_cast<Shell*>(other), from);
+		entity->collideWithEntity(dynamic_cast<Shell*>(other), from);
 	}
 	else if (isDerivedFrom<PowerUp>(*other))
 	{
-		entity->collisionEntity(dynamic_cast<PowerUp*>(other), from);
+		entity->collideWithEntity(dynamic_cast<PowerUp*>(other), from);
 	}
 }
 

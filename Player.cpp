@@ -148,9 +148,9 @@ Bullet* Player::shoot()
 	return nullptr;
 }
 
-void Player::collisionTile(Tile* tile, Direction from)
+void Player::collideWithTile(Tile* tile, Direction from)
 {
-	Entity::collisionTile(tile, from);
+	Entity::collideWithTile(tile, from);
 
 	if (tile->isSolid())
 	{
@@ -174,11 +174,11 @@ void Player::collisionTile(Tile* tile, Direction from)
 	}
 }
 
-void Player::collisionTile(LuckyBlock* tile, Direction from)
+void Player::collideWithTile(LuckyBlock* tile, Direction from)
 {
 }
 
-void Player::collisionTile(Portal* portal, Direction from)
+void Player::collideWithTile(Portal* portal, Direction from)
 {
 	if (this->getGlobalBounds().left > portal->getGlobalBounds().left)
 	{
@@ -186,7 +186,7 @@ void Player::collisionTile(Portal* portal, Direction from)
 	}
 }
 
-void Player::collisionEntity(Enemy* enemy, Direction from)
+void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
 	if (from == Direction::UP)
 	{
@@ -199,7 +199,7 @@ void Player::collisionEntity(Enemy* enemy, Direction from)
 	}
 }
 
-void Player::collisionEntity(Shell* shell, Direction from)
+void Player::collideWithEntity(Shell* shell, Direction from)
 {
 	sf::FloatRect playerBounds = this->getGlobalBounds();
 	sf::FloatRect shellBounds = shell->getGlobalBounds();
@@ -240,7 +240,7 @@ void Player::collisionEntity(Shell* shell, Direction from)
 		this->die();
 	}
 }
-void Player::collisionEntity(PowerUp* powerUp, Direction from)
+void Player::collideWithEntity(PowerUp* powerUp, Direction from)
 {
 	if (from != Direction::NONE)
 	{

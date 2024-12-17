@@ -34,9 +34,9 @@ void Bullet::die()
 	this->dieTimer = 0.25f;
 }
 
-void Bullet::collisionTile(Tile* tile, Direction from)
+void Bullet::collideWithTile(Tile* tile, Direction from)
 {
-	Entity::collisionTile(tile, from);
+	Entity::collideWithTile(tile, from);
 	if (!tile->isSolid()) return;
 	if (from == Direction::UP)
 	{
@@ -48,13 +48,13 @@ void Bullet::collisionTile(Tile* tile, Direction from)
 	}
 }
 
-void Bullet::collisionEntity(Entity* entity, Direction& from)
+void Bullet::collideWithEntity(Entity* entity, Direction& from)
 {
-	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
-	entity->collisionEntity(this, from);
+	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
+	entity->collideWithEntity(this, from);
 }
 
-void Bullet::collisionEntity(Shell* shell, Direction from)
+void Bullet::collideWithEntity(Shell* shell, Direction from)
 {
 	if (from != Direction::NONE)
 	{

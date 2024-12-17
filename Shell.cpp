@@ -38,9 +38,9 @@ void Shell::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
-void Shell::collisionTile(Tile* tile, Direction from)
+void Shell::collideWithTile(Tile* tile, Direction from)
 {
-	Entity::collisionTile(tile, from);
+	Entity::collideWithTile(tile, from);
 	if (from == Direction::LEFT || from == Direction::RIGHT)
 	{
 		this->turnAround();
@@ -51,11 +51,11 @@ void Shell::collisionTile(Tile* tile, Direction from)
 	}
 }
 
-void Shell::collisionEntity(Entity* entity, Direction& from)
+void Shell::collideWithEntity(Entity* entity, Direction& from)
 {
 	if (isType<Entity>(*entity)) return;
-	entity->Entity::collisionEntity(dynamic_cast<Entity*>(this), from);
-	entity->collisionEntity(this, from);
+	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
+	entity->collideWithEntity(this, from);
 }
 
 void Shell::update(float deltaTime)

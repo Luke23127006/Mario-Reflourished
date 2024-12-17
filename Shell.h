@@ -17,9 +17,9 @@ public:
 	void switchActivation();
 	void turnAround();
 
-	void collisionTile(Tile* tile, Direction from) override;
+	void collideWithTile(Tile* tile, Direction from) override;
 
-	void collisionEntity(Entity* entity, Direction& from) override;
+	void collideWithEntity(Entity* entity, Direction& from) override;
 
 	void update(float deltaTime) override;
 };

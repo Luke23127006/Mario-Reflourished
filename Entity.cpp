@@ -70,7 +70,7 @@ void Entity::move(sf::Vector2f distance)
 	}
 }
 
-void Entity::collisionTile(Tile* tile)
+void Entity::collideWithTile(Tile* tile)
 {
 	Direction from = Direction::NONE;
 
@@ -119,10 +119,10 @@ void Entity::collisionTile(Tile* tile)
 		}
 	}
 
-	entity->collisionTile(tile, from);
+	entity->collideWithTile(tile, from);
 }
 
-void Entity::collisionTile(Tile* tile, Direction from)
+void Entity::collideWithTile(Tile* tile, Direction from)
 {
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 	sf::FloatRect entityBounds = this->getGlobalBounds();
@@ -154,41 +154,41 @@ void Entity::collisionTile(Tile* tile, Direction from)
 	if (from == Direction::NONE) return;
 	if (isType<Portal>(*tile))
 	{
-		this->collisionTile(dynamic_cast<Portal*>(tile), from);
+		this->collideWithTile(dynamic_cast<Portal*>(tile), from);
 	}
 	if (isType<LuckyBlock>(*tile))
 	{
-		this->collisionTile(dynamic_cast<LuckyBlock*>(tile), from);
+		this->collideWithTile(dynamic_cast<LuckyBlock*>(tile), from);
 	}
 	if (isType<Lava>(*tile))
 	{
-		this->collisionTile(dynamic_cast<Lava*>(tile), from);
+		this->collideWithTile(dynamic_cast<Lava*>(tile), from);
 	}
 	if (isType<Water>(*tile))
 	{
-		this->collisionTile(dynamic_cast<Water*>(tile), from);
+		this->collideWithTile(dynamic_cast<Water*>(tile), from);
 	}
 }
 
-void Entity::collisionTile(LuckyBlock* luckyBlock, Direction from)
+void Entity::collideWithTile(LuckyBlock* luckyBlock, Direction from)
 {
 }
 
-void Entity::collisionTile(Portal* portal, Direction from)
+void Entity::collideWithTile(Portal* portal, Direction from)
 {
 }
 
-void Entity::collisionTile(Lava* lava, Direction from)
+void Entity::collideWithTile(Lava* lava, Direction from)
 {
 	this->die();
 }
 
-void Entity::collisionTile(Water* water, Direction from)
+void Entity::collideWithTile(Water* water, Direction from)
 {
 	this->underWater = true;
 }
 
-void Entity::collisionEntity(Entity* other, Direction& from)
+void Entity::collideWithEntity(Entity* other, Direction& from)
 {
 	from = Direction::NONE;
 
@@ -230,23 +230,23 @@ void Entity::collisionEntity(Entity* other, Direction& from)
 	}
 }
 
-void Entity::collisionEntity(Player* player, Direction from)
+void Entity::collideWithEntity(Player* player, Direction from)
 {
 }
 
-void Entity::collisionEntity(Enemy* enemy, Direction from)
+void Entity::collideWithEntity(Enemy* enemy, Direction from)
 {
 }
 
-void Entity::collisionEntity(Bullet* bullet, Direction from)
+void Entity::collideWithEntity(Bullet* bullet, Direction from)
 {
 }
 
-void Entity::collisionEntity(Shell* shell, Direction from)
+void Entity::collideWithEntity(Shell* shell, Direction from)
 {
 }
 
-void Entity::collisionEntity(PowerUp* powerUp, Direction from)
+void Entity::collideWithEntity(PowerUp* powerUp, Direction from)
 {
 }
 
