@@ -14,29 +14,23 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
-	animation.resize(INT(PlayerState::NUM_PLAYER_STATES));
-	animation[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
+	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
-	animation[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
-	animation[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+	animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+	animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-	animation[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
-	animation[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+	animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+	animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
 
-	animation[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.1f, sf::Vector2i(54, 48));
-	animation[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
+	animations[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.1f, sf::Vector2i(54, 48));
+	animations[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-	animation[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 }
 
 Player::~Player()
 {
-	while (!animation.empty())
-	{
-		delete animation.back();
-		animation.pop_back();
-	}
-
 	delete this->nimbus;
 }
 
@@ -65,8 +59,8 @@ void Player::gainPowerUp(PowerUp& powerUp)
 	{
 	case PowerUpType::MUSHROOM:
 		if (this->powerUpDuration[INT(powerUp.getType())] > 0.f) break;
-		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_BIGGER_HEIGHT));
-		this->hitbox.move(0.f, PLAYER_HEIGHT - PLAYER_BIGGER_HEIGHT);
+		this->hitbox.setSize(sf::Vector2f(PLAYER_BIGGER_WIDTH, PLAYER_BIGGER_HEIGHT));
+		this->hitbox.move(0.f, PLAYER_BIGGER_WIDTH - PLAYER_BIGGER_HEIGHT);
 		break;
 
 	case PowerUpType::INVICIBLE:
@@ -444,9 +438,9 @@ void Player::updateAnimation(float deltaTime)
 
 	if (this->dying) this->playerState = PlayerState::DIE;
 
-	for (auto& a : this->animation)
+	for (auto& a : this->animations)
 	{
-		a->update(deltaTime, this->flipped);
+		if (a) a->update(deltaTime, this->flipped);
 	}
 }
 
@@ -455,6 +449,6 @@ void Player::updateAnimation(float deltaTime)
 void Player::render(sf::RenderTarget& target)
 {
 	Entity::render(target);
-	this->animation[INT(this->playerState)]->render(target, this->hitbox.getPosition());
+	this->animations[INT(this->playerState)]->render(target, this->hitbox.getPosition());
 	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
 }

@@ -24,7 +24,6 @@ private:
 	bool canShoot = true;
 	bool isNimbusActive = false;
 	FlyingNimbus* nimbus;
-	std::vector<Animation*> animation;
 	std::vector<float> powerUpDuration;
 
 public:

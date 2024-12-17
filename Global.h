@@ -231,7 +231,14 @@ enum class PlayerState
 	WALK,
 	JUMP,
 	SWIM,
+	SHOOT,
 	DIE,
+	BIG_IDLE,
+	BIG_WALK,
+	BIG_JUMP,
+	BIG_SWIM,
+	BIG_SHOOT,
+	BIG_DIE,
 	NUM_PLAYER_STATES
 };
 

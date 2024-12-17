@@ -217,7 +217,7 @@ void Game::run()
 		float deltaTime = this->clock.restart().asSeconds();
 
 		float FPS = 1 / deltaTime;
-		if (FPS < 60.f) continue;
+		if (FPS < 30.f) continue;
 
 		this->update(deltaTime);
 		this->render();
