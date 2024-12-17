@@ -68,12 +68,14 @@ void Object::update(float deltaTime)
 
 void Object::render(sf::RenderTarget& target)
 {
+	int borderSize = 1;
 	sf::RectangleShape border = this->hitbox;
 	border.setFillColor(sf::Color::Transparent);
-	border.setOutlineThickness(1.f);
+	border.setOutlineThickness(borderSize);
+	border.setOrigin(-borderSize, -borderSize);
+	border.setSize(sf::Vector2f(this->hitbox.getSize().x - 2 * borderSize, this->hitbox.getSize().y - 2 * borderSize));
 	border.setOutlineColor(sf::Color::Blue);
 
 	target.draw(this->sprite);
-	//target.draw(this->hitbox);
 	target.draw(border);
 }
