@@ -41,6 +41,14 @@ public:
 	const bool hasPowerUp(PowerUpType type) const;
 	void addCoin();
 
+	sf::Vector2f getAcceleration();
+	int getHealth();
+
+	void setCanBreakBlocks(bool canBreakBlocks);
+	void setVelocityMax(sf::Vector2f velocityMax);
+	void setAcceleration(sf::Vector2f acceleration);
+	void setHealth(int health);
+
 	Bullet* shoot();
 
 	void collideWithTile(Tile* tile, Direction from) override;
@@ -57,9 +65,4 @@ public:
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);
 	void render(sf::RenderTarget& target) override;
-
-	friend class PowerUp;
-	friend class Mushroom;
-	friend class Shield;
-	friend class FlyingNimbus;
 };

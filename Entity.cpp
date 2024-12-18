@@ -48,6 +48,16 @@ void Entity::setVelocity(sf::Vector2f velocity)
 	this->velocity = velocity;
 }
 
+const bool Entity::getOnGround() const
+{
+	return this->onGround;
+}
+
+const sf::Vector2f Entity::getVelocity() const
+{
+	return this->velocity;
+}
+
 void Entity::jump()
 {
 	if (this->onGround)
@@ -253,11 +263,6 @@ void Entity::collideWithEntity(PowerUp* powerUp, Direction from)
 sf::Vector2f Entity::getLastPosition()
 {
 	return this->lastPosition;
-}
-
-sf::Vector2f Entity::getVelocity()
-{
-	return this->velocity;
 }
 
 void Entity::die()

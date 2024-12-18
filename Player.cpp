@@ -90,6 +90,36 @@ void Player::addCoin()
 	this->coins++;
 }
 
+sf::Vector2f Player::getAcceleration()
+{
+	return this->acceleration;
+}
+
+int Player::getHealth()
+{
+	return this->health;
+}
+
+void Player::setCanBreakBlocks(bool canBreakBlocks)
+{
+	this->canBreakBlocks = canBreakBlocks;
+}
+
+void Player::setVelocityMax(sf::Vector2f velocityMax)
+{
+	this->velocityMax = velocityMax;
+}
+
+void Player::setAcceleration(sf::Vector2f acceleration)
+{
+	this->acceleration = acceleration;
+}
+
+void Player::setHealth(int health)
+{
+	this->health = health;
+}
+
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	for (auto& p : this->powerUps)

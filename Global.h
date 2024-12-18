@@ -144,10 +144,10 @@ const float NIMBUS_DURATION = 10.f;
 // nimbus
 const float NIMBUS_WIDTH = 100.f;
 const float NIMBUS_HEIGHT = 24.f;
-const float NIMBUS_SPEED = 1000.f;
-const float NIMBUS_VERTICAL_SPEED = 600.f;
-const float NIMBUS_ACCELERATION = 800.f;
-const float NIMBUS_DECELERATION = -1200.f;
+const float NIMBUS_SPEED = 1200.f;
+const float NIMBUS_VERTICAL_SPEED = 700.f;
+const float NIMBUS_ACCELERATION = 600.f;
+const float NIMBUS_DECELERATION = -400.f;
 
 // mushroom
 const float GROW_WIDTH = 48.f;

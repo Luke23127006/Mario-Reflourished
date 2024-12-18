@@ -32,15 +32,22 @@ public:
 	Entity(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Entity();
 
-	const bool isDead() const;
-	const bool isDying() const;
-	const bool isUnderWater() const;
 
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
 	void setVelocity(sf::Vector2f velocity);
+
+	const bool isDead() const;
+	const bool isDying() const;
+	const bool isUnderWater() const;
+
+	const bool getOnGround() const;
+	const sf::Vector2f getVelocity() const;
+	sf::Vector2f getLastPosition();
+
 	void jump();
 	void move(sf::Vector2f distance);
+	virtual void die();
 	
 	// collision with tiles
 	void collideWithTile(Tile* tile);
@@ -58,9 +65,6 @@ public:
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 
-	sf::Vector2f getLastPosition();
-	sf::Vector2f getVelocity();
-	virtual void die();
 
 	virtual void update(float deltaTime) override;
 	void updateLastPosition();

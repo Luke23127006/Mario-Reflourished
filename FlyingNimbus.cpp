@@ -16,7 +16,7 @@ FlyingNimbus::FlyingNimbus(Player* player) :
 	this->type = PowerUpType::FLYING_NIMBUS;
 
 	if (this->player->hasPowerUp(this->type)) return;
-	this->player->velocityMax = sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED);
+	this->player->setVelocityMax(sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED));
 	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
 	this->hitbox.setFillColor(sf::Color::Yellow);
 	this->isAppearing = true;
@@ -26,7 +26,7 @@ FlyingNimbus::FlyingNimbus(Player* player) :
 
 FlyingNimbus::~FlyingNimbus()
 {
-	this->player->velocityMax = sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED);
+	this->player->setVelocityMax(sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED));
 }
 
 //
@@ -111,65 +111,70 @@ void FlyingNimbus::applyPowerUp(float deltaTime)
 		player->move(sf::Vector2f(0, -50.f * deltaTime));
 	}
 
-	player->acceleration = sf::Vector2f(0.f, 0.f);
+	player->setAcceleration(sf::Vector2f(0.f, 0.f));
+	sf::Vector2f playerAcceleration = sf::Vector2f(0.f, 0.f);
+	sf::Vector2f playerVelocity = player->getVelocity();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		player->acceleration.y = -NIMBUS_ACCELERATION;
-		if (player->velocity.y > 0.f)
+		playerAcceleration.y = -NIMBUS_ACCELERATION;
+		if (playerVelocity.y > 0.f)
 		{
-			player->acceleration.y += NIMBUS_DECELERATION;
+			playerAcceleration.y += NIMBUS_DECELERATION;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		player->acceleration.y = NIMBUS_ACCELERATION;
-		if (player->velocity.y < 0.f)
+		playerAcceleration.y = NIMBUS_ACCELERATION;
+		if (playerVelocity.y < 0.f)
 		{
-			player->acceleration.y -= NIMBUS_DECELERATION;
+			playerAcceleration.y -= NIMBUS_DECELERATION;
 		}
 	}
 
-	if (player->acceleration.y == 0.f)
+	if (playerAcceleration.y == 0.f)
 	{
-		if (player->velocity.y > 0.f)
+		if (playerVelocity.y > 0.f)
 		{
-			player->acceleration.y = std::max(-player->velocity.y / deltaTime, NIMBUS_DECELERATION);
+			playerAcceleration.y = std::max(-playerVelocity.y / deltaTime, NIMBUS_DECELERATION);
 		}
-		else if (player->velocity.y < 0.f)
+		else if (playerVelocity.y < 0.f)
 		{
-			player->acceleration.y = std::min(-player->velocity.y / deltaTime, -NIMBUS_DECELERATION);
+			playerAcceleration.y = std::min(-playerVelocity.y / deltaTime, -NIMBUS_DECELERATION);
 		}
 	}
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		player->acceleration.x = -NIMBUS_ACCELERATION;
-		if (player->velocity.x > 0.f)
+		playerAcceleration.x = -NIMBUS_ACCELERATION;
+		if (playerVelocity.x > 0.f)
 		{
-			player->acceleration.x += NIMBUS_DECELERATION;
+			playerAcceleration.x += NIMBUS_DECELERATION;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		player->acceleration.x = NIMBUS_ACCELERATION;
-		if (player->velocity.x < 0.f)
+		playerAcceleration.x = NIMBUS_ACCELERATION;
+		if (playerVelocity.x < 0.f)
 		{
-			player->acceleration.x -= NIMBUS_DECELERATION;
+			playerAcceleration.x -= NIMBUS_DECELERATION;
 		}
 	}
 
-	if (player->acceleration.x == 0.f)
+	if (playerAcceleration.x == 0.f)
 	{
-		if (player->velocity.x > 0.f)
+		if (playerVelocity.x > 0.f)
 		{
-			player->acceleration.x = std::max(-player->velocity.x / deltaTime, NIMBUS_DECELERATION);
+			playerAcceleration.x = std::max(-playerVelocity.x / deltaTime, NIMBUS_DECELERATION);
 		}
-		else if (player->velocity.x < 0.f)
+		else if (playerVelocity.x < 0.f)
 		{
-			player->acceleration.x = std::min(-player->velocity.x / deltaTime, -NIMBUS_DECELERATION);
+			playerAcceleration.x = std::min(-playerVelocity.x / deltaTime, -NIMBUS_DECELERATION);
 		}
 	}
+
+	this->player->setAcceleration(playerAcceleration);
+	this->player->setVelocity(playerVelocity);
 }
 
 void FlyingNimbus::update(float deltaTime)

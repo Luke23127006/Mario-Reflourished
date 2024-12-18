@@ -8,15 +8,15 @@ Shield::Shield(Player* player) :
 	this->duration = SHIELD_DURATION;
 	this->player = player;
 	
-	this->player->health = 2;
+	this->player->setHealth(2);
 }
 
 Shield::~Shield()
 {
-	this->player->health = std::min(this->player->health, 1);
+	this->player->setHealth(1);
 }
 
 void Shield::applyPowerUp(float deltaTime)
 {
-	if (this->player->health == 1) this->duration = 0.f;
+	if (this->player->getHealth() == 1) this->duration = 0.f;
 }

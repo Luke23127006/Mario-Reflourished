@@ -22,6 +22,7 @@ public:
 	sf::Vector2f getPosition() const;
 	const sf::FloatRect getGLobalBounds() const;
 
+	void setSize(sf::Vector2f size);
 	void setPosition(sf::Vector2f position);
 	void setOrigin(sf::Vector2f origin);
 	void setEnabled(bool enabled);
