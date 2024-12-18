@@ -2,12 +2,6 @@
 #include "Player.h"
 #include <iostream>
 
-
-
-
-
-
-
 FlyingNimbus::FlyingNimbus(Player* player) :
 	PowerUp(player)
 {
@@ -28,41 +22,6 @@ FlyingNimbus::~FlyingNimbus()
 {
 	this->player->setVelocityMax(sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED));
 }
-
-//
-//void FlyingNimbus::appear(float dt)
-//{
-//	if (this->isAppearing == false) return;
-//	if (this->elapsedTime >= this->appearTime) {
-//		this->isAppearing = false;
-//		 // Đảm bảo vị trí cuối
-//		return;
-//	}
-//
-//	this->elapsedTime += dt;
-//
-//	// Tỉ lệ thời gian (từ 0 đến 1)
-//	float t = (this->elapsedTime / this->appearTime);
-//
-//	// Tọa độ ban đầu và cuối
-//	sf::Vector2f startPosition = playerPosition + sf::Vector2f(300, -300);
-//	sf::Vector2f endPosition = playerPosition + sf::Vector2f(0, PLAYER_HEIGHT);
-//
-//	// Biên độ và tần số của sóng
-//	float amplitude = 50.0f; // Độ cao sóng (điều chỉnh cho đẹp)
-//	float frequency = 3.0f;   // Số chu kỳ trong thời gian appearTime
-//
-//	// Tính toán vị trí theo đường cong sin
-//	float x = startPosition.x + t * (endPosition.x - startPosition.x);
-//	float y = startPosition.y + t * (endPosition.y - startPosition.y)
-//		+ amplitude * std::sin(frequency * 3.1415923537f * t);
-//
-//	// Cập nhật vị trí Nimbus
-//	//this->hitbox.setPosition(sf::Vector2f(x, y));
-//	this->hitbox.move(sf::Vector2f(x, y) - this->hitbox.getPosition());
-//
-//}
-#include <cmath> // Để sử dụng std::sin và std::cos
 
 void FlyingNimbus::appear(float deltaTime)
 {

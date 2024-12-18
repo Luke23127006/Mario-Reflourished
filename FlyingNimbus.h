@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "Animation.h"
-#include<cmath>
+#include <cmath>
 #include "PowerUp.h"
 
 
@@ -10,9 +10,6 @@
 class FlyingNimbus : public PowerUp
 {
 private:
-
-	/*sf::RenderTexture nimbusTexture;
-	Animation  * nimbusAnimation;*/
 	bool isAppearing;
 	float appearTime;
 	float elapsedTime;
