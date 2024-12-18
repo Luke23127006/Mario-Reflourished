@@ -19,6 +19,7 @@ protected:
 	PowerUpType type = PowerUpType::NUM_POWER_UPS;
 public:
 	PowerUp(sf::FloatRect container);
+	PowerUp(Player* player);
 	virtual ~PowerUp();
 
 	const float getDuration() const;

@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "Bird.h"
 #include "Mushroom.h"
+#include "Shield.h"
 
 #include <ctime>
 

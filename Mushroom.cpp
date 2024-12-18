@@ -1,8 +1,8 @@
 #include "Mushroom.h"
 #include "Player.h"
 
-Mushroom::Mushroom(sf::FloatRect container, Player* player) :
-	PowerUp(container)
+Mushroom::Mushroom(Player* player) :
+	PowerUp(player)
 {
 	this->player = player;
 	this->duration = MUSHROOM_DURATION;

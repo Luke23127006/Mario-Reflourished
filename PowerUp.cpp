@@ -12,6 +12,13 @@ PowerUp::PowerUp(sf::FloatRect container) :
 	this->animations[0]->setSize(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT));
 }
 
+PowerUp::PowerUp(Player* player) :
+	Entity(sf::Vector2f(), sf::Vector2f()),
+	player(player)
+{
+	this->type = PowerUpType::NUM_POWER_UPS;
+}
+
 PowerUp::~PowerUp()
 {
 }

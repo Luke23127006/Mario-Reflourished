@@ -5,7 +5,7 @@
 class Mushroom : public PowerUp
 {
 public:
-	Mushroom(sf::FloatRect container, Player* player);
+	Mushroom(Player* player);
 	virtual ~Mushroom();
 
 	void applyPowerUp() override;

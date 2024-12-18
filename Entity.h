@@ -19,6 +19,7 @@ private:
 protected:
 	sf::Vector2f velocity;
 
+	int health = 1;
 	bool onGround;
 	bool flipped;
 	float dieTimer;

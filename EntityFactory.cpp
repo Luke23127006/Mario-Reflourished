@@ -38,5 +38,6 @@ PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 PowerUp* EntityFactory::createPowerUp(Player* player)
 {
 	int chance = rand() % 100;
-	return new Mushroom(sf::FloatRect(), player);
+	return new Shield(player);
+	return new Mushroom(player);
 }

@@ -5,12 +5,12 @@
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	Entity(size, position),
 	blinkTimer(0.f),
+	velocityMax(sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED)),
 	playerState(PlayerState::IDLE),
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
 	coins(0),
-	lives(3),
-	powerUpDuration(INT(PowerUpType::NUM_POWER_UPS), 0.f)
+	lives(3)
 {
 	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
@@ -46,15 +46,19 @@ void Player::stopJumping()
 	this->jumpTimer = 0.f;
 }
 
+void Player::takeDamage()
+{
+	if (this->invicibleTimer > 0.f) return;
+	this->health--;
+	if (this->health == 0) this->die();
+	else
+	{
+		this->invicibleTimer = 1.f;
+	}
+}
+
 void Player::die()
 {
-	if (this->hasPowerUp(PowerUpType::INVICIBLE)) return;
-	if (this->hasPowerUp(PowerUpType::SHIELD))
-	{
-		this->powerUpDuration[INT(PowerUpType::SHIELD)] = 0.f;
-		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = INVICIBLE_DURATION;
-		return;
-	}
 	this->dying = true;
 	this->enabled = false;
 	this->velocity = sf::Vector2f(0.f, -PLAYER_DIE_VELOCITY);
@@ -163,7 +167,7 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 	}
 	else if (from != Direction::NONE)
 	{
-		this->die();
+		this->takeDamage();
 	}
 }
 
@@ -228,10 +232,9 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
-		if (this->isNimbusActive) this->updateMovementNimbus(deltaTime);
-		else
-			this->updateMovement(deltaTime);
+		this->updateVelocity(deltaTime);
 		this->updatePowerUps(deltaTime);
+		this->updateMovement(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
 		if (this->nimbus)
 		{
@@ -303,36 +306,37 @@ void Player::updateMovementNimbus(float deltaTime)
 	adjustBetween(this->velocity.x, -NIMBUS_SPEED, NIMBUS_SPEED);
 	this->hitbox.move(this->velocity * deltaTime);
 }
-void Player::updateMovement(float deltaTime)
+
+void Player::updateVelocity(float deltaTime)
 {
 	// horizontal movement
-	float acceleration = 0.f;
-	float deceleration = 0.f;
+	this->acceleration = sf::Vector2f(0.f, GRAVITY);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		acceleration = -PLAYER_ACCELERATION;
+		this->acceleration.x = -PLAYER_ACCELERATION;
 		if (this->velocity.x > 0.f)
 		{
-			deceleration = -PLAYER_DECELERATION;
+			this->acceleration.x += PLAYER_DECELERATION;
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		acceleration = PLAYER_ACCELERATION;
+		this->acceleration.x = PLAYER_ACCELERATION;
 		if (this->velocity.x < 0.f)
 		{
-			deceleration = PLAYER_DECELERATION;
+			this->acceleration.x -= PLAYER_DECELERATION;
 		}
 	}
-	if (acceleration == 0.f)
+
+	if (this->acceleration.x == 0.f)
 	{
 		if (this->velocity.x > 0.f)
 		{
-			deceleration = std::max(-this->velocity.x / deltaTime, -PLAYER_DECELERATION);
+			this->acceleration.x = std::max(-this->velocity.x / deltaTime, PLAYER_DECELERATION);
 		}
 		else if (this->velocity.x < 0.f)
 		{
-			deceleration = std::min(-this->velocity.x / deltaTime, PLAYER_DECELERATION);
+			this->acceleration.x = std::max(this->velocity.x / deltaTime, -PLAYER_DECELERATION);
 		}
 	}
 
@@ -341,8 +345,7 @@ void Player::updateMovement(float deltaTime)
 	{
 		if (this->onGround)
 		{
-			this->jumpTimer = PLAYER_JUMP_TIME;
-			if (this->hasPowerUp(PowerUpType::AIR_SNEAKERS)) this->jumpTimer *= 2.f;
+			this->jumpTimer = this->jumpTimerMax;
 			this->velocity.y = -PLAYER_JUMP_STRENGHT;
 			this->onGround = false;
 		}
@@ -356,15 +359,14 @@ void Player::updateMovement(float deltaTime)
 			this->velocity.y = -PLAYER_JUMP_STRENGHT;
 			this->jumpTimer = std::max(this->jumpTimer - deltaTime, 0.f);
 		}
-		else this->velocity.y += GRAVITY * deltaTime;
+		else this->acceleration.y = GRAVITY;
 	}
-	else this->velocity.y = 0.f;
+	else this->velocity.y = 0.f, this->acceleration.y = 0.f;
 
-	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
-	adjustBetween(this->velocity.x, -PLAYER_SPEED, PLAYER_SPEED);
+	this->velocity += this->acceleration * deltaTime;
 
 	// under water
-	if (this->underWater)
+	/*if (this->underWater)
 	{
 		acceleration *= 0.5f;
 		deceleration /= 0.5f;
@@ -380,8 +382,13 @@ void Player::updateMovement(float deltaTime)
 		{
 			this->velocity.y = std::max(this->velocity.y, WATER_MAX_VERTICAL_SPEED);
 		}
-	}
+	}*/
+}
 
+void Player::updateMovement(float deltaTime)
+{
+	adjustBetween(this->velocity.x, -this->velocityMax.x, this->velocityMax.x);
+	adjustBetween(this->velocity.y, -this->velocityMax.y, this->velocityMax.y);
 	this->hitbox.move(this->velocity * deltaTime);
 }
 

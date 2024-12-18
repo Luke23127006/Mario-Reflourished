@@ -17,22 +17,26 @@ private:
 	PlayerState playerState;
 	std::vector<PowerUp*> powerUps;
 
+	sf::Vector2f acceleration;
+
 	bool canBreakBlocks = false;
+	sf::Vector2f velocityMax;
 
 	float blinkTimer;
 	float invicibleTimer;
 	float jumpTimer;
+	float jumpTimerMax = PLAYER_JUMP_TIME;
 	int coins;
 	int lives;
 	bool canShoot = true;
 	bool isNimbusActive = false;
 	FlyingNimbus* nimbus;
-	std::vector<float> powerUpDuration;
 
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Player();
 	void stopJumping();
+	void takeDamage();
 	void die() override;
 	void gainPowerUp(PowerUp* powerUp);
 	const bool hasPowerUp(PowerUpType type) const;
@@ -50,6 +54,7 @@ public:
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);
+	void updateVelocity(float deltaTime);
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);
@@ -57,4 +62,6 @@ public:
 
 	friend class PowerUp;
 	friend class Mushroom;
+	friend class Shield;
+	friend class FlyingNimbus;
 };

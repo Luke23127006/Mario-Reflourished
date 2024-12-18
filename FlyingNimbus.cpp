@@ -116,6 +116,11 @@ void FlyingNimbus::render(sf::RenderTarget& target)
 	target.draw(this->hitbox);
 }
 
+void FlyingNimbus::applyPowerUp()
+{
+
+}
+
 void FlyingNimbus::update(float deltaTime)
 {
 

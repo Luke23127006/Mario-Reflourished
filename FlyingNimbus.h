@@ -28,4 +28,5 @@ public:
 	void update(float deltaTime) override;
 	void render(sf::RenderTarget& target) override;
 
+	void applyPowerUp() override;
 };

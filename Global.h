@@ -47,13 +47,13 @@ const float PLAYER_BIGGER_HEIGHT = 96.f;
 const float PLAYER_SPEED = 400.f;
 const float PLAYER_FALL_SPEED = 2000.f;
 const float PLAYER_ACCELERATION = 800.f;
-const float PLAYER_DECELERATION = 1200.f;
+const float PLAYER_DECELERATION = -1200.f;
 
 const float PLAYER_WATER_ACCELERATION = 400.f;
-const float PLAYER_WATER_DECELERATION = 2400.f;
+const float PLAYER_WATER_DECELERATION = -2400.f;
 
 const float PLAYER_JUMP_STRENGHT = 550.f;
-const float PLAYER_JUMP_TIME = 0.28f;
+const float PLAYER_JUMP_TIME = 0.3f;
 const float PLAYER_DIE_VELOCITY = 700.f;
 const float PLAYER_SHOOT_COOLDOWN = 0.5f;
 
@@ -137,7 +137,7 @@ const float FIRE_FLOWER_DURATION = 5.f;
 const float AIR_SNEAKERS_DURATION = 5.f;
 const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
-const float SHIELD_DURATION = 5.f;
+const float SHIELD_DURATION = 10.f;
 const float MAGNET_DURATION = 5.f;
 const float NIMBUS_DURATION = 5.f;
 
