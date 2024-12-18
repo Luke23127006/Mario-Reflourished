@@ -100,6 +100,6 @@ void PowerUp::update(float deltaTime)
 	}
 }
 
-void PowerUp::applyPowerUp()
+void PowerUp::applyPowerUp(float deltaTime)
 {
 }

@@ -20,6 +20,6 @@ Mushroom::~Mushroom()
 	this->player->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
 }
 
-void Mushroom::applyPowerUp()
+void Mushroom::applyPowerUp(float deltaTime)
 {
 }

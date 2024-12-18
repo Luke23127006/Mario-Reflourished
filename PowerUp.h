@@ -34,5 +34,5 @@ public:
 
 	void update(float deltaTime) override;
 
-	virtual void applyPowerUp();
+	virtual void applyPowerUp(float deltaTime);
 };

@@ -54,7 +54,7 @@ public:
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);
-	void updateVelocity(float deltaTime);
+	void updateAcceleration(float deltaTime);
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);

@@ -7,6 +7,6 @@ class Shield : public PowerUp
 public:
 	Shield(Player* player);
 	virtual ~Shield();
-	void applyPowerUp() override;
+	void applyPowerUp(float deltaTime) override;
 };
 

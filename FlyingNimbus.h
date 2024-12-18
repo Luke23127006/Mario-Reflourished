@@ -18,7 +18,7 @@ private:
 	float elapsedTime;
 	sf::Vector2f playerPosition;
 public:
-	
+	FlyingNimbus(Player* player);
 	FlyingNimbus(sf::Vector2f position);
 	void getPlayerPosition(sf::Vector2f playerPosition);
 	bool appearing();
@@ -26,7 +26,6 @@ public:
 	virtual ~FlyingNimbus();
 	void appear(float dt);
 	void update(float deltaTime) override;
-	void render(sf::RenderTarget& target) override;
 
-	void applyPowerUp() override;
+	void applyPowerUp(float deltaTime) override;
 };

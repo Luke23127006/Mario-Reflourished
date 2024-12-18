@@ -11,6 +11,7 @@
 #include "Bird.h"
 #include "Mushroom.h"
 #include "Shield.h"
+#include "FlyingNimbus.h"
 
 #include <ctime>
 

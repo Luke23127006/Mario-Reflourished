@@ -12,6 +12,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	coins(0),
 	lives(3)
 {
+	this->health = 100;
 	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
@@ -76,7 +77,7 @@ void Player::updatePowerUps(float deltaTime)
 	for (auto& p : this->powerUps)
 	{
 		p->update(deltaTime);
-		p->applyPowerUp();
+		p->applyPowerUp(deltaTime);
 		if (p->isExpired())
 		{
 			delete this->powerUps.at(counter);
@@ -232,7 +233,7 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
-		this->updateVelocity(deltaTime);
+		this->updateAcceleration(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->updateMovement(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
@@ -307,7 +308,7 @@ void Player::updateMovementNimbus(float deltaTime)
 	this->hitbox.move(this->velocity * deltaTime);
 }
 
-void Player::updateVelocity(float deltaTime)
+void Player::updateAcceleration(float deltaTime)
 {
 	// horizontal movement
 	this->acceleration = sf::Vector2f(0.f, GRAVITY);
@@ -363,8 +364,6 @@ void Player::updateVelocity(float deltaTime)
 	}
 	else this->velocity.y = 0.f, this->acceleration.y = 0.f;
 
-	this->velocity += this->acceleration * deltaTime;
-
 	// under water
 	/*if (this->underWater)
 	{
@@ -387,6 +386,7 @@ void Player::updateVelocity(float deltaTime)
 
 void Player::updateMovement(float deltaTime)
 {
+	this->velocity += this->acceleration * deltaTime;
 	adjustBetween(this->velocity.x, -this->velocityMax.x, this->velocityMax.x);
 	adjustBetween(this->velocity.y, -this->velocityMax.y, this->velocityMax.y);
 	this->hitbox.move(this->velocity * deltaTime);
@@ -425,5 +425,8 @@ void Player::render(sf::RenderTarget& target)
 {
 	Entity::render(target);
 	this->animations[INT(this->playerState)]->render(target, this->hitbox.getPosition());
-	if (this->nimbus && this->isNimbusActive) this->nimbus->render(target);
+	for (auto& p : this->powerUps)
+	{
+		p->render(target);
+	}
 }

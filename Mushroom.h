@@ -8,6 +8,6 @@ public:
 	Mushroom(Player* player);
 	virtual ~Mushroom();
 
-	void applyPowerUp() override;
+	void applyPowerUp(float deltaTime) override;
 };
 

@@ -16,7 +16,7 @@ Shield::~Shield()
 	this->player->health = std::min(this->player->health, 1);
 }
 
-void Shield::applyPowerUp()
+void Shield::applyPowerUp(float deltaTime)
 {
 	if (this->player->health == 1) this->duration = 0.f;
 }
