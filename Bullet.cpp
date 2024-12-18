@@ -62,6 +62,13 @@ void Bullet::collideWithEntity(Shell* shell, Direction from)
 	}
 }
 
+void Bullet::collideWithEntity(FireBall* enemy, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)

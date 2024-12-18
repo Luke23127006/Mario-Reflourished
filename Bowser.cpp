@@ -33,24 +33,25 @@ void Bowser::collideWithEntity(Shell* shell, Direction from)
 		if (this->health == 0)
 		{
 			this->die();
-		}
+		}	
 	}
-	else if (from == Direction::UP)
+	if (from == Direction::UP)
 	{
-		this->setPosition(sf::Vector2f(this->getPosition().x, shell->getGLobalBounds().top - this->getGlobalBounds().height));
+		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, -shell->getVelocity().y));
 	}
 	else if (from == Direction::LEFT)
 	{
-		shell->switchActivation();
-		this->setPosition(sf::Vector2f(shell->getGlobalBounds().left - this->getGlobalBounds().width, this->getPosition().y));
-		shell->setVelocity(sf::Vector2f(0.f, 0.f));
+		if (!shell->isActivated())
+			shell->switchActivation();
+		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
 	}
 	else if (from == Direction::RIGHT)
 	{
-		shell->switchActivation();
-		this->setPosition(sf::Vector2f(shell->getGlobalBounds().left + shell->getGlobalBounds().width, this->getPosition().y));
-		shell->setVelocity(sf::Vector2f(0.f, 0.f));
+		if (!shell->isActivated())
+			shell->switchActivation();
+		shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
 	}
+
 }
 
 Bowser::~Bowser()

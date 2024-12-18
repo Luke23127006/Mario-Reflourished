@@ -55,20 +55,17 @@ void FireBall::collideWithEntity(Entity* entity, Direction& from)
 	entity->collideWithEntity(this, from);
 }
 
+
 void FireBall::span(float deltaTime)
 {
 
 	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 30, deltaTime * 30);
 	sf::Vector2f difference = newSize - this->getSize();
 	sf::Vector2f newPosition = this->getPosition() - difference;
-	Entity predictObject(newSize, newPosition);
+	Entity *predictObject = new Entity(newSize, newPosition);
 
-	if (!&this->getMap()) {
-		std::cout << "Map is null\n";
-		return;
-	}
-	Collision::handle_entity_map(&predictObject, &this->getMap());
-	std::vector<bool> collisionDirections = predictObject.getCollisionDirections();
+	Collision::handle_entity_map(predictObject, &this->getMap());
+	std::vector<bool> collisionDirections = predictObject->getCollisionDirections();
 	for (auto a : collisionDirections)
 	{
 		std::cout << a << " ";
@@ -76,6 +73,7 @@ void FireBall::span(float deltaTime)
 	std::cout << std::endl;
 	if (collisionDirections[0] || collisionDirections[3])
 	{
+		delete predictObject;
 		return;
 	}
 	else
@@ -83,6 +81,7 @@ void FireBall::span(float deltaTime)
 		this->setSize(newSize);
 		this->setPosition(newPosition);
 	}
+	delete predictObject;
 
 }
 

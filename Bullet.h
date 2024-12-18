@@ -20,7 +20,7 @@ public:
 
 	void collideWithEntity(Entity* entity, Direction& from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;
-
+	void collideWithEntity(FireBall* fireBall, Direction from) override;
 	void update(float deltaTime) override;
 
 	void render(sf::RenderTarget& target) override;
