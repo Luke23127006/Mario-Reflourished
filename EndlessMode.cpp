@@ -101,7 +101,6 @@ void EndlessMode::updateMap(float deltaTime)
 
 	if (this->cameraPosition > this->maps.front()->getPosition().x + this->maps.front()->getSize().x * TILE_SIZE + SCREEN_WIDTH)
 	{
-		std::cout << "Deleted\n";
 		delete this->maps.front();
 		this->maps.erase(this->maps.begin());
 	}
@@ -112,6 +111,8 @@ void EndlessMode::updateCollision()
 	for (auto& e : this->entities)
 	{
 		if (!e->getEnabled()) continue;
+		e->setOnGround(false);
+		e->setUnderWater(false);
 		for (auto& m : this->maps)
 		{
 			Collision::handle_entity_map(e, m);
