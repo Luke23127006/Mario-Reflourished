@@ -289,3 +289,63 @@ void PaceFly::update(float deltaTime)
 	
 }
 
+
+
+
+
+
+
+
+
+// BOSS BOWSER
+
+
+FireAttack::FireAttack(Entity* owner, Entity* player) : Component(owner, player)
+{
+	cooldownTime = 3.0f;
+	countTime = cooldownTime;
+	detection_radius = BOWSER_DETECTION_RADIUS;
+}
+
+void FireAttack::update(float deltaTime)
+{
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	sf::Vector2f VectorDirection = sf::Vector2f(playerPosition.x - ownerPosition.x, playerPosition.y - ownerPosition.y);
+	sf::Vector2f direction = sf::Vector2f(VectorDirection.x > 0 ? 1 : -1, VectorDirection.y > 0 ? 1 : -1);
+	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
+	if (distance < detection_radius)
+	{
+		countTime -= deltaTime;
+		if (countTime <= 0)
+		{
+			countTime = cooldownTime;
+			sf::Vector2f fireBallPosition;
+			
+			fireBallPosition = sf::Vector2f(ownerPosition.x + owner->getSize().x / 2, ownerPosition.y + owner->getSize().y / 2);
+			FireBall* fireBall = new FireBall(
+				fireBallPosition,
+				sf::Vector2f(FIREBALL_SPEED, FIREBALL_SPEED),
+				direction
+			);
+
+			fireBalls.push_back(fireBall);
+			
+			fireBall->setAddressOfWorld(owner->getWorld());
+			fireBall->setMap(&owner->getMap());
+			owner->addEntity(fireBall);
+		}
+	}
+	else
+	{
+		countTime = cooldownTime;
+	}
+
+	for (auto x : fireBalls)
+	{
+		sf::Vector2f vectorDirectionFireBalls = sf::Vector2f(playerPosition.x - x->getPosition().x, playerPosition.y - x->getPosition().y);
+		sf::Vector2f directionFireBalls = sf::Vector2f(vectorDirectionFireBalls.x > 0 ? 1 : -1, vectorDirectionFireBalls.y > 0 ? 1 : -1);
+		if (!x->isDying()) x->setDirection(directionFireBalls);
+	}
+
+}

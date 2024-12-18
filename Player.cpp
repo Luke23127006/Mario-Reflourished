@@ -186,6 +186,7 @@ void Player::collideWithTile(Portal* portal, Direction from)
 	}
 }
 
+// Collion ENEMY
 void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
 	if (from == Direction::UP)
@@ -199,6 +200,17 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 	}
 }
 
+// Collision FIREBALL
+void Player::collideWithEntity(FireBall* fireBall, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->die();
+		fireBall->die();
+	}
+}
+
+// Collision SHELL
 void Player::collideWithEntity(Shell* shell, Direction from)
 {
 	sf::FloatRect playerBounds = this->getGlobalBounds();
@@ -240,6 +252,7 @@ void Player::collideWithEntity(Shell* shell, Direction from)
 		this->die();
 	}
 }
+// Collision POWERUP
 void Player::collideWithEntity(PowerUp* powerUp, Direction from)
 {
 	if (from != Direction::NONE)

@@ -1,5 +1,5 @@
 #include "Entity.h"
-
+#include <iostream>
 Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	Object(size, position),
 	onGround(false),
@@ -12,6 +12,11 @@ Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	sf::Color color = this->hitbox.getFillColor();
 	color.a = 128;
 	this->hitbox.setFillColor(color);
+	this->collisionDirections = std::vector<bool>(4, false);
+	this->isColliding = false;
+	this->thisWorld = nullptr;
+	this->worldMap = nullptr;
+
 }
 
 Entity::~Entity()
@@ -48,6 +53,44 @@ void Entity::setVelocity(sf::Vector2f velocity)
 	this->velocity = velocity;
 }
 
+void Entity::setSize(sf::Vector2f size)
+{
+	this->hitbox.setSize(size);
+}
+
+bool Entity::isCollide()
+{
+	return this->isColliding;
+}
+
+// FOR CURRENT ENTITY WORLD
+void Entity::setAddressOfWorld(std::vector<Entity*>& world)
+{
+	thisWorld = &world;
+}
+
+std::vector<Entity*>& Entity::getWorld()
+{
+	return *thisWorld;
+}
+void Entity::addEntity(Entity* entity)
+{
+	thisWorld->push_back(entity);
+}
+
+// FOR CURRENT ENTITY MAP
+
+void Entity::setMap(Map* map)
+{
+
+	worldMap = map;
+}
+
+Map& Entity::getMap()
+{
+	return *worldMap;
+}
+
 void Entity::jump()
 {
 	if (this->onGround)
@@ -68,6 +111,11 @@ void Entity::move(sf::Vector2f distance)
 	{
 		this->hitbox.move(distance);
 	}
+}
+
+std::vector<bool>& Entity::getCollisionDirections()
+{
+	return this->collisionDirections;
 }
 
 void Entity::collideWithTile(Tile* tile)
@@ -93,6 +141,7 @@ void Entity::collideWithTile(Tile* tile)
 	// Entity in INTERSECT with TILE
 	if (entityBounds.intersects(tileBounds))
 	{
+		isColliding = true;
 		if (tile->isDanger())
 		{
 			entity->die();
@@ -100,10 +149,12 @@ void Entity::collideWithTile(Tile* tile)
 		else if (above)
 		{
 			from = Direction::UP;
+			collisionDirections[0] = true;
 		}
 		else if (below)
 		{
 			from = Direction::DOWN;
+			collisionDirections[2] = true;
 		}
 		else
 		{
@@ -111,12 +162,18 @@ void Entity::collideWithTile(Tile* tile)
 			if (entityBounds.left <= tileBounds.left)
 			{
 				from = Direction::LEFT;
+				collisionDirections[3] = true;
 			}
 			else if (entityBounds.left > tileBounds.left)
 			{
 				from = Direction::RIGHT;
+				collisionDirections[1] = true;
 			}
 		}
+	}
+	else
+	{
+		isColliding = false;
 	}
 
 	entity->collideWithTile(tile, from);
@@ -242,6 +299,9 @@ void Entity::collideWithEntity(Bullet* bullet, Direction from)
 {
 }
 
+void Entity::collideWithEntity(FireBall* fireBall, Direction from)
+{
+}
 void Entity::collideWithEntity(Shell* shell, Direction from)
 {
 }
@@ -260,6 +320,10 @@ sf::Vector2f Entity::getVelocity()
 	return this->velocity;
 }
 
+sf::Vector2f Entity::getSize()
+{
+	return this->hitbox.getSize();
+}
 void Entity::die()
 {
 	this->dying = true;

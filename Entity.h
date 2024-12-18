@@ -4,12 +4,13 @@
 #include "Object.h"
 #include "Animation.h"
 #include "TileFactory.h"
-
+class Map;
 class Player;
 class Enemy;
 class Bullet;
 class Shell;
 class PowerUp;
+class FireBall;
 
 class Entity : public Object
 {
@@ -24,7 +25,10 @@ protected:
 	float dieTimer;
 	bool dying;
 	bool underWater;
-
+	bool isColliding;
+	std::vector<bool> collisionDirections; // 0: top, 1: right, 2: bottom, 3: left
+	std::vector<Entity*>* thisWorld; // help each entity can access to the world easier
+	Map* worldMap;
 	std::vector<Animation*> animations;
 
 public:
@@ -38,8 +42,19 @@ public:
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
 	void setVelocity(sf::Vector2f velocity);
+	void setSize(sf::Vector2f size);
+	bool isCollide();
+	std::vector<bool>& getCollisionDirections();
 	void jump();
 	void move(sf::Vector2f distance);
+	// For ENTITY in WORLD
+	void setAddressOfWorld(std::vector<Entity*>& world);
+	std::vector<Entity*>& getWorld();
+	void addEntity(Entity* entity);
+
+	// For MAP in WORLD
+	void setMap(Map* map);
+	Map& getMap();
 	
 	// collision with tiles
 	void collideWithTile(Tile* tile);
@@ -54,11 +69,13 @@ public:
 	virtual void collideWithEntity(Player* player, Direction from);
 	virtual void collideWithEntity(Enemy* enemy, Direction from);
 	virtual void collideWithEntity(Bullet* bullet, Direction from);
+	virtual void collideWithEntity(FireBall* fireBall, Direction from);
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 
 	sf::Vector2f getLastPosition();
 	sf::Vector2f getVelocity();
+	sf::Vector2f getSize();
 	virtual void die();
 
 	virtual void update(float deltaTime) override;

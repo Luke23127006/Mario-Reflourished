@@ -9,6 +9,7 @@
 #include "FlyingNimbus.h"
 #include "Enemy.h"
 #include "Shell.h"
+#include "FireBall.h"
 #include <vector>
 
 class Player : public Entity
@@ -44,6 +45,7 @@ public:
 	void collideWithEntity(Enemy* enemy, Direction from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;
 	void collideWithEntity(PowerUp* powerUp, Direction from) override;
+	void collideWithEntity(FireBall* fireBall, Direction from) override;
 	
 	void update(float deltaTime) override;
 	void updateMovementNimbus(float deltaTime);

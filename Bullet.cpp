@@ -13,7 +13,7 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f velocity)
 	this->animations[0]->setSize(sf::Vector2f(BULLET_WIDTH * 48 / 42, BULLET_HEIGHT * 48 / 42));
 }
 
-Bullet::~Bullet()
+Bullet::~Bullet()	
 {
 }
 
