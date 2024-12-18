@@ -81,6 +81,7 @@ void Object::render(sf::RenderTarget& target)
 	border.setSize(sf::Vector2f(this->hitbox.getSize().x - 2 * borderSize, this->hitbox.getSize().y - 2 * borderSize));
 	border.setOutlineColor(sf::Color::Blue);
 
+	//target.draw(this->hitbox);
 	target.draw(this->sprite);
 	target.draw(border);
 }

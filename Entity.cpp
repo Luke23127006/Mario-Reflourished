@@ -325,11 +325,6 @@ sf::Vector2f Entity::getLastPosition()
 	return this->lastPosition;
 }
 
-sf::Vector2f Entity::getVelocity()
-{
-	return this->velocity;
-}
-
 sf::Vector2f Entity::getSize()
 {
 	return this->hitbox.getSize();
@@ -352,6 +347,6 @@ void Entity::updateLastPosition()
 
 void Entity::render(sf::RenderTarget& target)
 {
-	Object::render(target);
 	if (this->animations.size() == 1) animations[0]->render(target, this->hitbox.getPosition());
+	Object::render(target);
 }

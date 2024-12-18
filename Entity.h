@@ -36,11 +36,6 @@ public:
 	Entity(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Entity();
 
-
-	void setOnGround(bool onGround);
-	void setUnderWater(bool underWater);
-	void setVelocity(sf::Vector2f velocity);
-
 	const bool isDead() const;
 	const bool isDying() const;
 	const bool isUnderWater() const;
@@ -83,8 +78,6 @@ public:
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 
-	sf::Vector2f getLastPosition();
-	sf::Vector2f getVelocity();
 	sf::Vector2f getSize();
 	virtual void die();
 

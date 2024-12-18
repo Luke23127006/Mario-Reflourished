@@ -410,10 +410,10 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
-	Entity::render(target);
 	this->animations[INT(this->playerState)]->render(target, this->hitbox.getPosition());
 	for (auto& p : this->powerUps)
 	{
 		p->render(target);
 	}
+	Entity::render(target);
 }
