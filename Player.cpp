@@ -255,7 +255,7 @@ void Player::update(float deltaTime)
 {
 	if (this->isDead())
 	{
-		this->velocity.y = std::min(this->velocity.y + GRAVITY * deltaTime, PLAYER_MAX_FALL_SPEED);
+		this->velocity.y = std::min(this->velocity.y + GRAVITY * deltaTime, PLAYER_FALL_SPEED);
 		this->hitbox.move(this->velocity * deltaTime);
 	}
 	else
@@ -332,7 +332,7 @@ void Player::updateMovementNimbus(float deltaTime)
 		}
 	}
 	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
-	adjustBetween(this->velocity.x, -NIMBUS_MAX_SPEED, NIMBUS_MAX_SPEED);
+	adjustBetween(this->velocity.x, -NIMBUS_SPEED, NIMBUS_SPEED);
 	this->hitbox.move(this->velocity * deltaTime);
 }
 void Player::updateMovement(float deltaTime)
@@ -393,7 +393,7 @@ void Player::updateMovement(float deltaTime)
 	else this->velocity.y = 0.f;
 
 	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
-	adjustBetween(this->velocity.x, -PLAYER_MAX_SPEED, PLAYER_MAX_SPEED);
+	adjustBetween(this->velocity.x, -PLAYER_SPEED, PLAYER_SPEED);
 
 	// under water
 	if (this->underWater)
