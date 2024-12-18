@@ -145,6 +145,7 @@ void Enemy::addBehavior(std::shared_ptr<Component> behavior)
 
 void Enemy::update(float deltaTime)
 {
+
 	if (this->dying)
 	{
 		this->dieTimer = std::max(0.f, this->dieTimer - deltaTime);
@@ -184,6 +185,7 @@ void Enemy::update(float deltaTime)
 void Enemy::render(sf::RenderTarget& target)
 {
 	Entity::render(target);
+	target.draw(this->hitbox);
 	if (this->followPlayer)
 	{
 		this->exclamation.render(target, sf::Vector2f(this->getGlobalBounds().left, this->getGlobalBounds().top - this->getGlobalBounds().height / 2));

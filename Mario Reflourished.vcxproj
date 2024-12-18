@@ -146,7 +146,7 @@
     <ClCompile Include="BanzaiBill.cpp" />
     <ClCompile Include="Barrier.cpp" />
     <ClCompile Include="Bird.cpp" />
-    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Bowser.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -163,6 +163,7 @@
     <ClCompile Include="EnemyBarrier.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
+    <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FlyingNimbus.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -201,7 +202,7 @@
     <ClInclude Include="BanzaiBill.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="Bird.h" />
-    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Bowser.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="EnemyBarrier.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
+    <ClInclude Include="FireBall.h" />
     <ClInclude Include="FlyingNimbus.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />

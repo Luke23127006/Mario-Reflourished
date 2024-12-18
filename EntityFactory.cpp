@@ -15,6 +15,16 @@ Entity* EntityFactory::createKoopa(sf::Vector2f position)
 	return new Koopa(position);
 }
 
+Entity* EntityFactory::createBird(sf::Vector2f position)
+{
+	return new Bird(position);
+}
+
+Entity* EntityFactory::createBowser(sf::Vector2f position)
+{
+	return new Bowser(position);
+}
+
 Entity* EntityFactory::createShell(sf::Vector2f position)
 {
 	return new Shell(position);

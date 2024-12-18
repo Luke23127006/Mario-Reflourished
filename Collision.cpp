@@ -78,6 +78,10 @@ void Collision::handle_entity_entity(Entity* entity, Entity* other)
 	{
 		entity->collideWithEntity(dynamic_cast<PowerUp*>(other), from);
 	}
+	else if (isDerivedFrom<FireBall>(*other))
+	{
+		entity->collideWithEntity(dynamic_cast<FireBall*>(other), from);
+	}
 }
 
 void Collision::handle_entity_spikeWall(Entity* entity, SpikeWall* spikeWall)

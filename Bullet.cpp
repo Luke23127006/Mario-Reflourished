@@ -13,7 +13,7 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f velocity)
 	this->animations[0]->setSize(sf::Vector2f(BULLET_WIDTH * 48 / 42, BULLET_HEIGHT * 48 / 42));
 }
 
-Bullet::~Bullet()
+Bullet::~Bullet()	
 {
 }
 
@@ -62,6 +62,13 @@ void Bullet::collideWithEntity(Shell* shell, Direction from)
 	}
 }
 
+void Bullet::collideWithEntity(FireBall* enemy, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
 void Bullet::update(float deltaTime)
 {
 	if (!this->dying)

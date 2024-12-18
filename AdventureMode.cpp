@@ -33,19 +33,29 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 				}
 				else if (name == "goomba")
 				{
-					Goomba* goomba = new Goomba(position);
+					Entity* goomba  = EntityFactory::createGoomba(position);
 					this->entities.push_back(goomba);
 				}
 				else if (name == "koopa")
 				{
-					Koopa* koopa = new Koopa(position);
+					Entity* koopa = EntityFactory::createKoopa(position);
 					this->entities.push_back(koopa);
 				}
 				else if (name == "bird")
 				{
-					Bird* bird = new Bird(position);
+					Entity* bird = EntityFactory::createBird(position);
 					this->entities.push_back(bird);
 				}
+				else if (name == "bowser")
+				{
+					Entity* bowser = EntityFactory::createBowser(position);
+					this->entities.push_back(bowser);
+				}
+			}
+			if (!this->entities.empty())
+			{
+				this->entities.back()->setAddressOfWorld(this->entities);
+				if(this->map) this->entities.back()->setMap(this->map);
 			}
 		}
 	this->setEnemiesBehaviors();
@@ -101,6 +111,7 @@ void AdventureMode::setEnemiesBehaviors()
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, GOOMBA_PACE_SPEED));
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, GOOMBA_FOLLOW_SPEED));
 			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
+			
 		}
 		else if (isType<Koopa>(*enemy))
 		{
@@ -113,7 +124,15 @@ void AdventureMode::setEnemiesBehaviors()
 		{
 			enemy->addBehavior(std::make_shared<PaceFly>(enemy, player, BIRD_PACE_X, BIRD_PACE_Y, BIRD_PACE_SPEED));
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BIRD_FOLLOW_SPEED, BIRD_DETECTION_RADIUS, 6));
+
 		}
+		else if (isType<Bowser>(*enemy))
+		{
+			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED));
+			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player));
+		}
+
 	}
 }
 void AdventureMode::update(float deltaTime, bool& held)
@@ -141,7 +160,11 @@ void AdventureMode::updateEntities(float deltaTime)
 			if (bullet) newEntities.push_back(bullet);
 		}
 
-
+		if (!this->entities.empty() && !newEntities.empty())
+		{
+			newEntities.back()->setAddressOfWorld(this->entities);
+			newEntities.back()->setMap(this->map);
+		}
 		if (!isType<Player>(*e) && e->isDead())
 		{
 			if (isType<Koopa>(*e))
@@ -155,6 +178,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		{
 			++it;
 		}
+		
 	}
 
 	this->entities.insert(this->entities.end(), newEntities.begin(), newEntities.end());

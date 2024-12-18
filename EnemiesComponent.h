@@ -5,7 +5,7 @@
 #include<cstdlib>
 #include<iostream>
 #include <math.h>
-
+#include "FireBall.h"
 
 // Enemy Follow
 class FollowPlayer : public Component {
@@ -77,3 +77,18 @@ public:
 
 
 
+// BOSS Bowser
+
+
+
+
+class FireAttack : public Component {
+private:
+	std::vector<FireBall*> fireBalls;
+	float cooldownTime;
+	float countTime;
+	float detection_radius;
+public:
+	FireAttack(Entity* owner, Entity* player);
+	void update(float deltaTime) override;
+};
