@@ -16,43 +16,17 @@ FlyingNimbus::FlyingNimbus(Player* player) :
 	this->type = PowerUpType::FLYING_NIMBUS;
 
 	if (this->player->hasPowerUp(this->type)) return;
-	player->velocityMax = sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED);
+	this->player->velocityMax = sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED);
 	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
 	this->hitbox.setFillColor(sf::Color::Yellow);
 	this->isAppearing = true;
 	this->elapsedTime = 0.0f;
-	this->appearTime = 3.0f;
-}
-
-FlyingNimbus::FlyingNimbus(sf::Vector2f position) :
-	PowerUp(sf::FloatRect(position.x, position.y, TILE_SIZE, TILE_SIZE))
-{
-	this->duration = NIMBUS_DURATION;
-	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
-	this->hitbox.setFillColor(sf::Color::Yellow);
-	this->isAppearing = true;
-	this->elapsedTime = 0.0f;
-	this->appearTime = 3.0f;
+	this->appearTime = 2.0f;
 }
 
 FlyingNimbus::~FlyingNimbus()
 {
-	player->velocityMax = sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED);
-}
-
-void FlyingNimbus::getPlayerPosition(sf::Vector2f playerPosition)
-{
-	this->playerPosition = playerPosition;
-}
-
-bool FlyingNimbus::appearing()
-{
-	return this->isAppearing;
-}
-
-float FlyingNimbus::getAppearTime()
-{
-	return this->appearTime;
+	this->player->velocityMax = sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED);
 }
 
 //
@@ -90,12 +64,14 @@ float FlyingNimbus::getAppearTime()
 //}
 #include <cmath> // Để sử dụng std::sin và std::cos
 
-void FlyingNimbus::appear(float dt)
+void FlyingNimbus::appear(float deltaTime)
 {
 	if (!this->isAppearing) return;
-	sf::Vector2f playerPosition = this->player->getPosition();
+	sf::Vector2f playerPosition;
+	playerPosition.x = this->player->getGlobalBounds().left + this->player->getGlobalBounds().width / 2 - this->hitbox.getSize().x / 2;
+	playerPosition.y = this->player->getGlobalBounds().top + this->player->getGlobalBounds().height - this->hitbox.getSize().y;
 
-	this->elapsedTime += dt;
+	this->elapsedTime += deltaTime;
 	if (this->elapsedTime >= this->appearTime) {
 		this->isAppearing = false;
 		// makesure the final position
@@ -130,26 +106,46 @@ void FlyingNimbus::appear(float dt)
 
 void FlyingNimbus::applyPowerUp(float deltaTime)
 {
-	player->acceleration = sf::Vector2f(0, 0);
+	if (this->isAppearing)
+	{
+		player->move(sf::Vector2f(0, -50.f * deltaTime));
+	}
 
+	player->acceleration = sf::Vector2f(0.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		player->acceleration.y = -NIMBUS_ACCELERATION;
+		if (player->velocity.y > 0.f)
+		{
+			player->acceleration.y += NIMBUS_DECELERATION;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		player->acceleration.y = NIMBUS_ACCELERATION;
+		if (player->velocity.y < 0.f)
+		{
+			player->acceleration.y -= NIMBUS_DECELERATION;
+		}
 	}
-	else
+
+	if (player->acceleration.y == 0.f)
 	{
-		player->velocity.y = 0.f;
-		player->acceleration.y = 0.f;
+		if (player->velocity.y > 0.f)
+		{
+			player->acceleration.y = std::max(-player->velocity.y / deltaTime, NIMBUS_DECELERATION);
+		}
+		else if (player->velocity.y < 0.f)
+		{
+			player->acceleration.y = std::min(-player->velocity.y / deltaTime, -NIMBUS_DECELERATION);
+		}
 	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		player->acceleration.x = -NIMBUS_ACCELERATION;
-		if (this->velocity.x > 0.f)
+		if (player->velocity.x > 0.f)
 		{
 			player->acceleration.x += NIMBUS_DECELERATION;
 		}
@@ -157,7 +153,7 @@ void FlyingNimbus::applyPowerUp(float deltaTime)
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		player->acceleration.x = NIMBUS_ACCELERATION;
-		if (this->velocity.x < 0.f)
+		if (player->velocity.x < 0.f)
 		{
 			player->acceleration.x -= NIMBUS_DECELERATION;
 		}
@@ -165,38 +161,33 @@ void FlyingNimbus::applyPowerUp(float deltaTime)
 
 	if (player->acceleration.x == 0.f)
 	{
-		if (this->velocity.x > 0.f)
+		if (player->velocity.x > 0.f)
 		{
-			player->acceleration.x = std::max(-this->velocity.x / deltaTime, NIMBUS_DECELERATION);
+			player->acceleration.x = std::max(-player->velocity.x / deltaTime, NIMBUS_DECELERATION);
 		}
-		else if (this->velocity.x < 0.f)
+		else if (player->velocity.x < 0.f)
 		{
-			player->acceleration.x = std::max(this->velocity.x / deltaTime, -NIMBUS_DECELERATION);
+			player->acceleration.x = std::min(-player->velocity.x / deltaTime, -NIMBUS_DECELERATION);
 		}
 	}
-
-	if (this->isAppearing)
-	{
-		//player->velocity.y -= 50.f;
-	}
-	std::cout << player->velocity.y << '\n';
 }
 
 void FlyingNimbus::update(float deltaTime)
 {
-
+	
 	// Appear time
 	if (this->isAppearing)
 	{
-		this->setEnabled(false);
 		this->appear(deltaTime);
 		return;
 	}
+
 	// Use time
-	this->setEnabled(true);
 	this->duration -= deltaTime;
-	//if (this->duration <= 0.f) this->die();
-	this->setPosition(this->playerPosition);
+
+	sf::Vector2f position;
+	position.x = this->player->getGlobalBounds().left + this->player->getGlobalBounds().width / 2 - this->hitbox.getSize().x / 2;
+	position.y = this->player->getGlobalBounds().top + this->player->getGlobalBounds().height - this->hitbox.getSize().y;
+	this->setPosition(position);
 
 }
-

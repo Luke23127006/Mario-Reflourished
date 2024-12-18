@@ -31,7 +31,7 @@ const std::string ENEMIES_DIRECTORY = "./Resources/Enemies/";
 const std::string FONTS_DIRECTORY = "./Resources/Fonts/";
 const std::string ITEMS_DIRECTORY = "./Resources/Items/";
 const std::string MAPS_DIRECTORY = "./Resources/Maps/";
-const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
+const std::string SOUNDS_DIRECTORY = "./Resources/Sound/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
@@ -139,7 +139,7 @@ const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
 const float SHIELD_DURATION = 10.f;
 const float MAGNET_DURATION = 5.f;
-const float NIMBUS_DURATION = 5.f;
+const float NIMBUS_DURATION = 10.f;
 
 // nimbus
 const float NIMBUS_WIDTH = 100.f;

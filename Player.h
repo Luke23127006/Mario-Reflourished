@@ -30,7 +30,6 @@ private:
 	int lives;
 	bool canShoot = true;
 	bool isNimbusActive = false;
-	FlyingNimbus* nimbus;
 
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
@@ -53,7 +52,6 @@ public:
 	void collideWithEntity(PowerUp* powerUp, Direction from) override;
 	
 	void update(float deltaTime) override;
-	void updateMovementNimbus(float deltaTime);
 	void updateAcceleration(float deltaTime);
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);

@@ -13,7 +13,6 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	lives(3)
 {
 	this->health = 100;
-	this->nimbus = nullptr;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
 	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
@@ -33,8 +32,6 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 Player::~Player()
 {
-	delete this->nimbus;
-
 	while (!this->powerUps.empty())
 	{
 		delete this->powerUps.back();
@@ -237,12 +234,6 @@ void Player::update(float deltaTime)
 		this->updatePowerUps(deltaTime);
 		this->updateMovement(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
-		if (this->nimbus)
-		{
-			this->nimbus->getPlayerPosition(this->getPosition()
-				+ sf::Vector2f(0, PLAYER_HEIGHT) - sf::Vector2f(NIMBUS_WIDTH / 3.0f, NIMBUS_HEIGHT));
-			this->nimbus->update(deltaTime);
-		}
 		//Handle nhap nhay
 		/*if (this->invicibleTimer - deltaTime > 0.f)
 		{
@@ -254,58 +245,6 @@ void Player::update(float deltaTime)
 		}*/
 	}
 	this->updateAnimation(deltaTime);
-}
-
-void Player::updateMovementNimbus(float deltaTime)
-{
-	float acceleration = 0.0f;
-	float deceleration = 0.0f;
-	if (this->isNimbusActive)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			this->velocity.y = -PLAYER_JUMP_STRENGHT;
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			this->velocity.y = PLAYER_JUMP_STRENGHT;
-		}
-		else
-		{
-			this->velocity.y = 0.f;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			acceleration = -NIMBUS_ACCELERATION;
-			if (this->velocity.x > 0.f)
-			{
-				deceleration = -NIMBUS_DECELERATION;
-			}
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			acceleration = NIMBUS_ACCELERATION;
-			if (this->velocity.x < 0.f)
-			{
-				deceleration = NIMBUS_DECELERATION;
-			}
-		}
-
-		if (acceleration == 0.f)
-		{
-			if (this->velocity.x > 0.f)
-			{
-				deceleration = std::max(-this->velocity.x / deltaTime, -NIMBUS_DECELERATION);
-			}
-			else if (this->velocity.x < 0.f)
-			{
-				deceleration = std::min(-this->velocity.x / deltaTime, NIMBUS_DECELERATION);
-			}
-		}
-	}
-	this->velocity.x += acceleration * deltaTime + deceleration * deltaTime;
-	adjustBetween(this->velocity.x, -NIMBUS_SPEED, NIMBUS_SPEED);
-	this->hitbox.move(this->velocity * deltaTime);
 }
 
 void Player::updateAcceleration(float deltaTime)
@@ -337,32 +276,37 @@ void Player::updateAcceleration(float deltaTime)
 		}
 		else if (this->velocity.x < 0.f)
 		{
-			this->acceleration.x = std::max(this->velocity.x / deltaTime, -PLAYER_DECELERATION);
+			this->acceleration.x = std::min(-this->velocity.x / deltaTime, -PLAYER_DECELERATION);
 		}
 	}
 
 	// vertical movement
+	if (!this->onGround)
+	{
+		this->acceleration.y = GRAVITY;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			if (this->jumpTimer > 0.f)
+			{
+				this->acceleration.y = 0.f;
+				this->jumpTimer = std::max(this->jumpTimer - deltaTime, 0.f);
+			}
+		}
+	}
+	else this->velocity.y = 0.f, this->acceleration.y = 0.f;
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		if (this->onGround)
 		{
 			this->jumpTimer = this->jumpTimerMax;
-			this->velocity.y = -PLAYER_JUMP_STRENGHT;
+			this->acceleration.y = -PLAYER_JUMP_STRENGHT / deltaTime;
 			this->onGround = false;
 		}
 	}
 	else this->jumpTimer = 0.f;
 
-	if (!this->onGround)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && this->jumpTimer > 0.f)
-		{
-			this->velocity.y = -PLAYER_JUMP_STRENGHT;
-			this->jumpTimer = std::max(this->jumpTimer - deltaTime, 0.f);
-		}
-		else this->acceleration.y = GRAVITY;
-	}
-	else this->velocity.y = 0.f, this->acceleration.y = 0.f;
+	//std::cout << this->acceleration.y << '\n';
 
 	// under water
 	/*if (this->underWater)

@@ -16,15 +16,11 @@ private:
 	bool isAppearing;
 	float appearTime;
 	float elapsedTime;
-	sf::Vector2f playerPosition;
 public:
 	FlyingNimbus(Player* player);
-	FlyingNimbus(sf::Vector2f position);
-	void getPlayerPosition(sf::Vector2f playerPosition);
-	bool appearing();
-	float getAppearTime();
 	virtual ~FlyingNimbus();
-	void appear(float dt);
+
+	void appear(float deltaTime);
 	void update(float deltaTime) override;
 
 	void applyPowerUp(float deltaTime) override;
