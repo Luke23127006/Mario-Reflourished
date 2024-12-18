@@ -6,19 +6,19 @@
 
 #include <SFML/Graphics.hpp>
 
+class Player;
+
 class PowerUp : public Entity
 {
 private:
-	PowerUpType type;
-	
 	sf::FloatRect container;
+
 protected:
 	float duration;
 public:
-	PowerUp(PowerUpType type, sf::FloatRect container);
+	PowerUp(sf::FloatRect container);
 	virtual ~PowerUp();
 
-	PowerUpType getType();
 	const float getDuration() const;
 	void rise(float deltaTime);
 	void turnAround();
@@ -28,4 +28,6 @@ public:
 	void collideWithEntity(Entity* entity, Direction& from) override;
 
 	void update(float deltaTime) override;
+
+	virtual void applyPowerUp(Player* player);
 };

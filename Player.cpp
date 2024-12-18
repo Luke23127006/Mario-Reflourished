@@ -55,30 +55,6 @@ void Player::die()
 
 void Player::gainPowerUp(PowerUp& powerUp)
 {
-	switch (powerUp.getType())
-	{
-	case PowerUpType::MUSHROOM:
-		if (this->powerUpDuration[INT(powerUp.getType())] > 0.f) break;
-		this->hitbox.setSize(sf::Vector2f(PLAYER_BIGGER_WIDTH, PLAYER_BIGGER_HEIGHT));
-		this->hitbox.move(0.f, PLAYER_BIGGER_WIDTH - PLAYER_BIGGER_HEIGHT);
-		break;
-
-	case PowerUpType::INVICIBLE:
-		if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] > 0.f) break;
-		this->invicibleTimer = INVICIBLE_DURATION;
-		break;
-		// test flying nimbus	
-	case PowerUpType::FLYING_NIMBUS:
-		if (this->isNimbusActive) break;
-		if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f) break;
-		nimbus = new FlyingNimbus(this->getPosition()
-		);
-
-		break;
-	}
-
-
-	this->powerUpDuration[INT(powerUp.getType())] = powerUp.getDuration();
 }
 
 void Player::updatePowerUps(float deltaTime)

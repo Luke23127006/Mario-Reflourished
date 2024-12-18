@@ -51,4 +51,6 @@ public:
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);
 	void render(sf::RenderTarget& target) override;
+
+	friend class PowerUp;
 };

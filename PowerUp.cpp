@@ -1,8 +1,8 @@
 #include "PowerUp.h"
+#include "Player.h"
 
-PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
+PowerUp::PowerUp(sf::FloatRect container) :
 	Entity(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT), sf::Vector2f(container.left, container.top)),
-	type(type),
 	duration(10.0f),
 	container(container)
 {
@@ -15,11 +15,6 @@ PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
 
 PowerUp::~PowerUp()
 {
-}
-
-PowerUpType PowerUp::getType()
-{
-	return this->type;
 }
 
 const float PowerUp::getDuration() const
@@ -81,4 +76,8 @@ void PowerUp::update(float deltaTime)
 		}
 		this->move(this->velocity * deltaTime);
 	}
+}
+
+void PowerUp::applyPowerUp(Player* player)
+{
 }

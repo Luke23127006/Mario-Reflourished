@@ -8,7 +8,7 @@
 
 
 FlyingNimbus::FlyingNimbus(sf::Vector2f position) :
-	PowerUp(PowerUpType::FLYING_NIMBUS, sf::FloatRect(position.x, position.y, TILE_SIZE, TILE_SIZE))
+	PowerUp(sf::FloatRect(position.x, position.y, TILE_SIZE, TILE_SIZE))
 {	
 	this->duration = NIMBUS_DURATION;
 	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));

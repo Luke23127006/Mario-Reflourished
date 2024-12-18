@@ -22,14 +22,15 @@ Entity* EntityFactory::createShell(sf::Vector2f position)
 
 Entity* EntityFactory::createPowerUp(sf::FloatRect container, PowerUpType type)
 {
-	return new PowerUp(type, container);
+	return new PowerUp(container);
 }
 
 PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 {
 	int chance = rand() % 100;
-	if (chance < 30) return new PowerUp(PowerUpType::MUSHROOM, containner);
-	if (chance < 60) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
-	if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
-	return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
+	return new PowerUp(containner);
+	//if (chance < 30) return new PowerUp(PowerUpType::MUSHROOM, containner);
+	//if (chance < 60) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
+	//if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
+	//return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
 }
