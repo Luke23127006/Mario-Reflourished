@@ -173,6 +173,7 @@
     <ClCompile Include="LuckyBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Login.h" />
     <ClInclude Include="LuckyBlock.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pause.h" />

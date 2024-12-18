@@ -9,6 +9,7 @@
 #include "PowerUp.h"
 #include "Bullet.h"
 #include "Bird.h"
+#include "Mushroom.h"
 
 #include <ctime>
 
@@ -21,4 +22,5 @@ public:
 	static Entity* createShell(sf::Vector2f position);
 	static Entity* createPowerUp(sf::FloatRect container, PowerUpType type);
 	static PowerUp* createPowerUp(sf::FloatRect containner);
+	static PowerUp* createPowerUp(Player* player);
 };

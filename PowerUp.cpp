@@ -3,7 +3,6 @@
 
 PowerUp::PowerUp(sf::FloatRect container) :
 	Entity(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT), sf::Vector2f(container.left, container.top)),
-	duration(10.0f),
 	container(container)
 {
 	sf::Vector2f distance = 0.5f * sf::Vector2f(container.width - POWER_UP_WIDTH, container.height - POWER_UP_HEIGHT);
@@ -33,6 +32,16 @@ void PowerUp::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
+const PowerUpType PowerUp::getType() const
+{
+	return this->type;
+}
+
+const bool PowerUp::isExpired() const
+{
+	return this->duration <= 0.f;
+}
+
 void PowerUp::collideWithTile(Tile* tile, Direction from)
 {
 	if (this->velocity.x == 0) return;
@@ -57,6 +66,12 @@ void PowerUp::collideWithEntity(Entity* entity, Direction& from)
 
 void PowerUp::update(float deltaTime)
 {
+	if (this->player)
+	{
+		this->duration -= deltaTime;
+		return;
+	}
+
 	for (auto& a : this->animations)
 	{
 		a->update(deltaTime, true);
@@ -78,6 +93,6 @@ void PowerUp::update(float deltaTime)
 	}
 }
 
-void PowerUp::applyPowerUp(Player* player)
+void PowerUp::applyPowerUp()
 {
 }

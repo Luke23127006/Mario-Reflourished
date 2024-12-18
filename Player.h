@@ -15,6 +15,9 @@ class Player : public Entity
 {
 private:
 	PlayerState playerState;
+	std::vector<PowerUp*> powerUps;
+
+	bool canBreakBlocks = false;
 
 	float blinkTimer;
 	float invicibleTimer;
@@ -31,7 +34,7 @@ public:
 	virtual ~Player();
 	void stopJumping();
 	void die() override;
-	void gainPowerUp(PowerUp& powerUp);
+	void gainPowerUp(PowerUp* powerUp);
 	const bool hasPowerUp(PowerUpType type) const;
 	void addCoin();
 
@@ -53,4 +56,5 @@ public:
 	void render(sf::RenderTarget& target) override;
 
 	friend class PowerUp;
+	friend class Mushroom;
 };

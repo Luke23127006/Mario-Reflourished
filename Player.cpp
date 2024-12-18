@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "EntityFactory.h"
 #include <iostream>
 
 Player::Player(sf::Vector2f size, sf::Vector2f position) :
@@ -32,6 +33,12 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 Player::~Player()
 {
 	delete this->nimbus;
+
+	while (!this->powerUps.empty())
+	{
+		delete this->powerUps.back();
+		this->powerUps.pop_back();
+	}
 }
 
 void Player::stopJumping()
@@ -53,48 +60,29 @@ void Player::die()
 	this->velocity = sf::Vector2f(0.f, -PLAYER_DIE_VELOCITY);
 }
 
-void Player::gainPowerUp(PowerUp& powerUp)
+void Player::gainPowerUp(PowerUp* powerUp)
 {
+	if (this->hasPowerUp(powerUp->getType())) return;
+	this->powerUps.push_back(powerUp);
 }
 
 void Player::updatePowerUps(float deltaTime)
 {
-	// mushroom
-	if (this->powerUpDuration[INT(PowerUpType::MUSHROOM)] < 0.f)
+	int counter = 0;
+	for (auto& p : this->powerUps)
 	{
-		this->powerUpDuration[INT(PowerUpType::MUSHROOM)] = 0.f;
-		this->hitbox.setSize(sf::Vector2f(PLAYER_WIDTH, PLAYER_HEIGHT));
-	}
-
-	// invicible
-	if (this->powerUpDuration[INT(PowerUpType::INVICIBLE)] < 0.f)
-	{
-		this->powerUpDuration[INT(PowerUpType::INVICIBLE)] = 0.f;
-		this->invicibleTimer = 0.f;
-	}
-
-	if (this->powerUpDuration[INT(PowerUpType::FLYING_NIMBUS)] > 0.f)
-	{
-		this->isNimbusActive = true;
-		if (this->nimbus->appearing())
+		p->update(deltaTime);
+		p->applyPowerUp();
+		if (p->isExpired())
 		{
-			float dt = this->nimbus->getAppearTime();
-			this->move(sf::Vector2f(0, -PLAYER_JUMP_STRENGHT * 0.5f * deltaTime / dt));
+			delete this->powerUps.at(counter);
+			this->powerUps.erase(this->powerUps.begin() + counter);
+			counter--;
 		}
-		std::cout << "Player position" << this->getPosition().x << " " << this->getPosition().y << std::endl;
-		this->nimbus->getPlayerPosition(this->getPosition());
-		this->nimbus->update(deltaTime);
-
-	}
-	else {
-		//if (this->nimbus) delete this->nimbus;
-		this->isNimbusActive = false;
-	}
-	for (auto& d : this->powerUpDuration)
-	{
-		if (d >= 0.f) d -= deltaTime;
+		counter++;
 	}
 }
+
 void Player::addCoin()
 {
 	this->coins++;
@@ -102,7 +90,11 @@ void Player::addCoin()
 
 const bool Player::hasPowerUp(PowerUpType type) const
 {
-	return this->powerUpDuration[INT(type)] > 0.f;
+	for (auto& p : this->powerUps)
+	{
+		if (p->getType() == type) return true;
+	}
+	return false;
 }
 
 Bullet* Player::shoot()
@@ -141,7 +133,7 @@ void Player::collideWithTile(Tile* tile, Direction from)
 		case Direction::DOWN:
 			if (this->underWater) break;
 			this->jumpTimer = 0.f;
-			if (tile->isBreakable() && this->hasPowerUp(PowerUpType::MUSHROOM))
+			if (tile->isBreakable() && this->canBreakBlocks)
 				tile->seftBreak();
 			else
 				tile->shake();
@@ -220,7 +212,7 @@ void Player::collideWithEntity(PowerUp* powerUp, Direction from)
 {
 	if (from != Direction::NONE)
 	{
-		this->gainPowerUp(*powerUp);
+		this->gainPowerUp(EntityFactory::createPowerUp(this));
 		powerUp->die();
 	}
 }

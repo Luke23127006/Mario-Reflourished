@@ -34,3 +34,9 @@ PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 	//if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
 	//return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
 }
+
+PowerUp* EntityFactory::createPowerUp(Player* player)
+{
+	int chance = rand() % 100;
+	return new Mushroom(sf::FloatRect(), player);
+}

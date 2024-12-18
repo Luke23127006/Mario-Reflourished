@@ -14,13 +14,17 @@ private:
 	sf::FloatRect container;
 
 protected:
-	float duration;
+	float duration = 0.f;
+	Player* player = nullptr;
+	PowerUpType type = PowerUpType::NUM_POWER_UPS;
 public:
 	PowerUp(sf::FloatRect container);
 	virtual ~PowerUp();
 
 	const float getDuration() const;
 	void rise(float deltaTime);
+	const PowerUpType getType() const;
+	const bool isExpired() const;
 	void turnAround();
 
 	void collideWithTile(Tile* tile, Direction from) override;
@@ -29,5 +33,5 @@ public:
 
 	void update(float deltaTime) override;
 
-	virtual void applyPowerUp(Player* player);
+	virtual void applyPowerUp();
 };
