@@ -31,4 +31,5 @@ public:
 	static Entity* createPowerUp(sf::FloatRect container, PowerUpType type);
 	static PowerUp* createPowerUp(sf::FloatRect containner);
 	static PowerUp* createPowerUp(Player* player);
+	static PowerUp* createPowerUp(Player* player, PowerUpType type, bool infinity);
 };

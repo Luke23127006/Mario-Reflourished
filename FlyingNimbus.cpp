@@ -147,7 +147,7 @@ void FlyingNimbus::update(float deltaTime)
 	}
 
 	// Use time
-	this->duration -= deltaTime;
+	if (this->duration != -1) this->duration -= deltaTime;
 
 	sf::Vector2f position;
 	position.x = this->player->getGlobalBounds().left + this->player->getGlobalBounds().width / 2 - this->hitbox.getSize().x / 2;

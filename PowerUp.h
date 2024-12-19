@@ -27,6 +27,7 @@ public:
 	const PowerUpType getType() const;
 	const bool isExpired() const;
 	void turnAround();
+	void setInfinityDuration();
 
 	void collideWithTile(Tile* tile, Direction from) override;
 

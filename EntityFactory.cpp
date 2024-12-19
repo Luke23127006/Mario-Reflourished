@@ -55,3 +55,32 @@ PowerUp* EntityFactory::createPowerUp(Player* player)
 	return new AirSneakers(player);
 	return new Shield(player);
 }
+
+PowerUp* EntityFactory::createPowerUp(Player* player, PowerUpType type, bool infinity)
+{
+	PowerUp* powerUp = nullptr;
+	switch (type)
+	{
+	case PowerUpType::MUSHROOM:
+		powerUp = new Mushroom(player);
+		break;
+	case PowerUpType::AIR_SNEAKERS:
+		powerUp = new AirSneakers(player);
+		break;
+	case PowerUpType::SHIELD:
+		powerUp = new Shield(player);
+		break;
+	case PowerUpType::FLYING_NIMBUS:
+		powerUp = new FlyingNimbus(player);
+		break;
+	case PowerUpType::FIRE_FLOWER:
+		powerUp = new FireFlower(player);
+		break;
+	case PowerUpType::MAGNET:
+		powerUp = new Magnet(player);
+		break;
+	}
+
+	if (infinity) powerUp->setInfinityDuration();
+	return powerUp;
+}

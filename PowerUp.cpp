@@ -39,6 +39,11 @@ void PowerUp::turnAround()
 	this->velocity.x = -this->velocity.x;
 }
 
+void PowerUp::setInfinityDuration()
+{
+	this->duration = -1.f;
+}
+
 const PowerUpType PowerUp::getType() const
 {
 	return this->type;
@@ -46,7 +51,8 @@ const PowerUpType PowerUp::getType() const
 
 const bool PowerUp::isExpired() const
 {
-	return this->duration <= 0.f;
+	std::cout << this->duration << '\n';
+	return this->duration <= 0.f && this->duration != -1.f;
 }
 
 void PowerUp::collideWithTile(Tile* tile, Direction from)
@@ -75,7 +81,7 @@ void PowerUp::update(float deltaTime)
 {
 	if (this->player)
 	{
-		this->duration -= deltaTime;
+		if (this->duration != -1) this->duration -= deltaTime;
 		return;
 	}
 
