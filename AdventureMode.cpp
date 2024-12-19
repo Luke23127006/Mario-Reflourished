@@ -1,4 +1,5 @@
 #include "AdventureMode.h"
+#include <cmath>
 
 void AdventureMode::initMap(std::string fileName)
 {
@@ -148,18 +149,15 @@ void AdventureMode::update(float deltaTime, bool& held)
 
 void AdventureMode::updateEntities(float deltaTime)
 {
-	std::vector<Entity*> newEntities;
 	auto it = this->entities.begin();
 
-	while (it != this->entities.end()) {
+	sf::Vector2f center = this->camera.getPosition();
+	while (it != this->entities.end()) 
+	{
 		auto& e = *it;
-		e->update(deltaTime);
-
-		if (!this->entities.empty() && !newEntities.empty())
-		{
-			newEntities.back()->setAddressOfWorld(this->entities);
-			newEntities.back()->setMap(this->map);
-		}
+		sf::Vector2f direction = center - e->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT))e->update(deltaTime);
 
 		if (!isType<Player>(*e) && e->isDead())
 		{
@@ -170,10 +168,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		{
 			++it;
 		}
-		
 	}
-
-	this->entities.insert(this->entities.end(), newEntities.begin(), newEntities.end());
 }
 
 void AdventureMode::updateCoins(float deltaTime)
@@ -244,8 +239,20 @@ void AdventureMode::updateLastPosition()
 void AdventureMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& e : this->entities) e->render(target);
-	for (auto& coin : this->coins) coin->render(target);
+	sf::Vector2f center = this->camera.getPosition();
+
+	for (auto& e : this->entities)
+	{
+		sf::Vector2f direction = center - e->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT)) e->render(target);
+	}
+	for (auto& coin : this->coins)
+	{
+		sf::Vector2f direction = center - coin->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT)) coin->render(target);
+	}
 	if (this->map) this->map->render(target);
 }
 
