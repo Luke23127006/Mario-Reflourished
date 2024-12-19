@@ -90,5 +90,6 @@ private:
 	float detection_radius;
 public:
 	FireAttack(Entity* owner, Entity* player);
+	FireAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime);
 	void update(float deltaTime) override;
 };

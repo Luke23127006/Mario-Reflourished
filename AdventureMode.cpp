@@ -129,8 +129,8 @@ void AdventureMode::setEnemiesBehaviors()
 		else if (isType<Bowser>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
-			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED));
-			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 2));
+			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 5));
 		}
 
 	}
