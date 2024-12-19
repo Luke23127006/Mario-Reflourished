@@ -48,6 +48,7 @@ PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 PowerUp* EntityFactory::createPowerUp(Player* player)
 {
 	int chance = rand() % 100;
+	return new Magnet(player);
 	return new FireFlower(player);
 	if (chance < 50) return new FlyingNimbus(player);
 	return new Mushroom(player);

@@ -24,6 +24,7 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 				if (name == "player")
 				{
 					this->player = EntityFactory::createPlayer(position);
+					this->player->setCoins(&this->coins);
 					this->entities.insert(this->entities.begin(), this->player);
 				}
 				else if (name == "coin" || name == "coin under water")
@@ -159,12 +160,9 @@ void AdventureMode::updateEntities(float deltaTime)
 			newEntities.back()->setAddressOfWorld(this->entities);
 			newEntities.back()->setMap(this->map);
 		}
+
 		if (!isType<Player>(*e) && e->isDead())
 		{
-			if (isType<Koopa>(*e))
-			{
-				newEntities.push_back(new Shell(e->getPosition()));
-			}
 			delete e;
 			it = this->entities.erase(it);
 		}

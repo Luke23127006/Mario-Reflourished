@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Shell.h"
 #include "FireBall.h"
+#include "Coin.h"
 #include <vector>
 
 class Player : public Entity
@@ -22,12 +23,13 @@ private:
 
 	bool canBreakBlocks = false;
 	sf::Vector2f velocityMax;
+	std::vector<Coin*>* coins = nullptr;
 
 	float blinkTimer;
 	float invicibleTimer;
 	float jumpTimer;
 	float jumpTimerMax = PLAYER_JUMP_TIME;
-	int coins;
+	int numCoins;
 	int lives;
 	bool canShoot = true;
 	bool isNimbusActive = false;
@@ -45,6 +47,7 @@ public:
 	sf::Vector2f getAcceleration();
 	int getHealth();
 	const bool getCanShoot() const;
+	std::vector<Coin*>& getCoins();
 
 	void setCanBreakBlocks(bool canBreakBlocks);
 	void setVelocityMax(sf::Vector2f velocityMax);
@@ -52,6 +55,7 @@ public:
 	void setHealth(int health);
 	void setJumpTimerMax(float jumpTimerMax);
 	void setCanShoot(bool canShoot);
+	void setCoins(std::vector<Coin*>* coins);
 
 	void collideWithTile(Tile* tile, Direction from) override;
 	void collideWithTile(LuckyBlock* tile, Direction from) override;

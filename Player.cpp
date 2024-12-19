@@ -9,7 +9,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	playerState(PlayerState::IDLE),
 	invicibleTimer(0.f),
 	jumpTimer(PLAYER_JUMP_TIME),
-	coins(0),
+	numCoins(0),
 	lives(3)
 {
 	this->health = 100;
@@ -87,7 +87,7 @@ void Player::updatePowerUps(float deltaTime)
 
 void Player::addCoin()
 {
-	this->coins++;
+	this->numCoins++;
 }
 
 sf::Vector2f Player::getAcceleration()
@@ -103,6 +103,11 @@ int Player::getHealth()
 const bool Player::getCanShoot() const
 {
 	return this->canShoot;
+}
+
+std::vector<Coin*>& Player::getCoins()
+{
+	return *this->coins;
 }
 
 void Player::setCanBreakBlocks(bool canBreakBlocks)
@@ -133,6 +138,11 @@ void Player::setJumpTimerMax(float jumpTimerMax)
 void Player::setCanShoot(bool canShoot)
 {
 	this->canShoot = canShoot;
+}
+
+void Player::setCoins(std::vector<Coin*>* coins)
+{
+	this->coins = coins;
 }
 
 const bool Player::hasPowerUp(PowerUpType type) const

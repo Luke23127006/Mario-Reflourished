@@ -183,6 +183,9 @@
     <ClCompile Include="FireFlower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Magnet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -351,6 +354,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FireFlower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Magnet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

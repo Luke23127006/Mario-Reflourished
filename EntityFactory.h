@@ -15,6 +15,7 @@
 #include "FlyingNimbus.h"
 #include "AirSneakers.h"
 #include "FireFlower.h"
+#include "Magnet.h"
 
 #include <ctime>
 

@@ -171,6 +171,7 @@ const float MAGNET_RADIUS = 500.f;
 // coin
 const float COIN_WIDTH = 28.f;
 const float COIN_HEIGHT = 28.f;
+const float COIN_MAX_SPEED = 2000.f;
 
 // tiles
 const float TILE_SIZE = 50;
