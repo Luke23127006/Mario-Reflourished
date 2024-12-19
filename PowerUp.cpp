@@ -51,7 +51,6 @@ const PowerUpType PowerUp::getType() const
 
 const bool PowerUp::isExpired() const
 {
-	std::cout << this->duration << '\n';
 	return this->duration <= 0.f && this->duration != -1.f;
 }
 
