@@ -154,12 +154,6 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		e->update(deltaTime);
 
-		if (isType<Player>(*e))
-		{
-			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
-			if (bullet) newEntities.push_back(bullet);
-		}
-
 		if (!this->entities.empty() && !newEntities.empty())
 		{
 			newEntities.back()->setAddressOfWorld(this->entities);

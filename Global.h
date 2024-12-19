@@ -163,7 +163,7 @@ const float GROW_WIDTH = 48.f;
 const float GROW_HEIGHT = 96.f;
 
 // air sneakers
-const float JUMP_TIMER_BONUS = 1.f;
+const float SNEAKERS_JUMP_TIMER = 0.5f;
 
 // magnet
 const float MAGNET_RADIUS = 500.f;

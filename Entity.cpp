@@ -38,6 +38,11 @@ const bool Entity::isUnderWater() const
 	return this->underWater;
 }
 
+const bool Entity::isFlipped() const
+{
+	return this->flipped;
+}
+
 void Entity::setOnGround(bool onGround)
 {
 	this->onGround = onGround;

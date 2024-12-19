@@ -100,6 +100,11 @@ int Player::getHealth()
 	return this->health;
 }
 
+const bool Player::getCanShoot() const
+{
+	return this->canShoot;
+}
+
 void Player::setCanBreakBlocks(bool canBreakBlocks)
 {
 	this->canBreakBlocks = canBreakBlocks;
@@ -120,6 +125,16 @@ void Player::setHealth(int health)
 	this->health = health;
 }
 
+void Player::setJumpTimerMax(float jumpTimerMax)
+{
+	this->jumpTimerMax = jumpTimerMax;
+}
+
+void Player::setCanShoot(bool canShoot)
+{
+	this->canShoot = canShoot;
+}
+
 const bool Player::hasPowerUp(PowerUpType type) const
 {
 	for (auto& p : this->powerUps)
@@ -127,25 +142,6 @@ const bool Player::hasPowerUp(PowerUpType type) const
 		if (p->getType() == type) return true;
 	}
 	return false;
-}
-
-Bullet* Player::shoot()
-{
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	{
-		if (this->canShoot == true)
-		{
-			this->canShoot = false;
-			sf::Vector2f distance = 0.5f * sf::Vector2f(this->getGlobalBounds().width - BULLET_WIDTH, this->getGlobalBounds().height - BULLET_HEIGHT);
-			if (!this->flipped) return new Bullet(this->getPosition() + distance, sf::Vector2f(BULLET_SPEED, 0.f) + this->velocity);
-			return new Bullet(this->getPosition() + distance, sf::Vector2f(-BULLET_SPEED, 0.f) + this->velocity);
-		}
-	}
-	else
-	{
-		this->canShoot = true;
-	}
-	return nullptr;
 }
 
 void Player::collideWithTile(Tile* tile, Direction from)

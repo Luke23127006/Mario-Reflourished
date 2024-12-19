@@ -33,6 +33,7 @@ public:
 	AdventureMode(std::string fileName, sf::Vector2f cameraOrigin);
 	virtual ~AdventureMode();
 	void setEnemiesBehaviors();
+
 	void update(float deltaTime, bool& held) override;
 	void updateEntities(float deltaTime);
 	virtual void updateCoins(float deltaTime);

@@ -13,6 +13,8 @@
 #include "Mushroom.h"
 #include "Shield.h"
 #include "FlyingNimbus.h"
+#include "AirSneakers.h"
+#include "FireFlower.h"
 
 #include <ctime>
 

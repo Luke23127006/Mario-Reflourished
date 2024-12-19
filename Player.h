@@ -44,13 +44,14 @@ public:
 
 	sf::Vector2f getAcceleration();
 	int getHealth();
+	const bool getCanShoot() const;
 
 	void setCanBreakBlocks(bool canBreakBlocks);
 	void setVelocityMax(sf::Vector2f velocityMax);
 	void setAcceleration(sf::Vector2f acceleration);
 	void setHealth(int health);
-
-	Bullet* shoot();
+	void setJumpTimerMax(float jumpTimerMax);
+	void setCanShoot(bool canShoot);
 
 	void collideWithTile(Tile* tile, Direction from) override;
 	void collideWithTile(LuckyBlock* tile, Direction from) override;
