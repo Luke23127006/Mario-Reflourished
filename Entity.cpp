@@ -38,6 +38,11 @@ const bool Entity::isUnderWater() const
 	return this->underWater;
 }
 
+const bool Entity::isFlipped() const
+{
+	return this->flipped;
+}
+
 void Entity::setOnGround(bool onGround)
 {
 	this->onGround = onGround;
@@ -89,6 +94,16 @@ void Entity::setMap(Map* map)
 Map& Entity::getMap()
 {
 	return *worldMap;
+}
+
+const bool Entity::getOnGround() const
+{
+	return this->onGround;
+}
+
+const sf::Vector2f Entity::getVelocity() const
+{
+	return this->velocity;
 }
 
 void Entity::jump()
@@ -315,11 +330,6 @@ sf::Vector2f Entity::getLastPosition()
 	return this->lastPosition;
 }
 
-sf::Vector2f Entity::getVelocity()
-{
-	return this->velocity;
-}
-
 sf::Vector2f Entity::getSize()
 {
 	return this->hitbox.getSize();
@@ -342,6 +352,6 @@ void Entity::updateLastPosition()
 
 void Entity::render(sf::RenderTarget& target)
 {
-	Object::render(target);
 	if (this->animations.size() == 1) animations[0]->render(target, this->hitbox.getPosition());
+	Object::render(target);
 }

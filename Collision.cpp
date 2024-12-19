@@ -13,9 +13,6 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 	int iRange = int(entity->getGlobalBounds().width / TILE_SIZE) + 1;
 	int jRange = int(entity->getGlobalBounds().height / TILE_SIZE) + 1;
 
-	entity->setOnGround(false);
-	entity->setUnderWater(false);
-
 	std::vector<Tile*> tiles;
 	for (int _i = i; _i <= i + iRange; _i++)
 	{

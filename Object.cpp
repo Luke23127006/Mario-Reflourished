@@ -42,6 +42,11 @@ const sf::FloatRect Object::getGLobalBounds() const
 	return this->hitbox.getGlobalBounds();
 }
 
+void Object::setSize(sf::Vector2f size)
+{
+	this->hitbox.setSize(size);
+}
+
 void Object::setPosition(sf::Vector2f position)
 {
 	this->hitbox.setPosition(position);
@@ -76,6 +81,7 @@ void Object::render(sf::RenderTarget& target)
 	border.setSize(sf::Vector2f(this->hitbox.getSize().x - 2 * borderSize, this->hitbox.getSize().y - 2 * borderSize));
 	border.setOutlineColor(sf::Color::Blue);
 
+	//target.draw(this->hitbox);
 	target.draw(this->sprite);
 	target.draw(border);
 }

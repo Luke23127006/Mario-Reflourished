@@ -17,9 +17,12 @@ extern sf::Vector2f MOUSE_VIEW_LAST_POSITION;
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int ZOOM_LEVEL = 720;
+const float RENDER_DISTANCE = 1000.f;
+const float UPDATE_DISTANCE = 2000.f;
 
 // gravity
 const float GRAVITY = 3000.f;
+const float ANTI_GRAVITY = -GRAVITY;
 
 // colors
 const sf::Color PINK = sf::Color(177, 80, 199, 180);
@@ -30,7 +33,7 @@ const std::string ENEMIES_DIRECTORY = "./Resources/Enemies/";
 const std::string FONTS_DIRECTORY = "./Resources/Fonts/";
 const std::string ITEMS_DIRECTORY = "./Resources/Items/";
 const std::string MAPS_DIRECTORY = "./Resources/Maps/";
-const std::string SOUNDS_DIRECTORY = "./Resources/Sounds/";
+const std::string SOUNDS_DIRECTORY = "./Resources/Sound/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
 // camera
@@ -42,15 +45,19 @@ const float PLAYER_WIDTH = 42.f;
 const float PLAYER_HEIGHT = 48.f;
 const float PLAYER_BIGGER_WIDTH = 48.f;
 const float PLAYER_BIGGER_HEIGHT = 96.f;
-const float PLAYER_MAX_SPEED = 400.f;
-const float PLAYER_MAX_FALL_SPEED = 2000.f;
+
+const float PLAYER_SPEED = 400.f;
+const float PLAYER_FALL_SPEED = 2000.f;
 const float PLAYER_ACCELERATION = 800.f;
-const float PLAYER_DECELERATION = 1200.f;
+const float PLAYER_DECELERATION = -1200.f;
+
+const float PLAYER_WATER_ACCELERATION = 400.f;
+const float PLAYER_WATER_DECELERATION = -2400.f;
+
 const float PLAYER_JUMP_STRENGHT = 550.f;
-const float PLAYER_JUMP_TIME = 0.28f;
+const float PLAYER_JUMP_TIME = 0.3f;
 const float PLAYER_DIE_VELOCITY = 700.f;
 const float PLAYER_SHOOT_COOLDOWN = 0.5f;
-
 
 // Apply for all Characters
 
@@ -62,15 +69,6 @@ const float BULLET_HEIGHT = 16.f;
 const float BULLET_SPEED = 500.f;
 const float BULLET_DURATION = 3.f;
 
-
-// flying nimbuses
-const float NIMBUS_WIDTH = 100.f;
-const float NIMBUS_HEIGHT = 24.f;
-const float NIMBUS_MAX_SPEED = 1000.f;
-const float NIMBUS_ACCELERATION = 800.f;
-const float NIMBUS_DECELERATION = 1200.f;
-const float NIMBUS_DURATION = 50.0f;
-const float ANTI_GRAVITY = -GRAVITY;
 
 // entities
 const float ENTITY_JUMP_STRENGHT = 500.f;
@@ -144,17 +142,38 @@ const float POWER_UP_HEIGHT = 40.f;
 const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 
+// power up duration
 const float MUSHROOM_DURATION = 5.f;
 const float FIRE_FLOWER_DURATION = 5.f;
 const float AIR_SNEAKERS_DURATION = 5.f;
 const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
-const float SHIELD_DURATION = 5.f;
+const float SHIELD_DURATION = 10.f;
 const float MAGNET_DURATION = 5.f;
+const float NIMBUS_DURATION = 10.f;
+
+// nimbus
+const float NIMBUS_WIDTH = 100.f;
+const float NIMBUS_HEIGHT = 24.f;
+const float NIMBUS_SPEED = 1200.f;
+const float NIMBUS_VERTICAL_SPEED = 700.f;
+const float NIMBUS_ACCELERATION = 600.f;
+const float NIMBUS_DECELERATION = -400.f;
+
+// mushroom
+const float GROW_WIDTH = 48.f;
+const float GROW_HEIGHT = 96.f;
+
+// air sneakers
+const float SNEAKERS_JUMP_TIMER = 0.5f;
+
+// magnet
+const float MAGNET_RADIUS = 500.f;
 
 // coin
 const float COIN_WIDTH = 28.f;
 const float COIN_HEIGHT = 28.f;
+const float COIN_MAX_SPEED = 2000.f;
 
 // tiles
 const float TILE_SIZE = 50;

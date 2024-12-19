@@ -1,15 +1,16 @@
-#include "Resources.h"
+﻿#include "Resources.h"
 #include <iostream>
 
 std::map<std::string, sf::Texture> Resources::textures;
 std::map<std::string, sf::Font> Resources::fonts;
-std::map<std::string, sf::SoundBuffer> Resources::sounds;
+std::map<std::string, sf::SoundBuffer> Resources::soundBuffers;
+std::map<std::string, sf::Sound> Resources::sounds;
 
 void Resources::initResources()
 {
     initTextures();
     initFonts();
-    //initSounds();
+    initSounds();
 }
 
 void Resources::initTextures()
@@ -91,6 +92,15 @@ void Resources::initFonts()
 
 void Resources::initSounds()
 {
+	/* Load sounds vào soundBuffers["bla bla"], nhưng khi muốn gọi sound thì sounds["bla bla"].play() nha */
+	soundBuffers["MARIO_JUMP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/smb_jump-small.wav");
+
+	
+
+	for (auto& s : soundBuffers)
+	{
+		sounds[s.first].setBuffer(s.second);
+	}
 }
 
 Resources::Resources()

@@ -37,5 +37,6 @@ public:
 
 	void update(float deltaTime, std::vector<Entity*>& entities);
 	void render(sf::RenderWindow& target);
+	void render(sf::RenderTarget& target, sf::Vector2f center);
 };
 

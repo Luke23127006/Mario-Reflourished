@@ -20,6 +20,7 @@ private:
 protected:
 	sf::Vector2f velocity;
 
+	int health = 1;
 	bool onGround;
 	bool flipped;
 	float dieTimer;
@@ -38,6 +39,7 @@ public:
 	const bool isDead() const;
 	const bool isDying() const;
 	const bool isUnderWater() const;
+	const bool isFlipped() const;
 
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
@@ -45,6 +47,10 @@ public:
 	void setSize(sf::Vector2f size);
 	bool isCollide();
 	std::vector<bool>& getCollisionDirections();
+	const bool getOnGround() const;
+	const sf::Vector2f getVelocity() const;
+	sf::Vector2f getLastPosition();
+
 	void jump();
 	void move(sf::Vector2f distance);
 	// For ENTITY in WORLD
@@ -73,8 +79,6 @@ public:
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 
-	sf::Vector2f getLastPosition();
-	sf::Vector2f getVelocity();
 	sf::Vector2f getSize();
 	virtual void die();
 

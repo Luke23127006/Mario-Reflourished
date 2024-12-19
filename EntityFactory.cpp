@@ -32,14 +32,55 @@ Entity* EntityFactory::createShell(sf::Vector2f position)
 
 Entity* EntityFactory::createPowerUp(sf::FloatRect container, PowerUpType type)
 {
-	return new PowerUp(type, container);
+	return new PowerUp(container);
 }
 
 PowerUp* EntityFactory::createPowerUp(sf::FloatRect containner)
 {
 	int chance = rand() % 100;
-	if (chance < 30) return new PowerUp(PowerUpType::MUSHROOM, containner);
-	if (chance < 60) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
-	if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
-	return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
+	return new PowerUp(containner);
+	//if (chance < 30) return new PowerUp(PowerUpType::MUSHROOM, containner);
+	//if (chance < 60) return new PowerUp(PowerUpType::AIR_SNEAKERS, containner);
+	//if (chance < 90) return new PowerUp(PowerUpType::SHIELD , containner); // SHIELD
+	//return new PowerUp(PowerUpType::FLYING_NIMBUS, containner); // FLYING_NIMBUS
+}
+
+PowerUp* EntityFactory::createPowerUp(Player* player)
+{
+	int chance = rand() % 100;
+	return new Magnet(player);
+	return new FireFlower(player);
+	if (chance < 50) return new FlyingNimbus(player);
+	return new Mushroom(player);
+	return new AirSneakers(player);
+	return new Shield(player);
+}
+
+PowerUp* EntityFactory::createPowerUp(Player* player, PowerUpType type, bool infinity)
+{
+	PowerUp* powerUp = nullptr;
+	switch (type)
+	{
+	case PowerUpType::MUSHROOM:
+		powerUp = new Mushroom(player);
+		break;
+	case PowerUpType::AIR_SNEAKERS:
+		powerUp = new AirSneakers(player);
+		break;
+	case PowerUpType::SHIELD:
+		powerUp = new Shield(player);
+		break;
+	case PowerUpType::FLYING_NIMBUS:
+		powerUp = new FlyingNimbus(player);
+		break;
+	case PowerUpType::FIRE_FLOWER:
+		powerUp = new FireFlower(player);
+		break;
+	case PowerUpType::MAGNET:
+		powerUp = new Magnet(player);
+		break;
+	}
+
+	if (infinity) powerUp->setInfinityDuration();
+	return powerUp;
 }

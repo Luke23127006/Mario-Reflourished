@@ -184,10 +184,9 @@ void Enemy::update(float deltaTime)
 
 void Enemy::render(sf::RenderTarget& target)
 {
-	Entity::render(target);
-	target.draw(this->hitbox);
 	if (this->followPlayer)
 	{
 		this->exclamation.render(target, sf::Vector2f(this->getGlobalBounds().left, this->getGlobalBounds().top - this->getGlobalBounds().height / 2));
 	}
+	Entity::render(target);
 }

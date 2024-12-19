@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdventureMode.cpp" />
+    <ClCompile Include="AirSneakers.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BanzaiBill.cpp" />
     <ClCompile Include="Barrier.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="FireFlower.cpp" />
     <ClCompile Include="FlyingNimbus.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -172,8 +174,10 @@
     <ClCompile Include="Lava.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="LuckyBlock.cpp" />
+    <ClCompile Include="Magnet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Pause.cpp" />
@@ -186,6 +190,7 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="SelectLevel.cpp" />
     <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="SpikeWall.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Tile.cpp" />
@@ -196,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdventureMode.h" />
+    <ClInclude Include="AirSneakers.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BanzaiBill.h" />
     <ClInclude Include="Barrier.h" />
@@ -219,6 +225,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="FireBall.h" />
+    <ClInclude Include="FireFlower.h" />
     <ClInclude Include="FlyingNimbus.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
@@ -227,7 +234,9 @@
     <ClInclude Include="Lava.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="LuckyBlock.h" />
+    <ClInclude Include="Magnet.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Pause.h" />
@@ -240,6 +249,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SelectLevel.h" />
     <ClInclude Include="Shell.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="SpikeWall.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Tile.h" />

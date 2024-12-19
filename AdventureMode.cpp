@@ -1,4 +1,5 @@
 #include "AdventureMode.h"
+#include <cmath>
 
 void AdventureMode::initMap(std::string fileName)
 {
@@ -24,6 +25,7 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 				if (name == "player")
 				{
 					this->player = EntityFactory::createPlayer(position);
+					this->player->setCoins(&this->coins);
 					this->entities.insert(this->entities.begin(), this->player);
 				}
 				else if (name == "coin" || name == "coin under water")
@@ -147,30 +149,18 @@ void AdventureMode::update(float deltaTime, bool& held)
 
 void AdventureMode::updateEntities(float deltaTime)
 {
-	std::vector<Entity*> newEntities;
 	auto it = this->entities.begin();
 
-	while (it != this->entities.end()) {
+	sf::Vector2f center = this->camera.getPosition();
+	while (it != this->entities.end()) 
+	{
 		auto& e = *it;
-		e->update(deltaTime);
+		sf::Vector2f direction = center - e->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < UPDATE_DISTANCE) e->update(deltaTime);
 
-		if (isType<Player>(*e))
-		{
-			Bullet* bullet = dynamic_cast<Player*>(e)->shoot();
-			if (bullet) newEntities.push_back(bullet);
-		}
-
-		if (!this->entities.empty() && !newEntities.empty())
-		{
-			newEntities.back()->setAddressOfWorld(this->entities);
-			newEntities.back()->setMap(this->map);
-		}
 		if (!isType<Player>(*e) && e->isDead())
 		{
-			if (isType<Koopa>(*e))
-			{
-				newEntities.push_back(new Shell(e->getPosition()));
-			}
 			delete e;
 			it = this->entities.erase(it);
 		}
@@ -178,10 +168,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		{
 			++it;
 		}
-		
 	}
-
-	this->entities.insert(this->entities.end(), newEntities.begin(), newEntities.end());
 }
 
 void AdventureMode::updateCoins(float deltaTime)
@@ -215,6 +202,8 @@ void AdventureMode::updateCollision()
 		for (auto& e : this->entities)
 		{
 			if (!e->getEnabled()) continue;
+			e->setOnGround(false);
+			e->setUnderWater(false);
 			Collision::handle_entity_map(e, this->map);
 		}
 
@@ -250,9 +239,21 @@ void AdventureMode::updateLastPosition()
 void AdventureMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
-	for (auto& e : this->entities) e->render(target);
-	for (auto& coin : this->coins) coin->render(target);
-	if (this->map) this->map->render(target);
+	sf::Vector2f center = this->camera.getPosition();
+
+	for (auto& e : this->entities)
+	{
+		sf::Vector2f direction = center - e->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < RENDER_DISTANCE) e->render(target);
+	}
+	for (auto& coin : this->coins)
+	{
+		sf::Vector2f direction = center - coin->getPosition();
+		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+		if (distance < RENDER_DISTANCE) coin->render(target);
+	}
+	if (this->map) this->map->render(target, center);
 }
 
 GameState AdventureMode::getNextScene()

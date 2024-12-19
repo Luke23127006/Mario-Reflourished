@@ -20,4 +20,5 @@ void Koopa::squished()
 {
 	Enemy::squished();
 	this->dieTimer = 0.f;
+	this->addEntity(new Shell(this->getPosition()));
 }

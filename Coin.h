@@ -14,6 +14,7 @@ public:
 	virtual ~Coin();
 
 	const bool isCollected() const;
+	void move(sf::Vector2f velocity, float deltaTime);
 
 	void update(float deltaTime) override;
 	void collected();

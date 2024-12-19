@@ -21,6 +21,11 @@ const bool Coin::isCollected() const
 	return !this->enabled;
 }
 
+void Coin::move(sf::Vector2f velocity, float deltaTime)
+{
+	this->hitbox.move(velocity * deltaTime);
+}
+
 void Coin::update(float deltaTime)
 {
 	this->animation->update(deltaTime, false);

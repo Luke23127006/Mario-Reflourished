@@ -1,9 +1,8 @@
 #include "PowerUp.h"
+#include "Player.h"
 
-PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
+PowerUp::PowerUp(sf::FloatRect container) :
 	Entity(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT), sf::Vector2f(container.left, container.top)),
-	type(type),
-	duration(10.0f),
 	container(container)
 {
 	sf::Vector2f distance = 0.5f * sf::Vector2f(container.width - POWER_UP_WIDTH, container.height - POWER_UP_HEIGHT);
@@ -13,13 +12,15 @@ PowerUp::PowerUp(PowerUpType type, sf::FloatRect container) :
 	this->animations[0]->setSize(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT));
 }
 
-PowerUp::~PowerUp()
+PowerUp::PowerUp(Player* player) :
+	Entity(sf::Vector2f(), sf::Vector2f()),
+	player(player)
 {
+	this->type = PowerUpType::NUM_POWER_UPS;
 }
 
-PowerUpType PowerUp::getType()
+PowerUp::~PowerUp()
 {
-	return this->type;
 }
 
 const float PowerUp::getDuration() const
@@ -36,6 +37,21 @@ void PowerUp::rise(float deltaTime)
 void PowerUp::turnAround()
 {
 	this->velocity.x = -this->velocity.x;
+}
+
+void PowerUp::setInfinityDuration()
+{
+	this->duration = -1.f;
+}
+
+const PowerUpType PowerUp::getType() const
+{
+	return this->type;
+}
+
+const bool PowerUp::isExpired() const
+{
+	return this->duration <= 0.f && this->duration != -1.f;
 }
 
 void PowerUp::collideWithTile(Tile* tile, Direction from)
@@ -62,6 +78,12 @@ void PowerUp::collideWithEntity(Entity* entity, Direction& from)
 
 void PowerUp::update(float deltaTime)
 {
+	if (this->player)
+	{
+		if (this->duration != -1) this->duration -= deltaTime;
+		return;
+	}
+
 	for (auto& a : this->animations)
 	{
 		a->update(deltaTime, true);
@@ -81,4 +103,8 @@ void PowerUp::update(float deltaTime)
 		}
 		this->move(this->velocity * deltaTime);
 	}
+}
+
+void PowerUp::applyPowerUp(float deltaTime)
+{
 }

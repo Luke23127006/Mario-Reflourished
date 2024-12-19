@@ -176,7 +176,7 @@ const bool Map::insideMap(Entity* entity) const
 	sf::FloatRect entityBounds = entity->getGlobalBounds();
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	if (entityBounds.top > mapBounds.top + mapBounds.height) entity->die();
-	return entityBounds.left >= mapBounds.left && entityBounds.left <= mapBounds.left + mapBounds.width;
+	return entityBounds.left + entityBounds.width >= mapBounds.left && entityBounds.left <= mapBounds.left + mapBounds.width;
 }
 
 void Map::update(float deltaTime, std::vector<Entity*>& entities)
@@ -207,5 +207,20 @@ void Map::render(sf::RenderWindow& target)
 		{
 			if (this->mapData[i][j] == TileType::EMPTY) continue;
 			this->map[i][j]->render(target);
+		}
+}
+
+void Map::render(sf::RenderTarget& target, sf::Vector2f center)
+{
+	for (int i = 0; i < this->size.x; i++)
+		for (int j = 0; j < this->size.y; j++)
+		{
+			if (this->mapData[i][j] == TileType::EMPTY) continue;
+
+			sf::Vector2f direction = center - this->map[i][j]->getPosition();
+			float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+			if (distance < RENDER_DISTANCE) 
+				this->map[i][j]->render(target);
 		}
 }

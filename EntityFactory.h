@@ -10,6 +10,13 @@
 #include "Bullet.h"
 #include "Bird.h"
 #include "Bowser.h"
+#include "Mushroom.h"
+#include "Shield.h"
+#include "FlyingNimbus.h"
+#include "AirSneakers.h"
+#include "FireFlower.h"
+#include "Magnet.h"
+
 #include <ctime>
 
 class EntityFactory
@@ -23,4 +30,6 @@ public:
 	static Entity* createShell(sf::Vector2f position);
 	static Entity* createPowerUp(sf::FloatRect container, PowerUpType type);
 	static PowerUp* createPowerUp(sf::FloatRect containner);
+	static PowerUp* createPowerUp(Player* player);
+	static PowerUp* createPowerUp(Player* player, PowerUpType type, bool infinity);
 };
