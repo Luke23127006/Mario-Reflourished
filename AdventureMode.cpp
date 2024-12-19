@@ -157,7 +157,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		sf::Vector2f direction = center - e->getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT))e->update(deltaTime);
+		if (distance < UPDATE_DISTANCE) e->update(deltaTime);
 
 		if (!isType<Player>(*e) && e->isDead())
 		{
@@ -245,15 +245,15 @@ void AdventureMode::render(sf::RenderWindow& target)
 	{
 		sf::Vector2f direction = center - e->getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT)) e->render(target);
+		if (distance < RENDER_DISTANCE) e->render(target);
 	}
 	for (auto& coin : this->coins)
 	{
 		sf::Vector2f direction = center - coin->getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-		if (distance < sqrt(SCREEN_WIDTH * SCREEN_WIDTH + SCREEN_HEIGHT * SCREEN_HEIGHT)) coin->render(target);
+		if (distance < RENDER_DISTANCE) coin->render(target);
 	}
-	if (this->map) this->map->render(target);
+	if (this->map) this->map->render(target, center);
 }
 
 GameState AdventureMode::getNextScene()

@@ -153,9 +153,10 @@ void EndlessMode::render(sf::RenderWindow& target)
 {
 	target.setView(this->camera.getView(target.getSize()));
 	AdventureMode::render(target);
+	sf::Vector2f center = this->camera.getPosition();
 	for (auto& m : this->maps)
 	{
-		m->render(target);
+		m->render(target, center);
 	}
 	spikeWall->render(target);
 }

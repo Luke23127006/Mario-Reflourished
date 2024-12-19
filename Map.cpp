@@ -209,3 +209,18 @@ void Map::render(sf::RenderWindow& target)
 			this->map[i][j]->render(target);
 		}
 }
+
+void Map::render(sf::RenderTarget& target, sf::Vector2f center)
+{
+	for (int i = 0; i < this->size.x; i++)
+		for (int j = 0; j < this->size.y; j++)
+		{
+			if (this->mapData[i][j] == TileType::EMPTY) continue;
+
+			sf::Vector2f direction = center - this->map[i][j]->getPosition();
+			float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+
+			if (distance < RENDER_DISTANCE) 
+				this->map[i][j]->render(target);
+		}
+}
