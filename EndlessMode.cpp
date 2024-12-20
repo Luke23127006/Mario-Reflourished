@@ -144,10 +144,10 @@ void EndlessMode::updateCamera(float deltaTime)
 	this->cameraPosition = std::max(pos1, pos2);
 	this->camera.update(deltaTime, sf::Vector2f(this->cameraPosition, this->player->getPosition().y + SCREEN_HEIGHT * 0.4f));
 
-	if (this->camera.getPosition().y > this->cameraHeightMax)
-	{
-		this->camera.setPosition(sf::Vector2f(this->camera.getPosition().x, this->cameraHeightMax));
-	}
+	sf::Vector2f position = this->camera.getPosition();
+	position.y = std::max(position.y, this->maps[0]->getPosition().y + this->camera.getSize().y / 2 - this->player->getGLobalBounds().height * 4);
+	position.y = std::min(position.y, this->maps[0]->getPosition().y + this->maps[0]->getSize().y * TILE_SIZE - this->camera.getSize().y / 2);
+	this->camera.setPosition(position);
 }
 
 void EndlessMode::render(sf::RenderWindow& target)

@@ -67,13 +67,13 @@ void HUD::update(float dt, bool& held)
 {
 	time += dt;
 
-	float sizePerHeader = WINDOW_SIZE.x / this->headers.size();
+	float sizePerHeader = std::max(1.f * ZOOM_LEVEL, ZOOM_LEVEL * ASPECT) / this->headers.size();
 	for (int i = 0; i < this->headers.size(); i++)
 	{
 		sf::Vector2f position;
 		position.x = sizePerHeader * i + sizePerHeader / 2 - this->headers[i].getGlobalBounds().width / 2;
 		position.y = 0.f;
-		position += CAMERA_POSITION - sf::Vector2f(WINDOW_SIZE.x, WINDOW_SIZE.y) * 0.5f;
+		position += SCREEN_TOP_LEFT;
 		this->headers[i].setPosition(position);
 	}
 
@@ -82,7 +82,7 @@ void HUD::update(float dt, bool& held)
 		sf::Vector2f position;
 		position.x = sizePerHeader * i + sizePerHeader / 2 - this->values[i]->getGlobalBounds().width / 2;
 		position.y = this->headers[0].getGlobalBounds().height;
-		position += CAMERA_POSITION - sf::Vector2f(WINDOW_SIZE.x, WINDOW_SIZE.y) * 0.5f;
+		position += SCREEN_TOP_LEFT;
 		this->values[i]->setPosition(position);
 	}
 
@@ -91,9 +91,12 @@ void HUD::update(float dt, bool& held)
 
 
 
-
+#include "Camera.h"
 void HUD::render(sf::RenderWindow& window)
 {
+	Camera* camera = new Camera();
+	window.setView(camera->getView(window.getSize()));
+	delete camera;
 	for (auto& header : this->headers)
 	{
 		window.draw(header);

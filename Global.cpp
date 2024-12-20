@@ -63,6 +63,7 @@ sf::Vector2f SCREEN_BOTTOM_RIGHT;
 sf::Vector2f SCREEN_TOP_LEFT;
 sf::Vector2f SCREEN_TOP_RIGHT;
 sf::Vector2f CAMERA_POSITION;
+float ASPECT;
 
 
 

@@ -162,10 +162,39 @@ void Game::pollEvents()
 			this->window->close();
 			break;
 		case sf::Event::KeyPressed:
+			// Handle key presses here if needed
+			break;
+		case sf::Event::Resized:
+		{
+			const float minAspect = 1.5f;
+			const float maxAspect = 2.0f;
+
+			float width = static_cast<float>(this->ev.size.width);
+			float height = static_cast<float>(this->ev.size.height);
+
+			// Calculate the aspect ratio
+			float aspect = width / height;
+
+			// Clamp the aspect ratio
+			if (aspect < minAspect) {
+				width = height * minAspect;
+			}
+			else if (aspect > maxAspect) {
+				width = height * maxAspect;
+			}
+
+			// Update the window size
+			this->window->setSize(sf::Vector2u(static_cast<unsigned int>(width), static_cast<unsigned int>(height)));
+			break;
+		}
+		default:
 			break;
 		}
 	}
 }
+
+
+
 
 void Game::updateMousePosition()
 {
@@ -199,16 +228,14 @@ void Game::update(float deltaTime)
 		
 	}
 
-
 	this->changeScene(nextScene);
 }
 
 void Game::render()
 {
 	this->window->clear(sf::Color::White);
-	//this->window->setView(this->window->getDefaultView());
-	this->window->setView(this->camera.getView(this->window->getSize()));
-	//this->states.top()->render(*this->window);
+	this->window->setView(this->window->getDefaultView());
+	//this->window->setView(this->camera.getView(this->window->getSize()));
 	
 	// Update main scene
 	for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
@@ -225,7 +252,6 @@ void Game::render()
 	{
 		this->states.rbegin()->first->render(*this->window);
 	}
-
 }
 
 void Game::run()
