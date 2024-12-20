@@ -23,6 +23,12 @@ const sf::View Camera::getView(sf::Vector2u windowSize) const
 	{
 		size = sf::Vector2f(ZOOM_LEVEL, ZOOM_LEVEL / aspect);
 	}
+    // for screen view
+    SCREEN_TOP_LEFT = sf::Vector2f(this->position.x - size.x / 2, this->position.y - size.y / 2);
+    SCREEN_TOP_RIGHT = sf::Vector2f(this->position.x + size.x / 2, this->position.y - size.y / 2);
+    SCREEN_BOTTOM_LEFT = sf::Vector2f(this->position.x - size.x / 2, this->position.y + size.y / 2);
+    SCREEN_BOTTOM_RIGHT = sf::Vector2f(this->position.x + size.x / 2, this->position.y + size.y / 2);
+
 	return sf::View(this->position, size);
 }
 

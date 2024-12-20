@@ -5,93 +5,76 @@ void Game::changeScene(GameState nextScene)
 
 
 
-
-
 	if (this->currentGameState == nextScene) return;
 
 	switch (nextScene)
 	{
 	case GameState::WELCOME:
-		
 
-		/*this->currentScene = std::make_unique<Welcome>(this->renderTexture);*/
-		popState();
-		pushState(std::make_unique<Welcome>(this->renderTexture));
+		clearState();
+		pushState(std::make_unique<Welcome>(this->renderTexture), false);
 		this->currentGameState = GameState::WELCOME;
 		break;
 	case GameState::LOGIN:
 		
-		popState();
-		pushState(std::make_unique<Login>(renderTexture));
+		clearState();
+		pushState(std::make_unique<Login>(renderTexture), false);
 		this->currentGameState = GameState::LOGIN;
 		break;
 	case GameState::PLAY:
 		
-		std::cout << "Play\n";
-		if (this->currentGameState == GameState::PAUSE)
-		{
-			clearState();
-		}
-		pushState(std::make_unique<Play>(this->renderTexture));
+		clearState();
+		pushState(std::make_unique<Play>(this->renderTexture), false);
 		this->currentGameState = GameState::PLAY;
 		break;
 	case GameState::SELECT_LEVEL:
 		
-		std::cout << "SelectLevel\n";
-		popState();
-		pushState(std::make_unique<SelectLevel>(this->renderTexture));
+		clearState();
+		pushState(std::make_unique<SelectLevel>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
 	case GameState::LEVEL1:
 		
 		std::cout << "Level1\n";
-		if (this->currentGameState == GameState::REPLAY)
-		{
-			std::cout << "Hereeeeeeeeeeeeeeee\n";
-		}
 		clearState();
-		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0.1f * this->window->getSize().x, 0)));
-		//this->currentScene = std::make_unique<AdventureMode>(MAPS_DIRECTORY + "demo_map.png", sf::Vector2f(0.1f * this->window->getSize().x, 0));
+		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0.1f * this->window->getSize().x, 0)), false);
+		pushState(std::make_unique<HUD>(this->renderTexture, false), true);
 		this->currentGameState = GameState::LEVEL1;
 		break;
 	case GameState::LEVEL2:
 		
 		std::cout << "Level2\n";
-		if (this->currentGameState == GameState::RESUME)
-		{
-			this->currentGameState = GameState::LEVEL2;
-			break;
-		}
 		clearState();
-		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0)));
+		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0)), false);
+		pushState(std::make_unique<HUD>(this->renderTexture, false), true);
 		this->currentGameState = GameState::LEVEL2;
 		break;
 	case GameState::LEVEL3:
 		
 		std::cout << "Level3\n";
-		if (this->currentGameState == GameState::RESUME)
-		{
-			this->currentGameState = GameState::LEVEL3;
-			break;
-		}
 		clearState();
-		pushState(std::make_unique<EndlessMode>());
+		pushState(std::make_unique<EndlessMode>(), false);
+		pushState(std::make_unique<HUD>(this->renderTexture, true), true);
 		this->currentGameState = GameState::LEVEL3;
 		break;
 	case GameState::PAUSE:
 		Resources::textures["Pause Background"].create(this->window->getSize().x, this->window->getSize().y);
 		Resources::textures["Pause Background"].update(*this->window);
 		Resources::textures["Pause Background"].setRepeated(true);
-		
-		
-	
-		pushState(std::make_unique<Pause>(this->renderTexture));
+		pushState(std::make_unique<Pause>(this->renderTexture), false);
 		this->currentGameState = GameState::PAUSE;
 		break;
 	case GameState::RESUME:
 		std::cout << "Resume\n";
 		popState();
-		this->currentGameState = states.top()->getNextScene();
+		for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
+		{
+			if (!it->second)
+			{
+				this->currentGameState = it->first->getNextScene();
+				break;
+			}
+		}
 		break;
 
 	case GameState::REPLAY:
@@ -120,16 +103,16 @@ void Game::applyToMainWindow()
 	this->window->draw(sprite);
 }
 
-void Game::pushState(std::unique_ptr<Scene> state)
+void Game::pushState(std::unique_ptr<Scene> state, bool isOverlay)
 {
-	this->states.push(std::move(state));
+	this->states.push_back(std::make_pair(std::move(state), isOverlay));
 }
 
 void Game::popState()
 {
 	if (!this->states.empty())
 	{
-		this->states.pop();
+		this->states.pop_back();
 	}
 }
 
@@ -138,7 +121,7 @@ void Game::clearState()
 {
 	while (!this->states.empty())
 	{
-		this->states.pop();
+		this->states.pop_back();
 	}
 }
 
@@ -159,7 +142,7 @@ Game::Game()
 	this->initVariables();
 	this->initWindow();
 
-	pushState(std::make_unique<Welcome>(this->renderTexture));
+	pushState(std::make_unique<Welcome>(this->renderTexture), false);
 	this->currentGameState = GameState::PLAY;
 	this->held = false;
 }
@@ -198,8 +181,26 @@ void Game::update(float deltaTime)
 {
 	this->pollEvents();
 	this->updateMousePosition();
-	this->states.top()->update(deltaTime, held);
-	this->changeScene(this->states.top()->getNextScene());
+	//this->states.top()->update(deltaTime, held);
+	// Update main scene
+	GameState nextScene = GameState::NONE;
+	for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
+	{
+		if (it->second)
+		{
+			it->first->update(deltaTime, held);
+		}
+		if (!it->second)
+		{
+			nextScene = it->first->getNextScene();
+			it->first->update(deltaTime, held);
+			break;
+		}
+		
+	}
+
+
+	this->changeScene(nextScene);
 }
 
 void Game::render()
@@ -207,7 +208,24 @@ void Game::render()
 	this->window->clear(sf::Color::White);
 	//this->window->setView(this->window->getDefaultView());
 	this->window->setView(this->camera.getView(this->window->getSize()));
-	this->states.top()->render(*this->window);
+	//this->states.top()->render(*this->window);
+	
+	// Update main scene
+	for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
+	{
+		if (!it->second)
+		{
+			it->first->render(*this->window);
+			break;
+		}
+
+	}
+
+	if (this->states.rbegin()->second)
+	{
+		this->states.rbegin()->first->render(*this->window);
+	}
+
 }
 
 void Game::run()

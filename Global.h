@@ -7,6 +7,8 @@
 
 #define PI 3.14159265
 
+
+
 // Mouse Position
 extern sf::Vector2i MOUSE_POSITION;
 extern sf::Vector2f MOUSE_VIEW_POSITION;
@@ -20,9 +22,24 @@ const int ZOOM_LEVEL = 720;
 const float RENDER_DISTANCE = 1000.f;
 const float UPDATE_DISTANCE = 2000.f;
 
+// Screen in ZOOM
+
+extern sf::Vector2f SCREEN_TOP_LEFT;
+extern sf::Vector2f SCREEN_TOP_RIGHT;
+extern sf::Vector2f SCREEN_BOTTOM_LEFT;
+extern sf::Vector2f SCREEN_BOTTOM_RIGHT;
+
 // gravity
 const float GRAVITY = 3000.f;
 const float ANTI_GRAVITY = -GRAVITY;
+
+
+
+// Player score
+extern float SCORE;
+extern int COINS;
+extern int BEAT_ENEMY;
+extern int BEAT_BOSS;
 
 // colors
 const sf::Color PINK = sf::Color(177, 80, 199, 180);
@@ -112,11 +129,11 @@ const float BOWSER_WIDTH = 100.f;
 const float BOWSER_HEIGHT = 100.f;
 const float BOWSER_PACE_SPEED = 30.f;
 const float BOWSER_FOLLOW_SPEED = 60.f;
-const float BOWSER_DETECTION_RADIUS = 800.f;
+const float BOWSER_DETECTION_RADIUS = 1000.f;
 
 const float FIREBALL_WIDTH = 10.f;
 const float FIREBALL_HEIGHT = 10.f;
-const float FIREBALL_SPEED = 70.f;
+const float FIREBALL_SPEED = 80.f;
 
 
 
@@ -243,7 +260,8 @@ enum class GameState
 	ADVENTURE_MODE,
 	ENDLESS_MODE,
 	NUM_GAME_STATES,
-	EXIT
+	EXIT,
+	NONE
 };
 
 

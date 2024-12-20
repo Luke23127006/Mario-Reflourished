@@ -81,6 +81,7 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
+
 }
 
 AdventureMode::~AdventureMode()
@@ -99,6 +100,9 @@ AdventureMode::~AdventureMode()
 		this->coins.pop_back();
 	}
 }
+
+
+
 
 void AdventureMode::setEnemiesBehaviors()
 {
@@ -131,20 +135,22 @@ void AdventureMode::setEnemiesBehaviors()
 		else if (isType<Bowser>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
-			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 2));
-			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 3));
 		}
 
 	}
 }
 void AdventureMode::update(float deltaTime, bool& held)
 {
+
 	this->updateEntities(deltaTime);
 	this->updateCoins(deltaTime);
 	this->updateCollision();
 	this->updateMap(deltaTime);
 	this->updateCamera(deltaTime);
 	this->updateLastPosition();
+	
 }
 
 void AdventureMode::updateEntities(float deltaTime)

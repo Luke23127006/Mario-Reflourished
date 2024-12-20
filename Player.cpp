@@ -12,6 +12,10 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	numCoins(0),
 	lives(3)
 {
+	SCORE = 0;
+	BEAT_ENEMY = 0;
+	BEAT_BOSS = 0;
+	COINS = 0;
 	this->health = 100;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
@@ -88,6 +92,7 @@ void Player::updatePowerUps(float deltaTime)
 void Player::addCoin()
 {
 	this->numCoins++;
+	COINS = this->numCoins;
 }
 
 sf::Vector2f Player::getAcceleration()
@@ -197,8 +202,14 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
 	if (from == Direction::UP)
 	{
+		
 		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
 		enemy->squished();
+		BEAT_ENEMY++;
+		if (isType<Bowser>(*enemy))
+		{
+			BEAT_BOSS++;
+		}
 	}
 	else if (from != Direction::NONE)
 	{

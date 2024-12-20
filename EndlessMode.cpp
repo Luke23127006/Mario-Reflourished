@@ -19,6 +19,7 @@ void EndlessMode::initMaps()
 			if (color == sf::Color(255, 0, 0, 255))
 			{
 				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
+				this->player->setCoins(&this->coins);
 				this->entities.insert(this->entities.begin(), this->player);
 			}
 		}
@@ -37,7 +38,7 @@ EndlessMode::EndlessMode() :
 
 EndlessMode::~EndlessMode()
 {
-	AdventureMode::~AdventureMode();
+
 
 	while (!this->maps.empty())
 	{
@@ -78,7 +79,7 @@ void EndlessMode::updateMap(float deltaTime)
 	{
 		m->update(deltaTime, this->entities);
 	}
-
+	std::cout << deltaTime << std::endl;
 	if (this->cameraPosition > this->maps.back()->getPosition().x + this->maps.back()->getSize().x * TILE_SIZE - SCREEN_WIDTH)
 	{
 		int i;

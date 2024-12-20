@@ -10,7 +10,7 @@
 #include "Resources.h"
 #include "Scene.h"
 #include "Coin.h"
-
+#include <unordered_map>
 #include <vector>
 
 class AdventureMode : public Scene
@@ -19,7 +19,6 @@ protected:
 	// map objects
 	std::vector<Entity*> entities;
 	std::vector<Coin*> coins;
-
 	Player* player;
 	Map* map;
 	sf::Vector2f cameraOrigin;
@@ -27,11 +26,13 @@ protected:
 	GameState typeMap;
 	void initMap(std::string fileName);
 	void addEntitiesAndCoins(std::string fileName, sf::Vector2f cornerPosition);
-
 public:
 	AdventureMode();
 	AdventureMode(std::string fileName, sf::Vector2f cameraOrigin);
 	virtual ~AdventureMode();
+
+	
+
 	void setEnemiesBehaviors();
 
 	void update(float deltaTime, bool& held) override;
