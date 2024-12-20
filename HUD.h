@@ -10,13 +10,15 @@
 class HUD : public Scene
 {
 private:
-	
-	float score;
-	float time;
+	std::vector<sf::Text> headers;
+	std::vector<sf::Text*> values;
+
+	int score;
+	int time;
 	int coins;
-	Text scoreText;
-	Text timeText;
-	Text coinText;
+	sf::Text scoreText;
+	sf::Text timeText;
+	sf::Text coinText;
 	bool isEndlessMode;
 	std::vector<Button*> powerUp;
 	std::unordered_map<std::string, double> initialData;

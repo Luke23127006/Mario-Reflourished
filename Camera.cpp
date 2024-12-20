@@ -12,6 +12,7 @@ Camera::~Camera()
 
 const sf::View Camera::getView(sf::Vector2u windowSize) const
 {
+	CAMERA_POSITION = this->position;
 	float aspect = float(windowSize.x) / float(windowSize.y);
 	sf::Vector2f size;
 

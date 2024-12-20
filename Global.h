@@ -28,6 +28,7 @@ extern sf::Vector2f SCREEN_TOP_LEFT;
 extern sf::Vector2f SCREEN_TOP_RIGHT;
 extern sf::Vector2f SCREEN_BOTTOM_LEFT;
 extern sf::Vector2f SCREEN_BOTTOM_RIGHT;
+extern sf::Vector2f CAMERA_POSITION;
 
 // gravity
 const float GRAVITY = 3000.f;
