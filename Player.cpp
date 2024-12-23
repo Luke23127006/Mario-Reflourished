@@ -49,10 +49,10 @@ void Player::takeDamage()
 	if (this->invicibleTimer > 0.f) return;
 	this->health--;
 	if (this->health == 0) this->die();
-	//else
-	//{
-	//	this->invicibleTimer = 1.f;
-	//}
+	else
+	{
+		this->invicibleTimer = 1.f;
+	}
 }
 
 void Player::die()
