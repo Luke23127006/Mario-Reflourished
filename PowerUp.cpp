@@ -51,9 +51,19 @@ const PowerUpType PowerUp::getType() const
 	return this->type;
 }
 
+const sf::Sprite& PowerUp::getIcon() const
+{
+	return this->icon;
+}
+
 const bool PowerUp::isExpired() const
 {
 	return this->duration <= 0.f && this->duration != -1.f;
+}
+
+const float PowerUp::getDurationPercentage() const
+{
+	return this->duration / this->durationMax;
 }
 
 void PowerUp::collideWithTile(Tile* tile, Direction from)
@@ -80,15 +90,15 @@ void PowerUp::collideWithEntity(Entity* entity, Direction& from)
 
 void PowerUp::update(float deltaTime)
 {
+	for (auto& a : this->animations)
+	{
+		a->update(deltaTime, true);
+	}
+
 	if (this->player)
 	{
 		if (this->duration != -1) this->duration -= deltaTime;
 		return;
-	}
-
-	for (auto& a : this->animations)
-	{
-		a->update(deltaTime, true);
 	}
 
 	if (this->hitbox.getGlobalBounds().intersects(this->container))

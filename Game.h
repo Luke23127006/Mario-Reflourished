@@ -11,10 +11,12 @@
 #include "SelectLevel.h"
 #include "Welcome.h"
 #include "Pause.h"
+#include "HUD.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
 #include <stack>
+
 class Game
 {
 private:
@@ -33,7 +35,7 @@ private:
 	bool held;
 	sf::RenderTexture renderTexture;
 	GameState currentGameState;
-	std::stack<std::unique_ptr<Scene>> states;
+	std::vector<std::pair<std::unique_ptr<Scene>, bool >> states;
 	std::unique_ptr<Scene> currentScene;
 	void changeScene(GameState nextScene);
 	void applyToMainWindow();
@@ -45,7 +47,7 @@ private:
 public:
 	Game();
 	virtual ~Game();
-	void pushState(std::unique_ptr<Scene> state);
+	void pushState(std::unique_ptr<Scene> state, bool isOverlay);
 	void popState();
 	void clearState();
 	// Event & Mouse

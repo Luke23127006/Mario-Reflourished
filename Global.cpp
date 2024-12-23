@@ -57,3 +57,18 @@ sf::Vector2i MOUSE_POSITION;
 sf::Vector2f MOUSE_VIEW_POSITION;
 sf::Vector2u WINDOW_SIZE;
 sf::Vector2f MOUSE_VIEW_LAST_POSITION;
+
+sf::Vector2f SCREEN_BOTTOM_LEFT;
+sf::Vector2f SCREEN_BOTTOM_RIGHT;
+sf::Vector2f SCREEN_TOP_LEFT;
+sf::Vector2f SCREEN_TOP_RIGHT;
+sf::Vector2f CAMERA_POSITION;
+float ASPECT;
+
+
+
+float SCORE = 0;
+int COINS = 0;
+int BEAT_ENEMY = 0;
+int BEAT_BOSS = 0;
+std::vector<PowerUp*>* POWER_UPS = nullptr;

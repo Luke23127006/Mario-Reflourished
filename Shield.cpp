@@ -5,7 +5,8 @@ Shield::Shield(Player* player) :
 	PowerUp(player)
 {
 	this->type = PowerUpType::SHIELD;
-	this->duration = SHIELD_DURATION;
+	this->duration = this->durationMax = SHIELD_DURATION;
+	this->icon.setTexture(Resources::textures["SHIELD"]);
 	this->player = player;
 	
 	this->player->setHealth(2);

@@ -34,6 +34,7 @@ void Coin::update(float deltaTime)
 void Coin::collected()
 {
 	this->enabled = false;
+	COINS++;
 }
 
 void Coin::render(sf::RenderTarget& target)

@@ -53,6 +53,10 @@ void FireBall::collideWithEntity(Entity* entity, Direction& from)
 {
 	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
 	entity->collideWithEntity(this, from);
+	if (from != Direction::NONE && dynamic_cast<Enemy*>(entity) != nullptr && !dynamic_cast<Bowser*> (entity))
+	{
+		entity->die();
+	}
 }
 
 

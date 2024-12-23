@@ -307,6 +307,11 @@ FireAttack::FireAttack(Entity* owner, Entity* player) : Component(owner, player)
 	detection_radius = BOWSER_DETECTION_RADIUS;
 }
 
+FireAttack::FireAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime) : Component(owner, player), detection_radius(detection_radius), cooldownTime(cooldownTime)
+{
+	countTime = cooldownTime;
+}
+
 void FireAttack::update(float deltaTime)
 {
 	sf::Vector2f playerPosition = player->getPosition();

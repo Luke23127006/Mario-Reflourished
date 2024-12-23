@@ -6,7 +6,9 @@ FireFlower::FireFlower(Player* player) :
 	PowerUp(player)
 {
 	this->type = PowerUpType::FIRE_FLOWER;
-	this->duration = FIRE_FLOWER_DURATION;
+	this->duration = this->durationMax = FIRE_FLOWER_DURATION;
+	this->icon.setTexture(Resources::textures["FIRE_FLOWER"]);
+	this->icon.setScale(50.f / this->icon.getGlobalBounds().width, 50.f / this->icon.getGlobalBounds().height);
 
 	this->player->setCanShoot(true);
 }

@@ -3,19 +3,20 @@
 #include <iostream>
 
 FlyingNimbus::FlyingNimbus(Player* player) :
-	PowerUp(player)
+	PowerUp(player),
+	isAppearing(true),
+	appearTime(2.0f),
+	elapsedTime(0.0f)
 {
 	this->player = player;
-	this->duration = NIMBUS_DURATION;
+	this->duration = this->durationMax = NIMBUS_DURATION;
 	this->type = PowerUpType::FLYING_NIMBUS;
+	this->icon.setTexture(Resources::textures["FLYING_NIMBUS"]);
 
 	if (this->player->hasPowerUp(this->type)) return;
 	this->player->setVelocityMax(sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED));
 	this->hitbox.setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
 	this->hitbox.setFillColor(sf::Color::Yellow);
-	this->isAppearing = true;
-	this->elapsedTime = 0.0f;
-	this->appearTime = 2.0f;
 }
 
 FlyingNimbus::~FlyingNimbus()

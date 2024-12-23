@@ -81,6 +81,7 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
+
 }
 
 AdventureMode::~AdventureMode()
@@ -99,6 +100,9 @@ AdventureMode::~AdventureMode()
 		this->coins.pop_back();
 	}
 }
+
+
+
 
 void AdventureMode::setEnemiesBehaviors()
 {
@@ -131,20 +135,22 @@ void AdventureMode::setEnemiesBehaviors()
 		else if (isType<Bowser>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
-			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED));
-			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player));
+			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 3));
 		}
 
 	}
 }
 void AdventureMode::update(float deltaTime, bool& held)
 {
+
 	this->updateEntities(deltaTime);
 	this->updateCoins(deltaTime);
 	this->updateCollision();
 	this->updateMap(deltaTime);
 	this->updateCamera(deltaTime);
 	this->updateLastPosition();
+	
 }
 
 void AdventureMode::updateEntities(float deltaTime)
@@ -228,6 +234,20 @@ void AdventureMode::updateCamera(float deltaTime)
 	if (!this->player) return;
 	if (!this->player->getEnabled()) return;
 	this->camera.update(deltaTime, this->player->getPosition() + sf::Vector2f(this->player->getGLobalBounds().width * 0.5f, 0.f) + this->cameraOrigin);
+
+	sf::Vector2f position = this->camera.getPosition();
+	position.x = std::max(position.x, this->map->getPosition().x + this->camera.getSize().x / 2);
+	position.x = std::min(position.x, this->map->getPosition().x + this->map->getSize().x * TILE_SIZE - this->camera.getSize().x / 2);
+
+	position.y = std::max(position.y, this->map->getPosition().y + this->camera.getSize().y / 2 - this->player->getGLobalBounds().height * 4);
+	position.y = std::min(position.y, this->map->getPosition().y + this->map->getSize().y * TILE_SIZE - this->camera.getSize().y / 2);
+
+	if (this->map->getSize().x * TILE_SIZE < this->camera.getSize().x)
+	{
+		position.x = this->map->getSize().x * TILE_SIZE / 2;
+	}
+
+	this->camera.setPosition(position);
 }
 
 void AdventureMode::updateLastPosition()

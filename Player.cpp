@@ -12,8 +12,14 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	numCoins(0),
 	lives(3)
 {
+	SCORE = 0;
+	BEAT_ENEMY = 0;
+	BEAT_BOSS = 0;
+	COINS = 0;
 	this->health = 100;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
+
+	POWER_UPS = &this->powerUps;
 
 	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
 	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
@@ -98,6 +104,7 @@ void Player::addCoin()
 {
 	this->numCoins++;
 	Resources::sounds["MARIO_COIN"].play();
+	COINS = this->numCoins;
 }
 
 sf::Vector2f Player::getAcceleration()
@@ -207,9 +214,9 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
 	if (from == Direction::UP)
 	{
+		
 		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
 		enemy->squished();
-		Resources::sounds["MARIO_STOMP"].play();
 	}
 	else if (from != Direction::NONE)
 	{
