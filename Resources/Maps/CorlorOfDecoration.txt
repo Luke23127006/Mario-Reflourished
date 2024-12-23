@@ -1,0 +1,4 @@
+Tree - rgb(52, 255, 52)
+Bush - rgb(3, 202, 3)
+Hill - rgb(2, 131, 2)
+Cloud - rgb(241, 252, 241)
