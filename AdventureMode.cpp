@@ -267,5 +267,13 @@ GameState AdventureMode::getNextScene()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		return GameState::PAUSE;
+	if (this->player->isDying())
+	{
+		cooldownTime -= 0.001;
+		if (cooldownTime <= 0)
+			return typeMap;
+		return GameState::REPLAY;
+
+	}
 	return typeMap;
 }

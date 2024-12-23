@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Resources.h"
 #include "SelectLevel.h"
+#include "SelectCharacter.h"
 #include "Welcome.h"
 #include "Pause.h"
 #include "HUD.h"

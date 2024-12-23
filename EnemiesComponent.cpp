@@ -309,7 +309,7 @@ FireAttack::FireAttack(Entity* owner, Entity* player) : Component(owner, player)
 
 FireAttack::FireAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime) : Component(owner, player), detection_radius(detection_radius), cooldownTime(cooldownTime)
 {
-	countTime = cooldownTime;
+	countTime = cooldownTime / 2;
 }
 
 void FireAttack::update(float deltaTime)
@@ -341,16 +341,13 @@ void FireAttack::update(float deltaTime)
 			owner->addEntity(fireBall);
 		}
 	}
-	else
-	{
-		countTime = cooldownTime;
-	}
 
 	for (auto x : fireBalls)
 	{
 		sf::Vector2f vectorDirectionFireBalls = sf::Vector2f(playerPosition.x - x->getPosition().x, playerPosition.y - x->getPosition().y);
 		sf::Vector2f directionFireBalls = sf::Vector2f(vectorDirectionFireBalls.x > 0 ? 1 : -1, vectorDirectionFireBalls.y > 0 ? 1 : -1);
 		if (!x->isDying()) x->setDirection(directionFireBalls);
+		else fireBalls.erase(std::remove(fireBalls.begin(), fireBalls.end(), x), fireBalls.end());
 	}
 
 }

@@ -15,7 +15,9 @@
 
 class AdventureMode : public Scene
 {
+
 protected:
+	float cooldownTime = 3.f;
 	// map objects
 	std::vector<Entity*> entities;
 	std::vector<Coin*> coins;

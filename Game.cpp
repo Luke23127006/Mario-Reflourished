@@ -33,6 +33,11 @@ void Game::changeScene(GameState nextScene)
 		pushState(std::make_unique<SelectLevel>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
+	case GameState::SELECT_CHARACTER:
+		clearState();
+		pushState(std::make_unique<SelectCharacter>(this->renderTexture), false);
+		this->currentGameState = GameState::SELECT_CHARACTER;
+		break;
 	case GameState::LEVEL1:
 		
 		std::cout << "Level1\n";
@@ -198,9 +203,10 @@ void Game::update(float deltaTime)
 		}
 		
 	}
-
-
 	this->changeScene(nextScene);
+
+
+	
 }
 
 void Game::render()
