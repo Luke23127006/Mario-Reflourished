@@ -34,6 +34,13 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	animations[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
 }
 
 Player::~Player()
@@ -79,7 +86,17 @@ void Player::die()
 
 void Player::gainPowerUp(PowerUp* powerUp)
 {
-	if (this->hasPowerUp(powerUp->getType())) return;
+	if (this->hasPowerUp(powerUp->getType()))
+	{
+		for (auto& p : this->powerUps)
+		{
+			if (p->getType() == powerUp->getType())
+			{
+				p->resetDuration();
+				return;
+			}
+		}
+	}
 	this->powerUps.push_back(powerUp);
 }
 

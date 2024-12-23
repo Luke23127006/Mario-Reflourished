@@ -46,6 +46,17 @@ void PowerUp::setInfinityDuration()
 	this->duration = -1.f;
 }
 
+void PowerUp::resetDuration()
+{
+	if (this->duration == -1) return;
+	this->duration = this->durationMax;
+}
+
+void PowerUp::expire()
+{
+	if (this->duration != -1) this->duration = 0.f;
+}
+
 const PowerUpType PowerUp::getType() const
 {
 	return this->type;
@@ -63,6 +74,7 @@ const bool PowerUp::isExpired() const
 
 const float PowerUp::getDurationPercentage() const
 {
+	if (this->duration == -1) return 1.f;
 	return this->duration / this->durationMax;
 }
 

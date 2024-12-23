@@ -19,5 +19,10 @@ Shield::~Shield()
 
 void Shield::applyPowerUp(float deltaTime)
 {
+	if (this->duration == -1)
+	{
+		this->player->setHealth(2);
+		return;
+	}
 	if (this->player->getHealth() == 1) this->duration = 0.f;
 }

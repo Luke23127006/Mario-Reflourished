@@ -33,6 +33,8 @@ public:
 	const float getDurationPercentage() const;
 	void turnAround();
 	void setInfinityDuration();
+	void resetDuration();
+	void expire();
 
 	void collideWithTile(Tile* tile, Direction from) override;
 

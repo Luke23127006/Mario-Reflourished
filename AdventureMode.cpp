@@ -163,7 +163,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		sf::Vector2f direction = center - e->getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-		if (distance < UPDATE_DISTANCE) e->update(deltaTime);
+		if (distance < UPDATE_DISTANCE || isType<Player>(*e)) e->update(deltaTime);
 
 		if (!isType<Player>(*e) && e->isDead())
 		{
