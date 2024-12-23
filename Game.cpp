@@ -233,7 +233,7 @@ void Game::update(float deltaTime)
 
 void Game::render()
 {
-	this->window->clear(sf::Color::White);
+	this->window->clear(sf::Color(187, 222, 251));
 	this->window->setView(this->window->getDefaultView());
 	//this->window->setView(this->camera.getView(this->window->getSize()));
 	

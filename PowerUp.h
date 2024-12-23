@@ -15,8 +15,11 @@ private:
 
 protected:
 	float duration = 0.f;
+	float durationMax = 0.f;
 	Player* player = nullptr;
 	PowerUpType type = PowerUpType::NUM_POWER_UPS;
+	sf::Sprite icon;
+
 public:
 	PowerUp(sf::FloatRect container);
 	PowerUp(Player* player);
@@ -25,7 +28,9 @@ public:
 	const float getDuration() const;
 	void rise(float deltaTime);
 	const PowerUpType getType() const;
+	const sf::Sprite& getIcon() const;
 	const bool isExpired() const;
+	const float getDurationPercentage() const;
 	void turnAround();
 	void setInfinityDuration();
 

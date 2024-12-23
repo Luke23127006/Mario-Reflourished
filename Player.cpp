@@ -19,6 +19,8 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	this->health = 100;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
+	POWER_UPS = &this->powerUps;
+
 	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
 	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 

@@ -62,6 +62,13 @@ void Resources::initTextures()
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
 	textures["BULLET"].loadFromFile(ITEMS_DIRECTORY + "Fire Ball.png");
+	textures["MAGNET"].loadFromFile(ITEMS_DIRECTORY + "Magnet.png");
+	textures["AIR_SNEAKERS"].loadFromFile(ITEMS_DIRECTORY + "Air Sneakers.png");
+	textures["SHIELD"].loadFromFile(ITEMS_DIRECTORY + "Shield.png");
+	textures["FLYING_NIMBUS"].loadFromFile(ITEMS_DIRECTORY + "Flying Nimbus.png");
+	textures["SUPER_MUSHROOM"].loadFromFile(ITEMS_DIRECTORY + "Super Mushroom.png");
+	textures["FIRE_FLOWER"].loadFromFile(ITEMS_DIRECTORY + "Fire Flower.png");
+	textures["POWER_UP_BORDER"].loadFromFile(ITEMS_DIRECTORY + "Border.png");
 
 	// Decoration
 	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");

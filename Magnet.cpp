@@ -5,7 +5,8 @@ Magnet::Magnet(Player* player) :
 	PowerUp(player)
 {
 	this->type = PowerUpType::MAGNET;
-	this->duration = MAGNET_DURATION;
+	this->duration = this->durationMax = MAGNET_DURATION;
+	this->icon.setTexture(Resources::textures["MAGNET"]);
 }
 
 Magnet::~Magnet()

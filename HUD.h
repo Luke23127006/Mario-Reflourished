@@ -13,16 +13,17 @@ private:
 	std::vector<sf::Text> headers;
 	std::vector<sf::Text*> values;
 
+	std::vector<sf::Sprite> powerUpBorders;
+	std::vector<sf::Sprite> powerUpIcons;
+	std::vector<sf::RectangleShape> powerUpTimer;
+
 	int score;
-	int time;
+	float time;
 	int coins;
 	sf::Text scoreText;
 	sf::Text timeText;
 	sf::Text coinText;
 	bool isEndlessMode;
-	std::vector<Button*> powerUp;
-	std::unordered_map<std::string, double> initialData;
-	std::unordered_map<std::string, double> worldData;
 	Scene* gameWorld;
 public:
 	HUD(sf::RenderTexture& window, bool isEndlessMode);

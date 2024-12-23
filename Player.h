@@ -37,6 +37,7 @@ private:
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Player();
+
 	void stopJumping();
 	void takeDamage();
 	void die() override;
