@@ -11,6 +11,7 @@ Bullet::Bullet(sf::Vector2f position, sf::Vector2f velocity)
 	this->animations.push_back(new Animation(Resources::textures["BULLET"], 1, 0.1f, sf::Vector2i(48, 48)));
 	this->animations[0]->setOrigin(0.5f * this->animations[0]->getSize());
 	this->animations[0]->setSize(sf::Vector2f(BULLET_WIDTH * 48 / 42, BULLET_HEIGHT * 48 / 42));
+	Resources::sounds["MARIO_FIREBALL"].play();
 }
 
 Bullet::~Bullet()	

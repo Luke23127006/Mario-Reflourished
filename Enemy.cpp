@@ -52,10 +52,11 @@ void Enemy::die()
 	this->dying = true;
 	this->dieTimer = ENEMY_DIE_TIME;
 	this->velocity = sf::Vector2f(0.f, -ENEMY_DIE_VELOCITY);
+	Resources::sounds["SCREAM"].play();
 
 	float alpha = -1.f;
 	for (auto& a : animations)
-	{
+	{	
 		a->setOrigin(sf::Vector2f(0.f, a->getSize().y));
 		a->setScale(sf::Vector2f(1.f, alpha));
 	}
@@ -68,6 +69,7 @@ void Enemy::squished()
 	this->dying = true;
 	this->dieTimer = ENEMY_SQUISHED_TIME;
 	this->velocity = sf::Vector2f(0.f, 0.f);
+	Resources::sounds["MARIO_STOMP"].play();
 
 	float alpha = 0.3f;
 	for (auto& a : animations)
