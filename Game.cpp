@@ -161,9 +161,11 @@ void Game::pollEvents()
 		case sf::Event::Closed:
 			this->window->close();
 			break;
+
 		case sf::Event::KeyPressed:
 			// Handle key presses here if needed
 			break;
+
 		case sf::Event::Resized:
 		{
 			const float minAspect = 1.5f;
@@ -172,10 +174,8 @@ void Game::pollEvents()
 			float width = static_cast<float>(this->ev.size.width);
 			float height = static_cast<float>(this->ev.size.height);
 
-			// Calculate the aspect ratio
 			float aspect = width / height;
 
-			// Clamp the aspect ratio
 			if (aspect < minAspect) {
 				width = height * minAspect;
 			}
@@ -183,15 +183,55 @@ void Game::pollEvents()
 				width = height * maxAspect;
 			}
 
-			// Update the window size
 			this->window->setSize(sf::Vector2u(static_cast<unsigned int>(width), static_cast<unsigned int>(height)));
 			break;
 		}
+
+		case sf::Event::MouseWheelScrolled:
+		{
+			if (this->ev.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+				if (this->ev.mouseWheelScroll.delta > 0) {
+					ZOOM_LEVEL *= 0.9f; // Zoom in
+				}
+				else if (this->ev.mouseWheelScroll.delta < 0) {
+					ZOOM_LEVEL *= 1.1f; // Zoom out
+				}
+
+				ZOOM_LEVEL = std::min(std::max(1.f * ZOOM_LEVEL, 480.0f), 1120.f);
+
+				sf::View view = this->window->getView();
+				view.setSize(this->window->getDefaultView().getSize());
+				view.zoom(ZOOM_LEVEL / 720.0f); // Apply zoom relative to 720 as base
+				this->window->setView(view);
+			}
+
+			RENDER_DISTANCE = ZOOM_LEVEL + 100.f;
+			UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
+			break;
+		}
+
+		case sf::Event::MouseButtonPressed:
+		{
+			if (this->ev.mouseButton.button == sf::Mouse::Middle) {
+				ZOOM_LEVEL = 720.0f; // Reset zoom level to 720
+
+				sf::View view = this->window->getView();
+				view.setSize(this->window->getDefaultView().getSize());
+				view.zoom(ZOOM_LEVEL / 720.0f); // Reset view to default scale
+				this->window->setView(view);
+			}
+			RENDER_DISTANCE = ZOOM_LEVEL + 100.f;
+			UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
+			break;
+		}
+
 		default:
 			break;
 		}
 	}
 }
+
+
 
 
 

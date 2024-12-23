@@ -18,9 +18,9 @@ extern sf::Vector2f MOUSE_VIEW_LAST_POSITION;
 // Screen
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int ZOOM_LEVEL = 720;
-const float RENDER_DISTANCE = 1000.f;
-const float UPDATE_DISTANCE = 2000.f;
+extern int ZOOM_LEVEL;
+extern float RENDER_DISTANCE;
+extern float UPDATE_DISTANCE;
 extern float ASPECT;
 
 // Screen in ZOOM
