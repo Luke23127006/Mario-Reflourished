@@ -10,6 +10,7 @@
 Pause::Pause(sf::RenderTexture& window)
 {
 	// load texture
+	Resources::sounds["PAUSE"].play();
 	this->loadTexture();
 	this->pauseBackground.setPosition(0, 0);
 	this->pauseBackground.setScale(window.getSize().x / this->pauseBackground.getGlobalBounds().width, window.getSize().y / this->pauseBackground.getGlobalBounds().height);

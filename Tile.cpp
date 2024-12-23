@@ -95,6 +95,7 @@ void Tile::seftBreak()
 	particles.back()->setTextureRect(sf::IntRect(0, height / 2, width / 2, height / 2));
 	particles.push_back(new Particle(*this->sprite.getTexture(), this->getPosition() + sf::Vector2f(width / 2, height / 2), sf::Vector2f(200.f, -400.f), sf::Vector2f(0.f, GRAVITY), 1.f));
 	particles.back()->setTextureRect(sf::IntRect(width / 2, height / 2, width / 2, height / 2));
+	Resources::sounds["MARIO_BREAK_BLOCK"].play();
 }
 
 void Tile::stopHarming()
