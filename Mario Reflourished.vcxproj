@@ -200,6 +200,8 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
+    <ClCompile Include="Wukong.cpp" />
+    <ClCompile Include="WukongMagicRod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdventureMode.h" />
@@ -261,6 +263,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />
+    <ClInclude Include="Wukong.h" />
+    <ClInclude Include="WukongMagicRod.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Maps\demo_map.png" />

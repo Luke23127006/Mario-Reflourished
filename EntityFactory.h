@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "Bird.h"
 #include "Bowser.h"
+#include "Wukong.h"
 #include "Mushroom.h"
 #include "Shield.h"
 #include "FlyingNimbus.h"
@@ -27,6 +28,7 @@ public:
 	static Entity* createKoopa(sf::Vector2f position);
 	static Entity* createBird(sf::Vector2f position);
 	static Entity* createBowser(sf::Vector2f position);
+	static Entity* createWukong(sf::Vector2f position);
 	static Entity* createShell(sf::Vector2f position);
 	static Entity* createPowerUp(sf::FloatRect container, PowerUpType type);
 	static PowerUp* createPowerUp(sf::FloatRect containner);

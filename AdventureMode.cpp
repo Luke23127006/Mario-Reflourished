@@ -53,13 +53,23 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 					Entity* bowser = EntityFactory::createBowser(position);
 					this->entities.push_back(bowser);
 				}
+				else if (name == "wukong")
+				{
+					Entity * wukong = EntityFactory::createWukong(position);
+					this->entities.push_back(wukong);
+				}
 			}
-			if (!this->entities.empty())
+			/*if (!this->entities.empty())
 			{
 				this->entities.back()->setAddressOfWorld(this->entities);
 				if(this->map) this->entities.back()->setMap(this->map);
-			}
+			}*/
 		}
+	for (auto& entity : this->entities)
+	{
+		entity->setAddressOfWorld(this->entities);
+		entity->setMap(this->map);
+	}
 	this->setEnemiesBehaviors();
 }
 
@@ -80,6 +90,7 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 		typeMap = GameState::LEVEL2;
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
+	this->entities.reserve(100);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
 
 }
@@ -139,6 +150,13 @@ void AdventureMode::setEnemiesBehaviors()
 			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 3));
 		}
 
+		else if (isType<Wukong>(*enemy))
+		{
+			enemy->addBehavior(std::make_shared<PaceFly>(enemy, player, WUKONG_PACE_X, WUKONG_PACE_Y, WUKONG_PACE_SPEED));
+			enemy->addBehavior(std::make_shared<WukongAttack>(enemy, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<MagicRodAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 5));
+			//enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 3));
+		}
 	}
 }
 void AdventureMode::update(float deltaTime, bool& held)

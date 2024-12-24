@@ -202,10 +202,31 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
 	if (from == Direction::UP)
 	{
-		
+	
+		if (isType<Wukong>(*enemy))
+		{
+			this->velocity.y = -PLAYER_JUMP_STRENGHT * 3;
+			srand(time(NULL));
+			int random = rand() % 10;
+			if (random % 2 == 0)
+			{
+				this->velocity.x = -PLAYER_SPEED * 10;
+			}
+			else
+			{
+				this->velocity.x = PLAYER_SPEED * 10;
+			}
+			enemy->takeDamage();
+			if (enemy->isDying())
+			{
+				BEAT_BOSS++;
+			}
+			return;
+		}
 		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
 		enemy->squished();
 		BEAT_ENEMY++;
+		
 		if (isType<Bowser>(*enemy))
 		{
 			BEAT_BOSS++;
@@ -227,6 +248,16 @@ void Player::collideWithEntity(FireBall* fireBall, Direction from)
 	}
 }
 
+// Collision WUKONG MAGIC ROD
+
+
+void Player::collideWithEntity(WukongMagicRod* wukongMagicRod, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		this->die();
+	}
+}
 // Collision SHELL
 void Player::collideWithEntity(Shell* shell, Direction from)
 {

@@ -65,7 +65,7 @@ public:
 	void collideWithEntity(Shell* shell, Direction from) override;
 	void collideWithEntity(PowerUp* powerUp, Direction from) override;
 	void collideWithEntity(FireBall* fireBall, Direction from) override;
-	
+	void collideWithEntity(WukongMagicRod * wukongMagicRod, Direction from) override;
 	void update(float deltaTime) override;
 	void updateAcceleration(float deltaTime);
 	void updateMovement(float deltaTime);

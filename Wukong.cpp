@@ -1,15 +1,24 @@
-#include "Bowser.h"
+#include "Wukong.h"
 
 
-Bowser::Bowser(sf::Vector2f position) : Enemy(sf::Vector2f(BOWSER_WIDTH, BOWSER_HEIGHT), position, 10)
+
+
+
+
+
+
+Wukong::Wukong() : Enemy(sf::Vector2f(WUKONG_WIDTH, WUKONG_HEIGHT), sf::Vector2f(0, 0), 10)
 {
-
 	this->hitbox.setFillColor(sf::Color::Black);
-	
 }
-	
 
-void Bowser::collideWithEntity(Bullet* bullet, Direction from)
+Wukong::Wukong(sf::Vector2f position) : Enemy(sf::Vector2f(WUKONG_WIDTH, WUKONG_HEIGHT), position, 10)
+{
+	this->hitbox.setFillColor(sf::Color::Black);
+}
+
+
+void Wukong::collideWithEntity(Bullet* bullet, Direction from)
 {
 	if (from != Direction::NONE)
 	{
@@ -23,7 +32,7 @@ void Bowser::collideWithEntity(Bullet* bullet, Direction from)
 	}
 }
 
-void Bowser::collideWithEntity(Shell* shell, Direction from)
+void Wukong::collideWithEntity(Shell* shell, Direction from)
 {
 	if (shell->isActivated())
 	{
@@ -35,7 +44,7 @@ void Bowser::collideWithEntity(Shell* shell, Direction from)
 		{
 			this->die();
 			BEAT_BOSS++;
-		}	
+		}
 	}
 	if (from == Direction::UP)
 	{
@@ -53,11 +62,9 @@ void Bowser::collideWithEntity(Shell* shell, Direction from)
 			shell->switchActivation();
 		shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
 	}
-
 }
 
-Bowser::~Bowser()
+
+Wukong::~Wukong()
 {
-	
 }
-

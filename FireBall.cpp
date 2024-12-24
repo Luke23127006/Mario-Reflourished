@@ -53,7 +53,11 @@ void FireBall::collideWithEntity(Entity* entity, Direction& from)
 {
 	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
 	entity->collideWithEntity(this, from);
-	if (from != Direction::NONE && dynamic_cast<Enemy*>(entity) != nullptr && !dynamic_cast<Bowser*> (entity))
+	if (from != Direction::NONE 
+		&& dynamic_cast<Enemy*>(entity) != nullptr 
+		&& !dynamic_cast<Bowser*> (entity)
+		&& !dynamic_cast<Wukong*> (entity)
+		)
 	{
 		entity->die();
 	}
@@ -70,11 +74,7 @@ void FireBall::span(float deltaTime)
 
 	Collision::handle_entity_map(predictObject, &this->getMap());
 	std::vector<bool> collisionDirections = predictObject->getCollisionDirections();
-	for (auto a : collisionDirections)
-	{
-		std::cout << a << " ";
-	}
-	std::cout << std::endl;
+	
 	if (collisionDirections[0] || collisionDirections[3])
 	{
 		delete predictObject;
