@@ -43,6 +43,10 @@ const bool Entity::isFlipped() const
 	return this->flipped;
 }
 
+sf::RectangleShape& Entity::getHitbox()
+{
+	return this->hitbox;
+}
 void Entity::setOnGround(bool onGround)
 {
 	this->onGround = onGround;
@@ -179,16 +183,17 @@ void Entity::collideWithTile(Tile* tile)
 		else
 		{
 			// PLAYER
-			if (entityBounds.left <= tileBounds.left)
+			if (entityBounds.left <= tileBounds.left && entityBounds.left + entityBounds.width <= tileBounds.left + tileBounds.width)
 			{
 				from = Direction::LEFT;
 				collisionDirections[3] = true;
 			}
-			else if (entityBounds.left > tileBounds.left)
+			else if (entityBounds.left >= tileBounds.left && entityBounds.left + entityBounds.width >= tileBounds.left + tileBounds.width)
 			{
 				from = Direction::RIGHT;
 				collisionDirections[1] = true;
 			}
+			
 		}
 	}
 

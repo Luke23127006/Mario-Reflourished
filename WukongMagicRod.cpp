@@ -31,7 +31,13 @@ WukongMagicRod::WukongMagicRod(sf::Vector2f position, sf::Vector2f direction)
 		
 	}
 	
-	this->hitbox.setRotation(this->angle);
+	if (this->flipped)
+	{
+		//this->hitbox.setOrigin(sf::Vector2f(this->getSize().x / 2.f, this->getSize().y / 2.f));
+		this->hitbox.setRotation(180.f);
+		
+
+	}
 
 }
 
@@ -89,15 +95,25 @@ void WukongMagicRod::span(float deltaTime)
 		this->stopMode = true;
 		return;
 	}
-	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 250, deltaTime * 3);
-	
-	Entity* predictObject = new Entity(newSize, this->getPosition());
+	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 300, deltaTime * 10);
+	Entity* predictObject = new Entity(newSize, this->getPosition());;
+	if (flipped)
+	{
+		predictObject->getHitbox().setRotation(180.f);
+		predictObject->setPosition(this->getPosition());
+	}
+
 
 	Collision::handle_entity_map(predictObject, &this->getMap());
 	std::vector<bool> collisionDirections = predictObject->getCollisionDirections();
-	
+	for (auto x : collisionDirections)
+	{
+		std::cout << x << " ";
+	}
+	std::cout << std::endl;
 	if (collisionDirections[1] || collisionDirections[3])
 	{
+		
 		this->spanMode = false;
 		this->stopMode = true;
 		delete predictObject;
@@ -106,13 +122,20 @@ void WukongMagicRod::span(float deltaTime)
 	else
 	{
 		sf::Vector2f newPosition;
-		if (collisionDirections[0] || collisionDirections[2])
+		sf::Vector2f difference = newSize - this->getSize();
+		if (collisionDirections[2] && !flipped)
 		{
-			sf::Vector2f difference = newSize - this->getSize();
 			newPosition = this->getPosition() - difference;
 			this->setPosition(newPosition);
 		}
+		else if (collisionDirections[0] && flipped)
+		{
+			newPosition = this->getPosition() + difference;
+			this->setPosition(newPosition);
+		}
+		
 		this->setSize(newSize);
+		
 	}
 	delete predictObject;
 

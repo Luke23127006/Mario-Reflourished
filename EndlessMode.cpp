@@ -165,7 +165,7 @@ void EndlessMode::render(sf::RenderWindow& target)
 GameState EndlessMode::getNextScene()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->player->isDying())
 	{
 		return GameState::PAUSE;
 	}

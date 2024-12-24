@@ -71,7 +71,9 @@ void Game::changeScene(GameState nextScene)
 		break;
 	case GameState::RESUME:
 		std::cout << "Resume\n";
-		popState();
+		std::cout << "Before " << states.size() << std::endl;
+		if (currentGameState == GameState::PAUSE) popState();
+		std::cout << "After " << states.size() << std::endl;
 		for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
 		{
 			if (!it->second)

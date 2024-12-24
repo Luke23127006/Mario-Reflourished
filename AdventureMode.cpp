@@ -297,7 +297,7 @@ void AdventureMode::render(sf::RenderWindow& target)
 GameState AdventureMode::getNextScene()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->player->isDying())
 		return GameState::PAUSE;
 	if (this->player->isDying())
 	{

@@ -40,7 +40,7 @@ public:
 	const bool isDying() const;
 	const bool isUnderWater() const;
 	const bool isFlipped() const;
-
+	sf::RectangleShape& getHitbox();
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
 	void setVelocity(sf::Vector2f velocity);
