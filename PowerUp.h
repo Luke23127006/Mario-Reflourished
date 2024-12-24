@@ -19,12 +19,14 @@ protected:
 	Player* player = nullptr;
 	PowerUpType type = PowerUpType::NUM_POWER_UPS;
 	sf::Sprite icon;
+	bool isBack = true;
 
 public:
 	PowerUp(sf::FloatRect container);
 	PowerUp(Player* player);
 	virtual ~PowerUp();
 
+	const bool getIsBack() const;
 	const float getDuration() const;
 	void rise(float deltaTime);
 	const PowerUpType getType() const;
@@ -41,6 +43,7 @@ public:
 	void collideWithEntity(Entity* entity, Direction& from) override;
 
 	void update(float deltaTime) override;
+	void render(sf::RenderTarget& target) override;
 
 	virtual void applyPowerUp(float deltaTime);
 };

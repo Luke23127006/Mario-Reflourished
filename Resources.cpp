@@ -70,6 +70,11 @@ void Resources::initTextures()
 	textures["FIRE_FLOWER"].loadFromFile(ITEMS_DIRECTORY + "Fire Flower.png");
 	textures["POWER_UP_BORDER"].loadFromFile(ITEMS_DIRECTORY + "Border.png");
 
+	textures["SHIELD_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Shield Effect.png");
+	textures["FLYING_NIMBUS_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Flying Nimbus Effect.png");
+	textures["MAGNET_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Magnet Effect.png");
+	textures["AIR_SNEAKERS_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Air Sneakers Effect.png");
+
 	// Decoration
 	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");
 

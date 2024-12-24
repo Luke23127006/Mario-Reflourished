@@ -38,7 +38,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
-	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
 }
@@ -474,10 +474,14 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
+	for (auto& p : this->powerUps)
+	{
+		if (p->getIsBack()) p->render(target);
+	}
 	this->animations[INT(this->playerState)]->render(target, this->hitbox.getPosition());
 	for (auto& p : this->powerUps)
 	{
-		p->render(target);
+		if (!p->getIsBack()) p->render(target);
 	}
 	Entity::render(target);
 }

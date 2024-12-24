@@ -25,6 +25,11 @@ PowerUp::~PowerUp()
 {
 }
 
+const bool PowerUp::getIsBack() const
+{
+	return this->isBack;
+}
+
 const float PowerUp::getDuration() const
 {
 	return this->duration;
@@ -104,7 +109,7 @@ void PowerUp::update(float deltaTime)
 {
 	for (auto& a : this->animations)
 	{
-		a->update(deltaTime, true);
+		a->update(deltaTime, false);
 	}
 
 	if (this->player)
@@ -126,6 +131,19 @@ void PowerUp::update(float deltaTime)
 			this->velocity = sf::Vector2f(POWER_UP_SPEED, 0.f);
 		}
 		this->move(this->velocity * deltaTime);
+	}
+}
+
+void PowerUp::render(sf::RenderTarget& target)
+{
+	if (this->player == nullptr)
+	{
+		Entity::render(target);
+	}
+	else
+	{
+		if (this->animations.size() == 1)
+			this->animations[0]->render(target, this->player->getCenter());
 	}
 }
 
