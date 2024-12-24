@@ -65,7 +65,7 @@ sf::Vector2f SCREEN_TOP_RIGHT;
 sf::Vector2f CAMERA_POSITION;
 float ASPECT;
 
-
+std::string currentMusic = "MARIO_MAIN_THEME";
 
 float SCORE = 0;
 int COINS = 0;

@@ -7,6 +7,9 @@ void EndlessMode::initMaps()
 
 	sf::Image image;
 	image.loadFromFile(MAPS_DIRECTORY + "Level 3/Map0.png");
+	currentMusic = "LV3_1";
+	Resources::sounds[currentMusic].play();
+	Resources::sounds[currentMusic].setLoop(true);
 	this->spikeWall = new SpikeWall(sf::Vector2f(-2.f * CAMERA_FOLLOW_DISTANCE, 0.f));
 	this->spikeWall->move(sf::Vector2f(0.f, TILE_SIZE * image.getSize().y - this->spikeWall->getGlobalBounds().height));
 
@@ -75,6 +78,7 @@ void EndlessMode::updateCoins(float deltaTime)
 
 void EndlessMode::updateMap(float deltaTime)
 {
+	int countMap = 0;
 	for (auto& m : this->maps)
 	{
 		m->update(deltaTime, this->entities);
@@ -90,10 +94,24 @@ void EndlessMode::updateMap(float deltaTime)
 
 		if (i != 15)
 		{
+			++countMap;
 			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
+			if (countMap % 5 == 0)
+			{
+				Resources::sounds[currentMusic].stop();
+				currentMusic = currentMusic == "LV3_1" ? "LV3_2" : "LV3_1";
+				Resources::sounds[currentMusic].play();
+				Resources::sounds[currentMusic].setLoop(true);
+			}
 		}
 		else
 		{
+			countMap += 3;
+			Resources::sounds[currentMusic].stop();
+			std::string prevMusic = currentMusic;
+			currentMusic = "MARIO_WATER";
+			Resources::sounds[currentMusic].play();
+			Resources::sounds[currentMusic].setLoop(true);
 			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
 			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i + 1) + ".png");
 			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i + 2) + ".png");

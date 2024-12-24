@@ -75,9 +75,17 @@ AdventureMode::AdventureMode()
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 {
 	if (fileName == MAPS_DIRECTORY + "Level 1.png")
+	{
 		typeMap = GameState::LEVEL1;
+		currentMusic = "MARIO_MAIN_THEME";
+	}
 	else if (fileName == MAPS_DIRECTORY + "Level 2.png")
+	{
 		typeMap = GameState::LEVEL2;
+		currentMusic = "MARIO_UNDERGROUND";
+	}
+	Resources::sounds[currentMusic].play();
+	Resources::sounds[currentMusic].setLoop(true);
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());

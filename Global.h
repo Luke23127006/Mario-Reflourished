@@ -57,6 +57,9 @@ const std::string MAPS_DIRECTORY = "./Resources/Maps/";
 const std::string SOUNDS_DIRECTORY = "./Resources/Sound/";
 const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 
+//	music
+extern std::string currentMusic;
+
 // camera
 const float CAMERA_FOLLOW_DISTANCE = 50.f;
 const float CAMERA_SMOOTHING_FACTOR = 5.f;
