@@ -10,19 +10,7 @@ void EndlessMode::initMaps()
 	this->spikeWall = new SpikeWall(sf::Vector2f(-2.f * CAMERA_FOLLOW_DISTANCE, 0.f));
 	this->spikeWall->move(sf::Vector2f(0.f, TILE_SIZE * image.getSize().y - this->spikeWall->getGlobalBounds().height));
 
-	for (int i = 0; i < image.getSize().x; i++)
-		for (int j = 0; j < image.getSize().y; j++)
-		{
-			sf::Color color = image.getPixel(i, j);
-			int colorCode = color.toInteger();
-
-			if (color == sf::Color(255, 0, 0, 255))
-			{
-				this->player = EntityFactory::createPlayer(sf::Vector2f(i * 50.f, j * 50.f));
-				this->player->setCoins(&this->coins);
-				this->entities.insert(this->entities.begin(), this->player);
-			}
-		}
+	this->addEntitiesAndCoins(MAPS_DIRECTORY + "Level 3/Map0.png", sf::Vector2f(0, 0));
 }
 
 EndlessMode::EndlessMode() :

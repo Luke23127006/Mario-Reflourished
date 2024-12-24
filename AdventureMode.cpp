@@ -11,6 +11,7 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 	sf::Image image;
 	image.loadFromFile(fileName);
 
+	this->entities.reserve(500);
 	for (int i = 0; i < image.getSize().x; i++)
 		for (int j = 0; j < image.getSize().y; j++)
 		{
@@ -54,12 +55,16 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 					this->entities.push_back(bowser);
 				}
 			}
-			if (!this->entities.empty())
-			{
-				this->entities.back()->setAddressOfWorld(this->entities);
-				if(this->map) this->entities.back()->setMap(this->map);
-			}
+			//if (!this->entities.empty())
+			//{
+			//	this->entities.back()->setAddressOfWorld(this->entities);
+			//	if(this->map) this->entities.back()->setMap(this->map);
+			//}
 		}
+	for (auto& entity : this->entities)
+	{
+		entity->setAddressOfWorld(this->entities);
+	}
 	this->setEnemiesBehaviors();
 }
 
