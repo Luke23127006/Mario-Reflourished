@@ -135,6 +135,7 @@ void FlyingNimbus::applyPowerUp(float deltaTime)
 
 	this->player->setAcceleration(playerAcceleration);
 	this->player->setVelocity(playerVelocity);
+	this->player->setVelocityMax(sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED));
 }
 
 void FlyingNimbus::update(float deltaTime)
