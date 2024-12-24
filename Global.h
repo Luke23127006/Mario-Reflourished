@@ -201,8 +201,8 @@ const float TILE_SIZE = 50;
 const float TILE_SHAKE_DURATION = 0.25f;
 const float TILE_BREAK_DURATION = 3.f;
 
-const float WATER_ACCERATION_REDUCTION = 0.4f;
-const float WATER_GRAVITY_REDUCTION = 0.4f;
+const float WATER_ACCELERATION_REDUCTION = 0.4f;
+const float WATER_GRAVITY_REDUCTION = 0.3f;
 const float WATER_MAX_SPEED = 280.f;
 const float WATER_MIN_VERTICAL_SPEED = 70.f;
 const float WATER_MAX_VERTICAL_SPEED = 230.f;

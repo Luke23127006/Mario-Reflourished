@@ -36,11 +36,11 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
 }
 
 Player::~Player()
@@ -318,6 +318,7 @@ void Player::update(float deltaTime)
 	else
 	{
 		this->updateAcceleration(deltaTime);
+		this->updateUnderWater(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->updateMovement(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
@@ -414,6 +415,24 @@ void Player::updateAcceleration(float deltaTime)
 			this->velocity.y = std::max(this->velocity.y, WATER_MAX_VERTICAL_SPEED);
 		}
 	}*/
+}
+
+void Player::updateUnderWater(float deltaTime)
+{
+	this->velocityMax = sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED);
+	if (!this->underWater) return;
+
+	this->jumpTimer = 0.01f;
+	this->velocityMax = sf::Vector2f(WATER_MAX_SPEED, WATER_MAX_VERTICAL_SPEED);
+
+	this->acceleration.x *= WATER_ACCELERATION_REDUCTION;
+
+	this->acceleration.y *= WATER_GRAVITY_REDUCTION;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		this->acceleration.y = -PLAYER_JUMP_STRENGHT * WATER_ACCELERATION_REDUCTION;
+	}
 }
 
 void Player::updateMovement(float deltaTime)
