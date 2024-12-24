@@ -64,6 +64,7 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 	for (auto& entity : this->entities)
 	{
 		entity->setAddressOfWorld(this->entities);
+		entity->setMap(this->map);
 	}
 	this->setEnemiesBehaviors();
 }
