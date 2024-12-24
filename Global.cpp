@@ -62,6 +62,12 @@ sf::Vector2f SCREEN_BOTTOM_LEFT;
 sf::Vector2f SCREEN_BOTTOM_RIGHT;
 sf::Vector2f SCREEN_TOP_LEFT;
 sf::Vector2f SCREEN_TOP_RIGHT;
+sf::Vector2f CAMERA_POSITION;
+
+float ASPECT;
+int ZOOM_LEVEL = 720;
+float RENDER_DISTANCE = ZOOM_LEVEL + 200.f;
+float UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
 
 
 
@@ -69,3 +75,4 @@ float SCORE = 0;
 int COINS = 0;
 int BEAT_ENEMY = 0;
 int BEAT_BOSS = 0;
+std::vector<PowerUp*>* POWER_UPS = nullptr;

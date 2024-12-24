@@ -19,6 +19,8 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	this->health = 100;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
+	POWER_UPS = &this->powerUps;
+
 	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
 	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
@@ -61,6 +63,15 @@ void Player::takeDamage()
 
 void Player::die()
 {
+	if (this->lives > 0)
+	{
+		this->lives--;
+		Resources::sounds["MARIO_DIE"].play();
+	}
+	else
+	{
+		Resources::sounds["GAME_OVER"].play();
+	}
 	this->dying = true;
 	this->enabled = false;
 	this->velocity = sf::Vector2f(0.f, -PLAYER_DIE_VELOCITY);
@@ -92,6 +103,7 @@ void Player::updatePowerUps(float deltaTime)
 void Player::addCoin()
 {
 	this->numCoins++;
+	Resources::sounds["MARIO_COIN"].play();
 	COINS = this->numCoins;
 }
 
@@ -265,6 +277,7 @@ void Player::collideWithEntity(Shell* shell, Direction from)
 	sf::FloatRect shellBounds = shell->getGlobalBounds();
 	if (from == Direction::UP)
 	{
+		Resources::sounds["MARIO_STOMP"].play();
 		this->setPosition(sf::Vector2f(this->getPosition().x, shellBounds.top - playerBounds.height));
 		this->velocity.y = -PLAYER_JUMP_STRENGHT / 2;
 		shell->switchActivation();
@@ -284,12 +297,14 @@ void Player::collideWithEntity(Shell* shell, Direction from)
 	{
 		if (from == Direction::LEFT)
 		{
+			Resources::sounds["MARIO_KICK"].play();
 			shell->switchActivation();
 			this->setPosition(sf::Vector2f(shellBounds.left - playerBounds.width, this->getPosition().y));
 			shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
 		}
 		else if (from == Direction::RIGHT)
 		{
+			Resources::sounds["MARIO_KICK"].play();
 			shell->switchActivation();
 			this->setPosition(sf::Vector2f(shellBounds.left + shellBounds.width, this->getPosition().y));
 			shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
@@ -390,6 +405,7 @@ void Player::updateAcceleration(float deltaTime)
 	{
 		if (this->onGround)
 		{
+			Resources::sounds["MARIO_JUMP"].play();
 			this->jumpTimer = this->jumpTimerMax;
 			this->acceleration.y = -PLAYER_JUMP_STRENGHT / deltaTime;
 			this->onGround = false;

@@ -45,7 +45,7 @@ void Bowser::collideWithEntity(Shell* shell, Direction from)
 	{
 		if (!shell->isActivated())
 			shell->switchActivation();
-		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+		shell->setVelocity(sf::Vector2f(+KOOPA_SHELL_SPEED, 0.f));
 	}
 	else if (from == Direction::RIGHT)
 	{

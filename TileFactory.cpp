@@ -63,6 +63,7 @@ Tile* TileFactory::createPipe(sf::Vector2f position, PipeType type)
 
 Tile* TileFactory::createLuckyBlock(sf::Vector2f position)
 {
+	return new LuckyBlock(position, LuckyBlockType::POWER_UP);
 	int chance = rand() % 100;
 	if (chance < 50)
 	{

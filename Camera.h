@@ -9,15 +9,17 @@ class Camera
 private:
 	sf::Vector2f position;
 	sf::Vector2f velocity;
+	sf::Vector2f size;
 
 public:
 	Camera();
 	virtual ~Camera();
 
-	const sf::View getView(sf::Vector2u windowSize) const;
+	const sf::View getView(sf::Vector2u windowSize);
 	const sf::Vector2f getPosition() const;
 	void setPosition(sf::Vector2f position);
 	void move(sf::Vector2f velocity);
+	sf::Vector2f getSize();
 
 	void update(float deltaTime, sf::Vector2f playerPosition);
 };

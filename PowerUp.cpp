@@ -10,12 +10,14 @@ PowerUp::PowerUp(sf::FloatRect container) :
 
 	this->animations.push_back(new Animation(Resources::textures["POWER_UPS"], 6, 0.1f, sf::Vector2i(50, 50)));
 	this->animations[0]->setSize(sf::Vector2f(POWER_UP_WIDTH, POWER_UP_HEIGHT));
+	Resources::sounds["POWER_UP_APPEAR"].play();
 }
 
 PowerUp::PowerUp(Player* player) :
 	Entity(sf::Vector2f(), sf::Vector2f()),
 	player(player)
 {
+	Resources::sounds["MARIO_POWER_UP"].play();
 	this->type = PowerUpType::NUM_POWER_UPS;
 }
 
@@ -49,9 +51,19 @@ const PowerUpType PowerUp::getType() const
 	return this->type;
 }
 
+const sf::Sprite& PowerUp::getIcon() const
+{
+	return this->icon;
+}
+
 const bool PowerUp::isExpired() const
 {
 	return this->duration <= 0.f && this->duration != -1.f;
+}
+
+const float PowerUp::getDurationPercentage() const
+{
+	return this->duration / this->durationMax;
 }
 
 void PowerUp::collideWithTile(Tile* tile, Direction from)
@@ -78,15 +90,15 @@ void PowerUp::collideWithEntity(Entity* entity, Direction& from)
 
 void PowerUp::update(float deltaTime)
 {
+	for (auto& a : this->animations)
+	{
+		a->update(deltaTime, true);
+	}
+
 	if (this->player)
 	{
 		if (this->duration != -1) this->duration -= deltaTime;
 		return;
-	}
-
-	for (auto& a : this->animations)
-	{
-		a->update(deltaTime, true);
 	}
 
 	if (this->hitbox.getGlobalBounds().intersects(this->container))

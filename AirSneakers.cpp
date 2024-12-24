@@ -5,7 +5,8 @@ AirSneakers::AirSneakers(Player* player) :
 	PowerUp(player)
 {
 	this->type = PowerUpType::AIR_SNEAKERS;
-	this->duration = AIR_SNEAKERS_DURATION;
+	this->duration = this->durationMax = AIR_SNEAKERS_DURATION;
+	this->icon.setTexture(Resources::textures["AIR_SNEAKERS"]);
 
 	this->player->setJumpTimerMax(SNEAKERS_JUMP_TIMER);
 }

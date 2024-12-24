@@ -18,9 +18,10 @@ extern sf::Vector2f MOUSE_VIEW_LAST_POSITION;
 // Screen
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int ZOOM_LEVEL = 720;
-const float RENDER_DISTANCE = 1000.f;
-const float UPDATE_DISTANCE = 2000.f;
+extern int ZOOM_LEVEL;
+extern float RENDER_DISTANCE;
+extern float UPDATE_DISTANCE;
+extern float ASPECT;
 
 // Screen in ZOOM
 
@@ -28,6 +29,7 @@ extern sf::Vector2f SCREEN_TOP_LEFT;
 extern sf::Vector2f SCREEN_TOP_RIGHT;
 extern sf::Vector2f SCREEN_BOTTOM_LEFT;
 extern sf::Vector2f SCREEN_BOTTOM_RIGHT;
+extern sf::Vector2f CAMERA_POSITION;
 
 // gravity
 const float GRAVITY = 3000.f;
@@ -36,10 +38,12 @@ const float ANTI_GRAVITY = -GRAVITY;
 
 
 // Player score
+class PowerUp;
 extern float SCORE;
 extern int COINS;
 extern int BEAT_ENEMY;
 extern int BEAT_BOSS;
+extern std::vector<PowerUp*>* POWER_UPS;
 
 // colors
 const sf::Color PINK = sf::Color(177, 80, 199, 180);
@@ -329,8 +333,6 @@ enum class PowerUpType
 	FIRE_FLOWER,
 	MAGNET,
 	AIR_SNEAKERS, // double jump
-	DOUBLE_COINS,
-	INVICIBLE,
 	FLYING_NIMBUS,
 	NUM_POWER_UPS
 };

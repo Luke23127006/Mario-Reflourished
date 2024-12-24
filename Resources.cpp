@@ -62,6 +62,13 @@ void Resources::initTextures()
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
 	textures["BULLET"].loadFromFile(ITEMS_DIRECTORY + "Fire Ball.png");
+	textures["MAGNET"].loadFromFile(ITEMS_DIRECTORY + "Magnet.png");
+	textures["AIR_SNEAKERS"].loadFromFile(ITEMS_DIRECTORY + "Air Sneakers.png");
+	textures["SHIELD"].loadFromFile(ITEMS_DIRECTORY + "Shield.png");
+	textures["FLYING_NIMBUS"].loadFromFile(ITEMS_DIRECTORY + "Flying Nimbus.png");
+	textures["SUPER_MUSHROOM"].loadFromFile(ITEMS_DIRECTORY + "Super Mushroom.png");
+	textures["FIRE_FLOWER"].loadFromFile(ITEMS_DIRECTORY + "Fire Flower.png");
+	textures["POWER_UP_BORDER"].loadFromFile(ITEMS_DIRECTORY + "Border.png");
 
 	// Decoration
 	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");
@@ -93,9 +100,31 @@ void Resources::initFonts()
 void Resources::initSounds()
 {
 	/* Load sounds vào soundBuffers["bla bla"], nhưng khi muốn gọi sound thì sounds["bla bla"].play() nha */
-	soundBuffers["MARIO_JUMP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/smb_jump-small.wav");
+	// Sound Effect
+	soundBuffers["MARIO_JUMP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/jump-small.wav");
+	soundBuffers["MARIO_DIE"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/mariodie.wav");
+	soundBuffers["MARIO_KICK"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/kick.wav");
+	soundBuffers["MARIO_STOMP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/stomp.wav");
+	soundBuffers["POWER_UP_APPEARS"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/powerup-appears.wav");
+	soundBuffers["MARIO_COIN"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/coin.wav");
+	soundBuffers["MARIO_POWER_UP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/powerup.wav");
+	soundBuffers["MARIO_PIPE"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/pipe.wav");
+	soundBuffers["MARIO_FIREBALL"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/fireball.wav");
+	soundBuffers["MARIO_1UP"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/1-up.wav");
+	soundBuffers["MARIO_BREAK_BLOCK"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/breakblock.wav");
+	soundBuffers["SCREAM"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/scream.wav");
 
+	soundBuffers["BOWSER_FIRE"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/bowserfire.wav");
+
+	soundBuffers["GAME_OVER"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/gameover.wav");
+	soundBuffers["PAUSE"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/pause.wav");
+	soundBuffers["STAGE_CLEAR"].loadFromFile(SOUNDS_DIRECTORY + "/Sound Effect/stage-clear.wav");
 	
+	// Music
+
+	soundBuffers["MARIO_MAIN_THEME"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Overworld.wav");
+	soundBuffers["MARIO_UNDERGROUND"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underworld.wav");
+	soundBuffers["MARIO_WATER"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underwater.wav");
 
 	for (auto& s : soundBuffers)
 	{

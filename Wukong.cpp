@@ -34,18 +34,7 @@ void Wukong::collideWithEntity(Bullet* bullet, Direction from)
 
 void Wukong::collideWithEntity(Shell* shell, Direction from)
 {
-	if (shell->isActivated())
-	{
-		if (from != Direction::NONE)
-		{
-			this->health--;
-		}
-		if (this->health == 0)
-		{
-			this->die();
-			BEAT_BOSS++;
-		}
-	}
+
 	if (from == Direction::UP)
 	{
 		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, -shell->getVelocity().y));
@@ -54,13 +43,20 @@ void Wukong::collideWithEntity(Shell* shell, Direction from)
 	{
 		if (!shell->isActivated())
 			shell->switchActivation();
-		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+		shell->setVelocity(sf::Vector2f(+KOOPA_SHELL_SPEED, 0.f));
 	}
 	else if (from == Direction::RIGHT)
 	{
 		if (!shell->isActivated())
 			shell->switchActivation();
 		shell->setVelocity(sf::Vector2f(-KOOPA_SHELL_SPEED, 0.f));
+	}
+	else if (from == Direction::DOWN)
+	{
+		if (!shell->isActivated())
+			shell->switchActivation();
+		shell->setVelocity(sf::Vector2f(KOOPA_SHELL_SPEED, 0.f));
+		this->setVelocity(sf::Vector2f(0.f, -200.f));
 	}
 }
 
