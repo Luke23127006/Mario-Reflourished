@@ -69,7 +69,8 @@ int ZOOM_LEVEL = 720;
 float RENDER_DISTANCE = ZOOM_LEVEL + 200.f;
 float UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
 
-
+std::string currentMusic = "MARIO_MAIN_THEME";
+std::string prevMusic = "NONE";
 
 float SCORE = 0;
 int COINS = 0;

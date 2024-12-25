@@ -130,6 +130,8 @@ void Resources::initSounds()
 	soundBuffers["MARIO_MAIN_THEME"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Overworld.wav");
 	soundBuffers["MARIO_UNDERGROUND"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underworld.wav");
 	soundBuffers["MARIO_WATER"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underwater.wav");
+	soundBuffers["LV3_1"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Lv3_1.wav");
+	soundBuffers["LV3_2"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Lv3_2.wav");
 
 	for (auto& s : soundBuffers)
 	{

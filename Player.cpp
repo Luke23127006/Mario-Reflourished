@@ -70,6 +70,7 @@ void Player::takeDamage()
 
 void Player::die()
 {
+	Resources::sounds[currentMusic].stop();
 	if (this->lives > 0)
 	{
 		this->lives--;

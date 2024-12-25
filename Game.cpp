@@ -16,25 +16,25 @@ void Game::changeScene(GameState nextScene)
 		this->currentGameState = GameState::WELCOME;
 		break;
 	case GameState::LOGIN:
-		
+
 		clearState();
 		pushState(std::make_unique<Login>(renderTexture), false);
 		this->currentGameState = GameState::LOGIN;
 		break;
 	case GameState::PLAY:
-		
+
 		clearState();
 		pushState(std::make_unique<Play>(this->renderTexture), false);
 		this->currentGameState = GameState::PLAY;
 		break;
 	case GameState::SELECT_LEVEL:
-		
+
 		clearState();
 		pushState(std::make_unique<SelectLevel>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
 	case GameState::LEVEL1:
-		
+
 		std::cout << "Level1\n";
 		clearState();
 		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 1.png", sf::Vector2f(0.1f * this->window->getSize().x, 0)), false);
@@ -42,7 +42,7 @@ void Game::changeScene(GameState nextScene)
 		this->currentGameState = GameState::LEVEL1;
 		break;
 	case GameState::LEVEL2:
-		
+
 		std::cout << "Level2\n";
 		clearState();
 		pushState(std::make_unique<AdventureMode>(MAPS_DIRECTORY + "Level 2.png", sf::Vector2f(0, 0)), false);
@@ -50,7 +50,7 @@ void Game::changeScene(GameState nextScene)
 		this->currentGameState = GameState::LEVEL2;
 		break;
 	case GameState::LEVEL3:
-		
+
 		std::cout << "Level3\n";
 		clearState();
 		pushState(std::make_unique<EndlessMode>(), false);
@@ -58,6 +58,7 @@ void Game::changeScene(GameState nextScene)
 		this->currentGameState = GameState::LEVEL3;
 		break;
 	case GameState::PAUSE:
+		Resources::sounds[currentMusic].pause();
 		Resources::textures["Pause Background"].create(this->window->getSize().x, this->window->getSize().y);
 		Resources::textures["Pause Background"].update(*this->window);
 		Resources::textures["Pause Background"].setRepeated(true);
@@ -67,6 +68,8 @@ void Game::changeScene(GameState nextScene)
 	case GameState::RESUME:
 		std::cout << "Resume\n";
 		popState();
+		Resources::sounds[currentMusic].play();
+		Resources::sounds[currentMusic].setLoop(true);
 		for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
 		{
 			if (!it->second)
@@ -80,10 +83,24 @@ void Game::changeScene(GameState nextScene)
 	case GameState::REPLAY:
 		std::cout << "Replay\n";
 		popState();
+		if (currentMusic == "MARIO_WATER")
+		{
+			Resources::sounds[currentMusic].stop();
+			Resources::sounds[prevMusic].play();
+			Resources::sounds[prevMusic].setLoop(true);
+			currentMusic = prevMusic;
+		}
+		else
+		{
+			Resources::sounds[currentMusic].stop();
+			Resources::sounds[currentMusic].play();
+			Resources::sounds[currentMusic].setLoop(true);
+		}
 		this->currentGameState = GameState::REPLAY;
 		break;
 	case GameState::EXIT:
 
+		Resources::sounds[currentMusic].stop();
 		this->window->close();
 		break;
 
