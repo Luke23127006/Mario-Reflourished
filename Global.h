@@ -139,9 +139,29 @@ const float BOWSER_PACE_SPEED = 30.f;
 const float BOWSER_FOLLOW_SPEED = 60.f;
 const float BOWSER_DETECTION_RADIUS = 1000.f;
 
+// FIREBALL OF BOWSER
 const float FIREBALL_WIDTH = 10.f;
 const float FIREBALL_HEIGHT = 10.f;
 const float FIREBALL_SPEED = 80.f;
+
+// WUKONG
+const float WUKONG_WIDTH = 60.f;
+const float WUKONG_HEIGHT = 80.f;
+const float WUKONG_PACE_SPEED = 100.f;
+const float WUKONG_PACE_X = 300.f;
+const float WUKONG_PACE_Y = 200.f;
+const float WUKONG_FOLLOW_SPEED = 150.f;
+const float WUKONG_DETECTION_RADIUS = 1000.f;
+
+
+// MAGIC ROD
+const float MAGIC_ROD_WIDTH = 10.f;
+const float MAGIC_ROD_HEIGHT = 10.f;
+
+
+
+
+
 
 
 
@@ -151,8 +171,11 @@ const float PLANT_HEIGHT = 48.f;
 const float BANZAI_BILL_WIDTH = 39.f;
 const float BANZAI_BILL_HEIGHT = 36.f;
 
-const float BOSS_WIDTH = 69.f;
-const float BOSS_HEIGHT = 42.f;
+
+
+
+
+
 
 // enemies AI
 
@@ -257,8 +280,8 @@ enum class GameState
 	WELCOME = 0,
 	LOGIN,
 	PLAY,
-	SELECT_CHARACTER,
 	SELECT_LEVEL,
+	SELECT_CHARACTER,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,

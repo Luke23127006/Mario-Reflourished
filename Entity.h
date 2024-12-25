@@ -11,7 +11,7 @@ class Bullet;
 class Shell;
 class PowerUp;
 class FireBall;
-
+class WukongMagicRod;
 class Entity : public Object
 {
 private:
@@ -40,12 +40,13 @@ public:
 	const bool isDying() const;
 	const bool isUnderWater() const;
 	const bool isFlipped() const;
-
+	sf::RectangleShape& getHitbox();
 	void setOnGround(bool onGround);
 	void setUnderWater(bool underWater);
 	void setVelocity(sf::Vector2f velocity);
 	void setSize(sf::Vector2f size);
 	bool isCollide();
+	void setCollide(bool isCollide);
 	std::vector<bool>& getCollisionDirections();
 	const bool getOnGround() const;
 	const sf::Vector2f getVelocity() const;
@@ -76,6 +77,7 @@ public:
 	virtual void collideWithEntity(Enemy* enemy, Direction from);
 	virtual void collideWithEntity(Bullet* bullet, Direction from);
 	virtual void collideWithEntity(FireBall* fireBall, Direction from);
+	virtual void collideWithEntity(WukongMagicRod* wukongMagicRod, Direction from);
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
 

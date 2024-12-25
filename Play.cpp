@@ -60,7 +60,7 @@ void Play::update(float dt, bool& held)
 }
 void Play::render(sf::RenderWindow& window)
 {
-	this->draw(window);
+	this->draw(window);	
 }
 
 GameState Play::getNextScene()

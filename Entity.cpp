@@ -43,6 +43,10 @@ const bool Entity::isFlipped() const
 	return this->flipped;
 }
 
+sf::RectangleShape& Entity::getHitbox()
+{
+	return this->hitbox;
+}
 void Entity::setOnGround(bool onGround)
 {
 	this->onGround = onGround;
@@ -68,6 +72,10 @@ bool Entity::isCollide()
 	return this->isColliding;
 }
 
+void Entity::setCollide(bool isCollide)
+{
+	this->isColliding = isCollide;
+}
 // FOR CURRENT ENTITY WORLD
 void Entity::setAddressOfWorld(std::vector<Entity*>& world)
 {
@@ -135,6 +143,7 @@ std::vector<bool>& Entity::getCollisionDirections()
 
 void Entity::collideWithTile(Tile* tile)
 {
+	if (!this->enabled) return;
 	Direction from = Direction::NONE;
 
 	if (this->dying) return;
@@ -174,22 +183,20 @@ void Entity::collideWithTile(Tile* tile)
 		else
 		{
 			// PLAYER
-			if (entityBounds.left <= tileBounds.left)
+			if (entityBounds.left <= tileBounds.left && entityBounds.left + entityBounds.width <= tileBounds.left + tileBounds.width)
 			{
 				from = Direction::LEFT;
 				collisionDirections[3] = true;
 			}
-			else if (entityBounds.left > tileBounds.left)
+			else if (entityBounds.left >= tileBounds.left && entityBounds.left + entityBounds.width >= tileBounds.left + tileBounds.width)
 			{
 				from = Direction::RIGHT;
 				collisionDirections[1] = true;
 			}
+			
 		}
 	}
-	else
-	{
-		isColliding = false;
-	}
+
 
 	entity->collideWithTile(tile, from);
 }
@@ -198,7 +205,6 @@ void Entity::collideWithTile(Tile* tile, Direction from)
 {
 	sf::FloatRect tileBounds = tile->getGlobalBounds();
 	sf::FloatRect entityBounds = this->getGlobalBounds();
-
 	if (tile->isSolid())
 	{
 		switch (from)
@@ -262,6 +268,7 @@ void Entity::collideWithTile(Water* water, Direction from)
 
 void Entity::collideWithEntity(Entity* other, Direction& from)
 {
+	if (!this->enabled) return;
 	from = Direction::NONE;
 
 	Entity* entity = this;
@@ -315,6 +322,10 @@ void Entity::collideWithEntity(Bullet* bullet, Direction from)
 }
 
 void Entity::collideWithEntity(FireBall* fireBall, Direction from)
+{
+}
+
+void Entity::collideWithEntity(WukongMagicRod* wukongMagicRod, Direction from)
 {
 }
 void Entity::collideWithEntity(Shell* shell, Direction from)

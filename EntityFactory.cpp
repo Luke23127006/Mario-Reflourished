@@ -25,6 +25,13 @@ Entity* EntityFactory::createBowser(sf::Vector2f position)
 	return new Bowser(position);
 }
 
+
+
+Entity* EntityFactory::createWukong(sf::Vector2f position)
+{
+	return new Wukong(position);
+}
+
 Entity* EntityFactory::createShell(sf::Vector2f position)
 {
 	return new Shell(position);

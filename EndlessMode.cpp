@@ -179,9 +179,17 @@ void EndlessMode::render(sf::RenderWindow& target)
 GameState EndlessMode::getNextScene()
 {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->player->isDying())
 	{
 		return GameState::PAUSE;
+	}
+	if (this->player->isDying())
+	{
+		cooldownTime -= 0.001;
+		if (cooldownTime <= 0)
+			return GameState::LEVEL3;
+		return GameState::REPLAY;
+
 	}
 	return GameState::LEVEL3;
 }

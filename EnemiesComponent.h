@@ -6,7 +6,7 @@
 #include<iostream>
 #include <math.h>
 #include "FireBall.h"
-
+#include "WukongMagicRod.h"
 // Enemy Follow
 class FollowPlayer : public Component {
 private:
@@ -88,8 +88,54 @@ private:
 	float cooldownTime;
 	float countTime;
 	float detection_radius;
+
 public:
 	FireAttack(Entity* owner, Entity* player);
 	FireAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime);
+	void update(float deltaTime) override;
+};
+
+
+
+
+// BOSS Wukong
+
+
+
+
+
+
+
+
+
+class WukongAttack : public Component
+{
+private:
+	float speed;
+	float cooldownTime;
+	float countTime;
+	float detection_radius;
+	std::vector<bool> teleport;
+	float distanceTeleport;
+
+public:
+	WukongAttack(Entity* owner, Entity* player);
+	WukongAttack(Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime);
+	void setEnabled();
+	void update(float deltaTime) override;
+
+};
+
+
+class MagicRodAttack : public Component
+{
+private:
+	float cooldownTime;
+	float countTime;
+	float detection_radius;
+	
+public:
+	MagicRodAttack(Entity* owner, Entity* player);
+	MagicRodAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime);
 	void update(float deltaTime) override;
 };

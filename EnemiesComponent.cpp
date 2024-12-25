@@ -1,7 +1,7 @@
 #pragma once
 #include "EnemiesComponent.h"
 #include "Enemy.h"
-
+#include "Collision.h"
 
 
 
@@ -309,7 +309,7 @@ FireAttack::FireAttack(Entity* owner, Entity* player) : Component(owner, player)
 
 FireAttack::FireAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime) : Component(owner, player), detection_radius(detection_radius), cooldownTime(cooldownTime)
 {
-	countTime = cooldownTime;
+	countTime = cooldownTime / 2;
 }
 
 void FireAttack::update(float deltaTime)
@@ -341,16 +341,206 @@ void FireAttack::update(float deltaTime)
 			owner->addEntity(fireBall);
 		}
 	}
-	else
-	{
-		countTime = cooldownTime;
-	}
 
 	for (auto x : fireBalls)
 	{
 		sf::Vector2f vectorDirectionFireBalls = sf::Vector2f(playerPosition.x - x->getPosition().x, playerPosition.y - x->getPosition().y);
 		sf::Vector2f directionFireBalls = sf::Vector2f(vectorDirectionFireBalls.x > 0 ? 1 : -1, vectorDirectionFireBalls.y > 0 ? 1 : -1);
 		if (!x->isDying()) x->setDirection(directionFireBalls);
+		else fireBalls.erase(std::remove(fireBalls.begin(), fireBalls.end(), x), fireBalls.end());
 	}
+
+}
+
+
+
+
+
+
+// BOSS WUKONG
+
+
+
+
+
+
+
+
+
+WukongAttack::WukongAttack(Entity* owner, Entity* player) : Component(owner, player)
+{
+	speed = WUKONG_FOLLOW_SPEED;
+	cooldownTime = 3.0f;
+	countTime = cooldownTime;
+	detection_radius = WUKONG_DETECTION_RADIUS;
+	teleport.resize(4);
+	for (auto x : teleport)
+	{
+		x = false;
+	}
+	distanceTeleport = 200;
+}
+
+
+WukongAttack::WukongAttack (Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime) : Component(owner, player), speed(speed), detection_radius(detection_radius), cooldownTime(cooldownTime)
+{
+	countTime = cooldownTime;
+	teleport.resize(3);
+	for (auto x : teleport)
+	{
+		x = false;
+	}
+	distanceTeleport = 200;
+}
+
+
+
+void WukongAttack::setEnabled()
+{
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
+	if (distance < detection_radius)
+	{
+		enabled = true;
+	}
+	else
+	{
+		enabled = false;
+	}
+}
+
+void WukongAttack::update(float deltaTime)
+{
+	setEnabled();
+	if (!enabled) return;
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	sf::Vector2f VectorDirection = sf::Vector2f(playerPosition.x - ownerPosition.x, playerPosition.y - ownerPosition.y);
+	sf::Vector2f direction = sf::Vector2f(VectorDirection.x > 0 ? 1 : -1, VectorDirection.y > 0 ? 1 : -1);
+	if (countTime >= 0)
+	{
+		owner->move(direction * speed * deltaTime);
+		countTime -= deltaTime;
+	}
+	else {
+		countTime = cooldownTime;
+		std::vector<Entity*> predictObjects(3);
+		int XDirection[3] = { 1, -1, 0 };
+		int YDirection[3] = { 0, 0, -1 };
+
+		float differenceX = owner->getSize().x - player->getSize().x;
+		float differenceY = owner->getSize().y - player->getSize().y + 30;
+
+		// FOR TELEPORTING (predict where to teleport)
+		for (int i = 0; i < 3; i++)
+		{
+			sf::Vector2f predictPosition = playerPosition + sf::Vector2f(XDirection[i] * distanceTeleport, YDirection[i] * distanceTeleport - differenceY);
+			predictObjects[i] = new Entity(owner->getSize(), predictPosition);
+			Collision::handle_entity_map(predictObjects[i], &owner->getMap());
+			if (!owner->getMap().insideMap(predictObjects[i]))
+			{
+
+				teleport[i] = false;
+				continue;
+			}
+
+			if (!predictObjects[i]->isCollide())
+			{
+				teleport[i] = true;
+			}
+			else {
+				teleport[i] = false;
+			}
+		}
+
+		for (auto x : teleport)
+		{
+			std::cout << x << " ";
+		}
+		std::cout << std::endl;
+		// TELEPORTING
+		srand(time(NULL));
+		int random = rand() % 3;
+		if (teleport[random])
+		{
+			owner->setPosition(playerPosition + sf::Vector2f(XDirection[random] * distanceTeleport, YDirection[random] * distanceTeleport - differenceY));
+
+		}
+		else {
+			for (int i = 0; i < 3; i++)
+			{
+				if (teleport[i])
+				{
+
+					owner->setPosition(playerPosition + sf::Vector2f(XDirection[i] * distanceTeleport, YDirection[i] * distanceTeleport - differenceY));
+					break;
+				}
+			}
+		}
+		for (auto x : teleport)
+		{
+			x = false;
+		}
+		for (auto x : predictObjects)
+		{
+			delete x;
+		}
+
+
+	}
+}
+
+
+
+
+// MAGIC ROD ATTACK
+
+MagicRodAttack::MagicRodAttack(Entity* owner, Entity* player) : Component(owner, player)
+{
+	cooldownTime = 3.0f;
+	countTime = cooldownTime;
+	detection_radius = WUKONG_DETECTION_RADIUS;
+}
+
+MagicRodAttack::MagicRodAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime) : Component(owner, player), detection_radius(detection_radius), cooldownTime(cooldownTime)
+{
+	countTime = cooldownTime / 2;
+}
+
+
+
+
+
+
+
+
+void MagicRodAttack::update(float deltaTime)
+{
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	sf::Vector2f VectorDirection = sf::Vector2f(playerPosition.x - ownerPosition.x, playerPosition.y - ownerPosition.y);
+	sf::Vector2f direction = sf::Vector2f(VectorDirection.x > 0 ? 1 : -1, VectorDirection.y > 0 ? 1 : -1);
+	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
+	if (distance < detection_radius)
+	{
+		countTime -= deltaTime;
+		if (countTime <= 0)
+		{
+			countTime = cooldownTime;
+	
+			
+			sf::Vector2f rodPosition = sf::Vector2f(ownerPosition.x + owner->getSize().x / 2, ownerPosition.y + owner->getSize().y / 2);
+			
+			WukongMagicRod* magicRod = new WukongMagicRod(rodPosition, VectorDirection);
+			magicRod ->setAddressOfWorld(owner->getWorld());
+			magicRod->setMap(&owner->getMap());
+			owner->addEntity(magicRod);
+
+		}
+	}
+	
+
+	
 
 }

@@ -81,6 +81,11 @@ void Enemy::squished()
 
 void Enemy::takeDamage()
 {
+	this->health--;
+	if (this->health <= 0)
+	{
+		this->die();
+	}
 }
 
 void Enemy::collideWithTile(Tile* tile, Direction from)
@@ -94,7 +99,7 @@ void Enemy::collideWithTile(Tile* tile, Direction from)
 
 	if (tile->isHarming() && checkOnGround(this->getGLobalBounds(), tile->getGLobalBounds()))
 	{
-		this->die();
+		this->takeDamage();
 	}
 }
 

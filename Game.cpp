@@ -33,6 +33,11 @@ void Game::changeScene(GameState nextScene)
 		pushState(std::make_unique<SelectLevel>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_LEVEL;
 		break;
+	case GameState::SELECT_CHARACTER:
+		clearState();
+		pushState(std::make_unique<SelectCharacter>(this->renderTexture), false);
+		this->currentGameState = GameState::SELECT_CHARACTER;
+		break;
 	case GameState::LEVEL1:
 
 		std::cout << "Level1\n";
@@ -67,6 +72,9 @@ void Game::changeScene(GameState nextScene)
 		break;
 	case GameState::RESUME:
 		std::cout << "Resume\n";
+		std::cout << "Before " << states.size() << std::endl;
+		if (currentGameState == GameState::PAUSE) popState();
+		std::cout << "After " << states.size() << std::endl;
 		popState();
 		Resources::sounds[currentMusic].play();
 		Resources::sounds[currentMusic].setLoop(true);
@@ -284,6 +292,8 @@ void Game::update(float deltaTime)
 		}
 		
 	}
+	this->changeScene(nextScene);
+
 
 	this->changeScene(nextScene);
 }
