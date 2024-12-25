@@ -83,9 +83,19 @@ void Game::changeScene(GameState nextScene)
 	case GameState::REPLAY:
 		std::cout << "Replay\n";
 		popState();
-		Resources::sounds[currentMusic].stop();
-		Resources::sounds[currentMusic].play();
-		Resources::sounds[currentMusic].setLoop(true);
+		if (currentMusic == "MARIO_WATER")
+		{
+			Resources::sounds[currentMusic].stop();
+			Resources::sounds[prevMusic].play();
+			Resources::sounds[prevMusic].setLoop(true);
+			currentMusic = prevMusic;
+		}
+		else
+		{
+			Resources::sounds[currentMusic].stop();
+			Resources::sounds[currentMusic].play();
+			Resources::sounds[currentMusic].setLoop(true);
+		}
 		this->currentGameState = GameState::REPLAY;
 		break;
 	case GameState::EXIT:

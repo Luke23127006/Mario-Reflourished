@@ -95,6 +95,14 @@ void EndlessMode::updateMap(float deltaTime)
 		if (i != 15)
 		{
 			++countMap;
+			if (currentMusic == "MARIO_WATER")
+			{
+				Resources::sounds[currentMusic].stop();
+				prevMusic = prevMusic == "LV3_1" ? "LV3_2" : "LV3_1";
+				Resources::sounds[prevMusic].play();
+				Resources::sounds[prevMusic].setLoop(true);
+				currentMusic = prevMusic;
+			}
 			this->addMap(MAPS_DIRECTORY + "Level 3/Map" + std::to_string(i) + ".png");
 			if (countMap % 5 == 0)
 			{
@@ -107,8 +115,8 @@ void EndlessMode::updateMap(float deltaTime)
 		else
 		{
 			countMap += 3;
+			prevMusic = currentMusic;
 			Resources::sounds[currentMusic].stop();
-			std::string prevMusic = currentMusic;
 			currentMusic = "MARIO_WATER";
 			Resources::sounds[currentMusic].play();
 			Resources::sounds[currentMusic].setLoop(true);
