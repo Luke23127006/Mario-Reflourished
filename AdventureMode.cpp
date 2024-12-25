@@ -99,7 +99,6 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 	Resources::sounds[currentMusic].setLoop(true);
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
-	this->entities.reserve(100);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
 
 }
