@@ -6,7 +6,6 @@ void Collision::handle_entity_map(Entity* entity, Map* map)
 {
 	if (!map->insideMap(entity))
 	{
-		entity->die();
 		return;
 	}	
 

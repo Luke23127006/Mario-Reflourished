@@ -138,16 +138,16 @@ const float BOWSER_DETECTION_RADIUS = 1000.f;
 // FIREBALL OF BOWSER
 const float FIREBALL_WIDTH = 10.f;
 const float FIREBALL_HEIGHT = 10.f;
-const float FIREBALL_SPEED = 80.f;
+const float FIREBALL_SPEED = 100.f;
 
 // WUKONG
 const float WUKONG_WIDTH = 60.f;
-const float WUKONG_HEIGHT = 80.f;
+const float WUKONG_HEIGHT = 100.f;
 const float WUKONG_PACE_SPEED = 100.f;
 const float WUKONG_PACE_X = 300.f;
 const float WUKONG_PACE_Y = 200.f;
 const float WUKONG_FOLLOW_SPEED = 150.f;
-const float WUKONG_DETECTION_RADIUS = 1000.f;
+const float WUKONG_DETECTION_RADIUS = 1200.f;
 
 
 // MAGIC ROD
