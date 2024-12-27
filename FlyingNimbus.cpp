@@ -12,6 +12,9 @@ FlyingNimbus::FlyingNimbus(Player* player) :
 	this->duration = this->durationMax = NIMBUS_DURATION;
 	this->type = PowerUpType::FLYING_NIMBUS;
 	this->icon.setTexture(Resources::textures["FLYING_NIMBUS"]);
+	this->animations.push_back(new Animation(Resources::textures["FLYING_NIMBUS_EFFECT"], 1, 1.f, sf::Vector2i(100, 24)));
+	//this->animations[0]->setCenter();
+	this->isBack = false;
 
 	if (this->player->hasPowerUp(this->type)) return;
 	this->player->setVelocityMax(sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED));
@@ -135,6 +138,7 @@ void FlyingNimbus::applyPowerUp(float deltaTime)
 
 	this->player->setAcceleration(playerAcceleration);
 	this->player->setVelocity(playerVelocity);
+	this->player->setVelocityMax(sf::Vector2f(NIMBUS_SPEED, NIMBUS_VERTICAL_SPEED));
 }
 
 void FlyingNimbus::update(float deltaTime)
@@ -155,4 +159,9 @@ void FlyingNimbus::update(float deltaTime)
 	position.y = this->player->getGlobalBounds().top + this->player->getGlobalBounds().height - this->hitbox.getSize().y;
 	this->setPosition(position);
 
+}
+
+void FlyingNimbus::render(sf::RenderTarget& target)
+{
+	this->animations[0]->render(target, this->hitbox.getPosition());
 }

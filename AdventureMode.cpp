@@ -11,6 +11,7 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 	sf::Image image;
 	image.loadFromFile(fileName);
 
+	this->entities.reserve(500);
 	for (int i = 0; i < image.getSize().x; i++)
 		for (int j = 0; j < image.getSize().y; j++)
 		{
@@ -85,12 +86,19 @@ AdventureMode::AdventureMode()
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 {
 	if (fileName == MAPS_DIRECTORY + "Level 1.png")
+	{
 		typeMap = GameState::LEVEL1;
+		currentMusic = "MARIO_MAIN_THEME";
+	}
 	else if (fileName == MAPS_DIRECTORY + "Level 2.png")
+	{
 		typeMap = GameState::LEVEL2;
+		currentMusic = "MARIO_UNDERGROUND";
+	}
+	Resources::sounds[currentMusic].play();
+	Resources::sounds[currentMusic].setLoop(true);
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
-	this->entities.reserve(100);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
 
 }
@@ -181,7 +189,7 @@ void AdventureMode::updateEntities(float deltaTime)
 		auto& e = *it;
 		sf::Vector2f direction = center - e->getPosition();
 		float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
-		if (distance < UPDATE_DISTANCE) e->update(deltaTime);
+		if (distance < UPDATE_DISTANCE || isType<Player>(*e)) e->update(deltaTime);
 
 		if (!isType<Player>(*e) && e->isDead())
 		{

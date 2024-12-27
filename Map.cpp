@@ -177,7 +177,7 @@ const bool Map::insideMap(Entity* entity) const
 	sf::FloatRect mapBounds(this->position, sf::Vector2f(this->size.x * TILE_SIZE, this->size.y * TILE_SIZE));
 	if (entityBounds.top > mapBounds.top + mapBounds.height)
 	{
-		entity->setCollide(true);
+		entity->die();
 	}
 	return entityBounds.left + entityBounds.width >= mapBounds.left && entityBounds.left <= mapBounds.left + mapBounds.width;
 }

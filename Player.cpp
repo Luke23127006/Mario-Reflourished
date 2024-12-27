@@ -34,6 +34,13 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	animations[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
 }
 
 Player::~Player()
@@ -63,6 +70,7 @@ void Player::takeDamage()
 
 void Player::die()
 {
+	Resources::sounds[currentMusic].stop();
 	if (this->lives > 0)
 	{
 		this->lives--;
@@ -79,7 +87,17 @@ void Player::die()
 
 void Player::gainPowerUp(PowerUp* powerUp)
 {
-	if (this->hasPowerUp(powerUp->getType())) return;
+	if (this->hasPowerUp(powerUp->getType()))
+	{
+		for (auto& p : this->powerUps)
+		{
+			if (p->getType() == powerUp->getType())
+			{
+				p->resetDuration();
+				return;
+			}
+		}
+	}
 	this->powerUps.push_back(powerUp);
 }
 
@@ -337,6 +355,7 @@ void Player::update(float deltaTime)
 	else
 	{
 		this->updateAcceleration(deltaTime);
+		this->updateUnderWater(deltaTime);
 		this->updatePowerUps(deltaTime);
 		this->updateMovement(deltaTime);
 		this->invicibleTimer = std::max(0.f, this->invicibleTimer - deltaTime);
@@ -435,6 +454,24 @@ void Player::updateAcceleration(float deltaTime)
 	}*/
 }
 
+void Player::updateUnderWater(float deltaTime)
+{
+	this->velocityMax = sf::Vector2f(PLAYER_SPEED, PLAYER_FALL_SPEED);
+	if (!this->underWater) return;
+
+	this->jumpTimer = 0.01f;
+	this->velocityMax = sf::Vector2f(WATER_MAX_SPEED, WATER_MAX_VERTICAL_SPEED);
+
+	this->acceleration.x *= WATER_ACCELERATION_REDUCTION;
+
+	this->acceleration.y *= WATER_GRAVITY_REDUCTION;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		this->acceleration.y = -PLAYER_JUMP_STRENGHT * WATER_ACCELERATION_REDUCTION;
+	}
+}
+
 void Player::updateMovement(float deltaTime)
 {
 	this->velocity += this->acceleration * deltaTime;
@@ -474,10 +511,14 @@ void Player::updateAnimation(float deltaTime)
 
 void Player::render(sf::RenderTarget& target)
 {
+	for (auto& p : this->powerUps)
+	{
+		if (p->getIsBack()) p->render(target);
+	}
 	this->animations[INT(this->playerState)]->render(target, this->hitbox.getPosition());
 	for (auto& p : this->powerUps)
 	{
-		p->render(target);
+		if (!p->getIsBack()) p->render(target);
 	}
 	Entity::render(target);
 }

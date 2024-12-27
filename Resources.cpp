@@ -70,6 +70,11 @@ void Resources::initTextures()
 	textures["FIRE_FLOWER"].loadFromFile(ITEMS_DIRECTORY + "Fire Flower.png");
 	textures["POWER_UP_BORDER"].loadFromFile(ITEMS_DIRECTORY + "Border.png");
 
+	textures["SHIELD_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Shield Effect.png");
+	textures["FLYING_NIMBUS_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Flying Nimbus Effect.png");
+	textures["MAGNET_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Magnet Effect.png");
+	textures["AIR_SNEAKERS_EFFECT"].loadFromFile(ITEMS_DIRECTORY + "Air Sneakers Effect.png");
+
 	// Decoration
 	textures["EXCLAMATION"].loadFromFile(DECORATIONS_DIRECTORY + "Exclamation.png");
 
@@ -125,6 +130,8 @@ void Resources::initSounds()
 	soundBuffers["MARIO_MAIN_THEME"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Overworld.wav");
 	soundBuffers["MARIO_UNDERGROUND"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underworld.wav");
 	soundBuffers["MARIO_WATER"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Underwater.wav");
+	soundBuffers["LV3_1"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Lv3_1.wav");
+	soundBuffers["LV3_2"].loadFromFile(SOUNDS_DIRECTORY + "/Music/Lv3_2.wav");
 
 	for (auto& s : soundBuffers)
 	{

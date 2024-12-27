@@ -69,6 +69,7 @@ public:
 	void collideWithEntity(WukongMagicRod * wukongMagicRod, Direction from) override;
 	void update(float deltaTime) override;
 	void updateAcceleration(float deltaTime);
+	void updateUnderWater(float deltaTime);
 	void updateMovement(float deltaTime);
 	void updateAnimation(float deltaTime);
 	void updatePowerUps(float deltaTime);

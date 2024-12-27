@@ -25,6 +25,11 @@ PowerUp::~PowerUp()
 {
 }
 
+const bool PowerUp::getIsBack() const
+{
+	return this->isBack;
+}
+
 const float PowerUp::getDuration() const
 {
 	return this->duration;
@@ -46,6 +51,17 @@ void PowerUp::setInfinityDuration()
 	this->duration = -1.f;
 }
 
+void PowerUp::resetDuration()
+{
+	if (this->duration == -1) return;
+	this->duration = this->durationMax;
+}
+
+void PowerUp::expire()
+{
+	if (this->duration != -1) this->duration = 0.f;
+}
+
 const PowerUpType PowerUp::getType() const
 {
 	return this->type;
@@ -63,6 +79,7 @@ const bool PowerUp::isExpired() const
 
 const float PowerUp::getDurationPercentage() const
 {
+	if (this->duration == -1) return 1.f;
 	return this->duration / this->durationMax;
 }
 
@@ -92,7 +109,7 @@ void PowerUp::update(float deltaTime)
 {
 	for (auto& a : this->animations)
 	{
-		a->update(deltaTime, true);
+		a->update(deltaTime, false);
 	}
 
 	if (this->player)
@@ -114,6 +131,19 @@ void PowerUp::update(float deltaTime)
 			this->velocity = sf::Vector2f(POWER_UP_SPEED, 0.f);
 		}
 		this->move(this->velocity * deltaTime);
+	}
+}
+
+void PowerUp::render(sf::RenderTarget& target)
+{
+	if (this->player == nullptr)
+	{
+		Entity::render(target);
+	}
+	else
+	{
+		if (this->animations.size() == 1)
+			this->animations[0]->render(target, this->player->getCenter());
 	}
 }
 

@@ -19,6 +19,7 @@ public:
 
 	void appear(float deltaTime);
 	void update(float deltaTime) override;
+	void render(sf::RenderTarget& target) override;
 
 	void applyPowerUp(float deltaTime) override;
 };

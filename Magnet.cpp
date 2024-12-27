@@ -7,6 +7,9 @@ Magnet::Magnet(Player* player) :
 	this->type = PowerUpType::MAGNET;
 	this->duration = this->durationMax = MAGNET_DURATION;
 	this->icon.setTexture(Resources::textures["MAGNET"]);
+	this->animations.push_back(new Animation(Resources::textures["MAGNET_EFFECT"], 5, 0.1f, sf::Vector2i(96, 96)));
+	this->animations[0]->setCenter();
+	this->animations[0]->setTransparency(128);
 }
 
 Magnet::~Magnet()
