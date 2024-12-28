@@ -21,6 +21,10 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 	// Next button
 	this->nextButton = new Button();
 	this->nextButton->setText("YES");
+	if (mapName == "LEVEL 3")
+		{
+		this->nextButton->setText("REPLAY");
+	}
 	this->nextButton->setButtonSize(sf::Vector2f(350, 50));
 	this->nextButton->setPosition(sf::Vector2f(window.getSize().x / 2  - this->nextButton->getSize().x, window.getSize().y / 2 + 200));
 	if (mapName == "LEVEL 1")
@@ -36,12 +40,16 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 	}
 	else
 	{
-		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::SELECT_LEVEL));
+		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::LEVEL3));
 	}
 
 	// Exit button
 	this->exitButton = new Button();
 	this->exitButton->setText("NO");
+	if(this->mapName == "LEVEL 3")
+	{
+		this->exitButton->setText("EXIT");
+	}
 	this->exitButton->setButtonSize(sf::Vector2f(350, 50));
 	this->exitButton->setPosition(sf::Vector2f(window.getSize().x / 2 + this->exitButton->getSize().x, window.getSize().y / 2 + 200));
 	this->exitButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::SELECT_LEVEL));
@@ -61,24 +69,24 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 void VictoryScene::createText(sf::RenderTexture &window)
 {
 	std::string text1 = "CONGRATULATIONS!";
-	std::string text2 = "You have completed " + this->mapName;
-	std::string text3 = "Would you like to play next level?";
+	std::string text2 = this->mapName != "LEVEL 3" ? "You have completed " + this->mapName   : "Yeah   you have travelled  a  little  far ";
+	std::string text3 =  this->mapName != "LEVEL 3" ? "Would you like to play next level ? "  : "Your score is   " + std::to_string(int(SCORE));
 
 	Text* t1 = new Text();
 	t1->setText(text1);
-	t1->setTextSize(100);
+	t1->setTextSize(110);
 	t1->setPosition(sf::Vector2f(window.getSize().x / 2 - t1->getGlobalBounds().width / 2, window.getSize().y / 2 - 300));
 
 	Text* t2 = new Text();
 	t2->setText(text2);
-	t2->setTextSize(50);
+	t2->setTextSize(60);
 	t2->setPosition(sf::Vector2f(window.getSize().x / 2 - t2->getGlobalBounds().width / 2, window.getSize().y / 2 - 100));
 
 
 
 	Text* t3 = new Text();
 	t3->setText(text3);
-	t3->setTextSize(50);
+	t3->setTextSize(60);
 	t3->setPosition(sf::Vector2f(window.getSize().x / 2 - t3->getGlobalBounds().width / 2, window.getSize().y / 2 + 50));
 
 	this->texts.push_back(t1);
