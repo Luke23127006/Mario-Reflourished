@@ -252,6 +252,15 @@ void Player::collideWithTile(Portal* portal, Direction from)
 	}
 }
 
+void Player::collideWithTile(VICTORYBlock* victory, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		VICTORY = true;
+	}
+}
+
+
 // Collion ENEMY
 void Player::collideWithEntity(Enemy* enemy, Direction from)
 {
@@ -367,6 +376,9 @@ void Player::collideWithEntity(PowerUp* powerUp, Direction from)
 		powerUp->die();
 	}
 }
+
+
+
 // Test FlyingNimbus
 
 
