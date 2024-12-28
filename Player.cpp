@@ -175,6 +175,31 @@ void Player::setCanShoot(bool canShoot)
 	this->canShoot = canShoot;
 }
 
+void Player::setIsBig(bool isBig)
+{
+	this->isBig = isBig;
+	if (isBig)
+	{
+		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["BIG_MARIO_IDLE"], 1, 1, sf::Vector2i(48, 96));
+
+		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["BIG_MARIO_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
+		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+
+		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["BIG_MARIO_JUMP"], 1, 1, sf::Vector2i(48, 96));
+		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+	}
+	else
+	{
+		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+
+		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+
+		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+	}
+}
+
 void Player::setCoins(std::vector<Coin*>* coins)
 {
 	this->coins = coins;
@@ -273,7 +298,7 @@ void Player::collideWithEntity(FireBall* fireBall, Direction from)
 {
 	if (from != Direction::NONE)
 	{
-		this->die();
+		this->takeDamage();
 		fireBall->die();
 	}
 }
@@ -285,7 +310,7 @@ void Player::collideWithEntity(WukongMagicRod* wukongMagicRod, Direction from)
 {
 	if (from != Direction::NONE)
 	{
-		this->die();
+		this->takeDamage();
 	}
 }
 // Collision SHELL
@@ -330,7 +355,7 @@ void Player::collideWithEntity(Shell* shell, Direction from)
 	}
 	else if (from != Direction::NONE)
 	{
-		this->die();
+		this->takeDamage();
 	}
 }
 // Collision POWERUP
