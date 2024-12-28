@@ -50,6 +50,8 @@ void Resources::initTextures()
 	//Koopa Shell
 	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "Shell.png");
 
+
+
 	// Bird
 	textures["NORMAL_BIRD"].loadFromFile(ENEMIES_DIRECTORY + "Bird/Normal_Bird.png");
 	textures["ANGRY_BIRD"].loadFromFile(ENEMIES_DIRECTORY + "Bird/Angry_Bird.png");
@@ -58,6 +60,12 @@ void Resources::initTextures()
 	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
 	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
 
+
+
+	// Wukong
+	
+	textures["WUKONG"].loadFromFile(ENEMIES_DIRECTORY + "WukongSuper.png");
+	textures["MAGIC_ROD"].loadFromFile(ENEMIES_DIRECTORY + "MagicRodSuper.png");
 	//Item
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");

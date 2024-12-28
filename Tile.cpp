@@ -103,6 +103,11 @@ void Tile::stopHarming()
 	this->harming = false;
 }
 
+void Tile::setShake(bool canShake)
+{
+	this->canShake = canShake;
+}
+
 void Tile::shake()
 {
 	if (!this->canShake) return;

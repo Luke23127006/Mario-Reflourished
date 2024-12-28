@@ -20,6 +20,8 @@ WukongMagicRod::WukongMagicRod(sf::Vector2f position, sf::Vector2f direction)
 	this->shrinkMode = false;
 	this->stopMode = false;
 	bool isReverse = false;
+	this->animations.push_back(new Animation(Resources::textures["MAGIC_ROD"], 2, 0.2f, sf::Vector2i(310, 20)));
+	this->animations[0]->setSize(sf::Vector2f(MAGIC_ROD_WIDTH, MAGIC_ROD_HEIGHT));
 	if (direction.x < 0)
 	{
 		this->flipped = true;
@@ -33,12 +35,15 @@ WukongMagicRod::WukongMagicRod(sf::Vector2f position, sf::Vector2f direction)
 	
 	if (this->flipped)
 	{
-		//this->hitbox.setOrigin(sf::Vector2f(this->getSize().x / 2.f, this->getSize().y / 2.f));
+		
+		this->animations[0]->setRotation(180.f);
 		this->hitbox.setRotation(180.f);
 		
 
 	}
-
+	
+	//this->animations[0]->setScale(sf::Vector2f(MAGIC_ROD_WIDTH / 20, MAGIC_ROD_HEIGHT / 310));
+	
 }
 
 WukongMagicRod::~WukongMagicRod()
@@ -71,6 +76,8 @@ void WukongMagicRod::collideWithTile(Tile* tile, Direction from)
 
 }
 
+
+
 void WukongMagicRod::collideWithEntity(Entity* entity, Direction& from)
 {
 	entity->Entity::collideWithEntity(dynamic_cast<Entity*>(this), from);
@@ -95,7 +102,8 @@ void WukongMagicRod::span(float deltaTime)
 		this->stopMode = true;
 		return;
 	}
-	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 300, deltaTime * 10);
+	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 400, deltaTime * 12);
+	
 	Entity* predictObject = new Entity(newSize, this->getPosition());;
 	if (flipped)
 	{
@@ -133,7 +141,8 @@ void WukongMagicRod::span(float deltaTime)
 			newPosition = this->getPosition() + difference;
 			this->setPosition(newPosition);
 		}
-		
+		//this->animations[0]->setScale(sf::Vector2f(newSize.x / this->getSize().x, newSize.y / this->getSize().y));
+		this->animations[0]->setSize(newSize);
 		this->setSize(newSize);
 		
 	}
@@ -156,8 +165,10 @@ void WukongMagicRod::stop(float deltaTime)
 void WukongMagicRod::shrink(float deltaTime)
 {
 	sf::Vector2f newSize = this->getSize() - sf::Vector2f(deltaTime * 500, deltaTime * 10);
+	
 	newSize.x = std::max(newSize.x, 1.f);
 	newSize.y = std::max(newSize.y, 1.f);
+	this->animations[0]->setSize(newSize);
 	this->setSize(newSize);
 	if (newSize.x <= 1.f || newSize.y <= 1.f)
 	{
@@ -168,6 +179,12 @@ void WukongMagicRod::update(float deltaTime)
 {
 	if (!this->dying)
 	{
+		for (auto& a : this->animations)
+		{
+			a->update(deltaTime, false);
+			
+			
+		}
 		if (spanMode)
 		{
 			this->span(deltaTime);
@@ -190,8 +207,12 @@ void WukongMagicRod::update(float deltaTime)
 
 void WukongMagicRod::render(sf::RenderTarget& target)
 {
-	Object::render(target);
+
 	// Animation later
+
+	Entity::render(target);
+
+
 
 }
 

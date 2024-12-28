@@ -42,7 +42,6 @@ public:
 	virtual void collideWithEntity(Player* player, Direction from) override;
 	virtual void collideWithEntity(Shell* shell, Direction from) override;
 	virtual void collideWithEntity(Bullet* bullet, Direction from) override;
-
 	virtual void update(float deltaTime) override;
 	virtual void render(sf::RenderTarget& target) override;
 };

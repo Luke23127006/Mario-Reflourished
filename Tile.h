@@ -34,7 +34,7 @@ public:
 	virtual void seftBreak();
 	void stopHarming();
 	virtual void shake();
-
+	virtual void setShake(bool canShake);
 	virtual void update(float deltaTime) override;
 
 	virtual void render(sf::RenderTarget& target) override;

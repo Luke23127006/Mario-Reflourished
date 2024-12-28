@@ -75,7 +75,7 @@ void Game::changeScene(GameState nextScene)
 		std::cout << "Before " << states.size() << std::endl;
 		//if (currentGameState == GameState::PAUSE) popState();
 		//std::cout << "After " << states.size() << std::endl;
-		popState();
+		if (this->currentGameState == GameState::PAUSE) popState();
 		Resources::sounds[currentMusic].play();
 		Resources::sounds[currentMusic].setLoop(true);
 		for (auto it = this->states.rbegin(); it != this->states.rend(); it++)

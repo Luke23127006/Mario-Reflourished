@@ -145,6 +145,7 @@ void Enemy::collideWithEntity(Bullet* bullet, Direction from)
 	}
 }
 
+
 void Enemy::addBehavior(std::shared_ptr<Component> behavior)
 {
 	this->behaviors.push_back(behavior);
