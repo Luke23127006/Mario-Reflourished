@@ -77,3 +77,24 @@ int COINS = 0;
 int BEAT_ENEMY = 0;
 int BEAT_BOSS = 0;
 std::vector<PowerUp*>* POWER_UPS = nullptr;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool VICTORY = false;

@@ -247,6 +247,10 @@ void Entity::collideWithTile(Tile* tile, Direction from)
 	{
 		this->collideWithTile(dynamic_cast<Water*>(tile), from);
 	}
+	if (isType<VICTORYBlock>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<VICTORYBlock*>(tile), from);
+	}
 }
 
 void Entity::collideWithTile(LuckyBlock* luckyBlock, Direction from)
@@ -268,6 +272,10 @@ void Entity::collideWithTile(Water* water, Direction from)
 	this->underWater = true;
 }
 
+
+void Entity::collideWithTile(VICTORYBlock* victory, Direction from)
+{
+}
 void Entity::collideWithEntity(Entity* other, Direction& from)
 {
 	if (!this->enabled) return;

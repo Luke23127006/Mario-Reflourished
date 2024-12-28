@@ -61,6 +61,7 @@ public:
 	void collideWithTile(Tile* tile, Direction from) override;
 	void collideWithTile(LuckyBlock* tile, Direction from) override;
 	void collideWithTile(Portal* tile, Direction from) override;
+	void collideWithTile(VICTORYBlock* victory, Direction from) override;
 
 	void collideWithEntity(Enemy* enemy, Direction from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;

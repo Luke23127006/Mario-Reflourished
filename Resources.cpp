@@ -39,7 +39,7 @@ void Resources::initTextures()
 	textures["WATER_SURFACE"].loadFromFile(TILES_DIRECTORY + "Water Surface.png");
 	textures["WATER_BELOW"].loadFromFile(TILES_DIRECTORY + "Water Below.png");
 	textures["SPIKE_WALL"].loadFromFile(TILES_DIRECTORY + "Spike Wall.png");
-
+	textures["VICTORY"].loadFromFile(TILES_DIRECTORY + "VICTORY.png");
 
 	//Goomba
 	textures["GOOMBA"].loadFromFile(ENEMIES_DIRECTORY + "goomba.png");
@@ -102,12 +102,14 @@ void Resources::initTextures()
     textures["Login Background"] = textures["Welcome Background"];
     textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
+	textures["Victory Background"].loadFromFile("./Resources/Background/Victory.jpg");
 }
 
 void Resources::initFonts()
 {
     fonts["Standard"].loadFromFile("./Resources/Fonts/Mario.ttf");
 	fonts["NewPixel"].loadFromFile("./Resources/Fonts/04B_30__.TTF");
+	//fonts["Standard"].loadFromFile("./Resources/Fonts/PixelVietnamese.otf");
 }
 
 void Resources::initSounds()

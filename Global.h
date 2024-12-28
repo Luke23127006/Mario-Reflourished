@@ -8,7 +8,7 @@
 #define PI 3.14159265
 
 
-
+extern bool VICTORY;
 // Mouse Position
 extern sf::Vector2i MOUSE_POSITION;
 extern sf::Vector2f MOUSE_VIEW_POSITION;
@@ -290,6 +290,7 @@ enum class GameState
 	REPLAY,
 	ADVENTURE_MODE,
 	ENDLESS_MODE,
+	VICTORY,
 	NUM_GAME_STATES,
 	EXIT,
 	NONE
@@ -375,6 +376,7 @@ enum class TileType
 	LAVA_BELOW,
 	LAVA_SURFACE,
 	PORTAL,
+	VICTORY,
 	NUM_TILE_TYPES
 };
 

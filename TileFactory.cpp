@@ -1,5 +1,5 @@
 #include "TileFactory.h"
-
+#include <iostream>
 Tile* TileFactory::createTile(sf::Vector2f position, TileType type)
 {   
 	switch (type)
@@ -18,7 +18,7 @@ Tile* TileFactory::createTile(sf::Vector2f position, TileType type)
 		return nullptr;
 	}
 }
-#include <iostream>
+
 Tile* TileFactory::createTile(sf::Vector2f position, std::string type)
 {
 	type = encodeString(type);
@@ -36,7 +36,9 @@ Tile* TileFactory::createTile(sf::Vector2f position, std::string type)
 	if (type == "pipe top right") return new Pipe(position, PipeType::TOP_RIGHT);
 	if (type == "pipe bottom left") return new Pipe(position, PipeType::BOTTOM_LEFT);
 	if (type == "pipe bottom right") return new Pipe(position, PipeType::BOTTOM_RIGHT);
+	if (type == "victory") return new VICTORYBlock(position);
 	return nullptr;
+	//return new VICTORYBlock(position);
 }
 
 Tile* TileFactory::createPortal(sf::Vector2f position, sf::Vector2f destination)
@@ -87,4 +89,17 @@ Tile* TileFactory::createWater(sf::Vector2f position, std::string type)
 	type = encodeString(type);
 	if (type == "surface") return new Water(position, true);
 	return new Water(position, false);
+}
+
+
+
+
+
+
+
+
+
+Tile* TileFactory::createVICTORYBlock(sf::Vector2f position)
+{
+	return new VICTORYBlock(position);
 }

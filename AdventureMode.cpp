@@ -60,11 +60,6 @@ void AdventureMode::addEntitiesAndCoins(std::string fileName, sf::Vector2f corne
 					this->entities.push_back(wukong);
 				}
 			}
-			/*if (!this->entities.empty())
-			{
-				this->entities.back()->setAddressOfWorld(this->entities);
-				if(this->map) this->entities.back()->setMap(this->map);
-			}*/
 		}
 	for (auto& entity : this->entities)
 	{
@@ -81,6 +76,7 @@ AdventureMode::AdventureMode()
 	this->map = nullptr;
 	this->player = nullptr;
 	this->entities.clear();
+	VICTORY = false;
 }
 
 AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
@@ -100,6 +96,7 @@ AdventureMode::AdventureMode(std::string fileName, sf::Vector2f cameraOrigin)
 	this->cameraOrigin = cameraOrigin;
 	this->initMap(fileName);
 	this->addEntitiesAndCoins(fileName, this->map->getPosition());
+	VICTORY = false;
 
 }
 
@@ -155,14 +152,15 @@ void AdventureMode::setEnemiesBehaviors()
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
 			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 3));
 		}
 
 		else if (isType<Wukong>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<PaceFly>(enemy, player, WUKONG_PACE_X, WUKONG_PACE_Y, WUKONG_PACE_SPEED));
-			enemy->addBehavior(std::make_shared<WukongAttack>(enemy, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, 5));
-			enemy->addBehavior(std::make_shared<MagicRodAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 5));
+			enemy->addBehavior(std::make_shared<WukongAttack>(enemy, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, 3));
+			enemy->addBehavior(std::make_shared<MagicRodAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 4));
 			//enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 3));
 		}
 	}
@@ -305,8 +303,18 @@ void AdventureMode::render(sf::RenderWindow& target)
 GameState AdventureMode::getNextScene()
 {
 
+	if (VICTORY)
+	{
+		cooldownTime -= 0.005;
+		if (cooldownTime <= 0)
+		{
+			return GameState::VICTORY;
+		}
+		return typeMap;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !this->player->isDying())
 		return GameState::PAUSE;
+	
 	if (this->player->isDying())
 	{
 		cooldownTime -= 0.001;

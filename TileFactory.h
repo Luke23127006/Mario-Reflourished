@@ -9,7 +9,7 @@
 #include "Tile.h"
 #include "Lava.h"
 #include "Water.h"
-
+#include "VICTORYBlock.h"
 class TileFactory
 {
 public:
@@ -20,4 +20,5 @@ public:
 	static Tile* createLuckyBlock(sf::Vector2f position);
 	static Tile* createLava(sf::Vector2f position, std::string type);
 	static Tile* createWater(sf::Vector2f position, std::string type);
+	static Tile* createVICTORYBlock(sf::Vector2f position);
 };

@@ -106,6 +106,19 @@ void Game::changeScene(GameState nextScene)
 		}
 		this->currentGameState = GameState::REPLAY;
 		break;
+	case GameState::VICTORY:
+		std::cout << "Victory\n";
+		clearState();
+		if (currentGameState == GameState::LEVEL1)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 1"), false);
+		else if (currentGameState == GameState::LEVEL2)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 2"), false);
+		else if (currentGameState == GameState::LEVEL3)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 3"), false);
+		
+		
+		this->currentGameState = GameState::VICTORY;
+		break;
 	case GameState::EXIT:
 
 		Resources::sounds[currentMusic].stop();

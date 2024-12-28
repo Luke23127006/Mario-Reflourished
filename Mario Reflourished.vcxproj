@@ -198,6 +198,8 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="VICTORYBlock.cpp" />
+    <ClCompile Include="VictoryScene.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
     <ClCompile Include="Wukong.cpp" />
@@ -261,6 +263,8 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="VICTORYBlock.h" />
+    <ClInclude Include="VictoryScene.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />
     <ClInclude Include="Wukong.h" />

@@ -27,6 +27,9 @@ void ColorManager::initColors()
     getObject[sf::Color(205, 192, 110, 255).toInteger()] = "coin under water";
 
     getObject[sf::Color(255, 0, 0, 255).toInteger()] = "player";
+
+
+    getObject[sf::Color(100, 100, 100, 255).toInteger()] = "victory";
 }
 
 ColorManager::ColorManager()

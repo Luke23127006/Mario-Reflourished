@@ -164,7 +164,7 @@ void WukongMagicRod::stop(float deltaTime)
 }
 void WukongMagicRod::shrink(float deltaTime)
 {
-	sf::Vector2f newSize = this->getSize() - sf::Vector2f(deltaTime * 500, deltaTime * 10);
+	sf::Vector2f newSize = this->getSize() - sf::Vector2f(deltaTime * 1000, deltaTime * 12);
 	
 	newSize.x = std::max(newSize.x, 1.f);
 	newSize.y = std::max(newSize.y, 1.f);
