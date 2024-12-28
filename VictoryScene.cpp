@@ -70,7 +70,7 @@ void VictoryScene::createText(sf::RenderTexture &window)
 {
 	std::string text1 = "CONGRATULATIONS!";
 	std::string text2 = this->mapName != "LEVEL 3" ? "You have completed " + this->mapName   : "Yeah   you have travelled  a  little  far ";
-	std::string text3 =  this->mapName != "LEVEL 3" ? "Would you like to play next level ? "  : "Your score is   " + std::to_string(int(SCORE));
+	std::string text3 =  this->mapName != "LEVEL 3" ? "Do you wanna explore more  ? "  : "Your score is   " + std::to_string(int(SCORE));
 
 	Text* t1 = new Text();
 	t1->setText(text1);

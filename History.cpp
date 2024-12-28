@@ -141,19 +141,19 @@ void History::createText(sf::RenderTexture& window)
 	// 146 77 240
 	// Name Map
 	Text* textMap1 = new Text();
-	textMap1->setText("Map 1 ");
+	textMap1->setText("LEVEL  1 ");
 	textMap1->setTextSize(50);
 	textMap1->setPosition(sf::Vector2f(50, 200));
 	textMap1->setTextColor(sf::Color(146, 277, 240, 255));
 
 	Text* textMap2 = new Text();
-	textMap2->setText("Map 2 ");
+	textMap2->setText("LEVEL  2 ");
 	textMap2->setTextSize(50);
 	textMap2->setPosition(sf::Vector2f(50, 400));
 	textMap2->setTextColor(sf::Color(146, 277, 240, 255));
 
 	Text* textMap3 = new Text();
-	textMap3->setText("Map 3 ");
+	textMap3->setText("LEVEL  3 ");
 	textMap3->setTextSize(50);
 	textMap3->setPosition(sf::Vector2f(50, 600));
 	textMap3->setTextColor(sf::Color(146, 277, 240, 255));

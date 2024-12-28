@@ -16,7 +16,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	BEAT_ENEMY = 0;
 	BEAT_BOSS = 0;
 	COINS = 0;
-	this->health = 100;
+	this->health = 3;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
 	POWER_UPS = &this->powerUps;
@@ -35,7 +35,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
 
-	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
 	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
@@ -283,6 +283,7 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 			enemy->takeDamage();
 			if (enemy->isDying())
 			{
+				enemy->squished();
 				BEAT_BOSS++;
 			}
 			return;
@@ -298,6 +299,9 @@ void Player::collideWithEntity(Enemy* enemy, Direction from)
 	}
 	else if (from != Direction::NONE)
 	{
+		if (isType<Wukong>(*enemy))
+			return;
+
 		this->takeDamage();
 	}
 }
