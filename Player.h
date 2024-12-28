@@ -33,6 +33,7 @@ private:
 	int lives;
 	bool canShoot = true;
 	bool isNimbusActive = false;
+	bool isBig = false;
 
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
@@ -56,6 +57,7 @@ public:
 	void setHealth(int health);
 	void setJumpTimerMax(float jumpTimerMax);
 	void setCanShoot(bool canShoot);
+	void setIsBig(bool isBig);
 	void setCoins(std::vector<Coin*>* coins);
 
 	void collideWithTile(Tile* tile, Direction from) override;

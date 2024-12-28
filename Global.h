@@ -50,6 +50,7 @@ extern std::vector<PowerUp*>* POWER_UPS;
 const sf::Color PINK = sf::Color(177, 80, 199, 180);
 // directories
 const std::string CHARACTERS_DIRECTORY = "./Resources/Characters/Mario/";
+const std::string LUIGI_DIRECTORY = "./Resources/Characters/Luigi/";
 const std::string DECORATIONS_DIRECTORY = "./Resources/Decorations/";
 const std::string ENEMIES_DIRECTORY = "./Resources/Enemies/";
 const std::string FONTS_DIRECTORY = "./Resources/Fonts/";

@@ -22,6 +22,23 @@ void Resources::initTextures()
 	textures["MARIO_SWIM"].loadFromFile(CHARACTERS_DIRECTORY + "mario_swim.png");
 	textures["MARIO_DIE"].loadFromFile(CHARACTERS_DIRECTORY + "mario_die.png");
 
+	// big mario
+	textures["BIG_MARIO_IDLE"].loadFromFile(CHARACTERS_DIRECTORY + "New Super Mario/super_mario_idle.png");
+	textures["BIG_MARIO_WALK"].loadFromFile(CHARACTERS_DIRECTORY + "New Super Mario/super_mario_walk.png");
+	textures["BIG_MARIO_JUMP"].loadFromFile(CHARACTERS_DIRECTORY + "New Super Mario/super_mario_jump.png");
+
+	// luigi
+	textures["LUIGI_IDLE"].loadFromFile(LUIGI_DIRECTORY + "New luigi/Luigi.png");
+	textures["LUIGI_WALK"].loadFromFile(LUIGI_DIRECTORY + "New luigi/LuigiWalk.png");
+	textures["LUIGI_JUMP"].loadFromFile(LUIGI_DIRECTORY + "New luigi/LuigiJump.png");
+	textures["LUIGI_SWIM"].loadFromFile(LUIGI_DIRECTORY + "New luigi/LuigiSwim.png");	
+	textures["LUIGI_DIE"].loadFromFile(LUIGI_DIRECTORY  + "New luigi/LuigiDead.png");
+
+	// big luigi
+	textures["BIG_LUIGI_IDLE"].loadFromFile(LUIGI_DIRECTORY + "New Super luigi/SuperLuigi.png");
+	textures["BIG_LUIGI_WALK"].loadFromFile(LUIGI_DIRECTORY + "New Super luigi/SuperLuigiWalk.png");
+	textures["BIG_LUIGI_JUMP"].loadFromFile(LUIGI_DIRECTORY + "New Super luigi/SuperLuigiJump.png");
+
     // tiles
 	textures["GROUND_BLOCK"].loadFromFile(TILES_DIRECTORY + "Ground Block.png"); // "Ground Block.png"
 	textures["BRICK"].loadFromFile(TILES_DIRECTORY + "Bricks.png");
