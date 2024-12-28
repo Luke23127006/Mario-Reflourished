@@ -82,8 +82,8 @@ void History::loadData()
 		{
 			data.push_back(line);
 		}
-		coins[0] = std::stoi(data[0]);
-		scores[0] = std::stof(data[1]);
+		coins[0] = std::stoi(data[1]);
+		scores[0] = std::stof(data[0]);
 	}
 	
 
@@ -102,8 +102,8 @@ void History::loadData()
 		{
 			data.push_back(line);
 		}
-		coins[1] = std::stoi(data[0]);
-		scores[1] = std::stof(data[1]);
+		coins[1] = std::stoi(data[1]);
+		scores[1] = std::stof(data[0]);
 	}
 	
 
@@ -122,8 +122,8 @@ void History::loadData()
 		{
 			data.push_back(line);
 		}
-		coins[2] = std::stoi(data[0]);
-		scores[2] = std::stof(data[1]);
+		coins[2] = std::stoi(data[1]);
+		scores[2] = std::stof(data[0]);
 	}
 	
 
