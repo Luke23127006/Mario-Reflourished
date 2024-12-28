@@ -170,6 +170,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="History.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Lava.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Lava.h" />

@@ -38,6 +38,12 @@ void Game::changeScene(GameState nextScene)
 		pushState(std::make_unique<SelectCharacter>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_CHARACTER;
 		break;
+
+	case GameState::HISTORY:
+		clearState();
+		pushState(std::make_unique<History>(this->renderTexture), false);
+		this->currentGameState = GameState::HISTORY;
+		break;
 	case GameState::LEVEL1:
 
 		std::cout << "Level1\n";
@@ -108,7 +114,9 @@ void Game::changeScene(GameState nextScene)
 		break;
 	case GameState::VICTORY:
 		std::cout << "Victory\n";
+		std::cout << SCORE << std::endl;
 		clearState();
+		std::cout << SCORE << std::endl;
 		if (currentGameState == GameState::LEVEL1)
 			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 1"), false);
 		else if (currentGameState == GameState::LEVEL2)

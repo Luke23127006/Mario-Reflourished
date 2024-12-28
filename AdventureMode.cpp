@@ -308,7 +308,9 @@ GameState AdventureMode::getNextScene()
 		cooldownTime -= 0.005;
 		if (cooldownTime <= 0)
 		{
+			Resources::sounds[currentMusic].stop();
 			return GameState::VICTORY;
+			
 		}
 		return typeMap;
 	}

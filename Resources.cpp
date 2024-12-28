@@ -66,6 +66,7 @@ void Resources::initTextures()
 	
 	textures["WUKONG"].loadFromFile(ENEMIES_DIRECTORY + "WukongSuper.png");
 	textures["MAGIC_ROD"].loadFromFile(ENEMIES_DIRECTORY + "MagicRodSuper.png");
+	textures["WUKONG_SMILE"].loadFromFile(ENEMIES_DIRECTORY + "Wukong Super.png");
 	//Item
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
@@ -100,8 +101,9 @@ void Resources::initTextures()
     // UI
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Login Background"] = textures["Welcome Background"];
-    textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
-    textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
+    textures["Play Background"].loadFromFile("./Resources/Background/Play.jpg");
+    textures["Select Level Background"].loadFromFile("./Resources/Background/Level.png");
+	textures["History Background"].loadFromFile("./Resources/Background/History.jpg");
 	textures["Victory Background"].loadFromFile("./Resources/Background/Victory.jpg");
 }
 

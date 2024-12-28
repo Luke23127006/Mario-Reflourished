@@ -96,5 +96,5 @@ std::vector<PowerUp*>* POWER_UPS = nullptr;
 
 
 
-
+std::string USER_NAME = "";
 bool VICTORY = false;

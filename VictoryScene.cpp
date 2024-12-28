@@ -9,8 +9,10 @@
 
 VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 {
+	
 	cooldownTime = 6.0f;
 	this->mapName = mapName;
+	updateHistory();
 	this->loadTexture();
 	this->createText(window);
 	this->victoryBackground.setPosition(0, 0);
@@ -24,13 +26,13 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 	if (mapName == "LEVEL 1")
 	{
 		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::LEVEL2));
-		bossAnimation = new Animation(Resources::textures["WUKONG"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
+		bossAnimation = new Animation(Resources::textures["WUKONG_SMILE"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
 		//bossAnimation = new Animation(Resources::textures["BOWSER"], 3, 0.2f, sf::Vector2i(BOWSER_WIDTH, BOWSER_HEIGHT));
 	}
 	else if (mapName == "LEVEL 2")
 	{
 		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::LEVEL3));
-		bossAnimation = new Animation(Resources::textures["WUKONG"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
+		bossAnimation = new Animation(Resources::textures["WUKONG_SMILE"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
 	}
 	else
 	{
@@ -83,6 +85,10 @@ void VictoryScene::createText(sf::RenderTexture &window)
 	this->texts.push_back(t2);
 	this->texts.push_back(t3);
 	
+	for (auto& text : texts)
+	{
+		text->setTextColor(sf::Color(227, 145, 30, 255));
+	}
 
 }
 void VictoryScene::loadTexture()
@@ -91,6 +97,49 @@ void VictoryScene::loadTexture()
 	this->victoryBackground.setTexture(this->victoryTexture);
 }
 
+
+
+
+
+
+
+void VictoryScene::updateHistory()
+{
+
+	std::ifstream fin("./Resources/UserAccount/" + USER_NAME + "/" + mapName + ".txt");
+	std::string line;
+	std::vector<std::string> history;
+	while (std::getline(fin, line))
+	{
+		history.push_back(line);
+	}
+	fin.close();
+	if (history.size() < 2)
+	{
+		history.resize(2);
+		for (int i = 0; i < history.size(); ++i)
+		{
+			history[i] = "0";
+		}
+	}
+	float score = std::stof(history[0]);
+	int coin = std::stoi(history[1]);
+
+	score = std::max(score, SCORE);
+	std::cout << SCORE << std::endl;
+	coin = std::max(coin, COINS);
+
+
+	std::ofstream fout("./Resources/UserAccount/" + USER_NAME + "/" + mapName + ".txt");
+
+	fout << score << std::endl;
+	fout << coin << std::endl;
+	fout.close();
+
+
+	
+
+}
 void VictoryScene::draw(sf::RenderWindow& window)
 {
 	window.draw(this->victoryBackground);

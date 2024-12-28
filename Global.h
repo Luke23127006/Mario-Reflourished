@@ -9,6 +9,7 @@
 
 
 extern bool VICTORY;
+extern std::string USER_NAME;
 // Mouse Position
 extern sf::Vector2i MOUSE_POSITION;
 extern sf::Vector2f MOUSE_VIEW_POSITION;
@@ -282,6 +283,7 @@ enum class GameState
 	PLAY,
 	SELECT_LEVEL,
 	SELECT_CHARACTER,
+	HISTORY,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,

@@ -61,7 +61,7 @@ void HUD::calculateData()
 	int beatBoss = BEAT_BOSS;
 	int coins = COINS;
 
-	score += coins * 10 + beatEnemies * 100 + beatBoss * 1000;
+	score += coins * 10 + beatEnemies * 100 + beatBoss * 5000;
 	if (this->isEndlessMode)
 	{
 		SCORE += 0.001;
@@ -156,6 +156,7 @@ GameState HUD::getNextScene()
 
 HUD::~HUD()
 {
+	SCORE += COINS * 10 + BEAT_ENEMY * 100 + BEAT_BOSS * 5000;
 	//while (!this->powerUp.empty())
 	//{
 	//	delete this->powerUp.back();

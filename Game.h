@@ -13,6 +13,7 @@
 #include "Welcome.h"
 #include "Pause.h"
 #include "HUD.h"
+#include "History.h"
 #include "VictoryScene.h"
 #include <SFML/Graphics.hpp>
 #include <vector>

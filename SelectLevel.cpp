@@ -30,11 +30,21 @@ SelectLevel::SelectLevel(sf::RenderTexture& window)
 	this->backgroundSprite.setPosition(0, 0);
 	this->backgroundSprite.setScale(window.getSize().x / this->backgroundSprite.getGlobalBounds().width, window.getSize().y / this->backgroundSprite.getGlobalBounds().height);
 
+
+	// koopa
+	koopaAnimation->setScale(sf::Vector2f(5, 5));
+	koopaPosition = sf::Vector2f(koopaAnimation->getSize().x, window.getSize().y / 2 - koopaAnimation->getSize().y / 2);
+
+
 	this->buttons.push_back(this->level1Button);
 	this->buttons.push_back(this->level2Button);
 	this->buttons.push_back(this->level3Button);
 	this->buttons.push_back(this->backButton);
 
+	for (auto& button : buttons)
+	{
+		button->setButtonColor(sf::Color(30, 310, 251, 200));
+	}
 	buttons[0]->changeHovered();
 
 }
@@ -44,11 +54,15 @@ void SelectLevel::loadTexture()
 
 	this->backgroundTexture = Resources::textures["Select Level Background"];
 	this->backgroundSprite.setTexture(this->backgroundTexture);
+	this->koopaTexture = Resources::textures["KOOPA"];
+	this->koopaAnimation = new Animation(this->koopaTexture, 2, 0.2f, sf::Vector2i(KOOPA_WIDTH, KOOPA_HEIGHT));
+
 }
 
 void SelectLevel::draw(sf::RenderWindow& window)
 {
 	window.draw(this->backgroundSprite);
+	koopaAnimation->render(window, koopaPosition);
 	Scene::draw(window);
 }
 
@@ -69,6 +83,7 @@ GameState SelectLevel::getNextScene()
 
 void SelectLevel::update(float dt, bool& held)
 {
+	koopaAnimation->update(dt, false);
 	this->updateHoverButton();
 	this->updateClickButton(held);
 }

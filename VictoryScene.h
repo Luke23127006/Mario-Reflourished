@@ -4,7 +4,7 @@
 #include "Resources.h"
 #include "Text.h"
 #include "Animation.h"
-
+#include <fstream>
 
 
 class VictoryScene : public Scene
@@ -27,6 +27,7 @@ public:
 	void draw(sf::RenderWindow& window) override;
 	void update(float dt, bool& held) override;
 	void render(sf::RenderWindow& window) override;
+	void updateHistory();
 	GameState getNextScene() override;
 	~VictoryScene();
 };

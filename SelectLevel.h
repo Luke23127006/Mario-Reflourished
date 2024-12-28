@@ -2,7 +2,7 @@
 
 #include "Button.h"
 #include "Scene.h"
-
+#include "Animation.h"
 #include <SFML\Graphics.hpp>
 #include <iostream>
 
@@ -20,6 +20,9 @@ private:
 	// Back button
 	Button* backButton;
 
+	sf::Texture koopaTexture;
+	sf::Vector2f koopaPosition;
+	Animation* koopaAnimation;
 
 public:
 	SelectLevel(sf::RenderTexture& window);
