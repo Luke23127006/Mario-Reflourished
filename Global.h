@@ -62,6 +62,9 @@ const std::string TILES_DIRECTORY = "./Resources/Tiles/";
 extern std::string currentMusic;
 extern std::string prevMusic;
 
+// player name
+extern std::string PLAYER_NAME;
+
 // camera
 const float CAMERA_FOLLOW_DISTANCE = 50.f;
 const float CAMERA_SMOOTHING_FACTOR = 5.f;
