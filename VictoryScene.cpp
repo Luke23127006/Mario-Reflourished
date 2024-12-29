@@ -30,8 +30,9 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 	if (mapName == "LEVEL 1")
 	{
 		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::LEVEL2));
-		bossAnimation = new Animation(Resources::textures["WUKONG_SMILE"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
-		//bossAnimation = new Animation(Resources::textures["BOWSER"], 3, 0.2f, sf::Vector2i(BOWSER_WIDTH, BOWSER_HEIGHT));
+		//bossAnimation = new Animation(Resources::textures["WUKONG_SMILE"], 2, 0.2f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT));
+		bossAnimation = new Animation(Resources::textures["BOWSER"], 2, 0.5f, sf::Vector2i(840, 697));
+		bossAnimation->setSize(sf::Vector2f(BOWSER_WIDTH, BOWSER_HEIGHT));
 	}
 	else if (mapName == "LEVEL 2")
 	{
@@ -57,8 +58,17 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 
 	if (this->bossAnimation)
 	{
-		this->bossAnimation->setScale(sf::Vector2f(3, 3));
-		bossPosition = sf::Vector2f(bossAnimation->getSize().x, window.getSize().y / 2 - bossAnimation->getSize().y / 2);
+		if (mapName != "LEVEL 1")
+		{
+			this->bossAnimation->setScale(sf::Vector2f(3, 3));
+			bossPosition = sf::Vector2f(bossAnimation->getSize().x, window.getSize().y / 2 - bossAnimation->getSize().y / 2);
+		}
+		else
+		{
+			this->bossAnimation->setScale(sf::Vector2f(0.5, 0.5));
+			bossPosition = sf::Vector2f(10 , window.getSize().y / 2 - bossAnimation->getSize().y / 5);
+		}
+		
 	}
 	this->buttons.push_back(this->nextButton);
 	this->buttons.push_back(this->exitButton);
