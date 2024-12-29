@@ -152,7 +152,7 @@ void AdventureMode::setEnemiesBehaviors()
 		{
 			enemy->addBehavior(std::make_shared<Pace>(enemy, player, BOWSER_PACE_SPEED));
 			enemy->addBehavior(std::make_shared<FollowPlayer>(enemy, player, BOWSER_FOLLOW_SPEED,BOWSER_DETECTION_RADIUS, 5));
-			enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
+			//enemy->addBehavior(std::make_shared<EnemiesJump>(enemy, player));
 			enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, BOWSER_DETECTION_RADIUS, 3));
 		}
 

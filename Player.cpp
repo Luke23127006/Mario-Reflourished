@@ -36,10 +36,10 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures[PLAYER_NAME + "_DIE"], 1, 1, sf::Vector2i(42, 42));
 
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
 }
