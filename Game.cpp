@@ -38,6 +38,12 @@ void Game::changeScene(GameState nextScene)
 		pushState(std::make_unique<SelectCharacter>(this->renderTexture), false);
 		this->currentGameState = GameState::SELECT_CHARACTER;
 		break;
+
+	case GameState::HISTORY:
+		clearState();
+		pushState(std::make_unique<History>(this->renderTexture), false);
+		this->currentGameState = GameState::HISTORY;
+		break;
 	case GameState::LEVEL1:
 
 		std::cout << "Level1\n";
@@ -73,9 +79,9 @@ void Game::changeScene(GameState nextScene)
 	case GameState::RESUME:
 		std::cout << "Resume\n";
 		std::cout << "Before " << states.size() << std::endl;
-		if (currentGameState == GameState::PAUSE) popState();
-		std::cout << "After " << states.size() << std::endl;
-		popState();
+		//if (currentGameState == GameState::PAUSE) popState();
+		//std::cout << "After " << states.size() << std::endl;
+		if (this->currentGameState == GameState::PAUSE) popState();
 		Resources::sounds[currentMusic].play();
 		Resources::sounds[currentMusic].setLoop(true);
 		for (auto it = this->states.rbegin(); it != this->states.rend(); it++)
@@ -105,6 +111,21 @@ void Game::changeScene(GameState nextScene)
 			Resources::sounds[currentMusic].setLoop(true);
 		}
 		this->currentGameState = GameState::REPLAY;
+		break;
+	case GameState::VICTORY:
+		std::cout << "Victory\n";
+		std::cout << SCORE << std::endl;
+		clearState();
+		std::cout << SCORE << std::endl;
+		if (currentGameState == GameState::LEVEL1)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 1"), false);
+		else if (currentGameState == GameState::LEVEL2)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 2"), false);
+		else if (currentGameState == GameState::LEVEL3)
+			pushState(std::make_unique<VictoryScene>(this->renderTexture, "LEVEL 3"), false);
+		
+		
+		this->currentGameState = GameState::VICTORY;
 		break;
 	case GameState::EXIT:
 

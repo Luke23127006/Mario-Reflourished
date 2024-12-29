@@ -372,6 +372,7 @@ bool Login::checkAccount()
 	{
 		return false;
 	}
+	USER_NAME = userName;
 	return true;
 }
 
@@ -391,5 +392,6 @@ bool Login::checkRegister()
 	fout << userName << std::endl;
 	fout << passWord << std::endl;
 	fout.close();
+	USER_NAME = userName;
 	return true;
 }

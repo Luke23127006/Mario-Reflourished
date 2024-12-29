@@ -185,11 +185,10 @@ GameState EndlessMode::getNextScene()
 	}
 	if (this->player->isDying())
 	{
-		cooldownTime -= 0.001;
+		cooldownTime -= 0.005;
 		if (cooldownTime <= 0)
-			return GameState::LEVEL3;
-		return GameState::REPLAY;
-
+			return GameState::VICTORY;
+		
 	}
 	return GameState::LEVEL3;
 }

@@ -170,6 +170,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="History.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Lava.cpp" />
@@ -198,6 +199,8 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="VICTORYBlock.cpp" />
+    <ClCompile Include="VictoryScene.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Welcome.cpp" />
     <ClCompile Include="Wukong.cpp" />
@@ -234,6 +237,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="Lava.h" />
@@ -261,6 +265,8 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileFactory.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="VICTORYBlock.h" />
+    <ClInclude Include="VictoryScene.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Welcome.h" />
     <ClInclude Include="Wukong.h" />

@@ -198,6 +198,15 @@
     <ClCompile Include="Wukong.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VICTORYBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VictoryScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="History.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -381,6 +390,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wukong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VICTORYBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VictoryScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

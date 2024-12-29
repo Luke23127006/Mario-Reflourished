@@ -8,7 +8,8 @@
 #define PI 3.14159265
 
 
-
+extern bool VICTORY;
+extern std::string USER_NAME;
 // Mouse Position
 extern sf::Vector2i MOUSE_POSITION;
 extern sf::Vector2f MOUSE_VIEW_POSITION;
@@ -146,16 +147,16 @@ const float BOWSER_DETECTION_RADIUS = 1000.f;
 // FIREBALL OF BOWSER
 const float FIREBALL_WIDTH = 10.f;
 const float FIREBALL_HEIGHT = 10.f;
-const float FIREBALL_SPEED = 80.f;
+const float FIREBALL_SPEED = 100.f;
 
 // WUKONG
 const float WUKONG_WIDTH = 60.f;
-const float WUKONG_HEIGHT = 80.f;
+const float WUKONG_HEIGHT = 100.f;
 const float WUKONG_PACE_SPEED = 100.f;
 const float WUKONG_PACE_X = 300.f;
 const float WUKONG_PACE_Y = 200.f;
 const float WUKONG_FOLLOW_SPEED = 150.f;
-const float WUKONG_DETECTION_RADIUS = 1000.f;
+const float WUKONG_DETECTION_RADIUS = 1200.f;
 
 
 // MAGIC ROD
@@ -205,8 +206,8 @@ const float MAGNET_DURATION = 5.f;
 const float NIMBUS_DURATION = 10.f;
 
 // nimbus
-const float NIMBUS_WIDTH = 100.f;
-const float NIMBUS_HEIGHT = 24.f;
+const float NIMBUS_WIDTH = 80.f; //100
+const float NIMBUS_HEIGHT = 80.f; //24
 const float NIMBUS_SPEED = 1200.f;
 const float NIMBUS_VERTICAL_SPEED = 700.f;
 const float NIMBUS_ACCELERATION = 600.f;
@@ -286,6 +287,7 @@ enum class GameState
 	PLAY,
 	SELECT_LEVEL,
 	SELECT_CHARACTER,
+	HISTORY,
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
@@ -294,6 +296,7 @@ enum class GameState
 	REPLAY,
 	ADVENTURE_MODE,
 	ENDLESS_MODE,
+	VICTORY,
 	NUM_GAME_STATES,
 	EXIT,
 	NONE
@@ -379,6 +382,7 @@ enum class TileType
 	LAVA_BELOW,
 	LAVA_SURFACE,
 	PORTAL,
+	VICTORY,
 	NUM_TILE_TYPES
 };
 

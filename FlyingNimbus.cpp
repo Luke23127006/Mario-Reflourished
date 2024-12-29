@@ -12,7 +12,8 @@ FlyingNimbus::FlyingNimbus(Player* player) :
 	this->duration = this->durationMax = NIMBUS_DURATION;
 	this->type = PowerUpType::FLYING_NIMBUS;
 	this->icon.setTexture(Resources::textures["FLYING_NIMBUS"]);
-	this->animations.push_back(new Animation(Resources::textures["FLYING_NIMBUS_EFFECT"], 1, 1.f, sf::Vector2i(100, 24)));
+	this->animations.push_back(new Animation(Resources::textures["FLYING_NIMBUS"], 1, 0.2f, sf::Vector2i(50, 50)));
+	this->animations[0]->setSize(sf::Vector2f(NIMBUS_WIDTH, NIMBUS_HEIGHT));
 	//this->animations[0]->setCenter();
 	this->isBack = false;
 
@@ -50,7 +51,7 @@ void FlyingNimbus::appear(float deltaTime)
 	float easeT = 1.0f - std::pow(1.0f - t, 3);
 	// Coordinates of start and end
 	sf::Vector2f startPosition = playerPosition + sf::Vector2f(300, -300);
-	sf::Vector2f endPosition = playerPosition;
+	sf::Vector2f endPosition = playerPosition + sf::Vector2f(-10, + 30);
 
 	// Amplitude and frequency of the wave
 	float amplitude = 50.0f;
@@ -65,6 +66,7 @@ void FlyingNimbus::appear(float deltaTime)
 
 	// Update the position of the Nimbus
 	this->hitbox.move(sf::Vector2f(x, y) - this->hitbox.getPosition());
+	this->animations[0]->update(deltaTime, true);
 }
 
 void FlyingNimbus::applyPowerUp(float deltaTime)
@@ -150,13 +152,13 @@ void FlyingNimbus::update(float deltaTime)
 		this->appear(deltaTime);
 		return;
 	}
-
+	this->animations[0]->update(deltaTime, this->player->getVelocity().x < 0);
 	// Use time
 	if (this->duration != -1) this->duration -= deltaTime;
 
 	sf::Vector2f position;
 	position.x = this->player->getGlobalBounds().left + this->player->getGlobalBounds().width / 2 - this->hitbox.getSize().x / 2;
-	position.y = this->player->getGlobalBounds().top + this->player->getGlobalBounds().height - this->hitbox.getSize().y;
+	position.y = this->player->getGlobalBounds().top + this->player->getGlobalBounds().height * 1.f / 3;
 	this->setPosition(position);
 
 }

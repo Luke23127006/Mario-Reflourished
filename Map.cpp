@@ -61,7 +61,10 @@ Map::Map(std::string fileName, sf::Vector2f position) :
 				this->mapData[i][j] = TileType::WATER_SURFACE;
 			else if (tileName == "spike")
 				this->mapData[i][j] = TileType::SPIKE;
-
+			else if (tileName == "victory")
+			{
+				this->mapData[i][j] = TileType::VICTORY;
+			}
 			// Process the tile based on its type
 			switch (this->mapData[i][j])
 			{

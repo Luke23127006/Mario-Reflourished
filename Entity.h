@@ -70,7 +70,7 @@ public:
 	virtual void collideWithTile(Portal* portal, Direction from);
 	virtual void collideWithTile(Lava* lava, Direction from);
 	virtual void collideWithTile(Water* water, Direction from);
-
+	virtual void collideWithTile(VICTORYBlock * victory, Direction from);
 	// collision with other entities
 	virtual void collideWithEntity(Entity* other, Direction& from);
 	virtual void collideWithEntity(Player* player, Direction from);
@@ -80,7 +80,7 @@ public:
 	virtual void collideWithEntity(WukongMagicRod* wukongMagicRod, Direction from);
 	virtual void collideWithEntity(Shell* shell, Direction from);
 	virtual void collideWithEntity(PowerUp* powerUp, Direction from);
-
+	
 	sf::Vector2f getSize();
 	virtual void die();
 

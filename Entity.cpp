@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include <iostream>
+#include "Wukong.h"
 Entity::Entity(sf::Vector2f size, sf::Vector2f position) :
 	Object(size, position),
 	onGround(false),
@@ -166,7 +167,7 @@ void Entity::collideWithTile(Tile* tile)
 	if (entityBounds.intersects(tileBounds))
 	{
 		isColliding = true;
-		if (tile->isDanger())
+		if (tile->isDanger() && !isType<Wukong>(*entity))
 		{
 			entity->die();
 		}
@@ -246,6 +247,10 @@ void Entity::collideWithTile(Tile* tile, Direction from)
 	{
 		this->collideWithTile(dynamic_cast<Water*>(tile), from);
 	}
+	if (isType<VICTORYBlock>(*tile))
+	{
+		this->collideWithTile(dynamic_cast<VICTORYBlock*>(tile), from);
+	}
 }
 
 void Entity::collideWithTile(LuckyBlock* luckyBlock, Direction from)
@@ -259,6 +264,7 @@ void Entity::collideWithTile(Portal* portal, Direction from)
 void Entity::collideWithTile(Lava* lava, Direction from)
 {
 	this->die();
+	
 }
 
 void Entity::collideWithTile(Water* water, Direction from)
@@ -266,6 +272,10 @@ void Entity::collideWithTile(Water* water, Direction from)
 	this->underWater = true;
 }
 
+
+void Entity::collideWithTile(VICTORYBlock* victory, Direction from)
+{
+}
 void Entity::collideWithEntity(Entity* other, Direction& from)
 {
 	if (!this->enabled) return;

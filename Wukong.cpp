@@ -15,6 +15,7 @@ Wukong::Wukong() : Enemy(sf::Vector2f(WUKONG_WIDTH, WUKONG_HEIGHT), sf::Vector2f
 Wukong::Wukong(sf::Vector2f position) : Enemy(sf::Vector2f(WUKONG_WIDTH, WUKONG_HEIGHT), position, 10)
 {
 	this->hitbox.setFillColor(sf::Color::Black);
+	this->animations.push_back (new Animation(Resources::textures["WUKONG"], 2, 0.3f, sf::Vector2i(WUKONG_WIDTH, WUKONG_HEIGHT)));
 }
 
 
@@ -59,6 +60,21 @@ void Wukong::collideWithEntity(Shell* shell, Direction from)
 		this->setVelocity(sf::Vector2f(0.f, -200.f));
 	}
 }
+
+void Wukong::collideWithTile(Lava* lava, Direction from)
+{
+	if (from != Direction::NONE)
+	{
+		lava->setShake(true);
+		lava->shake();
+	}
+	else {
+		lava->setShake(false);
+	}
+}
+
+
+
 
 
 Wukong::~Wukong()

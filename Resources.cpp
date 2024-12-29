@@ -56,7 +56,7 @@ void Resources::initTextures()
 	textures["WATER_SURFACE"].loadFromFile(TILES_DIRECTORY + "Water Surface.png");
 	textures["WATER_BELOW"].loadFromFile(TILES_DIRECTORY + "Water Below.png");
 	textures["SPIKE_WALL"].loadFromFile(TILES_DIRECTORY + "Spike Wall.png");
-
+	textures["VICTORY"].loadFromFile(TILES_DIRECTORY + "VICTORY.png");
 
 	//Goomba
 	textures["GOOMBA"].loadFromFile(ENEMIES_DIRECTORY + "goomba.png");
@@ -67,6 +67,8 @@ void Resources::initTextures()
 	//Koopa Shell
 	textures["KOOPA_SHELL"].loadFromFile(ENEMIES_DIRECTORY + "Shell.png");
 
+
+
 	// Bird
 	textures["NORMAL_BIRD"].loadFromFile(ENEMIES_DIRECTORY + "Bird/Normal_Bird.png");
 	textures["ANGRY_BIRD"].loadFromFile(ENEMIES_DIRECTORY + "Bird/Angry_Bird.png");
@@ -75,6 +77,13 @@ void Resources::initTextures()
 	textures["GREEN_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "GreenPlant.png");
 	textures["RED_PLANT"].loadFromFile(ENEMIES_DIRECTORY + "RedPlant.png");
 
+
+
+	// Wukong
+	
+	textures["WUKONG"].loadFromFile(ENEMIES_DIRECTORY + "WukongSuper.png");
+	textures["MAGIC_ROD"].loadFromFile(ENEMIES_DIRECTORY + "MagicRodSuper.png");
+	textures["WUKONG_SMILE"].loadFromFile(ENEMIES_DIRECTORY + "Wukong Super.png");
 	//Item
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");
@@ -109,14 +118,17 @@ void Resources::initTextures()
     // UI
     textures["Welcome Background"].loadFromFile("./Resources/Background/MarioWelcomeIT.png");
     textures["Login Background"] = textures["Welcome Background"];
-    textures["Play Background"].loadFromFile("./Resources/Background/Robot.jpg");
-    textures["Select Level Background"].loadFromFile("./Resources/Background/EndTime.jpg");
+    textures["Play Background"].loadFromFile("./Resources/Background/Play.jpg");
+    textures["Select Level Background"].loadFromFile("./Resources/Background/Level.png");
+	textures["History Background"].loadFromFile("./Resources/Background/History.jpg");
+	textures["Victory Background"].loadFromFile("./Resources/Background/Victory.jpg");
 }
 
 void Resources::initFonts()
 {
     fonts["Standard"].loadFromFile("./Resources/Fonts/Mario.ttf");
 	fonts["NewPixel"].loadFromFile("./Resources/Fonts/04B_30__.TTF");
+	//fonts["Standard"].loadFromFile("./Resources/Fonts/PixelVietnamese.otf");
 }
 
 void Resources::initSounds()

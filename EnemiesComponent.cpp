@@ -420,7 +420,7 @@ void WukongAttack::update(float deltaTime)
 	sf::Vector2f direction = sf::Vector2f(VectorDirection.x > 0 ? 1 : -1, VectorDirection.y > 0 ? 1 : -1);
 	if (countTime >= 0)
 	{
-		owner->move(direction * speed * deltaTime);
+		owner->setVelocity(sf::Vector2f(direction.x * speed, direction.y * speed));
 		countTime -= deltaTime;
 	}
 	else {
