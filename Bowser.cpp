@@ -5,7 +5,8 @@ Bowser::Bowser(sf::Vector2f position) : Enemy(sf::Vector2f(BOWSER_WIDTH, BOWSER_
 {
 
 	this->hitbox.setFillColor(sf::Color::Black);
-	
+	this->animations.push_back(new Animation(Resources::textures["BOWSER"], 2, 0.2f, sf::Vector2i(840, 697)));
+	this->animations[0]->setSize(sf::Vector2f(BOWSER_WIDTH, BOWSER_HEIGHT));
 }
 	
 

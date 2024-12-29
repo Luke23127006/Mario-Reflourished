@@ -16,11 +16,19 @@ FireBall::FireBall(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f di
 	this->duration = 5.0f;
 	this->angle = 0.f;
 	this->canSpan = true;
+	this->animations.push_back(new Animation(Resources::textures["FIREBALL"], 2, 0.2f, sf::Vector2i(50, 50)));
+	this->animations[0]->setSize(sf::Vector2f(FIREBALL_WIDTH, FIREBALL_HEIGHT));
+
 
 }
 
 FireBall::~FireBall()
 {
+	for (auto *a : this->animations)
+	{
+		delete a;
+	}
+	this->animations.clear();
 }
 
 bool FireBall::isExpire()
@@ -83,6 +91,7 @@ void FireBall::span(float deltaTime)
 	else
 	{
 		this->setSize(newSize);
+		this->animations[0]->setSize(newSize);
 		this->setPosition(newPosition);
 	}
 	delete predictObject;
@@ -93,11 +102,16 @@ void FireBall::update(float deltaTime)
 {
 	if (!this->dying)
 	{
+		for (auto & a : this->animations)
+		{
+			a->update(deltaTime, false);
+		}
 		this->duration -= deltaTime;
 	
 		if (this->duration <= 0.f) this->die();
 		this->span(deltaTime);
 		this->velocity = this->direction * FIREBALL_SPEED;
+		this->animations[0]->setPosition(this->getPosition());
 		this->move(this->velocity * deltaTime);
 
 
@@ -110,8 +124,7 @@ void FireBall::update(float deltaTime)
 
 void FireBall::render(sf::RenderTarget& target)
 {
-	Object::render(target);
-	// Animation later
+	Entity::render(target);
 
 }
 

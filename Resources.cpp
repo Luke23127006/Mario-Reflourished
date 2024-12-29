@@ -84,6 +84,12 @@ void Resources::initTextures()
 	textures["WUKONG"].loadFromFile(ENEMIES_DIRECTORY + "WukongSuper.png");
 	textures["MAGIC_ROD"].loadFromFile(ENEMIES_DIRECTORY + "MagicRodSuper.png");
 	textures["WUKONG_SMILE"].loadFromFile(ENEMIES_DIRECTORY + "Wukong Super.png");
+
+
+
+	// Bowser
+	textures["BOWSER"].loadFromFile(ENEMIES_DIRECTORY + "Bowser.png");
+	textures["FIREBALL"].loadFromFile(ENEMIES_DIRECTORY + "BowserFireBall.png");
 	//Item
 	textures["COIN"].loadFromFile(ITEMS_DIRECTORY + "Coin.png");
 	textures["POWER_UPS"].loadFromFile(ITEMS_DIRECTORY + "Power Ups.png");

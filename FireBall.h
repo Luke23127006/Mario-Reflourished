@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.h"
-
+#include "Animation.h"
 
 
 
@@ -13,6 +13,8 @@ private:
 	float angle;
 	sf::Vector2f direction;
 	bool canSpan;
+	
+
 public:
 	FireBall(sf::Vector2f position, sf::Vector2f velocity, sf::Vector2f direction);
 	virtual ~FireBall();

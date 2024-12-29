@@ -41,6 +41,7 @@ VictoryScene::VictoryScene(sf::RenderTexture& window, std::string mapName)
 	else
 	{
 		this->nextButton->addCommand(new changeSceneCommand(GameState::VICTORY, GameState::LEVEL3));
+		bossAnimation = new Animation(Resources::textures["ANGRY_BIRD"], 8, 0.1f, sf::Vector2i(BIRD_WIDTH, BIRD_HEIGHT));
 	}
 
 	// Exit button

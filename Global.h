@@ -135,8 +135,8 @@ const float BIRD_DETECTION_RADIUS = 600.f;
 
 
 // BOWSER
-const float BOWSER_WIDTH = 100.f;
-const float BOWSER_HEIGHT = 100.f;
+const float BOWSER_WIDTH = 150.f;
+const float BOWSER_HEIGHT = 150.f;
 const float BOWSER_PACE_SPEED = 30.f;
 const float BOWSER_FOLLOW_SPEED = 60.f;
 const float BOWSER_DETECTION_RADIUS = 1000.f;

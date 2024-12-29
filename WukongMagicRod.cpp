@@ -48,6 +48,11 @@ WukongMagicRod::WukongMagicRod(sf::Vector2f position, sf::Vector2f direction)
 
 WukongMagicRod::~WukongMagicRod()
 {
+	for (auto *a : this->animations)
+	{
+		delete a;
+	}
+	this->animations.clear();
 }
 
 bool WukongMagicRod::isExpire()
