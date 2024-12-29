@@ -128,10 +128,11 @@ void SelectCharacter::updateCurrentSkin()
 	if (selectedButton < buttons.size() - 2)
 	{
 		selectedSkin = selectedButton;
+		PLAYER_NAME = this->skinNames[selectedSkin];
 	}
 	else
 		return;
-	if (!skinTexture.loadFromFile("Resources/Characters/" + this->skinNames[selectedSkin] + "/" + "new " + this->skinNames[selectedSkin] + "/" + this->skinNames[selectedSkin] + ".png"))
+	if (!skinTexture.loadFromFile("Resources/Characters/" + this->skinNames[selectedSkin] + "/" + "new " + this->skinNames[selectedSkin] + "/" + this->skinNames[selectedSkin] + "1.png"))
 	{
 		std::cerr << "Error loading skin texture\n";
 	}

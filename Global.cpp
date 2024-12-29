@@ -72,6 +72,8 @@ float UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
 std::string currentMusic = "MARIO_MAIN_THEME";
 std::string prevMusic = "NONE";
 
+std::string PLAYER_NAME = "Mario";
+
 float SCORE = 0;
 int COINS = 0;
 int BEAT_ENEMY = 0;

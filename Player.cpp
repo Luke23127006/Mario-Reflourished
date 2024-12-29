@@ -22,18 +22,19 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	POWER_UPS = &this->powerUps;
 
 	this->animations = std::vector<Animation*>(INT(PlayerState::NUM_PLAYER_STATES), nullptr);
-	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+	std::transform(PLAYER_NAME.begin(), PLAYER_NAME.end(), PLAYER_NAME.begin(), ::toupper);
+	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures[PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
-	animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+	animations[INT(PlayerState::WALK)] = new Animation(Resources::textures[PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
 	animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-	animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+	animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures[PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(60, 48));
 	animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
 
-	animations[INT(PlayerState::SWIM)] = new Animation(Resources::textures["MARIO_SWIM"], 4, 0.1f, sf::Vector2i(54, 48));
+	animations[INT(PlayerState::SWIM)] = new Animation(Resources::textures[PLAYER_NAME + "_SWIM"], 4, 0.1f, sf::Vector2i(54, 48));
 	animations[INT(PlayerState::SWIM)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures["MARIO_DIE"], 1, 1, sf::Vector2i(42, 42));
+	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures[PLAYER_NAME + "_DIE"], 1, 1, sf::Vector2i(42, 42));
 
 	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
@@ -180,22 +181,22 @@ void Player::setIsBig(bool isBig)
 	this->isBig = isBig;
 	if (isBig)
 	{
-		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["BIG_MARIO_IDLE"], 1, 1, sf::Vector2i(48, 96));
+		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(48, 96));
 
-		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["BIG_MARIO_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
+		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
 		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["BIG_MARIO_JUMP"], 1, 1, sf::Vector2i(48, 96));
+		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(48, 96));
 		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
 	}
 	else
 	{
-		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["MARIO_IDLE"], 1, 1, sf::Vector2i(42, 48));
+		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures[PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
-		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["MARIO_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures[PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
 		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["MARIO_JUMP"], 1, 1, sf::Vector2i(60, 48));
+		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures[PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(60, 48));
 		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
 	}
 }
