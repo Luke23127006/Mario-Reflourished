@@ -3,8 +3,8 @@
 #include "Scene.h"
 #include <SFML\Graphics.hpp>
 #include<fstream>
-
-
+#include "Animation.h"
+#include "Resources.h"
 
 
 class SelectCharacter : public Scene
@@ -19,9 +19,12 @@ private:
 	Button* nextButton;
 	float colPosition;
 	std::vector<std::string> skinNames;
-	sf::Texture skinTexture;
-	sf::Sprite skinSprite;
+	
+	Animation* animation;
+	sf::Vector2f animationPosition;
+
 	int selectedSkin;
+	int previousSkin;
 	// Text box
 	Text skinNameText;
 public:
@@ -30,6 +33,7 @@ public:
 	void loadTexture();
 	void draw(sf::RenderWindow& window) override;
 	void updateCurrentSkin();
+	void updateClickButton(bool& held) override;
 	void update(float dt, bool& held) override;
 	void render(sf::RenderWindow& window) override;
 	GameState getNextScene() override;

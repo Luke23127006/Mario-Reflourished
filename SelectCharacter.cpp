@@ -54,23 +54,21 @@ SelectCharacter::SelectCharacter(sf::RenderTexture& window)
 	this->buttons.push_back(nextButton);
 	this->buttons.push_back(backButton);
 
+	for (auto& button : buttons)
+	{
+		button->setButtonColor(sf::Color(241, 123, 25, 200));
+	}
 
 	selectedSkin = selectedButton;
 	skinNameText.setText(this->skinNames[selectedSkin]);
 	skinNameText.setPosition(sf::Vector2f(window.getSize().x / 2 - skinNameText.getGlobalBounds().width / 2,
 		window.getSize().y / 2 - this->buttons[selectedSkin]->getSize().y * 2));
-	
-	if (!skinTexture.loadFromFile("Resources/Characters/" + this->skinNames[selectedSkin] + "/" + "New " + this->skinNames[selectedSkin] + "/" + this->skinNames[selectedSkin] + ".png"))
-	{
-			std::cerr << "Error loading skin texture\n";
-	}
-	else {
-				std::cout << "Skin texture loaded\n";
-	}
-	skinSprite.setTexture(skinTexture);
-	skinSprite.setPosition(sf::Vector2f(colPosition + buttons[0]->getSize().x / 2 + 150, window.getSize().y / 2 - this->buttons[0]->getSize().y * 2));
-	skinSprite.setScale(10, 10);
 
+	
+
+	animationPosition = sf::Vector2f(sf::Vector2f(colPosition + buttons[0]->getSize().x / 2 + 150, window.getSize().y / 2 - this->buttons[0]->getSize().y * 2));
+	animation = new Animation(Resources::textures["MARIO_WALK"], 3, 0.2, sf::Vector2i(162 / 3, PLAYER_HEIGHT));
+	animation->setSize(sf::Vector2f(300, 300));
 
 }
 
@@ -80,12 +78,13 @@ SelectCharacter::~SelectCharacter()
 	{
 		delete button;
 	}
+	delete animation;
 }
 
 
 void SelectCharacter::loadTexture()
 {
-	this->selectSkinTexture = Resources::textures["Select Skin Background"];
+	this->selectSkinTexture = Resources::textures["Select Character Background"];
 	this->selectSkinBackground.setTexture(this->selectSkinTexture);
 
 }
@@ -115,45 +114,78 @@ void SelectCharacter::draw(sf::RenderWindow& window)
 {
 	window.draw(this->selectSkinBackground);
 	Scene::draw(window);
-	window.draw(this->skinSprite);
-	sf::RectangleShape
-		rect(sf::Vector2f(100, 100));
-	rect.setPosition(0, 0);
-	rect.setFillColor(sf::Color::Blue);
-	window.draw(rect);
+	animation->render(window, animationPosition);
+
 }
 
 void SelectCharacter::updateCurrentSkin()
 {
 	if (selectedButton < buttons.size() - 2)
 	{
+
 		selectedSkin = selectedButton;
-		PLAYER_NAME = this->skinNames[selectedSkin];
+		PLAYER_NAME = skinNames[selectedSkin];
+		
 	}
 	else
 		return;
-	if (!skinTexture.loadFromFile("Resources/Characters/" + this->skinNames[selectedSkin] + "/" + "new " + this->skinNames[selectedSkin] + "/" + this->skinNames[selectedSkin] + "1.png"))
+	if (previousSkin == selectedSkin)
+		return;
+	if (PLAYER_NAME == "Mario")
 	{
-		std::cerr << "Error loading skin texture\n";
+		delete animation;
+		animation = new Animation(Resources::textures["MARIO_WALK"], 3, 0.2, sf::Vector2i(162 / 3, PLAYER_HEIGHT));
 	}
-	else {
-		std::cout << "Skin texture loaded\n";
+	else if (PLAYER_NAME == "Luigi")
+	{
+		delete animation;
+		animation = new Animation(Resources::textures["LUIGI_WALK"], 3, 0.2, sf::Vector2i(162 / 3, PLAYER_HEIGHT));
 	}
-	skinSprite.setTexture(skinTexture);
-	/*skinSprite.setPosition(sf::Vector2f(colPosition + buttons[0]->getSize().x / 2 + 150, window.getSize().y / 2 - this->buttons[0]->getSize().y * 2));
-	skinSprite.setScale(10, 10);*/
+	animation->setSize(sf::Vector2f(300, 300));
+	previousSkin = selectedSkin;
+}
+
+
+
+void SelectCharacter::updateClickButton(bool& held)
+{
+	Scene::updateClickButton(held);
+	if (selectedButton == selectedSkin)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) || sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			held = true;
+			if (this->selectedButton >= 0)
+			{
+				if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->buttons[this->selectedButton]->isHoverMouse())
+					|| sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+					currentControlMode = ControlMode::KEYBOARD;
+					this->buttons[this->selectedButton]->changeHovered();
+					selectedButton = 2;
+
+				}
+			}
+			
+		}
+		else held = false;
+		
+	}
 
 }
 void SelectCharacter::update(float dt, bool& held)
 {
 	this->updateHoverButton();
-	this->updateCurrentSkin();
 	this->updateClickButton(held);
+	this->updateCurrentSkin();
+	animation->update(dt, false);
+
 }
 
 void SelectCharacter::render(sf::RenderWindow& window)
 {
 	this->draw(window);
+
 }
 
 GameState SelectCharacter::getNextScene()

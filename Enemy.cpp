@@ -100,6 +100,7 @@ void Enemy::collideWithTile(Tile* tile, Direction from)
 	if (tile->isHarming() && checkOnGround(this->getGLobalBounds(), tile->getGLobalBounds()))
 	{
 		this->takeDamage();
+		BEAT_ENEMY++;
 	}
 }
 
@@ -116,6 +117,7 @@ void Enemy::collideWithEntity(Shell* shell, Direction from)
 		if (from != Direction::NONE)
 		{
 			this->die();
+			BEAT_ENEMY++;
 		}
 	}
 	else if (from == Direction::UP)
@@ -142,6 +144,7 @@ void Enemy::collideWithEntity(Bullet* bullet, Direction from)
 	{
 		this->die();
 		bullet->die();
+		BEAT_ENEMY++;
 	}
 }
 

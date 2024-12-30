@@ -126,6 +126,7 @@ void Resources::initTextures()
     textures["Login Background"] = textures["Welcome Background"];
     textures["Play Background"].loadFromFile("./Resources/Background/Play.jpg");
     textures["Select Level Background"].loadFromFile("./Resources/Background/Level.png");
+	textures["Select Character Background"].loadFromFile("./Resources/Background/Character.jpg");
 	textures["History Background"].loadFromFile("./Resources/Background/History.jpg");
 	textures["Victory Background"].loadFromFile("./Resources/Background/Victory.jpg");
 }

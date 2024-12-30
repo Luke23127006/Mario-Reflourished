@@ -16,7 +16,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 	BEAT_ENEMY = 0;
 	BEAT_BOSS = 0;
 	COINS = 0;
-	this->health = 3;
+	this->health = 1;
 	this->hitbox.setFillColor(sf::Color(255, 0, 0, 96));
 
 	POWER_UPS = &this->powerUps;
@@ -38,7 +38,7 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
-	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
+	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
