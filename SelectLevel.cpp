@@ -6,18 +6,18 @@ SelectLevel::SelectLevel(sf::RenderTexture& window)
 
 	// level 1
 	this->level1Button = new Button();
-	this->level1Button->setText("Level 1");
+	this->level1Button->setText("Original");
 	this->level1Button->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->level1Button->getSize().y * 3));
 	level1Button->addCommand(new changeSceneCommand(GameState::SELECT_LEVEL, GameState::LEVEL1));
 
 	// level 2
 	this->level2Button = new Button();
-	this->level2Button->setText("Level 2");
+	this->level2Button->setText("  UP!!  ");
 	this->level2Button->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 - this->level2Button->getSize().y));
 	level2Button->addCommand(new changeSceneCommand(GameState::SELECT_LEVEL, GameState::LEVEL2));
 	// level 3
 	this->level3Button = new Button();
-	this->level3Button->setText("Level 3");
+	this->level3Button->setText("How far?");
 	this->level3Button->setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2 + this->level3Button->getSize().y));
 	level3Button->addCommand(new changeSceneCommand(GameState::SELECT_LEVEL, GameState::LEVEL3));
 	// back
