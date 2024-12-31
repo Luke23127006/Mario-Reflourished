@@ -273,6 +273,7 @@
     <ClInclude Include="WukongMagicRod.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Characters\Luigi\New Super luigi\SuperLuigiSwim.png" />
     <Image Include="Resources\Maps\demo_map.png" />
     <Image Include="Resources\Maps\Level 1.png" />
     <Image Include="Resources\Maps\Level 2.png" />

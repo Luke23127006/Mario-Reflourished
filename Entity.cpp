@@ -167,6 +167,7 @@ void Entity::collideWithTile(Tile* tile)
 	if (entityBounds.intersects(tileBounds))
 	{
 		isColliding = true;
+		from = Direction::UP;
 		if (tile->isDanger() && !isType<Wukong>(*entity))
 		{
 			entity->die();

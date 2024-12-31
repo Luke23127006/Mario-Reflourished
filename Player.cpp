@@ -36,9 +36,15 @@ Player::Player(sf::Vector2f size, sf::Vector2f position) :
 
 	animations[INT(PlayerState::DIE)] = new Animation(Resources::textures[PLAYER_NAME + "_DIE"], 1, 1, sf::Vector2i(42, 42));
 
+	animations[INT(PlayerState::BIG_IDLE)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(48, 96));
+	animations[INT(PlayerState::BIG_WALK)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
+	animations[INT(PlayerState::BIG_JUMP)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(48, 96));
+	animations[INT(PlayerState::BIG_SWIM)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_SWIM"], 4, 0.1f, sf::Vector2i(48, 96));
+	animations[INT(PlayerState::BIG_DIE)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_WALK"], 1, 1, sf::Vector2i(48, 96));
+
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MAGNET, true));
-	this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
+	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::AIR_SNEAKERS, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::SHIELD, true));
 	//this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::MUSHROOM, true));
@@ -179,26 +185,26 @@ void Player::setCanShoot(bool canShoot)
 void Player::setIsBig(bool isBig)
 {
 	this->isBig = isBig;
-	if (isBig)
-	{
-		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(48, 96));
+	//if (isBig)
+	//{
+	//	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(48, 96));
 
-		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
-		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+	//	animations[INT(PlayerState::WALK)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(48, 96));
+	//	animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(48, 96));
-		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
-	}
-	else
-	{
-		animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures[PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(42, 48));
+	//	animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures["BIG_" + PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(48, 96));
+	//	animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+	//}
+	//else
+	//{
+	//	animations[INT(PlayerState::IDLE)] = new Animation(Resources::textures[PLAYER_NAME + "_IDLE"], 1, 1, sf::Vector2i(42, 48));
 
-		animations[INT(PlayerState::WALK)] = new Animation(Resources::textures[PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
-		animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
+	//	animations[INT(PlayerState::WALK)] = new Animation(Resources::textures[PLAYER_NAME + "_WALK"], 3, 0.1f, sf::Vector2i(54, 48));
+	//	animations[INT(PlayerState::WALK)]->setOrigin(sf::Vector2f(6.f, 0.f));
 
-		animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures[PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(60, 48));
-		animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
-	}
+	//	animations[INT(PlayerState::JUMP)] = new Animation(Resources::textures[PLAYER_NAME + "_JUMP"], 1, 1, sf::Vector2i(60, 48));
+	//	animations[INT(PlayerState::JUMP)]->setOrigin(sf::Vector2f(9.f, 3.f));
+	//}
 }
 
 void Player::setCoins(std::vector<Coin*>* coins)
@@ -542,6 +548,8 @@ void Player::updateAnimation(float deltaTime)
 	if (this->underWater) this->playerState = PlayerState::SWIM;
 
 	if (this->dying) this->playerState = PlayerState::DIE;
+
+	if (this->isBig) this->playerState = PlayerState(INT(this->playerState) + 6);
 
 	for (auto& a : this->animations)
 	{
