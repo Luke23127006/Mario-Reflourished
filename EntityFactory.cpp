@@ -56,23 +56,23 @@ PowerUp* EntityFactory::createPowerUp(Player* player)
 {
 	int chance = rand() % 100;
 
-	if (chance < 20) {
-		return new FlyingNimbus(player);
+	if (chance < 30) {
+		return new Shield(player);
 	}
-	else if (chance < 40) {
+	else if (chance < 45) {
 		return new Magnet(player);
 	}
-	else if (chance < 60) {
+	else if (chance < 55) {
 		return new FireFlower(player);
 	}
-	else if (chance < 80) {
+	else if (chance < 70) {
 		return new Mushroom(player);
 	}
 	else if (chance < 90) {
 		return new AirSneakers(player);
 	}
 	else {
-		return new Shield(player);
+		return new FlyingNimbus(player);
 	}
 }
 

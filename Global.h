@@ -196,13 +196,13 @@ const float POWER_UP_RISE_SPEED = 100.f;
 const float POWER_UP_SPEED = 200.f;
 
 // power up duration
-const float MUSHROOM_DURATION = 5.f;
-const float FIRE_FLOWER_DURATION = 5.f;
-const float AIR_SNEAKERS_DURATION = 5.f;
+const float MUSHROOM_DURATION = 10.f;
+const float FIRE_FLOWER_DURATION = 15.f;
+const float AIR_SNEAKERS_DURATION = 20.f;
 const float DOUBLE_COINS_DURATION = 5.f;
 const float INVICIBLE_DURATION = 1.f;
-const float SHIELD_DURATION = 10.f;
-const float MAGNET_DURATION = 5.f;
+const float SHIELD_DURATION = 45.f;
+const float MAGNET_DURATION = 20.f;
 const float NIMBUS_DURATION = 10.f;
 
 // nimbus
@@ -221,7 +221,7 @@ const float GROW_HEIGHT = 96.f;
 const float SNEAKERS_JUMP_TIMER = 0.5f;
 
 // magnet
-const float MAGNET_RADIUS = 500.f;
+const float MAGNET_RADIUS = 700.f;
 
 // coin
 const float COIN_WIDTH = 28.f;

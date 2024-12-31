@@ -54,6 +54,7 @@ void LuckyBlock::activate()
 		animation->setScale(sf::Vector2f(2.f, 2.f));
 		this->particle = new Particle(animation, this->getCenter(), sf::Vector2f(0.f, -200.f), sf::Vector2f(0.f, 200.f), 1.f);
 		this->particle->setCenter();
+		COINS += randomize(10, 50);
 		Resources::sounds["MARIO_COIN"].play();
 	}
 }

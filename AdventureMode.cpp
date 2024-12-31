@@ -319,6 +319,7 @@ GameState AdventureMode::getNextScene()
 	
 	if (this->player->isDying())
 	{
+		Resources::sounds[currentMusic].stop();
 		cooldownTime -= 0.001;
 		if (cooldownTime <= 0)
 			return typeMap;
