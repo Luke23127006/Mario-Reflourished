@@ -158,8 +158,9 @@ const float WUKONG_PACE_Y = 200.f;
 const float WUKONG_FOLLOW_SPEED = 150.f;
 const float WUKONG_DETECTION_RADIUS = 1200.f;
 
-
-// MAGIC ROD
+extern bool FIGHT_WUKONG;
+extern bool FIGHT_BOWSER;
+// MAGIcC ROD
 const float MAGIC_ROD_WIDTH = 10.f;
 const float MAGIC_ROD_HEIGHT = 10.f;
 

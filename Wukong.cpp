@@ -75,7 +75,10 @@ void Wukong::collideWithTile(Lava* lava, Direction from)
 
 
 
-
+void Wukong::collideWithTile(Tile* tile, Direction from)
+{
+	Entity::collideWithTile(tile, from);
+}
 
 Wukong::~Wukong()
 {

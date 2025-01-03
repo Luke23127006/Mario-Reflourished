@@ -19,5 +19,6 @@ public:
 	void collideWithEntity(Bullet* bullet, Direction from) override;
 	void collideWithEntity(Shell* shell, Direction from) override;
 	void collideWithTile(Lava* lava, Direction from) override;
+	void collideWithTile(Tile* tile, Direction from) override;
 	
 };

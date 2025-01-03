@@ -119,11 +119,6 @@ void WukongMagicRod::span(float deltaTime)
 
 	Collision::handle_entity_map(predictObject, &this->getMap());
 	std::vector<bool> collisionDirections = predictObject->getCollisionDirections();
-	for (auto x : collisionDirections)
-	{
-		std::cout << x << " ";
-	}
-	std::cout << std::endl;
 	if (collisionDirections[1] || collisionDirections[3])
 	{
 		

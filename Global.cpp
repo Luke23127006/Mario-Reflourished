@@ -66,8 +66,8 @@ sf::Vector2f CAMERA_POSITION;
 
 float ASPECT;
 int ZOOM_LEVEL = 720;
-float RENDER_DISTANCE = ZOOM_LEVEL + 1000.f;
-float UPDATE_DISTANCE = RENDER_DISTANCE + 300.f;
+float RENDER_DISTANCE = ZOOM_LEVEL + 1500.f;
+float UPDATE_DISTANCE = RENDER_DISTANCE + 1500.f;
 
 std::string currentMusic = "MARIO_MAIN_THEME";
 std::string prevMusic = "NONE";
@@ -78,6 +78,8 @@ float SCORE = 0;
 int COINS = 0;
 int BEAT_ENEMY = 0;
 int BEAT_BOSS = 0;
+bool FIGHT_WUKONG = false;
+bool FIGHT_BOWSER = false;
 std::vector<PowerUp*>* POWER_UPS = nullptr;
 
 

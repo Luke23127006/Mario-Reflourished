@@ -34,7 +34,10 @@ private:
 	bool canShoot = true;
 	bool isNimbusActive = false;
 	bool isBig = false;
-
+	bool isFacingWukong = false;
+	bool isFacingBowser = false;
+	float cooldownTimeBowser = 15.f;
+	float  cooldownTimeWukong = 15.f;
 public:
 	Player(sf::Vector2f size, sf::Vector2f position);
 	virtual ~Player();
@@ -45,7 +48,7 @@ public:
 	void gainPowerUp(PowerUp* powerUp);
 	const bool hasPowerUp(PowerUpType type) const;
 	void addCoin();
-
+	void faceBoss();
 	sf::Vector2f getAcceleration();
 	int getHealth();
 	const bool getCanShoot() const;

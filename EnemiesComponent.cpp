@@ -2,7 +2,7 @@
 #include "EnemiesComponent.h"
 #include "Enemy.h"
 #include "Collision.h"
-
+#include "Wukong.h"
 
 
 
@@ -261,9 +261,27 @@ bool PaceFly::onEllipse()
 	return abs((dx2 / a2 + dy2 / b2) - 1.f) < 1.0 / 10;
 }
 
+void PaceFly::setEnabled()
+{
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
+	if (distance > DETECTION_RADIUS)
+	{
+		enabled = true;
+	}
+	else
+	{
+		enabled = false;
+	}
+}
 void PaceFly::update(float deltaTime)
 {
-
+	if (enabled && isType<Wukong*>(owner))
+	{
+		owner->setPosition(paceCenter);
+		return;
+	}
 	sf::Vector2f thisPosition = owner->getPosition();
 
 	angle += 2 * PI / 3600;
@@ -321,6 +339,7 @@ void FireAttack::update(float deltaTime)
 	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
 	if (distance < detection_radius)
 	{
+		FIGHT_BOWSER = true;
 		countTime -= deltaTime;
 		if (countTime <= 0)
 		{
@@ -340,6 +359,10 @@ void FireAttack::update(float deltaTime)
 			fireBall->setMap(&owner->getMap());
 			owner->addEntity(fireBall);
 		}
+	}
+	else
+	{
+		FIGHT_BOWSER = false;
 	}
 
 	for (auto x : fireBalls)
@@ -367,7 +390,7 @@ void FireAttack::update(float deltaTime)
 
 
 
-WukongAttack::WukongAttack(Entity* owner, Entity* player) : Component(owner, player)
+Teleport::Teleport(Entity* owner, Entity* player) : Component(owner, player)
 {
 	speed = WUKONG_FOLLOW_SPEED;
 	cooldownTime = 3.0f;
@@ -381,8 +404,7 @@ WukongAttack::WukongAttack(Entity* owner, Entity* player) : Component(owner, pla
 	distanceTeleport = 200;
 }
 
-
-WukongAttack::WukongAttack (Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime) : Component(owner, player), speed(speed), detection_radius(detection_radius), cooldownTime(cooldownTime)
+Teleport::Teleport(Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime, float distanceTeleport) : Component(owner, player), speed(speed), detection_radius(detection_radius), cooldownTime(cooldownTime)
 {
 	countTime = cooldownTime;
 	teleport.resize(3);
@@ -390,12 +412,12 @@ WukongAttack::WukongAttack (Entity* owner, Entity* player, float speed, float de
 	{
 		x = false;
 	}
-	distanceTeleport = 200;
+	this->distanceTeleport = distanceTeleport;
 }
 
 
 
-void WukongAttack::setEnabled()
+void Teleport::setEnabled()
 {
 	sf::Vector2f playerPosition = player->getPosition();
 	sf::Vector2f ownerPosition = owner->getPosition();
@@ -410,10 +432,15 @@ void WukongAttack::setEnabled()
 	}
 }
 
-void WukongAttack::update(float deltaTime)
+void Teleport::update(float deltaTime)
 {
 	setEnabled();
-	if (!enabled) return;
+	if (!enabled)
+	{
+		FIGHT_WUKONG = false;
+		return;
+	}
+	FIGHT_WUKONG = true;
 	sf::Vector2f playerPosition = player->getPosition();
 	sf::Vector2f ownerPosition = owner->getPosition();
 	sf::Vector2f VectorDirection = sf::Vector2f(playerPosition.x - ownerPosition.x, playerPosition.y - ownerPosition.y);
@@ -543,4 +570,156 @@ void MagicRodAttack::update(float deltaTime)
 
 	
 
+}
+
+
+
+
+
+// SHADOW CLONE
+
+
+
+
+ShadowClone::ShadowClone(Entity* owner, Entity* player) : Component(owner, player)
+{
+	cooldownTime = 3.0f;
+	countTime = cooldownTime;
+	numClone = 3;
+	detection_radius = WUKONG_DETECTION_RADIUS;
+	timeExist = 10.0f;
+	appearTime = 2.0f;
+
+	deleted = false;
+}
+
+
+
+ShadowClone::ShadowClone(Entity* owner, Entity* player, float detection_radius, float cooldownTime, float numClone) : Component(owner, player), detection_radius(detection_radius), cooldownTime(cooldownTime), numClone(numClone)
+{
+	countTime = cooldownTime / 2;
+	appearTime = 2.0f;
+
+	timeExist = 10.0f;
+	clones.reserve(numClone);
+	deleted = false;
+}
+
+void ShadowClone::setEnabled()
+{
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	float distance = sqrt(pow(playerPosition.x - ownerPosition.x, 2) + pow(playerPosition.y - ownerPosition.y, 2));
+	if (distance < detection_radius)
+	{
+		enabled = true;
+	}
+	else
+	{
+		enabled = false;
+	}
+
+}
+
+
+
+void ShadowClone::update(float deltaTime)
+{
+	setEnabled();
+	if (!enabled) return;
+	sf::Vector2f playerPosition = player->getPosition();
+	sf::Vector2f ownerPosition = owner->getPosition();
+	
+	
+
+	countTime -= deltaTime;
+
+	if (countTime <= 0)
+	{
+		// reset
+
+		countTime = cooldownTime;
+		deleted = false;
+		
+
+		// create clones
+		std::vector<std::vector<int>> direction = { {1, 1}, {-1, 1}, {1, -1}, {-1, -1} };
+		for (int i = 0; i < numClone; ++i)
+		{
+			int j = i % 4;
+			posClone.push_back(sf::Vector2f(ownerPosition.x + direction[j][0] * 100, ownerPosition.y + direction[j][1] * 100));
+		}
+		for (int i = 0; i < numClone; ++i)
+		{
+			std::cout << "Wukong here\n";
+			clones.push_back(new Wukong(ownerPosition));
+			clones.back()->setAddressOfWorld(owner->getWorld());
+			clones.back()->setMap(&owner->getMap());
+			owner->addEntity(clones.back());
+			existTime.push_back(timeExist);
+
+		}
+		shadowCloneBuff();
+		
+	}
+
+	// Appear
+	for (int i = 0; i < clones.size(); ++i)
+	{
+		if (existTime[i] <= 0)
+			continue;
+		if (existTime[i] >= timeExist - appearTime)
+		{
+			clones[i]->move((posClone[i] - clones[i]->getPosition()) / 1000.f);
+		}
+	}
+
+	// Delete
+
+	for (int i = 0; i < clones.size(); ++i)
+	{
+		existTime[i] -= deltaTime;
+		if (existTime[i] <= 0)
+		{
+			clones[i]->Entity::die();
+			
+			deleted = true;
+		}
+	}
+	if (deleted)
+	{
+		clones.clear();
+		posClone.clear();
+		existTime.clear();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void ShadowClone::shadowCloneBuff()
+{
+	srand(time(NULL));
+
+	for (auto& x : clones)
+	{
+		int random = rand() % 5;
+		float distanceTeleport = rand() % 300;
+		if (distanceTeleport <= 150) distanceTeleport = 150;
+		if (random <= 3) random = 3;
+		if (x == nullptr) continue;
+		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<PaceFly>(x, player, WUKONG_PACE_X, WUKONG_PACE_Y, WUKONG_PACE_SPEED));
+		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<Teleport>(x, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, random, distanceTeleport));
+		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<MagicRodAttack>(x, player, WUKONG_DETECTION_RADIUS, random * 1.25));
+	}
 }

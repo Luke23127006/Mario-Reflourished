@@ -7,6 +7,7 @@
 #include <math.h>
 #include "FireBall.h"
 #include "WukongMagicRod.h"
+
 // Enemy Follow
 class FollowPlayer : public Component {
 private:
@@ -70,6 +71,7 @@ public:
 	PaceFly(Entity* owner, Entity* player);
 	PaceFly(Entity* owner, Entity* player, float paceX, float paceY, float paceSpeed);
 	bool onEllipse();
+	void setEnabled();
 	void update(float deltaTime) override;
 };
 
@@ -108,7 +110,7 @@ public:
 
 
 
-class WukongAttack : public Component
+class Teleport : public Component
 {
 private:
 	float speed;
@@ -119,12 +121,13 @@ private:
 	float distanceTeleport;
 
 public:
-	WukongAttack(Entity* owner, Entity* player);
-	WukongAttack(Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime);
+	Teleport(Entity* owner, Entity* player);
+	Teleport(Entity* owner, Entity* player, float speed, float detection_radius, float cooldownTime, float distanceTeleport);
 	void setEnabled();
 	void update(float deltaTime) override;
 
 };
+
 
 
 class MagicRodAttack : public Component
@@ -138,4 +141,31 @@ public:
 	MagicRodAttack(Entity* owner, Entity* player);
 	MagicRodAttack(Entity* owner, Entity* player, float detection_radius, float cooldownTime);
 	void update(float deltaTime) override;
+};
+
+
+
+
+
+
+class ShadowClone : public Component
+{
+private:
+	float cooldownTime;
+	float countTime;
+	float numClone;
+	float appearTime;
+	float timeExist;
+	bool deleted;
+	float detection_radius;
+	std::vector<Entity*> clones;
+	std::vector<float> existTime;
+	std::vector<sf::Vector2f> posClone;
+
+public:
+	ShadowClone(Entity* owner, Entity* player);
+	ShadowClone(Entity* owner, Entity* player, float detection_radius, float cooldownTime, float numClone);
+	void update(float deltaTime) override;
+	void setEnabled();
+	void shadowCloneBuff();
 };

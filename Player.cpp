@@ -57,6 +57,8 @@ Player::~Player()
 		delete this->powerUps.back();
 		this->powerUps.pop_back();
 	}
+	FIGHT_BOWSER = false;
+	FIGHT_WUKONG = false;
 }
 
 void Player::stopJumping()
@@ -68,7 +70,12 @@ void Player::takeDamage()
 {
 	if (this->invicibleTimer > 0.f) return;
 	this->health--;
-	if (this->health == 0) this->die();
+	if (this->health == 0)
+	{
+		this->die();
+		
+
+	}
 	else
 	{
 		this->invicibleTimer = 1.f;
@@ -132,6 +139,39 @@ void Player::addCoin()
 	COINS = this->numCoins;
 }
 
+void Player::faceBoss()
+{
+	if (FIGHT_BOWSER && !isFacingBowser)
+	{
+		isFacingBowser = true;
+		this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FIRE_FLOWER, false));
+	}
+	else if (FIGHT_BOWSER && isFacingBowser)
+	{
+		cooldownTimeBowser -= 0.001f;
+		if (cooldownTimeBowser <= 0.f)
+		{
+			isFacingBowser = false;
+			cooldownTimeBowser = 15.f;
+		}
+	}
+	if (FIGHT_WUKONG && !isFacingWukong)
+	{
+		isFacingWukong = true;
+		this->gainPowerUp(EntityFactory::createPowerUp(this, PowerUpType::FLYING_NIMBUS, false));
+		this->invicibleTimer = 2.f;
+	}
+	else if (FIGHT_WUKONG && isFacingWukong)
+	{
+		cooldownTimeWukong -= 0.001f;
+		if (cooldownTimeWukong <= 0.f)
+		{
+			isFacingWukong = false;
+			cooldownTimeWukong = 15.f;
+		}
+	}
+
+}
 sf::Vector2f Player::getAcceleration()
 {
 	return this->acceleration;
@@ -402,6 +442,7 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
+		this->faceBoss();
 		this->updateAcceleration(deltaTime);
 		this->updateUnderWater(deltaTime);
 		this->updatePowerUps(deltaTime);

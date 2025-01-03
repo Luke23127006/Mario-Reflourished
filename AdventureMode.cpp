@@ -159,9 +159,10 @@ void AdventureMode::setEnemiesBehaviors()
 		else if (isType<Wukong>(*enemy))
 		{
 			enemy->addBehavior(std::make_shared<PaceFly>(enemy, player, WUKONG_PACE_X, WUKONG_PACE_Y, WUKONG_PACE_SPEED));
-			enemy->addBehavior(std::make_shared<WukongAttack>(enemy, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, 3));
-			enemy->addBehavior(std::make_shared<MagicRodAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 3));
+			enemy->addBehavior(std::make_shared<Teleport>(enemy, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, 3, 200));
+			enemy->addBehavior(std::make_shared<MagicRodAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 4));
 			//enemy->addBehavior(std::make_shared<FireAttack>(enemy, player, WUKONG_DETECTION_RADIUS, 3));
+			enemy->addBehavior(std::make_shared<ShadowClone>(enemy, player, WUKONG_DETECTION_RADIUS, 17, 2));
 		}
 	}
 }

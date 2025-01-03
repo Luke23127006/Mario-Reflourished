@@ -475,6 +475,9 @@
     <Image Include="Resources\Maps\Level 3\MapReward.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Characters\Luigi\New Super luigi\SuperLuigiSwim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
