@@ -107,7 +107,7 @@ void WukongMagicRod::span(float deltaTime)
 		this->stopMode = true;
 		return;
 	}
-	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 400, deltaTime * 12);
+	sf::Vector2f newSize = this->getSize() + sf::Vector2f(deltaTime * 500, deltaTime * 17);
 	
 	Entity* predictObject = new Entity(newSize, this->getPosition());;
 	if (flipped)
@@ -164,7 +164,7 @@ void WukongMagicRod::stop(float deltaTime)
 }
 void WukongMagicRod::shrink(float deltaTime)
 {
-	sf::Vector2f newSize = this->getSize() - sf::Vector2f(deltaTime * 1000, deltaTime * 12);
+	sf::Vector2f newSize = this->getSize() - sf::Vector2f(deltaTime * 1200, deltaTime * 20);
 	
 	newSize.x = std::max(newSize.x, 1.f);
 	newSize.y = std::max(newSize.y, 1.f);

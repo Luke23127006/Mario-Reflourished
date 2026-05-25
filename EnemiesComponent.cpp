@@ -643,11 +643,14 @@ void ShadowClone::update(float deltaTime)
 		
 
 		// create clones
+		srand(time(NULL));
 		std::vector<std::vector<int>> direction = { {1, 1}, {-1, 1}, {1, -1}, {-1, -1} };
 		for (int i = 0; i < numClone; ++i)
 		{
 			int j = i % 4;
-			posClone.push_back(sf::Vector2f(ownerPosition.x + direction[j][0] * 100, ownerPosition.y + direction[j][1] * 100));
+			int randomDistance = rand() % 200;
+			randomDistance += 200;
+			posClone.push_back(sf::Vector2f(ownerPosition.x + direction[j][0] * randomDistance, ownerPosition.y + direction[j][1] * randomDistance));
 		}
 		for (int i = 0; i < numClone; ++i)
 		{
@@ -714,12 +717,13 @@ void ShadowClone::shadowCloneBuff()
 	for (auto& x : clones)
 	{
 		int random = rand() % 5;
-		float distanceTeleport = rand() % 300;
-		if (distanceTeleport <= 150) distanceTeleport = 150;
+		float distanceTeleport = rand() % 150;
+		distanceTeleport += 150;
 		if (random <= 3) random = 3;
 		if (x == nullptr) continue;
 		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<PaceFly>(x, player, WUKONG_PACE_X, WUKONG_PACE_Y, WUKONG_PACE_SPEED));
 		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<Teleport>(x, player, WUKONG_FOLLOW_SPEED, WUKONG_DETECTION_RADIUS, random, distanceTeleport));
-		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<MagicRodAttack>(x, player, WUKONG_DETECTION_RADIUS, random * 1.25));
+		dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<MagicRodAttack>(x, player, WUKONG_DETECTION_RADIUS, random));
+		//dynamic_cast<Enemy*>(x)->addBehavior(std::make_shared<FireAttack>(x, player, WUKONG_DETECTION_RADIUS, random));
 	}
 }

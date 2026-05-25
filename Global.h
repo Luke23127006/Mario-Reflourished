@@ -156,7 +156,7 @@ const float WUKONG_PACE_SPEED = 100.f;
 const float WUKONG_PACE_X = 300.f;
 const float WUKONG_PACE_Y = 200.f;
 const float WUKONG_FOLLOW_SPEED = 150.f;
-const float WUKONG_DETECTION_RADIUS = 1200.f;
+const float WUKONG_DETECTION_RADIUS = 1700.f;
 
 extern bool FIGHT_WUKONG;
 extern bool FIGHT_BOWSER;
